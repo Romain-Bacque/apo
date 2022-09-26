@@ -1,0 +1,21 @@
+.login{
+   border: 0.1rem solid black;
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 90%;
+
+    &-title{
+        text-align: center;
+        padding: 1rem;
+    }
+
+    &-reset{
+        font-size: 0.7rem;
+    }
+    &-iscription{
+        font-size: 0.7rem;
+        text-align: center;
+    }
+}

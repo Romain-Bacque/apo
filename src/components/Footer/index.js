@@ -3,8 +3,8 @@ import './style.scss';
 // == Composant
 function Footer() {
   return (
-    <div className="Footer">
-      <h1>Composant : Footer</h1>
+    <div className="footer">
+      <p className='footer-alert'>Attention l'abus d'alcool nuit à la santé ! </p>
     </div>
   );
 }
