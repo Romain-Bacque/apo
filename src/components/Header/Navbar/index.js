@@ -1,10 +1,11 @@
 // == Import
 import './style.scss';
 // == Composant
+import { Menu } from 'react-feather';
 function Navbar() {
   return (
     <div className="Navbar">
-      <h1>Composant : Navbar</h1>
+      <Menu />
     </div>
   );
 }
