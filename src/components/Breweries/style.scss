@@ -1,7 +1,7 @@
 .Breweries{
-    width: 90%;
-    min-height: 50rem;
+   
     padding: 1rem;
+    background-color: rgba($color: #FFC75F, $alpha: 0.9);
 }
 
 .brewer{
@@ -9,4 +9,13 @@
     justify-content: center;
     gap: 3rem;
     margin-bottom: 1rem;
+
+    .btn{
+        border-radius: 50px;
+        border: 0px;
+        background-color: white;
+        color: #FFC75F;
+        padding: 0.3rem;
+    }
 }
+

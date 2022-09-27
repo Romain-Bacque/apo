@@ -4,14 +4,15 @@
     flex-direction: column;
     gap: 0.5rem;
     width: 90%;
-    background-color: rgba($color: #FFC75F, $alpha: 0.3);
+    background-color: rgba($color: #FFC75F, $alpha: 0.9);
+    margin-bottom: 20rem;
 
   
 
     &-title{
         text-align: center;
         padding: 1rem;
-        color: #FFC75F;
+        color: white;
         font-size: 2rem;
         margin-bottom: 20px;
     }
