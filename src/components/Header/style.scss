@@ -1,14 +1,21 @@
 .header{
     height: 5rem;
     width: 100%;
-    border-bottom: 0.1rem solid black;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 2rem;
     padding: 1rem;
+    background-color: #FFC75F;
 
     &-logo {
-        width: 2rem;
+        width: 3.5rem;
+    }
+
+    .header-searchbar{
+        border-radius: 50px;
+        height: 2rem;
+        width: 13rem;
+        padding: 1rem;
     }
 }

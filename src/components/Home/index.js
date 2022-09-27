@@ -3,7 +3,11 @@ import './style.scss';
 // == Composant
 function Home() {
   return (
-    <div className="map">
+    <div className="home">
+      <h2 className='home-title'> Les bières de france </h2>
+      <div className='home-map'>
+
+      </div>
       
     </div>
   );

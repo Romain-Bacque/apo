@@ -1,0 +1,38 @@
+.register{
+     padding: 2rem;
+     display: flex;
+     flex-direction: column;
+     gap: 0.5rem;
+     width: 90%;
+     margin-top: 5rem;
+     background-color: rgba($color: #FFC75F, $alpha: 0.3);
+ 
+     &-title{
+        text-align: center;
+        padding: 1rem;
+        color: #FFC75F;
+        font-size: 2rem;
+     }
+ 
+     &-reset{
+         font-size: 0.7rem;
+     }
+     &-iscription{
+         font-size: 0.7rem;
+         text-align: center;
+     }
+     &-submit{
+        margin-top: 0.5rem;
+     }
+     &-radio{
+        text-align: center;
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+     }
+     &-brewery{
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+     }
+ }

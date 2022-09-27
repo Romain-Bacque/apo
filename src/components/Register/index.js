@@ -5,22 +5,19 @@ import Input from '../Input'
 function Register() {
   return (
     <form className="register">
-    <h2 className='register-title'> S'inscrire </h2>
-    <label for='lastname'> Nom : </label>
+    <h2 className="register-title"> S'inscrire </h2>
+    <div className="register-radio">
+    <label for="role">Brasseur</label>
+    <Input type="checkbox" id="role" name="role" value="brasseur"></Input>
+    </div>
+    <label for='name'> Nom et prénom : </label>
     <Input 
-      name='lastname'
+      name='name'
       type='text'
-      className='register-lastname'
-      id='lastname'
+      className='register-name'
+      id='name'
     />
-    <label for='firstname'> Prénom </label>
-    <Input 
-      name='firstname'
-      type='text'
-      className='register-firstname'
-      id='firstname'
-    />
-    <label for='email'> email </label>
+    <label for='email'> email : </label>
     <Input 
       name='email'
       type='email'
@@ -41,8 +38,49 @@ function Register() {
       className='register-confirm'
       id='confirm-pass'
     />
+    
+    <div className='register-brewery'>
+    <h2 className='register-title'> Création de la brasserie </h2>
 
-    <button type='submit' className='login-submit'>Valider</button>
+    <label for='title'>Nom:</label>
+    <Input 
+      name='titre'
+      type='text'
+      id='title'
+    />
+    <label for='image'>Choisir un logo:</label>
+    <Input 
+      name='image'
+      type='file'
+      id='image'
+      accept="image/png, image/jpeg"
+    />
+    <label for='phoneNumber'>Téléphone:</label>
+    <Input 
+      name='phone'
+      type='number'
+      id='phoneNumber'
+    />
+     <label for='phoneNumber'>Adresse</label>
+    <Input 
+      name='phone'
+      type='number'
+      id='phoneNumber'
+    />
+     <label for='description'>Description</label>
+    <textarea
+      name='description'
+      rows="5"
+      cols="33"
+      id='description'
+    />
+    </div>
+   
+
+
+
+
+    <button type='submit' className='register-submit'>Valider</button>
     
   </form>
   );
