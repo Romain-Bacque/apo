@@ -1,11 +1,18 @@
 body{
     background-color: rgba($color: #FFC75F, $alpha: 0.2);
 }
+
+.app{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+}
 .main{
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
-    margin-bottom: 2rem;
-    
+    align-items: center;  
 }
+
