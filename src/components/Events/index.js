@@ -1,10 +1,12 @@
 // == Import
 import './style.scss';
+import Event from '../Events/Event'
 // == Composant
 function Events() {
   return (
     <div className="Events">
-      <h1>Composant : Events</h1>
+      <h2 className='event-title'>Mes évènements(1)</h2>
+      <Event />
     </div>
   );
 }

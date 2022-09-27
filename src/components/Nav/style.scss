@@ -1,9 +1,21 @@
+@keyframes slide {
+    0% {
+      transform: translateY(-10%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
 .nav{
-    border: 0.1rem solid black;
     display: flex;
     flex-direction: column;
     padding: 1.5rem;
     gap: 0.5rem;
+    background-color: rgba($color: #FFC75F, $alpha: 0.3);
+    animation: slide .7s 0s 1 ease;
     
     &-link{
         padding-left: 1rem;
@@ -11,10 +23,16 @@
 
     &-geoloc{
         margin-bottom: 1rem;
+        background-color: white;
+        border-radius: 50px;
+        border: 0px;
+        padding: 0.5rem;
+        color: #FFC75F;
+        border: 0.5px;
     }
     
 }
 
 .active{
-    border-left: solid black;
+    border-left: solid #FFC75F;
 }

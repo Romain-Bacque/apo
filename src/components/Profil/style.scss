@@ -1,0 +1,38 @@
+
+.profil{
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 90%;
+    background-color: rgba($color: #FFC75F, $alpha: 0.3);
+
+  
+
+    &-title{
+        text-align: center;
+        padding: 1rem;
+        color: #FFC75F;
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    &-reset{
+        font-size: 0.7rem;
+    }
+    &-iscription{
+        font-size: 0.7rem;
+        text-align: center;
+    } 
+
+    &-submit{
+      
+        background-color: white;
+        border-radius: 50px;
+        border: 0px;
+        padding: 0.5rem;
+        color: #FFC75F;
+        border: 0.5px;
+        margin: 1rem;
+    }
+}
