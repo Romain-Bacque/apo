@@ -8,7 +8,7 @@ function Register() {
     <h2 className="register-title"> S'inscrire </h2>
     <div className="register-radio">
     <label for="role">Brasseur</label>
-    <Input type="checkbox" id="role" name="role" value="brasseur"></Input>
+    <Input type="radio" id="role" name="role" value="brasseur"></Input>
     </div>
     <label for='name'> Nom et prénom : </label>
     <Input 
@@ -40,46 +40,41 @@ function Register() {
     />
     
     <div className='register-brewery'>
-    <h2 className='register-title'> Création de la brasserie </h2>
+      <h2 className='register-title'> Création de la brasserie </h2>
 
-    <label for='title'>Nom:</label>
-    <Input 
-      name='titre'
-      type='text'
-      id='title'
-    />
-    <label for='image'>Choisir un logo:</label>
-    <Input 
-      name='image'
-      type='file'
-      id='image'
-      accept="image/png, image/jpeg"
-    />
-    <label for='phoneNumber'>Téléphone:</label>
-    <Input 
-      name='phone'
-      type='number'
-      id='phoneNumber'
-    />
-     <label for='phoneNumber'>Adresse</label>
-    <Input 
-      name='phone'
-      type='number'
-      id='phoneNumber'
-    />
-     <label for='description'>Description</label>
-    <textarea
-      name='description'
-      rows="5"
-      cols="33"
-      id='description'
-    />
+      <label for='title'>Nom:</label>
+      <Input 
+        name='titre'
+        type='text'
+        id='title'
+      />
+      <label for='image'>Choisir un logo:</label>
+      <Input 
+        name='image'
+        type='file'
+        id='image'
+        accept="image/png, image/jpeg"
+      />
+      <label for='phoneNumber'>Téléphone:</label>
+      <Input 
+        name='phone'
+        type='number'
+        id='phoneNumber'
+      />
+      <label for='phoneNumber'>Adresse</label>
+      <Input 
+        name='phone'
+        type='number'
+        id='phoneNumber'
+      />
+      <label for='description'>Description</label>
+      <textarea
+        name='description'
+        rows="5"
+        cols="33"
+        id='description'
+      />
     </div>
-   
-
-
-
-
     <button type='submit' className='register-submit'>Valider</button>
     
   </form>

@@ -12,6 +12,7 @@ import Events from '../Events';
 import Breweries from '../Breweries';
 import Profil from '../Profil';
 import Nav from '../Nav';
+import Form_brewerie from '../Form_brewerie';
 
 function App() {
   const open = useSelector((state) => state.open);
@@ -28,7 +29,8 @@ function App() {
             <Route path='/breweries' element={<Breweries />} />
             <Route path='/profil' element={<Profil />} />
             <Route path='/signout' element={<Home />} />
-          </ Routes>
+            <Route path='/brewery/form_brewery' element={<Form_brewerie />} />
+          </Routes>
         </main>
       <Footer />
     </div>
