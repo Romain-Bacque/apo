@@ -14,7 +14,8 @@
         padding: 1rem;
         margin-top: 1rem;
         width: 100%;
-        background-color: rgba($color: #FFC75F, $alpha: 0.9);
+        background-color: rgba($color: #FFE293, $alpha: 0.9);
+        border-radius: 20px;
     }
 
     &-brewer{
@@ -25,9 +26,6 @@
     }
     &-img{
         width: 3rem;
-    }
-    &-article{
-        border: 0.1rem solid black;
     }
     &-info{
         display: flex;

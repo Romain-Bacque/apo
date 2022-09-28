@@ -1,0 +1,21 @@
+.title-event-brewery{
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.list-event-brewery{
+    border: 0.1rem solid black;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.add-event{
+    display: inline-block;
+    padding: 0.5rem;
+    width: 100%;
+    text-align: center;
+    background-color: green;
+    border: none;
+}

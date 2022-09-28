@@ -16,6 +16,11 @@ function reducer(state = initialState, action = {}) {
         ...state,
         open: !state.open,
       };
+      case 'CLOSE_MENU':
+      return {
+        ...state,
+        open: state.open,
+      };
     default:
       return state;
   }

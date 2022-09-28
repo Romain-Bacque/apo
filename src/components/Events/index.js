@@ -5,7 +5,7 @@ import Event from '../Events/Event'
 function Events() {
   return (
     <div className="Events">
-      <h2 className='Events-title'>Mes évènements(1)</h2>
+      <h2 className='Events-title'> Evènements(1)</h2>
       <Event />
     </div>
   );

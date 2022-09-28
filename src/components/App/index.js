@@ -13,6 +13,9 @@ import Breweries from '../Breweries';
 import Profil from '../Profil';
 import Nav from '../Nav';
 import Form_brewerie from '../Form_brewerie';
+import UpdateBrewery from '../Breweries/UpdateBrewery';
+import One_brewerie from '../One_brewerie';
+import FormEvent from '../Events/FormEvent';
 
 function App() {
   const open = useSelector((state) => state.open);
@@ -27,9 +30,12 @@ function App() {
             <Route path='/signup' element={<Register />} />
             <Route path='/events' element={<Events />} />
             <Route path='/breweries' element={<Breweries />} />
+            <Route path='/breweries/:name' element={<One_brewerie />} />
             <Route path='/profil' element={<Profil />} />
             <Route path='/signout' element={<Home />} />
             <Route path='/brewery/form_brewery' element={<Form_brewerie />} />
+            <Route path='/brewery/update' element={<UpdateBrewery />} />
+            <Route path='/create-event' element={<FormEvent />} />
           </Routes>
         </main>
       <Footer />

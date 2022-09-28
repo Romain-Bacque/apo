@@ -7,6 +7,8 @@ function Register() {
     <form className="register">
     <h2 className="register-title"> S'inscrire </h2>
     <div className="register-radio">
+    <label for="role">Particulier</label>
+    <Input type="radio" id="role" name="role" value="particulier" checked></Input>
     <label for="role">Brasseur</label>
     <Input type="radio" id="role" name="role" value="brasseur"></Input>
     </div>
