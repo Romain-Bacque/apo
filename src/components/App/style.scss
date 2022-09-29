@@ -1,13 +1,23 @@
 body{
     background-color: rgba($color: #FFC75F, $alpha: 0.2);
 }
-.main{
-    height: 100vh;
+
+.app{
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 2rem;
-    background-image: url("./august-phlieger-fcyqGNfNJQk-unsplash.jpg");
+    flex-direction: column;
+    justify-content: space-between;
+    background-image: url('./august-phlieger-fcyqGNfNJQk-unsplash.jpg');
     background-size: cover;
+    background-repeat: no-repeat;
     
 }
+.main{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    
+}
+

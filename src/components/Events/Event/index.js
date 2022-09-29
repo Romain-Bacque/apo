@@ -9,21 +9,11 @@ function Event() {
     <div className="event">
       
       <section className='event-section'>
-        <article className='event-brewer'>
-          <img className='event-img' src={logo} alt=''/>
-
-          <article className='event-brewery-info'>
-            <h3 className='event-brewery'> Titre de la brasserie </h3>
-            <p className='event-address'>Adresse</p>
-          </article>
-        </article>
-
           <article className='event-article'>
 
             <article className='event-info'>
               <article className='event-subinfo'>
-                <h3 className='event-name'>Evenement</h3>
-                <p className='event-description'>Description<span><ChevronDown /></span></p>
+                <h3 className='event-name'>Titre de l'évènement</h3>
               </article>
 
               <article className='event-btn'>
