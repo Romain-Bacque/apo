@@ -39,4 +39,25 @@
 
 .active{
     border-left: solid #ffffff;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+@media screen and (min-width: 800px)
+{
+    .nav{
+        width: 25%;
+        position: absolute;
+        right: 0;
+    }
+    @keyframes slide {
+      0% {
+        transform: translateX(30%);
+        opacity: 0;
+      }
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
 }

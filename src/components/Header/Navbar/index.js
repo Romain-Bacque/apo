@@ -1,10 +1,11 @@
 // == Import
 import './style.scss';
 // == Composant
-import { Menu } from 'react-feather';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Turn as Hamburger } from 'hamburger-react'
 
 function Navbar() {
+  const open = useSelector((state) => state.open);
   const dispatch = useDispatch()
   const handleOpen = () => {
     dispatch({
@@ -13,7 +14,7 @@ function Navbar() {
   }
   return (
     <div className="Navbar">
-      <Menu onClick={handleOpen}/>
+      <Hamburger rounded toggle={handleOpen} toggled={open} />
     </div>
   );
 }
