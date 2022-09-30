@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Turn as Hamburger } from 'hamburger-react'
 
 function Navbar() {
-  const open = useSelector((state) => state.open);
+  const open = useSelector((state) => state.openmenu.open);
   const dispatch = useDispatch()
   const handleOpen = () => {
     dispatch({

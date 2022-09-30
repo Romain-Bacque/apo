@@ -15,6 +15,7 @@ import Nav from '../Nav';
 import FormBrewerie from '../Form_brewerie';
 import UpdateBrewery from '../Breweries/UpdateBrewery';
 import OneBrewerie from '../One_brewerie';
+import BreweriesList from '../BreweriesList';
 import FormEvent from '../Events/FormEvent';
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
             <Route path='/events' element={<Events />} />
             <Route path='/breweries' element={<Breweries />} />
             <Route path='/breweries/:name' element={<OneBrewerie />} />
+            <Route path='/breweriesList' element={<BreweriesList />} />
             <Route path='/profil' element={<Profil />} />
             <Route path='/signout' element={<Home />} />
             <Route path='/brewery/form_brewery' element={<FormBrewerie />} />

@@ -16,12 +16,12 @@
     gap: 0.5rem;
     background-color: #FFE293;
     animation: slide .7s 0s 1 ease;
-    width: 60%;
+    width: 100%;
     position: absolute;
     right: 0;
     top: 5rem;
     border-radius: 0 0 20px 20px;
-    z-index: 500 !important;
+    z-index: 1500 !important;
     
     &-link{
         padding-left: 1rem;

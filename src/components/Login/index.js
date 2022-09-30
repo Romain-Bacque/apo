@@ -1,7 +1,7 @@
 // == Import
 import './style.scss';
 
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 
 // == Composant
@@ -10,17 +10,19 @@ import Input from '../Input'
 function Login() {
 
   const dispatch = useDispatch();
+  
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    console.log('je passe par handleSubmit');
     dispatch({
       type: 'LOGIN',
     });
+    console.log('je sort de handleSubmit');
   };
 
-
-  
   return (
     <form className="login" onSubmit={handleSubmit}>
+
       <h2 className='login-title'> Se connecter</h2>
       <label for='mail'> Email : </label>
       <Input 
@@ -35,11 +37,13 @@ function Login() {
         type='password'
         className='login-password'
         id='pass'
+      
       />
       <a className='login-reset'> Oublié ?</a>
      
       <button type='submit' className='login-submit'>Valider</button>
       <a className='login-iscription'>Vous n'êtes pas enregistré?</a>
+
     </form>
   );
 }

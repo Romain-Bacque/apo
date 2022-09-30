@@ -1,41 +1,29 @@
  import axios from "axios";
 
-const instance = axios.create({
-    baseURL: 'http://localhost:3000',
-});
+const user = (store) => (next) => (action) => {
 
-const ajax = (store) => (next) => (action) => {
-        if(action.type === 'LOGIN'){
-            const state = store.getState();
-            
-            instance.post('/login', {
-                email: state.user.email,
-                password: state.user.password,
-            })
-            .then((response) => {
-                // on altère notre config par défaut pour ajouter le token en entete
-                // ainsi toutes les requetes qui partiront après le login auront cette entete ...
-                instance.defaults.headers.common.Authorization = `Bearer ${response.data.token}`;
-                store.dispatch({
-                type: 'SAVE_USER',
-                pseudo: response.data.pseudo,
-                 });
-            })
-            .catch((error) => {
-                console.log(error);
-                alert('Erreur');
-                // todo
-                // il faudrait déclencher un state d'erreur
-                // pour adapter l'ui dans les composant en cas d'erreur
-                // il faudrait afficher un message d'erreur et passer loading à false
+    if (action.type === 'LOGIN') {
+        console.log('je passe dans le middleware user');
+
+        const state = store.getState();
+        axios.post('http://unknown8.fr:3000/user/login', {
+          email: state.user.email,
+          password: state.user.password,
+        })
+          .then((response) => {
+            console.log(`réponse back ${response.data}`)
+            store.dispatch({
+              type: 'SAVE_USER',
+              logged: response.data,
             });
-        }
-        else if (action.type === 'LOGOUT') {
-            // j'oublie mon token au logout
-            instance.defaults.headers.common.Authorization = undefined;
-        }
+          })
+          .catch((error) => {
+            console.log(error);
+            alert('Erreur de chargement, veuillez réessayer');
+          });
+      }
     next(action);
 };
 
 
-export default ajax;
+export default user;

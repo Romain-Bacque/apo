@@ -22,7 +22,7 @@ function Nav() {
     <nav className='nav'>
       <button className='nav-geoloc'> Le brasseries autour de chez moi </button>
 
-      <NavLink className={checkIsActive} to='/'> Accueil </NavLink>
+      <NavLink end className={checkIsActive} to='/'> Accueil </NavLink>
       <NavLink className={checkIsActive} to='/login'>Connexion</NavLink>
       <NavLink className={checkIsActive} to='/signup'>Inscription</NavLink>
       <NavLink className={checkIsActive} to='/events'> Evenements</NavLink>
