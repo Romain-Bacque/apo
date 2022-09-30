@@ -18,7 +18,7 @@ import OneBrewerie from '../One_brewerie';
 import FormEvent from '../Events/FormEvent';
 
 function App() {
-  const open = useSelector((state) => state.open);
+  const open = useSelector((state) => state.openmenu.open);
   return (
     <div className="app">
       <Header />

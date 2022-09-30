@@ -1,10 +1,26 @@
 // == Import
 import './style.scss';
+
+import { useDispatch } from 'react-redux';
+
+
 // == Composant
 import Input from '../Input'
+
 function Login() {
+
+  const dispatch = useDispatch();
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    dispatch({
+      type: 'LOGIN',
+    });
+  };
+
+
+  
   return (
-    <form className="login">
+    <form className="login" onSubmit={handleSubmit}>
       <h2 className='login-title'> Se connecter</h2>
       <label for='mail'> Email : </label>
       <Input 
