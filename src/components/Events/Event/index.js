@@ -1,8 +1,6 @@
 // == Import
 import './style.scss';
-import { ChevronDown } from 'react-feather'
 // == Composant
-import logo from '../../Header/logo.svg';
 
 function Event() {
   return (

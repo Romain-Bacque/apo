@@ -1,5 +1,6 @@
 body{
     background-color: rgba($color: #FFC75F, $alpha: 0.2);
+    min-height: 100vh;
 }
 
 .app{
@@ -21,3 +22,10 @@ body{
     
 }
 
+@media screen and (min-width: 770px)
+{
+    .main{
+        width: 50%;
+        margin: 0 auto;
+    }
+}

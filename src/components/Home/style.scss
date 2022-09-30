@@ -1,14 +1,5 @@
-.home{
-    width: 90%;
+.leaflet-container {
+    width: 100vw; 
+    height: 100vh;
+  }
 
-    &-title{
-        text-align: center;
-    }
-    &-map{
-        border: solid black 0.1rem;
-        width: 90%;
-        height: 25em;
-        margin: auto;
-        margin-top: 2rem;
-    }
-}

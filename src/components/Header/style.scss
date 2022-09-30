@@ -10,54 +10,15 @@
     position: relative;
 
     &-logo {
-        width: 3.5rem;
+        width: 5rem;
     }
 
     .header-searchbar{
         border-radius: 50px;
         height: 2rem;
-        width: 13rem;
+        width: 70%;
         padding: 1rem;
     }
 }
 
-
-// Menu burger
-
-// .menu-button {
-//     cursor: pointer;
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: space-between;
-//     width: 30px;
-//     height: 25px;
-//   }
-  
-//   .menu-button > .menu-button__line {
-//     width: 30px;
-//     border-bottom: 2px solid rgb(114, 114, 114);
-//     transition: 0.2s linear;
-//   }
-  
-//   .menu-button > .menu-button__line:nth-child(1) {
-//     transform-origin: top left;
-//   }
-  
-//   .menu-button > .menu-button__line:nth-last-child(1) {
-//     transform-origin: bottom left;
-//   }
-  
-//   .menu-button.active-menu > .menu-button__line:nth-child(1) {
-//     width: 38px;
-//     transform: rotate(37deg);
-//   }
-  
-//   .menu-button.active-menu > .menu-button__line:nth-child(2) {
-//     opacity: 0;
-//   }
-  
-//   .menu-button.active-menu > .menu-button__line:nth-last-child(1) {
-//     width: 38px;
-//     transform: rotate(-37deg);
-//   }
   
