@@ -2,11 +2,13 @@
 import { useState } from 'react';
 import 'leaflet/dist/leaflet.css';
 import './style.scss';
-// == Composant
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
 import { useGeolocated } from "react-geolocated";
-
+import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css'; // Re-uses images from ~leaflet package
+import 'leaflet-defaulticon-compatibility';
+import logo from './logoBrasserie.png';
+import { Link } from 'react-router-dom'
+// == Composant
 
 function Home() {
  const { coords, isGeolocationAvailable, isGeolocationEnabled } =
@@ -17,7 +19,6 @@ function Home() {
       userDecisionTimeout: 5000,
   });
 
-
   return !isGeolocationAvailable ? (
     <div>Your browser does not support Geolocation</div>
 ) : !isGeolocationEnabled ? (
@@ -25,16 +26,24 @@ function Home() {
 ) : coords ? (
     <div className='map'>
       <MapContainer center={[coords.latitude, coords.longitude]} zoom={12} scrollWheelZoom={false}>
-  <TileLayer
-    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-  />
-  <Marker position={[	coords.latitude, coords.longitude]}>
-    <Popup>
-      A pretty CSS3 popup. <br /> Easily customizable.
-    </Popup>
-  </Marker>
-</MapContainer>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker  position={[	coords.latitude, coords.longitude]}>
+          <Popup >
+                <section className='section-img'>
+                 <img className='brewery-img' src={logo} alt="logo"></img>
+                </section>
+                <section className='section-adress'>
+                    <h1 className='brewery-title'>La brasserie belge</h1>
+                    <span className='span-info'>8 rue Claude Francois, 75000 Paris</span>
+                    <span className='span-info'>01 12 12 12 12</span>
+                    <Link to='/breweriesList' className='detail-button size' type='button'>Voir le détail</Link>
+                </section>
+          </Popup>
+        </Marker>
+    </MapContainer>
     </div>
       ) : (
         <div>Getting the location data&hellip; </div>
