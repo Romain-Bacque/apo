@@ -12,9 +12,9 @@ import Events from '../Events';
 import Breweries from '../Breweries';
 import Profil from '../Profil';
 import Nav from '../Nav';
-import Form_brewerie from '../Form_brewerie';
+import FormBrewerie from '../Form_brewerie';
 import UpdateBrewery from '../Breweries/UpdateBrewery';
-import One_brewerie from '../One_brewerie';
+import OneBrewerie from '../One_brewerie';
 import FormEvent from '../Events/FormEvent';
 
 function App() {
@@ -30,10 +30,10 @@ function App() {
             <Route path='/signup' element={<Register />} />
             <Route path='/events' element={<Events />} />
             <Route path='/breweries' element={<Breweries />} />
-            <Route path='/breweries/:name' element={<One_brewerie />} />
+            <Route path='/breweries/:name' element={<OneBrewerie />} />
             <Route path='/profil' element={<Profil />} />
             <Route path='/signout' element={<Home />} />
-            <Route path='/brewery/form_brewery' element={<Form_brewerie />} />
+            <Route path='/brewery/form_brewery' element={<FormBrewerie />} />
             <Route path='/brewery/update' element={<UpdateBrewery />} />
             <Route path='/create-event' element={<FormEvent />} />
           </Routes>
