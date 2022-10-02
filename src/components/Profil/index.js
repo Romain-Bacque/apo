@@ -1,46 +1,83 @@
 // == Import
-import { Container, Typography } from '@mui/material';
+
 import './style.scss';
 // == Composant
 import Input from '../Input'
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import { Box} from '@mui/material';
+
+
 function Profil() {
   return (
-    <Container sx={{ position: 'fixed', top: '60px', display: 'flex', alignItems: 'center', textAlign: 'center', backgroundColor: 'white', width: '100%', justifyContent: 'space-between', p: 2}}>
-      <Typography sx={{ minWidth: 100 }}>Profil</Typography>
-      <Typography sx={{ minWidth: 100 }}>Brasserie</Typography>
-      <Typography sx={{ minWidth: 100 }}>Evenements</Typography>
+    <div>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography> vilanelle </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+          <form>
+          <Box sx={{display: 'flex',   justifyContent: 'center', alignItems: 'center', gap: '2rem'}}>
+            <TextField id="standard-basic" label="Changer de pseudo :" variant="standard" />
+            <Button variant="contained" type='submit'>Modifier</Button>
+          </Box>
+          </form>
 
-    </Container>
-     
-    /* <form className="profil">
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
 
-      <h2 className='profil-title'> Profil </h2>
-      <label for='mail'> Email : </label>
-      <Input 
-        name='email'
-        type='email'
-        className='profil-email'
-        id='mail'
-      />
-      <label for='pass'> Mot de passe :  </label>
-      <Input 
-        name='password'
-        type='password'
-        className='profil-password'
-        id='pass'
-      />
-      <label for='confirm-pass'> Confirmation du mot de passe :  </label>
-      <Input 
-        name='confirm-password'
-        type='password'
-        className='profil-confirm'
-        id='confirm-pass'
-      />
-      <button type='submit' className='profil-submit'>Modifier</button>
-    </form> */
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel2a-content"
+          id="panel2a-header"
+        >
+          <Typography>nom.prenom@gmail.com</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+          <form>
+          <Box sx={{display: 'flex',   justifyContent: 'center', alignItems: 'center', gap: '2rem'}}>
+            <TextField id="standard-basic" label="Changer l'adresse email :" variant="standard" />
+            <Button variant="contained" type='submit'>Modifier</Button>
+          </Box>
+          </form>
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
 
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel3a-content"
+          id="panel3a-header"
+        >
+          <Typography> Mot de passe </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+          <form>
+          <Box sx={{display: 'flex',   justifyContent: 'center', alignItems: 'center', gap: '2rem'}}>
+            <TextField id="standard-basic" label="Changer de mot de passe :" variant="standard" />
+            <Button variant="contained" type='submit'>Modifier</Button>
+          </Box>
+          </form>
+
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+    </div>
   );
 }
-
-// == Export
 export default Profil;
