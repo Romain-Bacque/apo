@@ -1,11 +1,11 @@
 // == Import
-import { useState } from 'react';
+// import { useState } from 'react';
 import 'leaflet/dist/leaflet.css';
 import './style.scss';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { useGeolocated } from "react-geolocated";
-import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css'; // Re-uses images from ~leaflet package
-import 'leaflet-defaulticon-compatibility';
+ import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css'; // Re-uses images from ~leaflet package
+ import 'leaflet-defaulticon-compatibility';
 import logo from './logoBrasserie.png';
 import { Link } from 'react-router-dom'
 // == Composant
