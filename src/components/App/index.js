@@ -17,19 +17,21 @@ import BreweriesList from '../BreweriesList';
 import FormEvent from '../Events/FormEvent';
 import Breweries from '../Breweries';
 import Events from '../Events';
+import OneEvent from '../Events/OneEvent';
 
 
 function App() {
   const logged = useSelector((state) => state.user.logged)
   return (
-      <Box sx={{ height: '100vh', position: 'relative'}}> 
+      <Box sx={{ height: '100vh'}}> 
       <Header />
-            <Box conponent='main' sx={{ minHeight: '30rem', overflow: 'auto', position: 'relative', marginTop: '150px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+            <Box conponent='main' sx={{ minHeight: '30rem', overflow: 'auto', marginTop: '150px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
               <Routes>
                 {logged && <Route path='/profil' element={<Account />} />}
                 {!logged && <Route path='/profil' element={<Login />} />}
-                <Route path='/map' element={<Map />} />
+                <Route path='/' element={<Map />} />
                 <Route path='/profil/signup' element={<Register />} />
+                <Route path='/signup' element={<Register />} />
                 <Route path='/breweries/:name' element={<OneBrewerie />} />
                 <Route path='/breweriesList' element={<BreweriesList />} />
                 <Route path='/breweries' element={<Breweries />} />
@@ -37,6 +39,7 @@ function App() {
                 <Route path='/brewery/update' element={<UpdateBrewery />} />
                 <Route path='/create-event' element={<FormEvent />} />
                 <Route path='/events' element={<Events />} />
+                <Route path='/events/:id' element={<OneEvent />} />
               </Routes>
             </Box>
             <Footer />
