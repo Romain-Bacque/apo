@@ -8,8 +8,8 @@ import './style.scss';
 // == Composant
 function Footer() {
   return (
-    <Container sx={{position: 'fixed', bottom: '40px', zIndex: 1000}}>
-        <Box sx={{ bgcolor: '#cfe8fc', height: '50px',  display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'center', borderRadius: '5px' }} >
+    // <Container sx={{width: '100%'}}>
+        <Box sx={{ width: '100%', bgcolor: '#cfe8fc', height: '50px',  display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'center'}}>
 
         <IconButton sx={{flexDirection: 'column', borderRadius: '0px'}}>
         <NavLink  end to='/'>
@@ -26,7 +26,7 @@ function Footer() {
         </IconButton>
 
         </Box>
-    </Container>
+    // </Container>
   );
 }
 

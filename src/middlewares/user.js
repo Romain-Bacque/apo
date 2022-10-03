@@ -14,7 +14,7 @@ const user = (store) => (next) => (action) => {
             console.log(`réponse back ${response.data}`)
             store.dispatch({
               type: 'SAVE_USER',
-              logged: response.data,
+              // logged: response.data,
             });
           })
           .catch((error) => {

@@ -19,20 +19,19 @@ import Breweries from '../Breweries';
 import Events from '../Events';
 
 function App() {
-  const open = useSelector((state) => state.openmenu.open);
+  const logged = useSelector((state) => state.user.logged)
   return (
     <div className="app">
       <Header />
-      {open && <Nav />}
         <main className='main'>
           <Routes>
+            {logged && <Route path='/profil' element={<Account />} />}
+            {!logged && <Route path='/profil' element={<Login />} />}
             <Route path='/map' element={<Map />} />
-            <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<Register />} />
             <Route path='/breweries/:name' element={<OneBrewerie />} />
             <Route path='/breweriesList' element={<BreweriesList />} />
             <Route path='/breweries' element={<Breweries />} />
-            <Route path='/profil' element={<Account />} />
             <Route path='/brewery/form_brewery' element={<FormBrewerie />} />
             <Route path='/brewery/update' element={<UpdateBrewery />} />
             <Route path='/create-event' element={<FormEvent />} />
