@@ -20,11 +20,11 @@ import Events from '../Events';
 
 
 function App() {
-  const logged = useSelector((state) => state.user.logged)
+  const logged = useSelector((state) => state.user.isLoggedIn)
   return (
       <Box sx={{ height: '100vh', position: 'relative'}}> 
       <Header />
-            <Box conponent='main' sx={{ minHeight: '30rem', overflow: 'auto', position: 'relative', marginTop: '150px'}}>
+            <Box conponent='main' sx={{ minHeight: '30rem', overflow: 'auto', marginTop: '150px', display: "flex", flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
               <Routes>
                 {logged && <Route path='/profil' element={<Account />} />}
                 {!logged && <Route path='/profil' element={<Login />} />}

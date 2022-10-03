@@ -1,9 +1,13 @@
 export const initialState = {
-    logged: false,
+    isLoggedIn: true,
+    name: '',
     email:  '',
     password: '',
     loading: false,
+    isRegistered: true,
 }; 
+
+
 
 const reducer = (state = initialState, action = {}) => {
 
@@ -16,6 +20,11 @@ const reducer = (state = initialState, action = {}) => {
             // la notation entre crochet me permet de spécifier
             // via une expression le nom de la propriété cliblée
         };
+        case 'REGISTER_SUCCCESS':
+            return {
+              ...state,
+              isLoggedIn: false,
+            };
         case 'LOGIN':
             return {
               ...state,
@@ -27,7 +36,21 @@ const reducer = (state = initialState, action = {}) => {
                 password: '',
                 logged: action.logged,
             };
-        default: return state;
+        case 'LOGOUT': //? Logout = boulean isLoggedIn = false
+            return {
+                ...state,
+                isLoggedIn: false,
+            };
+        case 'DELETE_USER': //? DELETE Un User
+            return {
+                ...state,
+            };
+            default:
+                return state;
+        case 'UPDATE_USER':
+            return {
+                ...state
+            }
     }
 };
 
