@@ -1,6 +1,7 @@
 /* eslint-disable no-unneeded-ternary */
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import { TextField } from '@mui/material';
 
 /*
   Dans un destructuring ou dans les paramètres d'une fonction
@@ -10,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 function Input({ name, ...props }) {
   // pour accéder dynamiquement à une propriété d'un objet
   // on utilise la syntaxe crocher obj['prop'] plutôt que la syntaxe point ob.prop
-  const value = useSelector((state) => state[name]);
+  const value = useSelector((state) => state.user[name]);
   const dispatch = useDispatch();
   const handleChange = (event) => {
     dispatch({
@@ -20,7 +21,7 @@ function Input({ name, ...props }) {
     });
   };
   return (
-    <input
+    <TextField
       name={name}
       value={value ? value : ''}
       onChange={handleChange}

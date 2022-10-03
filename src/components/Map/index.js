@@ -10,7 +10,7 @@ import logo from './logoBrasserie.png';
 import { Link } from 'react-router-dom'
 // == Composant
 
-function Home() {
+function Map() {
  const { coords, isGeolocationAvailable, isGeolocationEnabled } =
   useGeolocated({
       positionOptions: {
@@ -51,4 +51,4 @@ function Home() {
 };
 
 // == Export
-export default Home;
+export default Map;

@@ -1,11 +1,11 @@
-.login{
+
+.profil{
     padding: 4rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     width: 90%;
     background-color: rgba($color: #FFC75F, $alpha: 0.5);
-
 
   
 
@@ -14,13 +14,12 @@
         padding: 1rem;
         color: white;
         font-size: 2rem;
-       
+        margin-bottom: 20px;
     }
 
     &-reset{
         font-size: 0.7rem;
     }
-
     &-iscription{
         font-size: 0.7rem;
         text-align: center;
