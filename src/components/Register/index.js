@@ -2,10 +2,28 @@
 import { Box, Typography, Button } from '@mui/material';
 
 import './style.scss';
-import Input from '../Input';
+
+import Input from '../Input'
+import { useDispatch, useSelector } from 'react-redux';
+
 // == Composant
 
 function Register() {
+
+
+
+  const dispatch = useDispatch();
+  const isRegistered = useSelector((state) => state.user.isRegistered);
+
+  const handleRegister = (evt) => {
+    evt.preventDefault();
+    dispatch({
+      type: 'REGISTER_SUCCCESS',
+    });
+  };
+
+
+
 
   return (
     <Box component='form' sx={{ width: '95%', height: '40rem', bgcolor: 'white', padding: '2rem'}}>
@@ -71,6 +89,7 @@ function Register() {
       
       <Typography omponent='h2'> Enregistrer une brasserie </Typography>
 
+
       <Input 
         id="standard-basic"
         variant="standard"
@@ -109,30 +128,16 @@ function Register() {
         type='text'
         label="Description :"
       />
+
       </Box>
       <Button sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>Contained</Button>
     </Box>
     
  
-  //     <label for='phoneNumber'>Adresse</label>
-  //     <Input 
-  //       name='phone'
-  //       type='number'
-  //       id='phoneNumber'
-  //     />
-  //     <label for='description'>Description</label>
-  //     <textarea
-  //       name='description'
-  //       rows="5"
-  //       cols="33"
-  //       id='description'
-  //     />
-  //   </div>
-  //   <button type='submit' className='register-submit'>Valider</button>
-    
-  // </form>
+  
   );
 }
+
 
 // == Export
 export default Register;

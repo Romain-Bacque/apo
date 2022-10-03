@@ -8,8 +8,8 @@ function Nav() {
   const checkIsActive = ({isActive}) => isActive ? 'nav-link active' : 'nav-link';
 
   const dispatch = useDispatch();
-  const isLogged = useSelector((state) => state.user.logged);
-  const pseudo = useSelector((state) => state.user.pseudo);
+  const isLogged = useSelector((state) => state.user.isLoggedIn);
+  const name = useSelector((state) => state.user.name);
   
   const handleLogout = () => {
     dispatch({
@@ -31,7 +31,7 @@ function Nav() {
       {isLogged && (
             <div className="login-form-logged">
               <p className="login-form-message">
-                Bienvenue {pseudo}
+                Bienvenue {name}
               </p>
               <button
                 type="button"
