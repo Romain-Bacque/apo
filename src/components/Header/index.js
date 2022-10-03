@@ -54,8 +54,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function Header() {
   
   return (
-    <Box>
-      <AppBar>
+      <AppBar sx={{}}>
         <Toolbar sx={{ justifyContent: 'space-between' }}>
         <Box sx={{p: 1}}>
         <Link to='/'>
@@ -88,7 +87,6 @@ function Header() {
           {/* <Navbar className='header-navbar'/> */}
         </Toolbar>
       </AppBar>
-    </Box>
   );
 }
   

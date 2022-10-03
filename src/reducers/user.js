@@ -34,7 +34,7 @@ const reducer = (state = initialState, action = {}) => {
                 ...state,
                 email: '',
                 password: '',
-                // logged: action.logged,
+                logged: action.logged,
             };
         case 'LOGOUT': //? Logout = boulean isLoggedIn = false
             return {

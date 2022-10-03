@@ -1,15 +1,15 @@
 // == Import
-import { Container, Box, IconButton, Typography } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import MapIcon from '@mui/icons-material/Map';
 import { NavLink } from 'react-router-dom';
-import './style.scss';
+
 
 // == Composant
 function Footer() {
   return (
-    // <Container sx={{width: '100%'}}>
-        <Box sx={{ width: '100%', bgcolor: '#cfe8fc', height: '50px',  display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'center'}}>
+    
+        <Box sx={{ width: '100%', bgcolor: '#cfe8fc', height: '50px',  display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'center', position: 'absolute', bottom: '0rem'}}>
 
         <IconButton sx={{flexDirection: 'column', borderRadius: '0px'}}>
         <NavLink  end to='/'>
@@ -26,7 +26,7 @@ function Footer() {
         </IconButton>
 
         </Box>
-    // </Container>
+    
   );
 }
 

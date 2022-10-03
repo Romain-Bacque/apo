@@ -1,8 +1,8 @@
 // == Import
 import { Box, Button } from '@mui/material';
-import './style.scss';
 
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 
 // == Composant
@@ -23,7 +23,7 @@ function Login() {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ width: '90%', padding: '2rem', backgroundColor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem'}}>
+    <Box component="form" onSubmit={handleSubmit} sx={{ width: '90%', padding: '2rem', backgroundColor: 'white', display: 'flex', flexDirection: 'column', alignItems: 'space-between', gap: '2rem'}}>
        <Input 
         id="filled-basic"
         variant="filled"
@@ -40,6 +40,8 @@ function Login() {
       />
     
       <Button variant="contained" type='submit'>Se connecter</Button>
+      <Link to='signup'>Vous n'êtes pas enregistré ?</Link>
+      
     </Box>
   
     // <form className="login" onSubmit={handleSubmit}>
