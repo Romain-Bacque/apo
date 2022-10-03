@@ -21,7 +21,7 @@ import OneEvent from '../Events/OneEvent';
 
 
 function App() {
-  const logged = useSelector((state) => state.user.logged)
+  const logged = useSelector((state) => state.user.isLoggedIn)
   return (
       <Box sx={{ height: '100vh'}}> 
       <Header />
