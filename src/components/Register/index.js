@@ -16,17 +16,13 @@ function Register() {
   const isRegistered = useSelector((state) => state.user.isRegistered);
 
   const handleRegister = (evt) => {
-    evt.preventDefault();
     dispatch({
       type: 'REGISTER_SUCCCESS',
     });
   };
-
-
-
-
+                
   return (
-    <Box component='form' sx={{ width: '95%', height: '40rem', bgcolor: 'white', padding: '2rem'}}>
+    <Box component='form'  onSubmit={handleRegister} sx={{ width: '95%', height: '40rem', bgcolor: 'white', padding: '2rem'}}>
 
       <Box sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem'}}>
 
@@ -34,7 +30,7 @@ function Register() {
 
       <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center', border: 'none'}}>
 
-        <label for='particulier'> Particulier</label>
+        <label htmlFor='particulier'> Particulier</label>
         <Input 
           type="radio" 
           id="particulier" 
@@ -43,7 +39,7 @@ function Register() {
           checked 
         />
 
-        <label for='particulier'> Brasseur </label>
+        <label htmlFor='particulier'> Brasseur </label>
         <Input 
           type="radio" 
           id="role" 
@@ -132,7 +128,7 @@ function Register() {
       </Box>
       <Button sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>Contained</Button>
     </Box>
-    
+   
  
   
   );
