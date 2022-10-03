@@ -1,5 +1,5 @@
 export const initialState = {
-    logged: false,
+    logged: true,
     email:  '',
     password: '',
     loading: false,
@@ -25,7 +25,7 @@ const reducer = (state = initialState, action = {}) => {
                 ...state,
                 email: '',
                 password: '',
-                logged: action.logged,
+                // logged: action.logged,
             };
         default: return state;
     }

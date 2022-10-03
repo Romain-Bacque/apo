@@ -1,13 +1,15 @@
 // == Import
+import { Box, Button } from '@mui/material';
 import './style.scss';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 
 // == Composant
 import Input from '../Input'
 
 function Login() {
+
 
   const dispatch = useDispatch();
   
@@ -21,30 +23,49 @@ function Login() {
   };
 
   return (
-    <form className="login" onSubmit={handleSubmit}>
-
-      <h2 className='login-title'> Se connecter</h2>
-      <label for='mail'> Email : </label>
-      <Input 
+    <Box component="form" onSubmit={handleSubmit} sx={{ width: '90%', padding: '2rem', backgroundColor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem'}}>
+       <Input 
+        id="filled-basic"
+        variant="filled"
+        label="Email"
         name='email'
         type='email'
-        className='login-email'
-        id='mail'
       />
-      <label for='pass'> Mot de passe :  </label>
       <Input 
+        id="filled-basic"
+        variant="filled"
+        label="Mot de passe"
         name='password'
         type='password'
-        className='login-password'
-        id='pass'
-      
       />
-      <a className='login-reset'> Oublié ?</a>
-     
-      <button type='submit' className='login-submit'>Valider</button>
-      <a className='login-iscription'>Vous n'êtes pas enregistré?</a>
+    
+      <Button variant="contained" type='submit'>Se connecter</Button>
+    </Box>
+  
+    // <form className="login" onSubmit={handleSubmit}>
 
-    </form>
+    //   <h2 className='login-title'> Se connecter</h2>
+    //   <label for='mail'> Email : </label>
+    //   <Input 
+    //     name='email'
+    //     type='email'
+    //     className='login-email'
+    //     id='mail'
+    //   />
+    //   <label for='pass'> Mot de passe :  </label>
+    //   <Input 
+    //     name='password'
+    //     type='password'
+    //     className='login-password'
+    //     id='pass'
+      
+    //   />
+    //   <a className='login-reset'> Oublié ?</a>
+     
+    //   <button type='submit' className='login-submit'>Valider</button>
+    //   <a className='login-iscription'>Vous n'êtes pas enregistré?</a>
+
+    // </form>
   );
 }
 
