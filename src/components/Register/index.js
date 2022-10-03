@@ -1,10 +1,22 @@
 // == Import
 import './style.scss';
 import Input from '../Input'
+import { useDispatch, useSelector } from 'react-redux';
 // == Composant
 function Register() {
+
+  const dispatch = useDispatch();
+  const isRegistered = useSelector((state) => state.user.isRegistered);
+
+  const handleRegister = (evt) => {
+    evt.preventDefault();
+    dispatch({
+      type: 'REGISTER_SUCCCESS',
+    });
+  };
+
   return (
-    <form className="register">
+    <form className="register" onSubmit={handleRegister}>
     <h2 className="register-title"> S'inscrire </h2>
     <div className="register-radio">
     <label for="role">Particulier</label>
@@ -78,10 +90,12 @@ function Register() {
       />
     </div>
     <button type='submit' className='register-submit'>Valider</button>
+     
+     isRegistered &&(
+      <p>Inscription reussite </p>) //? si inscription reussite popup message
+      
+  </form> 
     
-  </form>
-  );
-}
-
+ )};
 // == Export
 export default Register;
