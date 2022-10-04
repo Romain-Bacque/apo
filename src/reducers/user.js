@@ -4,7 +4,6 @@ export const initialState = {
     email:  '',
     password: '',
     loading: false,
-    isRegistered: true,
 }; 
 
 
