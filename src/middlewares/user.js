@@ -27,6 +27,8 @@ const user = (store) => (next) => (action) => {
         email: state.user.email,
         password: state.user.password,
         name: state.user.name,
+        role: state.user.role,
+        
       })
       .then((response) => {
         console.log(`réponse back ${response.data}`)

@@ -4,6 +4,7 @@ export const initialState = {
     email:  '',
     password: '',
     loading: false,
+    role: 'user', // TODO a changer 
 }; 
 
 
