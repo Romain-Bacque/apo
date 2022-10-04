@@ -41,7 +41,6 @@ function Login() {
       
         <Button variant="contained" type='submit'>Se connecter</Button>
         <Link to='/signup'>Vous n'êtes pas enregistré ?</Link>
-        
       </Box>
 
     </>

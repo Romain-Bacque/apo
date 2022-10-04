@@ -1,5 +1,5 @@
 export const initialState = {
-    isLoggedIn: true,
+    isLoggedIn: false,
     name: '',
     email:  '',
     password: '',
@@ -33,7 +33,7 @@ const reducer = (state = initialState, action = {}) => {
                 ...state,
                 email: '',
                 password: '',
-                logged: action.logged,
+                isLogged: 'true',
             };
         case 'LOGOUT': //? Logout = boulean isLoggedIn = false
             return {
