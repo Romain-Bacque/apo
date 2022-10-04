@@ -9,7 +9,7 @@ import './style.scss';
 import { Link } from 'react-router-dom'
 function Brewerie() {
   return (
-    <Card sx={{ width: '90%' }}>
+    <Card sx={{ width: '95%' }}>
     <CardActionArea>
       <CardMedia
         component="img"
@@ -19,28 +19,17 @@ function Brewerie() {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Nom de la brasserie
+          La brasserie de lulu
         </Typography>
       </CardContent>
     </CardActionArea>
     <CardActions sx={{ justifyContent: 'center' }}>
 
-      <Link to='/create-event'>
-        <Button size="small" color="primary">
-          évènements
-        </Button>
-      </Link>
-
       <Link to='/brewery/update'>
-        <Button size="small" color="primary">
-          Modifier
+        <Button size="small" color="primary" sx={{ display : 'flex', justifyContent: 'flex-end'}}>
+          Gérer
         </Button>
       </Link>
-
-      
-      <Button size="small" color="primary">
-        Supprimer
-      </Button>
 
     </CardActions>
   </Card>
