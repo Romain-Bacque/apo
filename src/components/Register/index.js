@@ -13,10 +13,6 @@ function Register() {
 
 
   const dispatch = useDispatch();
-
-
-
-
   const handleRegister = (evt) => {
     evt.preventDefault();
     console.log('je passe par register');
@@ -84,7 +80,7 @@ function Register() {
           type='password'
           label="comfirmer le mot de passe :"
         />
-
+        <Button  sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>S'inscrire</Button>
       </Box>
 
       <Box component='form' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', padding: '1rem' }}>
@@ -133,7 +129,7 @@ function Register() {
 
       </Box>
 
-      <Button  sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>S'inscrire</Button>
+      
     </>
   
   );
