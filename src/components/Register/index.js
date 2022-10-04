@@ -22,32 +22,33 @@ function Register() {
   };
                 
   return (
-    <Box component='form'  onSubmit={handleRegister} sx={{ width: '95%', height: '40rem', bgcolor: 'white', padding: '2rem'}}>
 
-      <Box sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem'}}>
+    <>
 
-      <Typography omponent='h2'> Créer un compte </Typography>
+      <Box sx={{  bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', padding: '1rem'}}>
 
-      <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center', border: 'none'}}>
+        <Typography omponent='h2'> Créer un compte </Typography>
 
-        <label htmlFor='particulier'> Particulier</label>
-        <Input 
-          type="radio" 
-          id="particulier" 
-          name="role" 
-          value="particulier" 
-          checked 
-        />
+        <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center', border: 'none'}}>
 
-        <label htmlFor='particulier'> Brasseur </label>
-        <Input 
-          type="radio" 
-          id="role" 
-          name="role" 
-          value="brasseur" 
+          <label for='particulier'> Particulier</label>
+          <Input 
+            type="radio" 
+            id="particulier" 
+            name="role" 
+            value="particulier" 
+            checked 
           />
 
-      </Box>
+          <label for='particulier'> Brasseur </label>
+          <Input 
+            type="radio" 
+            id="role" 
+            name="role" 
+            value="brasseur" 
+            />
+
+        </Box>
 
         <Input 
           id="standard-basic"
@@ -81,9 +82,9 @@ function Register() {
 
       </Box>
 
-      <Box component='form' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem'}}>
+      <Box component='form' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', padding: '1rem' }}>
       
-      <Typography omponent='h2'> Enregistrer une brasserie </Typography>
+      <Typography component='h2' sx={{ marginTop: '4rem'}}> Enregistrer une brasserie </Typography>
 
 
       <Input 
@@ -126,14 +127,12 @@ function Register() {
       />
 
       </Box>
-      <Button sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>Contained</Button>
-    </Box>
-   
- 
+
+      <Button sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>S'inscrire</Button>
+    </>
   
   );
 }
-
 
 // == Export
 export default Register;
