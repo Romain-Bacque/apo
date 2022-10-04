@@ -1,7 +1,6 @@
 // == Import
 import './style.scss';
 import { Routes, Route } from 'react-router-dom'
-import { useSelector } from 'react-redux';
 import {Box} from '@mui/material';
 // == Composant
 import Header from '../Header';
@@ -18,6 +17,7 @@ import Breweries from '../Breweries';
 import Events from '../Events';
 import OneEvent from '../Events/OneEvent';
 import Profil from '../Profil';
+import UpdateEventBrewery from '../Breweries/UpdateEventBrewery'
 
 
 function App() {
@@ -38,6 +38,7 @@ function App() {
                 <Route path='/events/:id' element={<OneEvent />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/profil' element={<Profil />} />
+                <Route path='/Brewery/event' element={<UpdateEventBrewery />} />
 
               </Routes>
             </Box>

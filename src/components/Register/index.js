@@ -34,7 +34,7 @@ function Register() {
 
         <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center', border: 'none'}}>
 
-          <label for='particulier'> Particulier</label>
+          <label htmlfor='particulier'> Particulier</label>
           <Input 
             type="radio" 
             id="particulier" 
@@ -43,7 +43,7 @@ function Register() {
             checked 
           />
 
-          <label for='particulier'> Brasseur </label>
+          <label htmlfor='particulier'> Brasseur </label>
           <Input 
             type="radio" 
             id="role" 
