@@ -12,7 +12,6 @@ function Login() {
 
 
   const dispatch = useDispatch();
-  
   const handleSubmit = (evt) => {
     evt.preventDefault();
     console.log('je passe par handleSubmit');
@@ -42,7 +41,6 @@ function Login() {
       
         <Button variant="contained" type='submit'>Se connecter</Button>
         <Link to='/signup'>Vous n'êtes pas enregistré ?</Link>
-        
       </Box>
 
     </>
