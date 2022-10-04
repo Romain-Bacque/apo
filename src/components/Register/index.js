@@ -16,16 +16,13 @@ function Register() {
   const isRegistered = useSelector((state) => state.user.isRegistered);
 
   const handleRegister = (evt) => {
-    evt.preventDefault();
     dispatch({
       type: 'REGISTER_SUCCCESS',
     });
   };
-
-
-
-
+                
   return (
+
     <>
 
       <Box sx={{  bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', padding: '1rem'}}>
@@ -130,14 +127,12 @@ function Register() {
       />
 
       </Box>
+
       <Button sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>S'inscrire</Button>
     </>
-    
- 
   
   );
 }
-
 
 // == Export
 export default Register;
