@@ -16,7 +16,7 @@ function Footer() {
 
   return (
     
-    <Box sx={{marginTop: '2rem'}}>
+    <>
       <BottomNavigation
         showLabels
         value={value}
@@ -32,7 +32,7 @@ function Footer() {
       
 
       </BottomNavigation>
-  </Box>
+  </>
     
   );
 }
