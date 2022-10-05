@@ -1,5 +1,6 @@
 // == Import
 import './style.scss';
+import { useDispatch } from 'react-redux';
 // == Composant
 import * as React from 'react';
 import Input from '../Input'
@@ -65,9 +66,16 @@ const StyledInputBase = styled(Input)(({ theme }) => ({
 }));
 
 
- 
+
 
 function Header() {
+  
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch({
+      type: 'LOGOUT',
+    });
+  };
 
   const [state, setState] = React.useState({
     top: false,
@@ -87,14 +95,16 @@ function Header() {
 
   const list = (anchor) => (
     <Box
+      component="form"
+      onSubmit={handleLogout}
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250}}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List sx={{ color: 'black' }}>
+      <List   sx={{ color: 'black' }}>
         {['Accueil', 'Connection', 'Mes Brasseries', 'Evènements', 'Profil', 'Se déconnecter'].map((text, index) => (
-          <ListItem key={text} disablePadding>
+          <ListItem c onSubmit={handleLogout} key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
