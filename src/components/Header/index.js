@@ -71,7 +71,7 @@ const StyledInputBase = styled(Input)(({ theme }) => ({
 function Header() {
   
   const dispatch = useDispatch();
-  const handleLogout = () => {
+  const handleLogout = (evt) => {
     dispatch({
       type: 'LOGOUT',
     });
@@ -104,7 +104,7 @@ function Header() {
     >
       <List   sx={{ color: 'black' }}>
         {['Accueil', 'Connection', 'Mes Brasseries', 'Evènements', 'Profil', 'Se déconnecter'].map((text, index) => (
-          <ListItem c onSubmit={handleLogout} key={text} disablePadding>
+          <ListItem  onSubmit={handleLogout} key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -115,7 +115,7 @@ function Header() {
                 { text === 'Mes Brasseries' &&  <Link to='/breweries'> {text} </Link>}
                 { text === 'Evènements' &&  <Link to='/events'> {text} </Link>}
                 { text === 'Profil' &&  <Link to='/profil'> {text} </Link>}
-                { text === 'Se déconnecter' &&  <Button>{text}</Button>}
+                { text === 'Se déconnecter' &&  <Button type='submit'>{text}</Button>}
               </ListItemText>
             </ListItemButton>
           </ListItem>

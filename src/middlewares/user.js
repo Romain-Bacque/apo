@@ -25,8 +25,8 @@ const user = (store) => (next) => (action) => {
       console.log('je passe dans le middleware user');
       const state = store.getState();
       axios.post('http://unknown8.fr:4000/user/logout', {
-          email: state.user.email,
-          password: state.user.password,
+        email: state.user.email,
+        password: state.user.password,
       })
           .then((response) => {
             console.log(`réponse back ${response.data}`)

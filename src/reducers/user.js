@@ -38,8 +38,6 @@ const reducer = (state = initialState, action = {}) => {
         case 'LOGOUT': //? Logout = boulean isLoggedIn = false
             return {
                 ...state,
-                isLoggedIn: false,
-                role: '',
             };
         case 'DELETE_USER': //? DELETE Un User
             return {
