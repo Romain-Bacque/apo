@@ -1,4 +1,6 @@
 // == Import
+import { Box, Typography, Button } from '@mui/material';
+import UpdateIcon from '@mui/icons-material/Update';
 import './style.scss';
 import Input from '../../Input'
 // == Composant
@@ -8,36 +10,59 @@ import EventsBrewery from '../EventsBrewery';
 
 function UpdateBrewery() {
   return (
-    <form className="UpdateBrewery">
+    <Box component='form' sx={{ width: '95%', height: '40rem', bgcolor: 'white', padding: '2rem'}}>
 
-      <article className='btn-section'>
-        <button className='btn-delete-brewery'> Supprimer la brasserie</button>
-        <button className='btn-update-brewery'> Modifier la barasserie</button>
-      </article>
 
-      <section className='one-card-brewery'> 
+      <Box component='form' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem'}}>
+      
+      <Typography omponent='h2'> Modifier la brasserie </Typography>
 
-        <article className='info-brewery'>
+      <Input 
+        id="standard-basic"
+        variant="standard"
+        name='title'
+        type='text'
+        label="Nom de la brasserie :"
+        value="La brasserie de lulu"
+    
+      />
+      <Input 
+        id="standard-basic"
+        variant="standard"
+        name='image'
+        type='file'
+        accept="image/png, image/jpeg"
+      />
+      <Input 
+        id="standard-basic"
+        variant="standard"
+        name='phone'
+        type='tel'
+        label="Numéro de téléphone :"
+        value="01.30.54.38.20"
+      />
+        <Input 
+        id="standard-basic"
+        variant="standard"
+        name='adress'
+        type='text'
+        label="Adresse :"
+        value="11 rue de jacque titie 78320 bois d'arcy"
+      />
+        <Input
+        id="standard-basic"
+        variant="standard"
+        name='adress'
+        type='text'
+        label="Description :"
+        value="Un petit lorem"
+      />
+      </Box>
+      <Button sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>Modifier
+        <UpdateIcon sx={{marginLeft: '1rem'}}/>
+      </Button>
+    </Box>
 
-          <img src={logo} alt='' className='brewery-logo'/>
-
-          <article className='brewery-infos'>
-            <Input name='title' value='Nom de la brasserie' />
-            <Input name='adress' value='Adresse' />
-            <Input name='phone' value='Téléphone' />
-          </article>
-
-        </article>
-
-        <textarea name='description' value='Une déscription de la brasserie' className='brewery-description'></textarea>
-        <Categories />
-
-        <EventsBrewery />
-  
-       
-      </section>
-
-    </form>
   );
 }
 

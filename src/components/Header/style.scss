@@ -7,7 +7,8 @@
     gap: 2rem;
     padding: 1rem;
     background-color: #FFC75F;
-    position: relative;
+    position: static;
+   
 
     &-logo {
         width: 5rem;
@@ -21,4 +22,3 @@
     }
 }
 
-  

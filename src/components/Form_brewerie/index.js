@@ -1,49 +1,65 @@
 // == Import
+import { Box, Typography, Button } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 import './style.scss';
 // == Composant
 import Input from '../Input'
 function Form_brewerie() {
   return (
-    <div className='register-breweries'>
-      <h2 className='register-title'> Création de la brasserie </h2>
+    <Box component='form' sx={{ width: '95%', height: '40rem', bgcolor: 'white', padding: '2rem'}}>
 
-      <label for='title'>Nom:</label>
+
+      <Box component='form' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem'}}>
+      
+      <Typography omponent='h2'> Ajouter une brasserie </Typography>
+
       <Input 
-        name='titre'
+        id="standard-basic"
+        variant="standard"
+        name='title'
         type='text'
-        id='title'
+        label="Nom de la brasserie :"
+    
       />
-      <label for='image'>Choisir un logo:</label>
       <Input 
+        id="standard-basic"
+        variant="standard"
         name='image'
         type='file'
-        id='image'
         accept="image/png, image/jpeg"
+        
+    
       />
-      <label for='phoneNumber'>Téléphone:</label>
       <Input 
+        id="standard-basic"
+        variant="standard"
         name='phone'
-        type='number'
-        id='phoneNumber'
+        type='tel'
+        label="Numéro de téléphone :"
       />
-      <label for='phoneNumber'>Adresse</label>
-      <Input 
-        name='phone'
-        type='number'
-        id='phoneNumber'
+        <Input 
+        id="standard-basic"
+        variant="standard"
+        name='adress'
+        type='text'
+        label="Adresse :"
       />
-      <label for='description'>Description</label>
-      <textarea
+        <Input
+        id="standard-basic"
+        variant="standard"
         name='description'
-        rows="5"
-        cols="33"
-        id='description'
+        type='text'
+        label="Description :"
       />
-      <button type='submit' className='register-submit'>Valider</button>
-    </div>
+      </Box>
+      <Button sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>Ajouter
+        <AddIcon sx={{marginLeft: '1rem'}}/>
+      </Button>
+    </Box>
 
   );
 }
+
 
 // == Export
 export default Form_brewerie;

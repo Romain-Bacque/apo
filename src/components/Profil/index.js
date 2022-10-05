@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { Box} from '@mui/material';
+import { Box } from '@mui/material';
 
 
 function Profil() {
