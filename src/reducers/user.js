@@ -39,6 +39,7 @@ const reducer = (state = initialState, action = {}) => {
             return {
                 ...state,
                 isLoggedIn: false,
+                role: '',
             };
         case 'DELETE_USER': //? DELETE Un User
             return {
