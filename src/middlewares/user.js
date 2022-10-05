@@ -28,12 +28,11 @@ const user = (store) => (next) => (action) => {
         password: state.user.password,
         name: state.user.name,
         role: state.user.role,
-        
       })
       .then((response) => {
         console.log(`réponse back ${response.data}`)
         store.dispatch({
-          type: 'REGISTER_SUCCCESS',
+          type: 'REGISTER',
         });
       })
       .catch((error) => {

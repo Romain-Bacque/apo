@@ -20,7 +20,7 @@ const reducer = (state = initialState, action = {}) => {
             // la notation entre crochet me permet de spécifier
             // via une expression le nom de la propriété cliblée
         };
-        case 'REGISTER_SUCCCESS':
+        case 'REGISTER':
             return {
               ...state,
             };
