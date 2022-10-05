@@ -93,7 +93,7 @@ function Header() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List sx={{ color: 'black' }}>
-        {['Les brasseries autour de moi', 'Accueil', 'Connection', 'Mes Brasseries', 'Evènements', 'Profil', 'Se déconnecter'].map((text, index) => (
+        {['Accueil', 'Connection', 'Mes Brasseries', 'Evènements', 'Profil', 'Se déconnecter'].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
@@ -106,7 +106,6 @@ function Header() {
                 { text === 'Evènements' &&  <Link to='/events'> {text} </Link>}
                 { text === 'Profil' &&  <Link to='/profil'> {text} </Link>}
                 { text === 'Se déconnecter' &&  <Button>{text}</Button>}
-                { text === 'Les brasseries autour de moi' &&  <Button>{text}</Button>}
               </ListItemText>
             </ListItemButton>
           </ListItem>

@@ -1,5 +1,6 @@
 // == Import
 import * as React from 'react';
+import { useEffect, useState } from "react";
 import { Box } from '@mui/material';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import MapIcon from '@mui/icons-material/Map';
@@ -8,7 +9,6 @@ import GradeIcon from '@mui/icons-material/Grade';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import { Link } from 'react-router-dom';
-
 
 // == Composant
 function Footer() {
