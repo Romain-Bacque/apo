@@ -1,13 +1,25 @@
 // == Import
 import './style.scss';
 // == Composant
+import * as React from 'react';
 import Input from '../Input'
 import { Link } from 'react-router-dom'
 import { styled, alpha } from '@mui/material/styles';
-import { AppBar, InputBase, Box, Toolbar, IconButton } from '@mui/material';
+import { AppBar, Box, Toolbar, IconButton } from '@mui/material';
+import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
 import SportsBarTwoToneIcon from '@mui/icons-material/SportsBarTwoTone';
-import AccountCircle from '@mui/icons-material/AccountCircle';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import MenuIcon from '@mui/icons-material/Menu';
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -15,6 +27,7 @@ const Search = styled('div')(({ theme }) => ({
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   '&:hover': {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
+    border: '0px'
   },
   marginLeft: 0,
   width: '100%',
@@ -34,7 +47,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center',
 }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
+const StyledInputBase = styled(Input)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
@@ -51,11 +64,74 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+
+ 
+
 function Header() {
+
+  const [state, setState] = React.useState({
+    top: false,
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event &&
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <Box
+      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250}}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List sx={{ color: 'black' }}>
+        {['Les brasseries autour de moi', 'Accueil', 'Connection', 'Mes Brasseries', 'Evènements', 'Profil', 'Se déconnecter'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText>
+                { text === 'Accueil' &&  <Link to='/'> {text} </Link>}
+                { text === 'Connection' &&  <Link to='/Login'> {text} </Link>}
+                { text === 'Mes Brasseries' &&  <Link to='/breweries'> {text} </Link>}
+                { text === 'Evènements' &&  <Link to='/events'> {text} </Link>}
+                { text === 'Profil' &&  <Link to='/profil'> {text} </Link>}
+                { text === 'Se déconnecter' &&  <Button>{text}</Button>}
+                { text === 'Les brasseries autour de moi' &&  <Button>{text}</Button>}
+              </ListItemText>
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
+
   
   return (
       <AppBar sx={{}}>
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
+        <Toolbar sx={{ justifyContent: 'space-between'}}>
         <Box sx={{p: 1}}>
         <Link to='/'>
           <SportsBarTwoToneIcon fontSize="large" />
@@ -69,18 +145,37 @@ function Header() {
                 <StyledInputBase
                   placeholder="Search…"
                   inputProps={{ 'aria-label': 'search' }}
-                  components={<Input 
-                    placeholder=" Rechercher.."
-                    name='search' 
-                  />}  
+                  name='search'
+                  sx={{width: '100%'}} 
                 />
               </Search>
+
               <IconButton
                 size="large"
               >
-              <Link to='/profil'>
-                <AccountCircle fontSize="large"/>
-              </Link>
+              <div>
+                {['top'].map((anchor) => (
+                  <React.Fragment key={anchor}>
+                    <MenuIcon 
+                      onClick={toggleDrawer(anchor, true)}
+                      fontSize='large'
+                      sx={{ color: 'white' }}
+                      >
+                        {anchor}
+                    </MenuIcon>
+
+                    <SwipeableDrawer
+                      anchor={anchor}
+                      open={state[anchor]}
+                      onClose={toggleDrawer(anchor, false)}
+                      onOpen={toggleDrawer(anchor, true)}
+                    >
+                      {list(anchor)}
+                    </SwipeableDrawer>
+                  </React.Fragment>
+                ))}
+              </div>
+
               </IconButton>
                
               

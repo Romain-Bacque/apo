@@ -2,38 +2,57 @@
 import { Box, Typography, Button } from '@mui/material';
 
 import './style.scss';
-import Input from '../Input';
+
+import Input from '../Input'
+import { useDispatch } from 'react-redux';
+
 // == Composant
 
 function Register() {
 
+
+
+  const dispatch = useDispatch();
+  const handleRegister = (evt) => {
+    evt.preventDefault();
+    console.log('je passe par register');
+    dispatch({
+      type: 'REGISTER',
+    });
+    console.log('je sort de handleregister');
+  };
+                
   return (
-    <Box component='form' sx={{ width: '95%', height: '40rem', bgcolor: 'white', padding: '2rem'}}>
 
-      <Box sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem'}}>
+    <>
+      <Box component="form" onSubmit={handleRegister} sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', padding: '1rem'}}>
 
-      <Typography omponent='h2'> Créer un compte </Typography>
+        <Typography omponent='h2'> Créer un compte </Typography>
 
-      <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center', border: 'none'}}>
+        <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center', border: 'none'}}>
 
-        <label for='particulier'> Particulier</label>
-        <Input 
-          type="radio" 
-          id="particulier" 
-          name="role" 
-          value="particulier" 
-          checked 
-        />
 
-        <label for='particulier'> Brasseur </label>
-        <Input 
-          type="radio" 
-          id="role" 
-          name="role" 
-          value="brasseur" 
+          <label htmlfor='particulier'> Particulier</label>
+
+          <Input 
+            type="radio" 
+            id="particulier" 
+            name="role" 
+            value="particulier" 
+            checked 
           />
 
-      </Box>
+
+          <label htmlfor='particulier'> Brasseur </label>
+
+          <Input 
+            type="radio" 
+            id="role" 
+            name="role" 
+            value="brasseur" 
+            />
+
+        </Box>
 
         <Input 
           id="standard-basic"
@@ -65,11 +84,14 @@ function Register() {
           label="comfirmer le mot de passe :"
         />
 
+      <Button  sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>S'inscrire</Button>
+     
       </Box>
 
-      <Box component='form' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem'}}>
+      <Box component='form' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', padding: '1rem' }}>
       
-      <Typography omponent='h2'> Enregistrer une brasserie </Typography>
+      <Typography component='h2' sx={{ marginTop: '4rem'}}> Enregistrer une brasserie </Typography>
+
 
       <Input 
         id="standard-basic"
@@ -109,28 +131,9 @@ function Register() {
         type='text'
         label="Description :"
       />
+
       </Box>
-      <Button sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>Contained</Button>
-    </Box>
-    
- 
-  //     <label for='phoneNumber'>Adresse</label>
-  //     <Input 
-  //       name='phone'
-  //       type='number'
-  //       id='phoneNumber'
-  //     />
-  //     <label for='description'>Description</label>
-  //     <textarea
-  //       name='description'
-  //       rows="5"
-  //       cols="33"
-  //       id='description'
-  //     />
-  //   </div>
-  //   <button type='submit' className='register-submit'>Valider</button>
-    
-  // </form>
+    </>
   );
 }
 

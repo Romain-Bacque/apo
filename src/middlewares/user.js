@@ -4,9 +4,8 @@ const user = (store) => (next) => (action) => {
 
     if (action.type === 'LOGIN') {
         console.log('je passe dans le middleware user');
-
         const state = store.getState();
-        axios.post('http://unknown8.fr:3000/user/login', {
+        axios.post('http://unknown8.fr:4000/user/login', {
           email: state.user.email,
           password: state.user.password,
         })
@@ -24,10 +23,12 @@ const user = (store) => (next) => (action) => {
       }
     else if (action.type === 'REGISTER'){
       const state = store.getState();
-      axios.post('http://unknown8.fr:3000/user/register',{
+      axios.post('http://unknown8.fr:4000/user/register',{
         email: state.user.email,
         password: state.user.password,
         name: state.user.name,
+        role: state.user.role,
+        
       })
       .then((response) => {
         console.log(`réponse back ${response.data}`)
@@ -42,7 +43,7 @@ const user = (store) => (next) => (action) => {
     }
     else if (action.type === 'DELETE_USER'){
       const state = store.getState();
-      axios.delete('http://unknown8.fr:3000/user/delete',{
+      axios.delete('http://unknown8.fr:4000/user/delete',{
         email: state.user.email,
         password: state.user.password,
         name: state.user.name,
@@ -60,7 +61,7 @@ const user = (store) => (next) => (action) => {
     }
     else if (action.type === 'UPDATE_USER'){
       const state = store.getState();
-      axios.put('http://unknown8.fr:3000/user',{
+      axios.put('http://unknown8.fr:4000/user',{
         email: state.user.email,
         password: state.user.password,
         name: state.user.name,

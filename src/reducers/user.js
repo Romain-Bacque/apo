@@ -4,7 +4,7 @@ export const initialState = {
     email:  '',
     password: '',
     loading: false,
-    isRegistered: true,
+    role: 'user', // TODO a changer 
 }; 
 
 
@@ -23,18 +23,17 @@ const reducer = (state = initialState, action = {}) => {
         case 'REGISTER_SUCCCESS':
             return {
               ...state,
-              isLoggedIn: false,
             };
         case 'LOGIN':
             return {
               ...state,
+              isLoggedIn: true,
             };
         case 'SAVE_USER':
             return {
                 ...state,
                 email: '',
                 password: '',
-                logged: action.logged,
             };
         case 'LOGOUT': //? Logout = boulean isLoggedIn = false
             return {

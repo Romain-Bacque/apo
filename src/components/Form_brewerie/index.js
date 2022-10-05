@@ -47,13 +47,13 @@ function Form_brewerie() {
         <Input
         id="standard-basic"
         variant="standard"
-        name='adress'
+        name='description'
         type='text'
         label="Description :"
       />
       </Box>
       <Button sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>Ajouter
-        <AddIcon/>
+        <AddIcon sx={{marginLeft: '1rem'}}/>
       </Button>
     </Box>
 

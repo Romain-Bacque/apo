@@ -1,17 +1,18 @@
+// == Import
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
-import PhoneIcon from '@mui/icons-material/Phone';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import EventsBrewery from '../Breweries/EventsBrewery'
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import {Link} from 'react-router-dom';
 import './style.scss';
-import Categories from '../Categories';
-import {Link} from 'react-router-dom'
+// == Composant
 
-function One_brewerie () {
-    return(
+function OneEvent() {
+  return (
     <Card sx={{ width: '90%' }}>
 
       <CardActionArea>
@@ -24,15 +25,19 @@ function One_brewerie () {
         <CardContent sx={{alignItems: 'base-line'}}>
 
           <Typography gutterBottom variant="h5" component="div">
-            La brasserie du zythophile
+            Les alcolos du dimanche
           </Typography>
 
           <Typography variant="body2" color="text.secondary" sx={{alignItems: 'center', marginTop: '2rem'}}>
+           <CalendarMonthIcon /> mer 05 oct, 9:00
+          </Typography>
+
+          <Typography variant="body2" color="text.secondary">
            <LocationOnIcon /> 131 rue carno 92450 ville
           </Typography>
 
           <Typography variant="body2" color="text.secondary">
-           <PhoneIcon /> 01.30.55.38.20
+           <PeopleAltIcon />  300 Participants
           </Typography>
 
           <Typography sx={{marginTop: '2rem', marginBottom: '2rem'}}> Déscription </Typography>
@@ -41,29 +46,22 @@ function One_brewerie () {
           Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.
           </Typography>
 
-          <Typography variant="body2" color="text.secondary" sx={{marginTop: '2rem'}}>
-           <Categories />
-          </Typography>
-
-          <Typography variant="body2" color="text.secondary">
-            <EventsBrewery />
-          </Typography>
-
-          
-
         </CardContent>
 
       </CardActionArea>
 
       <CardActions sx={{ justifyContent: 'center'}}>
-
-      <Link to='/Brewery/event'> <Button> Gestionnaire d'évènements </Button> </Link> 
-      
+        <form>
+          <Button variant="contained" type='submit' sx={{marginTop: '1rem', width: '100%', bgcolor: 'red'}}>Annuler</Button>
+          <Link to='/breweries/:name'> <Button variant="contained" type='submit' sx={{marginTop: '1rem', width: '100%'}}>Voir la brasserie</Button> </Link>
+        </form>
       </CardActions>
 
     </Card>
 
-    );
+    
+  );
 }
 
-export default One_brewerie;
+// == Export
+export default OneEvent;

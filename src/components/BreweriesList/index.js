@@ -1,8 +1,11 @@
 import OneBrewerie from './OneBrewerie';
+import { Box } from '@mui/material';
 
 function BreweriesList() {
     return (
-      <section className="breweriesList">
+      // <Box sx={{height: '50rem', overflow: 'auto', width: '90%'}}>
+      <>
+        <Box sx={{ width: '100%', padding: '1rem' }} > 
           <OneBrewerie />
           <OneBrewerie />
           <OneBrewerie />
@@ -15,7 +18,13 @@ function BreweriesList() {
           <OneBrewerie />
           <OneBrewerie />
           <OneBrewerie />
-      </section>
+        
+        </Box>
+
+      
+
+      </>
+      // </Box>
     );
 }
 
