@@ -6,13 +6,16 @@
   }
 
 .leaflet-popup-content-wrapper{
-  background-color: #F3E094;
-  border-radius: 20px;
+  border-radius: 7%;
   text-align: center;
 }
 
+.detail-button {
+  box-shadow: 5px 5px 5px grey;
+}
+
 .size{
-  width: 50%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -25,16 +28,17 @@
 }
 
 .easy-button-button{
-  width: 4.2rem !important;
-  height: 4.2rem !important;
-  border-radius: 50% !important;
+  width: 3rem !important;
+  height: 3rem !important;
+  border-radius: 30% !important;
   border: none !important;
   box-shadow: 5px 5px 5px grey;
+ 
 }
 
 .fa{
   margin-top: 0.4rem;
-  margin-right: 0.3rem;;
+  margin-right: 0.3rem;
 }
 
 .leaflet-touch .leaflet-bar{
@@ -43,6 +47,26 @@
 
 .blue {
   color: #398DEB;
+}
+
+.img-brewery{
+  width: 100%;
+}
+
+.color{
+  color: black !important;
+}
+
+.color-button{
+  background-color: #398DEB !important;
+  color: white !important;
+  font-weight: bold;
+}
+.phone-number{
+  color: black;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
 }
 
 
