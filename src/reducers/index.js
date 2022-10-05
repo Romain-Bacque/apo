@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 
 import userReducer from './user';
-import openmenuReducer from './openmenu';
+import dataReducer from './data';
+import searchReducer from './search';
 
 const rootReducer = combineReducers({
     user: userReducer,
-    openmenu: openmenuReducer,
+    data : dataReducer,
+    search : searchReducer 
 });
 
 export default rootReducer;
