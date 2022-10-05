@@ -1,24 +1,27 @@
 import OneBrewerie from './OneBrewerie';
-import { Container, Typography, IconButton } from '@mui/material';
+import { Box } from '@mui/material';
 
 function BreweriesList() {
     return (
       // <Box sx={{height: '50rem', overflow: 'auto', width: '90%'}}>
       <>
-        <Typography sx={{ minWidth: 100 }}>Profil</Typography>
+        <Box sx={{ width: '100%', padding: '1rem' }} > 
+          <OneBrewerie />
+          <OneBrewerie />
+          <OneBrewerie />
+          <OneBrewerie />
+          <OneBrewerie />
+          <OneBrewerie />
+          <OneBrewerie />
+          <OneBrewerie />
+          <OneBrewerie />
+          <OneBrewerie />
+          <OneBrewerie />
+          <OneBrewerie />
+        
+        </Box>
 
-          <OneBrewerie />
-          <OneBrewerie />
-          <OneBrewerie />
-          <OneBrewerie />
-          <OneBrewerie />
-          <OneBrewerie />
-          <OneBrewerie />
-          <OneBrewerie />
-          <OneBrewerie />
-          <OneBrewerie />
-          <OneBrewerie />
-          <OneBrewerie />
+      
 
       </>
       // </Box>

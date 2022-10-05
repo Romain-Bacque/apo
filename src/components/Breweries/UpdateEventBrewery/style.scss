@@ -1,0 +1,23 @@
+.Breweries{
+   
+    padding: 1rem;
+    background-color: rgba($color: #FFE293, $alpha: 0.9);
+    width: 90%;
+    
+}
+
+.brewer{
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-bottom: 1rem;
+
+    .btn{
+        border-radius: 50px;
+        border: 0px;
+        background-color: white;
+        color: #FFC75F;
+        padding: 0.3rem;
+    }
+}
+

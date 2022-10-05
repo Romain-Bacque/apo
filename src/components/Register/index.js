@@ -4,7 +4,7 @@ import { Box, Typography, Button } from '@mui/material';
 import './style.scss';
 
 import Input from '../Input'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 // == Composant
 
@@ -17,7 +17,7 @@ function Register() {
     evt.preventDefault();
     console.log('je passe par register');
     dispatch({
-      type: 'REGISTER_SUCCCESS',
+      type: 'REGISTER',
     });
     console.log('je sort de handleregister');
   };
@@ -25,14 +25,15 @@ function Register() {
   return (
 
     <>
-
       <Box component="form" onSubmit={handleRegister} sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', padding: '1rem'}}>
 
         <Typography omponent='h2'> Créer un compte </Typography>
 
         <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center', border: 'none'}}>
 
-          <label htmlFor='particulier'> Particulier</label>
+
+          <label htmlfor='particulier'> Particulier</label>
+
           <Input 
             type="radio" 
             id="particulier" 
@@ -41,7 +42,9 @@ function Register() {
             checked 
           />
 
-          <label HtmlFor='particulier'> Brasseur </label>
+
+          <label htmlfor='particulier'> Brasseur </label>
+
           <Input 
             type="radio" 
             id="role" 
@@ -80,7 +83,9 @@ function Register() {
           type='password'
           label="comfirmer le mot de passe :"
         />
-        <Button  sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>S'inscrire</Button>
+
+      <Button  sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>S'inscrire</Button>
+     
       </Box>
 
       <Box component='form' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', padding: '1rem' }}>
@@ -128,10 +133,7 @@ function Register() {
       />
 
       </Box>
-
-      
     </>
-  
   );
 }
 

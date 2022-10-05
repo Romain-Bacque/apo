@@ -9,46 +9,46 @@ import Categories from '../Categories';
 
 function OneBrewerie () {
     return(
+      <Link to='/breweries/:name'>
+      
         <Card sx={{ width: '100%', marginBottom: '1rem' }}>
-        <CardActionArea>
+          <CardActionArea>
 
-          <CardMedia
-            component="img"
-            height="140"
-            image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
-            alt="green iguana"
-          />
+            <CardMedia
+              component="img"
+              height="140"
+              image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
+              alt="green iguana"
+            />
 
-          <CardContent>
+            <CardContent>
 
-            <Typography gutterBottom variant="h5" component="div">
-              Nom de la brasserie
-            </Typography>
+              <Typography gutterBottom variant="h5" component="div">
+                La brasserie de Lulu
+              </Typography>
 
-            <Typography gutterBottom variant="h5" component="div">
-              <Categories />
-            </Typography>
+              <Typography gutterBottom variant="p" component="div">
+                11 rue jacque tatie
+              </Typography>
 
-          </CardContent>
+              <Typography gutterBottom variant="p" component="div">
+                01.30.54.38.20
+              </Typography>
 
-        </CardActionArea>
+              <Typography gutterBottom variant="h5" component="div">
+                <Categories />
+              </Typography>
 
-        <CardActions sx={{ justifyContent: 'space-between' }}>
-    
-          <Link to=''>
-            <Button size="small" color="primary">
-              Vor les évènements
-            </Button>
-          </Link>
+            </CardContent>
 
-          <Link to=''>      
-            <Button size="small" color="primary">
-                Voir la brasserie
-            </Button>
-          </Link>
+          </CardActionArea>
 
-        </CardActions>
-      </Card>
+          <CardActions />
+
+        </Card>
+
+      </Link>
+
     );
 }
 
