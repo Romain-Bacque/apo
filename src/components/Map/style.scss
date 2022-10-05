@@ -1,8 +1,8 @@
 .leaflet-container {
-    width: 90vw; 
-    height: 75vh;
-    border-radius:30px;
+    width: 100vw; 
+    height: 85vh;
     margin: 1rem;
+    margin-top: 4rem;
   }
 
 .leaflet-popup-content-wrapper{
@@ -15,3 +15,34 @@
   width: 50%;
   margin: 0 auto;
 }
+
+.easy-button-container {
+  margin-top: 2rem !important;
+}
+
+.leaflet-control-layers-toggle {
+  display: none;
+}
+
+.easy-button-button{
+  width: 4.2rem !important;
+  height: 4.2rem !important;
+  border-radius: 50% !important;
+  border: none !important;
+  box-shadow: 5px 5px 5px grey;
+}
+
+.fa{
+  margin-top: 0.4rem;
+  margin-right: 0.3rem;;
+}
+
+.leaflet-touch .leaflet-bar{
+  border: none;
+}
+
+.blue {
+  color: #398DEB;
+}
+
+
