@@ -25,17 +25,6 @@ function Register() {
     console.log('je sort de handleregister');
   };
 
-
-  const handleAddBrewery = (evt) => {
-    evt.preventDefault();
-    console.log('je passe par register');
-    dispatch({
-      type: 'ADD_BREWERY',
-    });
-    console.log('je sort de handleregister');
-  };
-                
-
   const handleRole =() =>{
     console.log('Role');
     dispatch({
@@ -43,7 +32,6 @@ function Register() {
   },);
 };
       
-
   return (
 
     <>
@@ -109,53 +97,6 @@ function Register() {
 
       <Button  sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>S'inscrire</Button>
       </Box>
-
-
-      <Box onSubmit={handleAddBrewery} component='form' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', padding: '1rem' }}>
-      
-      <Typography component='h2' sx={{ marginTop: '4rem'}}> Enregistrer une brasserie </Typography>
-
-
-      <Input 
-        id="standard-basic"
-        variant="standard"
-        name='title'
-        type='text'
-        label="Nom de la brasserie :"
-    
-      />
-      <Input 
-        id="standard-basic"
-        variant="standard"
-        name='image'
-        type='file'
-        accept="image/png, image/jpeg"
-        
-    
-      />
-      <Input 
-        id="standard-basic"
-        variant="standard"
-        name='phone'
-        type='tel'
-        label="Numéro de téléphone :"
-      />
-        <Input 
-        id="standard-basic"
-        variant="standard"
-        name='address'
-        type='text'
-        label="Adresse :"
-      />
-        <Input
-        id="standard-basic"
-        variant="standard"
-        name='description'
-        type='textarea'
-        label='Description :'
-      />
-
-
       <Box component='form' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', padding: '1rem' }}>
   
      { getRole  &&( <>
@@ -197,7 +138,6 @@ function Register() {
           </>
         )}
            
-
       </Box>
     </>
   );
