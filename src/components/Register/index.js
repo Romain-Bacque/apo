@@ -12,17 +12,14 @@ function Register() {
 
 
   const dispatch = useDispatch();
-  const  getRole = useSelector(state => state.user.role === 'brasseur');
+  const  getRole = useSelector(state => state.user.role === 'brewer');
   const  registered = useSelector(state => state.user.isRegistered);
   console.log(registered);
-  console.log(getRole);
   const handleRegister = (evt) => {
     evt.preventDefault();
-    console.log('je passe par register');
     dispatch({
       type: 'REGISTER',
     },);
-    console.log('je sort de handleregister');
   };
 
   const handleRole =() =>{
@@ -48,7 +45,7 @@ function Register() {
             type="radio" 
             id="particulier" 
             name="role" 
-            value="particulier" 
+            value="user" 
             onclick={handleRole}
           />
 
@@ -59,7 +56,7 @@ function Register() {
             type="radio" 
             id="role" 
             name="role" 
-            value="brasseur" 
+            value="brewer" 
             onclick={handleRole}
             />
 
@@ -136,8 +133,7 @@ function Register() {
             </Alert>
             </Snackbar>
           </>
-        )}
-           
+        )}    
       </Box>
     </>
   );

@@ -1,7 +1,7 @@
 // == Import
 import './style.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 // == Composant
 import React from 'react';
 import Input from '../Input'
@@ -21,11 +21,6 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import classes from "./index.module.css";
-
-import { useDispatch } from 'react-redux';
-import  { useNavigate }  from "react-router-dom";
-
-
 
 
 const Search = styled('form')(({ theme }) => ({
@@ -71,21 +66,18 @@ const StyledInputBase = styled(Input)(({ theme }) => ({
 }));
 
 function Header() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const isLogged = useSelector(state => state.user.isLoggedIn);
   const role = useSelector(state => state.user.role);
-  const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch({
       type: 'LOGOUT',
     });
+
+    navigate('/');
   };
-
-
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-
 
   const [state, setState] = React.useState({
     top: false,
@@ -125,7 +117,7 @@ function Header() {
             <ListItemText primary={"Accueil"}></ListItemText>
           </ListItem>
         </Link>
-        {!isLogged && <Link to='/events'>
+        {isLogged && <Link to='/events'>
           <ListItem
            button
            selected={selectedIndex === 4}
@@ -134,7 +126,7 @@ function Header() {
             <ListItemText primary={"Evenements"}>Evenements</ListItemText>
           </ListItem>
         </Link>}
-        {!isLogged && role === "brewer" && <Link to='/breweries'>
+        {isLogged && role === "brewer" && <Link to='/breweries'>
           <ListItem
            button
            selected={selectedIndex === 5}
@@ -143,7 +135,7 @@ function Header() {
             <ListItemText primary={"Mes brasseries"}>Mes brasseries</ListItemText>
           </ListItem>
         </Link>}
-        {!isLogged && <Link to='/profil'>
+        {isLogged && <Link to='/profil'>
           <ListItem
            button
            selected={selectedIndex === 6}
