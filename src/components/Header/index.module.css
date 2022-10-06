@@ -1,0 +1,13 @@
+.active-link {
+    color: red!important;
+    border-left: 2px!important;
+}
+
+.header__link {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+    color: gray;
+    padding: 1rem 2rem;
+}

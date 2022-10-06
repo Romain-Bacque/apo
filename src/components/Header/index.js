@@ -1,6 +1,6 @@
 // == Import
 import './style.scss';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // == Composant
 import * as React from 'react';
 import Input from '../Input'
@@ -20,15 +20,14 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import MenuIcon from '@mui/icons-material/Menu';
-
+import classes from "./index.module.css";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-    border: '0px'
+        border: '0px'
   },
   marginLeft: 0,
   width: '100%',
@@ -65,34 +64,40 @@ const StyledInputBase = styled(Input)(({ theme }) => ({
   },
 }));
 
-
-
-
 function Header() {
-  
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const isLogged = useSelector(state => state.user.isLoggedIn);
+  const role = useSelector(state => state.user.role);
   const dispatch = useDispatch();
   const handleLogout = (evt) => {
     dispatch({
       type: 'LOGOUT',
     });
   };
-
+  
   const [state, setState] = React.useState({
     top: false,
   });
-
+  
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event &&
       event.type === 'keydown' &&
       (event.key === 'Tab' || event.key === 'Shift')
-    ) {
-      return;
-    }
+      ) {
+        return;
+      }
+      
+      setState({ ...state, [anchor]: open });
+    };
 
-    setState({ ...state, [anchor]: open });
+  const handleListItemClick = (event, index) => {
+    event.preventDefault();
+
+    setSelectedIndex(index);
   };
-
+    
+    
   const list = (anchor) => (
     <Box
       component="form"
@@ -102,41 +107,65 @@ function Header() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List   sx={{ color: 'black' }}>
-        {['Accueil', 'Connection', 'Mes Brasseries', 'Evènements', 'Profil', 'Se déconnecter'].map((text, index) => (
-          <ListItem  onSubmit={handleLogout} key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText>
-                { text === 'Accueil' &&  <Link to='/'> {text} </Link>}
-                { text === 'Connection' &&  <Link to='/Login'> {text} </Link>}
-                { text === 'Mes Brasseries' &&  <Link to='/breweries'> {text} </Link>}
-                { text === 'Evènements' &&  <Link to='/events'> {text} </Link>}
-                { text === 'Profil' &&  <Link to='/profil'> {text} </Link>}
-                { text === 'Se déconnecter' &&  <Button type='submit'>{text}</Button>}
-              </ListItemText>
-            </ListItemButton>
+      <List sx={{ color: 'black' }} className={classes.header__link}>
+        <Link to='/'>
+          <ListItem
+           button
+           selected={selectedIndex === 1}
+           onClick={(event) => handleListItemClick(event, 1)}
+           >
+            <ListItemText primary={"Accueil"}></ListItemText>
           </ListItem>
-        ))}
+        </Link>
+        {!isLogged && <Link to='/events'>
+          <ListItem
+           button
+           selected={selectedIndex === 4}
+           onClick={(event) => handleListItemClick(event, 4)}
+           >
+            <ListItemText primary={"Evenements"}>Evenements</ListItemText>
+          </ListItem>
+        </Link>}
+        {!isLogged && role === "brewer" && <Link to='/breweries'>
+          <ListItem
+           button
+           selected={selectedIndex === 5}
+           onClick={(event) => handleListItemClick(event, 5)}
+           >
+            <ListItemText primary={"Mes brasseries"}>Mes brasseries</ListItemText>
+          </ListItem>
+        </Link>}
+        {!isLogged && <Link to='/profil'>
+          <ListItem
+           button
+           selected={selectedIndex === 6}
+           onClick={(event) => handleListItemClick(event, 1)}
+           >
+            <ListItemText primary={"Profil"}>Profil</ListItemText>
+          </ListItem>
+        </Link>}
+        {!isLogged && <Link end to='/Login'>
+          <ListItem
+           button
+           selected={selectedIndex === 2}
+           onClick={(event) => handleListItemClick(event, 2)}
+           >
+            <ListItemText primary={"Connexion"}>Connexion</ListItemText>
+          </ListItem>
+        </Link>}
+        {isLogged && <Link>
+          <ListItem
+           button
+           selected={selectedIndex === 3}
+           onClick={(event) => handleListItemClick(event, 3)}
+           >
+            <ListItemText primary={"Se déconnecter"}>Se déconnecter</ListItemText>
+          </ListItem>
+        </Link>}
       </List>
       <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
     </Box>
   );
-
   
   return (
       <AppBar sx={{}}>
@@ -186,7 +215,6 @@ function Header() {
               </div>
 
               </IconButton>
-               
               
           {/* <Navbar className='header-navbar'/> */}
         </Toolbar>
