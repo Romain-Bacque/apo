@@ -21,6 +21,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import MenuIcon from '@mui/icons-material/Menu';
 
+
 import classes from "./index.module.css";
 
 import  { useNavigate }  from "react-router-dom";
@@ -82,8 +83,6 @@ function Header() {
       type: 'LOGOUT',
     });
   };
-
-
   const navigate = useNavigate()
 
 
