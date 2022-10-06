@@ -1,8 +1,9 @@
 // == Import
 import './style.scss';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 // == Composant
-import * as React from 'react';
+import React from 'react';
 import Input from '../Input'
 import { Link } from 'react-router-dom'
 import { styled, alpha } from '@mui/material/styles';
@@ -16,8 +17,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import classes from "./index.module.css";
@@ -65,11 +64,12 @@ const StyledInputBase = styled(Input)(({ theme }) => ({
 }));
 
 function Header() {
+  const navigate = useNavigate();
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const isLogged = useSelector(state => state.user.isLoggedIn);
   const role = useSelector(state => state.user.role);
   const dispatch = useDispatch();
-  const handleLogout = (evt) => {
+  const handleLogout = () => {
     dispatch({
       type: 'LOGOUT',
     });
@@ -92,16 +92,12 @@ function Header() {
     };
 
   const handleListItemClick = (event, index) => {
-    event.preventDefault();
-
     setSelectedIndex(index);
   };
-    
-    
+
   const list = (anchor) => (
     <Box
       component="form"
-      onSubmit={handleLogout}
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250}}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
@@ -144,7 +140,7 @@ function Header() {
             <ListItemText primary={"Profil"}>Profil</ListItemText>
           </ListItem>
         </Link>}
-        {!isLogged && <Link end to='/Login'>
+        {!isLogged && <Link to='/Login'>
           <ListItem
            button
            selected={selectedIndex === 2}
@@ -157,7 +153,7 @@ function Header() {
           <ListItem
            button
            selected={selectedIndex === 3}
-           onClick={(event) => handleListItemClick(event, 3)}
+           onClick={handleLogout}
            >
             <ListItemText primary={"Se déconnecter"}>Se déconnecter</ListItemText>
           </ListItem>
