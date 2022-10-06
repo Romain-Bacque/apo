@@ -32,9 +32,9 @@ function Map() {
     L.easyButton("fa-solid fa-location-arrow fa-3x blue", () => {
       map.locate().on("locationfound", function (e) {
         setPosition(e.latlng);
-        map.flyTo(e.latlng, map.getZoom());
+        map.flyTo(e.latlng,13, map.getZoom());
         const radius = e.accuracy;
-        const circle = L.circle(e.latlng, radius);
+        const circle = L.circle(e.latlng,700, radius);
         circle.addTo(map);
       });
     }).addTo(map);
@@ -43,8 +43,8 @@ function Map() {
   return (
     <MapContainer
       zoomControl={false}
-      center={[	48.856614, 	2.3522219]}
-      zoom={13}
+      center={[	47.902964, 	1.909251]}
+      zoom={6.2}
       whenCreated={setMap}
     >
       {positionBreweries.latlng.map ((listPosition) => (
