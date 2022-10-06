@@ -52,7 +52,10 @@ const user = (store) => (next) => (action) => {
         console.log(`réponse back ${response.data}`)
         store.dispatch({
           type: 'REGISTER',
-        });
+        },{
+          type: 'GET_ROLE',
+        }
+        );
       })
       .catch((error) => {
         console.log(error);
