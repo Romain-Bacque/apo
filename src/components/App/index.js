@@ -21,10 +21,7 @@ import Profil from '../Profil';
 
 import UpdateEventBrewery from '../Breweries/UpdateEventBrewery';
 import { useDispatch, useSelector } from 'react-redux';
-=======
-import UpdateEventBrewery from '../Breweries/UpdateEventBrewery'
 import Loading from '../App/Loading';
-import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
 
@@ -35,7 +32,6 @@ function App() {
   const dispatch = useDispatch();
 
 
-=======
   const loading = useSelector((state) => state.data.loading)
     
 
@@ -45,12 +41,7 @@ function App() {
     dispatch({
       type: 'FETCH_DATA',
     })
-  }, []);
-
-  
-=======
-   
-
+  }, []);   
 
   return (
 
