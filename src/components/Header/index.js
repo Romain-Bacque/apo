@@ -20,9 +20,16 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import MenuIcon from '@mui/icons-material/Menu';
+
 import classes from "./index.module.css";
 
-const Search = styled('div')(({ theme }) => ({
+import { useDispatch } from 'react-redux';
+import  { useNavigate }  from "react-router-dom";
+
+
+
+
+const Search = styled('form')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -74,7 +81,12 @@ function Header() {
       type: 'LOGOUT',
     });
   };
-  
+
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+
   const [state, setState] = React.useState({
     top: false,
   });
@@ -166,6 +178,13 @@ function Header() {
       <Divider />
     </Box>
   );
+
+  
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    navigate("/search");
+  }
+
   
   return (
       <AppBar sx={{}}>
@@ -175,25 +194,28 @@ function Header() {
           <SportsBarTwoToneIcon fontSize="large" />
         </Link>
         </Box>
-      
-            <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
+
+           <Search onSubmit={handleSubmit}>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+
                 <StyledInputBase
                   placeholder="Search…"
                   inputProps={{ 'aria-label': 'search' }}
                   name='search'
-                  sx={{width: '100%'}} 
+                  sx={{width: '100%'}}
                 />
-              </Search>
-
+            </Search> 
+        
               <IconButton
                 size="large"
               >
               <div>
                 {['top'].map((anchor) => (
+
                   <React.Fragment key={anchor}>
+
                     <MenuIcon 
                       onClick={toggleDrawer(anchor, true)}
                       fontSize='large'

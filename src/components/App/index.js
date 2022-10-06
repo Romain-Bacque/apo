@@ -1,5 +1,6 @@
 // == Import
 import './style.scss';
+
 import { Routes, Route } from 'react-router-dom'
 import {Box} from '@mui/material';
 // == Composant
@@ -17,15 +18,49 @@ import Breweries from '../Breweries';
 import Events from '../Events';
 import OneEvent from '../Events/OneEvent';
 import Profil from '../Profil';
+
+import UpdateEventBrewery from '../Breweries/UpdateEventBrewery';
+import { useDispatch, useSelector } from 'react-redux';
+=======
 import UpdateEventBrewery from '../Breweries/UpdateEventBrewery'
+import Loading from '../App/Loading';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+
+
+
 
 
 function App() {
+  const dispatch = useDispatch();
+
+
+=======
+  const loading = useSelector((state) => state.data.loading)
+    
+
+
+  useEffect(() => {
+    console.log('fetch data')
+    dispatch({
+      type: 'FETCH_DATA',
+    })
+  }, []);
+
+  
+=======
+   
+
+
   return (
+
+
       <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}> 
       <Header />
             <Box conponent='main' sx={{margin: 'auto', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
               <Routes>
+                {loading && <Route path='/search' element={<Loading/>} />}
+                {loading === false && <Route path='/search' element={<BreweriesList/>} />}
                 <Route path='/' element={<Map />} />
                 <Route path='/signup' element={<Register />} />
                 <Route path='/breweries/:name' element={<OneBrewerie />} />
@@ -39,9 +74,9 @@ function App() {
                 <Route path='/login' element={<Login />} />
                 <Route path='/profil' element={<Profil />} />
                 <Route path='/Brewery/event' element={<UpdateEventBrewery />} />
-
               </Routes>
             </Box>
+
             <Footer />
       </Box>
   );
