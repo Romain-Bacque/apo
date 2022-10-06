@@ -97,38 +97,65 @@ function Header() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List sx={{ color: 'black' }}>
-        {['Les brasseries autour de moi', 'Accueil', 'Connection', 'Mes Brasseries', 'Evènements', 'Profil', 'Se déconnecter'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText>
-                { text === 'Accueil' &&  <Link to='/'> {text} </Link>}
-                { text === 'Connection' &&  <Link to='/Login'> {text} </Link>}
-                { text === 'Mes Brasseries' &&  <Link to='/breweries'> {text} </Link>}
-                { text === 'Evènements' &&  <Link to='/events'> {text} </Link>}
-                { text === 'Profil' &&  <Link to='/profil'> {text} </Link>}
-                { text === 'Se déconnecter' &&  <Button>{text}</Button>}
-                { text === 'Les brasseries autour de moi' &&  <Button>{text}</Button>}
-              </ListItemText>
-            </ListItemButton>
+      <List sx={{ color: 'black', display: 'flex', flexDirection: 'column', padding: '2rem', gap: '1rem' }}>
+                 
+        <Button>Les brasseries autour de moi</Button>
+
+        <ListItem disablePadding >
+
+          <ListItemButton>
+
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+
+            <ListItemText>
+              <Link to='/'> Accueil </Link>
+            </ListItemText>
+
+          </ListItemButton>
+
+        </ListItem>
+
+        <ListItem disablePadding >
+          <ListItemButton>
+            <ListItemText>
+              <Link to='/Login'> Connection </Link>
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem disablePadding >
+          <ListItemButton>
+            <ListItemText>
+              <Link to='/breweries'> Mes Brasseries </Link>
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem disablePadding >
+          <ListItemButton>
+            <ListItemText>
+              <Link to='/events'> Evènements </Link>
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+
+          <ListItem disablePadding >
+          <ListItemButton>
+            <ListItemText>
+              <Link to='/profil'> Profil</Link>
+            </ListItemText>
+          </ListItemButton>
           </ListItem>
-        ))}
+
+
       </List>
+
       <Divider />
+
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+          <Button sx={{width: '100%'}}>Se déconnecter</Button>           
       </List>
     </Box>
   );
