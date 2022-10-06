@@ -18,14 +18,11 @@ import Breweries from '../Breweries';
 import Events from '../Events';
 import OneEvent from '../Events/OneEvent';
 import Profil from '../Profil';
-
-
 import UpdateEventBrewery from '../Breweries/UpdateEventBrewery';
 
 import Loading from '../App/Loading';
 import { useEffect } from 'react';
-
-
+import { useDispatch, useSelector} from 'react-redux';
 
 
 
@@ -39,6 +36,7 @@ function App() {
     dispatch({
       type: 'FETCH_DATA',
     })
+  }, []);
 
 
 
