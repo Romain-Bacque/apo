@@ -17,10 +17,20 @@ import Breweries from '../Breweries';
 import Events from '../Events';
 import OneEvent from '../Events/OneEvent';
 import Profil from '../Profil';
-import UpdateEventBrewery from '../Breweries/UpdateEventBrewery'
+import UpdateEventBrewery from '../Breweries/UpdateEventBrewery';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log('fetch data')
+    dispatch({
+      type: 'FETCH_DATA',
+    })
+  }, []);
+  
   return (
       <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}> 
       <Header />
