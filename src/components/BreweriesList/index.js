@@ -1,25 +1,19 @@
+import React from 'react'
 import OneBrewerie from './OneBrewerie';
 import { Box } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+
+import { useSelector } from 'react-redux';
+
+
 
 
 
 function BreweriesList() {
-  
-  const dispatch = useDispatch();
-  
-  useEffect(() => {
-    console.log('fetch data')
-    dispatch({
-      type: 'FETCH_DATA',
-    })
-  }, []);
-  
-  const breweries = useSelector((state) => state.data.breweries);
-  console.log(breweries)
 
+  
+  const brewery = useSelector((state) => state.data.breweries);
 
+  
     return (
       // <Box sx={{height: '50rem', overflow: 'auto', width: '90%'}}>
       <>

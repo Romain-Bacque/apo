@@ -11,8 +11,8 @@ const search = (store) => (next) => (action) => {
           searchValue: action.value,
       });
 
+    };
     next(action);
-};
 
 }
 

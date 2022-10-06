@@ -13,7 +13,7 @@ const dataReducer = (state = initialState, action = {}) => {
         return {
             ...state,
             breweries: action.breweries,
-            loading: action.loading,
+            loading: false,
         };
         default:
             return state;
