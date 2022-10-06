@@ -21,6 +21,15 @@ function Register() {
     });
     console.log('je sort de handleregister');
   };
+
+  const handleAddBrewery = (evt) => {
+    evt.preventDefault();
+    console.log('je passe par register');
+    dispatch({
+      type: 'ADD_BREWERY',
+    });
+    console.log('je sort de handleregister');
+  };
                 
   return (
 
@@ -88,7 +97,7 @@ function Register() {
      
       </Box>
 
-      <Box component='form' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', padding: '1rem' }}>
+      <Box onSubmit={handleAddBrewery} component='form' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', padding: '1rem' }}>
       
       <Typography component='h2' sx={{ marginTop: '4rem'}}> Enregistrer une brasserie </Typography>
 
@@ -120,16 +129,16 @@ function Register() {
         <Input 
         id="standard-basic"
         variant="standard"
-        name='adress'
+        name='address'
         type='text'
         label="Adresse :"
       />
         <Input
         id="standard-basic"
         variant="standard"
-        name='adress'
-        type='text'
-        label="Description :"
+        name='description'
+        type='textarea'
+        label='Description :'
       />
 
       </Box>

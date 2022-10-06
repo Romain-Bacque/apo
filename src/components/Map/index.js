@@ -8,6 +8,7 @@ import "font-awesome/css/font-awesome.min.css";
 import "./style.scss";
 import { style } from "@mui/system";
 import visitorIcon from "./constants";
+import positionIcon from "./MypositionIcon"
 import { Link } from 'react-router-dom';
 import logo from "./logoBrasserie.jpg";
 import { useSelector } from 'react-redux';
@@ -21,7 +22,7 @@ function Map() {
   const breweries = useSelector ((state) => state.data.breweries)
   const [map, setMap] = useState(null);
   const [position, setPosition] = useState(null);
-
+  
   useEffect(() => {
     if (!map) return;
 
@@ -29,9 +30,7 @@ function Map() {
       map.locate().on("locationfound", function (e) {
         setPosition(e.latlng);
         map.flyTo(e.latlng,13, map.getZoom());
-        const radius = e.accuracy;
-        const circle = L.circle(e.latlng,700, radius);
-        circle.addTo(map);
+        L.marker(e.latlng, {icon: positionIcon}).addTo(map).bindPopup("Vous êtes ici").openPopup();
       });
     }).addTo(map);
   }, [map]);
