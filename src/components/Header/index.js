@@ -1,5 +1,6 @@
 // == Import
 import './style.scss';
+import { useDispatch } from 'react-redux';
 // == Composant
 import * as React from 'react';
 import Input from '../Input'
@@ -19,9 +20,12 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useDispatch } from 'react-redux';
+import  { useNavigate }  from "react-router-dom";
 
 
-const Search = styled('div')(({ theme }) => ({
+
+const Search = styled('form')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -65,9 +69,19 @@ const StyledInputBase = styled(Input)(({ theme }) => ({
 }));
 
 
- 
+
 
 function Header() {
+  
+  const dispatch = useDispatch();
+  const handleLogout = (evt) => {
+    dispatch({
+      type: 'LOGOUT',
+    });
+  };
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [state, setState] = React.useState({
     top: false,
@@ -87,14 +101,16 @@ function Header() {
 
   const list = (anchor) => (
     <Box
+      component="form"
+      onSubmit={handleLogout}
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250}}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List sx={{ color: 'black' }}>
+      <List   sx={{ color: 'black' }}>
         {['Accueil', 'Connection', 'Mes Brasseries', 'Evènements', 'Profil', 'Se déconnecter'].map((text, index) => (
-          <ListItem key={text} disablePadding>
+          <ListItem  onSubmit={handleLogout} key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -105,7 +121,7 @@ function Header() {
                 { text === 'Mes Brasseries' &&  <Link to='/breweries'> {text} </Link>}
                 { text === 'Evènements' &&  <Link to='/events'> {text} </Link>}
                 { text === 'Profil' &&  <Link to='/profil'> {text} </Link>}
-                { text === 'Se déconnecter' &&  <Button>{text}</Button>}
+                { text === 'Se déconnecter' &&  <Button type='submit'>{text}</Button>}
               </ListItemText>
             </ListItemButton>
           </ListItem>
@@ -126,7 +142,11 @@ function Header() {
       </List>
     </Box>
   );
-
+  
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    navigate("/search");
+  }
   
   return (
       <AppBar sx={{}}>
@@ -136,25 +156,28 @@ function Header() {
           <SportsBarTwoToneIcon fontSize="large" />
         </Link>
         </Box>
-      
-            <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
+
+           <Search onSubmit={handleSubmit}>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+
                 <StyledInputBase
                   placeholder="Search…"
                   inputProps={{ 'aria-label': 'search' }}
                   name='search'
-                  sx={{width: '100%'}} 
+                  sx={{width: '100%'}}
                 />
-              </Search>
-
+            </Search> 
+        
               <IconButton
                 size="large"
               >
               <div>
                 {['top'].map((anchor) => (
+
                   <React.Fragment key={anchor}>
+
                     <MenuIcon 
                       onClick={toggleDrawer(anchor, true)}
                       fontSize='large'
