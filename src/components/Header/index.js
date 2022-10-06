@@ -19,7 +19,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector  } from 'react-redux';
 import  { useNavigate }  from "react-router-dom";
 
 
@@ -71,7 +71,6 @@ const StyledInputBase = styled(Input)(({ theme }) => ({
  
 
 function Header() {
-
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -136,7 +135,18 @@ function Header() {
   
   const handleSubmit = (e) => {
     e.preventDefault()
-    navigate("/search");
+  
+  }
+  const handleKeyUp = (e) => {
+    if (e.key === 'Enter' || e.keyCode === 13) {
+      const value = e.target.value;
+      dispatch({
+        type: 'SEARCH_VALUE',
+        value: e.target.value,
+      })
+      navigate(`/search/${value}`)
+     
+  }
   }
   
   return (
@@ -157,7 +167,9 @@ function Header() {
                   placeholder="Search…"
                   inputProps={{ 'aria-label': 'search' }}
                   name='search'
+                  type='search'
                   sx={{width: '100%'}}
+                  onKeyUp={handleKeyUp}
                 />
             </Search> 
         

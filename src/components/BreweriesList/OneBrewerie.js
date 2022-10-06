@@ -2,12 +2,17 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import {CardActionArea, CardActions } from '@mui/material';
 import './style.scss';
 import { Link } from 'react-router-dom'
-import Categories from '../Categories';
+import Categories from '../Categories'
 
-function OneBrewerie () {
+
+
+function OneBrewerie ({ title, phone, address, tags}) {
+
+
+
     return(
       <Link to='/breweries/:name'>
       
@@ -24,19 +29,19 @@ function OneBrewerie () {
             <CardContent>
 
               <Typography gutterBottom variant="h5" component="div">
-                La brasserie de Lulu
+                {title}
               </Typography>
 
               <Typography gutterBottom variant="p" component="div">
-                11 rue jacque tatie
+                {address}
               </Typography>
 
               <Typography gutterBottom variant="p" component="div">
-                01.30.54.38.20
+                {phone}
               </Typography>
 
               <Typography gutterBottom variant="h5" component="div">
-                <Categories />
+              <Categories tags={tags} />
               </Typography>
 
             </CardContent>
