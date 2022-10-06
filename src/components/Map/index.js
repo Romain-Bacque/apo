@@ -10,19 +10,15 @@ import { style } from "@mui/system";
 import visitorIcon from "./constants";
 import { Link } from 'react-router-dom';
 import logo from "./logoBrasserie.jpg";
+import { useSelector } from 'react-redux';
 
 const { BaseLayer } = LayersControl;
 
-const positionBreweries = {
-  latlng: [[47.237829, 6.0240539], 
-  [43.2961743, 5.3699525],
-  [48.8636878, 1.7948739],
-  [50.6365654, 3.0635282],
-  [45.7578137, 4.8320114],
-  [48.8579662, 2.2945015]],
-}
+
 
 function Map() {
+
+  const breweries = useSelector ((state) => state.data.breweries)
   const [map, setMap] = useState(null);
   const [position, setPosition] = useState(null);
 
@@ -47,17 +43,17 @@ function Map() {
       zoom={6.2}
       whenCreated={setMap}
     >
-      {positionBreweries.latlng.map ((listPosition) => (
-      <Marker position={listPosition} icon={visitorIcon} >
+      {breweries.map ((brewerie) => (
+      <Marker position={[brewerie.lat, brewerie.lon]} icon={visitorIcon} key={brewerie.id}>
         <Popup >
                 <section className='section-img-brewery'>
                  <img className='img-brewery' src={logo} alt="logo"></img>
                 </section>
                 <section className='section-adress'>
-                    <h1 className='brewery-title color'>La brasserie belge</h1>
-                    <span className='span-info'>8 rue Claude Francois, 75000 Paris</span>
-                    <a className="phone-number" href="tel:+33139380101">01 01 01 01 01</a>
-                    <Link to='/breweriesList' className='detail-button color-button' type='button'>Voir le détail</Link>
+                    <h1 className='brewery-title color'>{brewerie.title}</h1>
+                    <span className='span-info'>{brewerie.address}</span>
+                    <a className="phone-number" href={'tel:' + brewerie.phone}>{brewerie.phone}</a>
+                    <Link to={'/breweries/' + brewerie.id} className='detail-button color-button' type='button'>Voir le détail</Link>
                 </section>
           </Popup>
       </Marker>))}

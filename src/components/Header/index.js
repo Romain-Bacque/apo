@@ -20,7 +20,6 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useDispatch } from 'react-redux';
 import  { useNavigate }  from "react-router-dom";
 
 
@@ -79,8 +78,6 @@ function Header() {
       type: 'LOGOUT',
     });
   };
-
-  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const [state, setState] = React.useState({
