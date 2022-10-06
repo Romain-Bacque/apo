@@ -23,7 +23,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import classes from "./index.module.css";
 
-import { useDispatch } from 'react-redux';
 import  { useNavigate }  from "react-router-dom";
 
 
@@ -75,7 +74,9 @@ function Header() {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const isLogged = useSelector(state => state.user.isLoggedIn);
   const role = useSelector(state => state.user.role);
+
   const dispatch = useDispatch();
+
   const handleLogout = (evt) => {
     dispatch({
       type: 'LOGOUT',
@@ -83,7 +84,6 @@ function Header() {
   };
 
 
-  const dispatch = useDispatch()
   const navigate = useNavigate()
 
 
