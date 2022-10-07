@@ -13,10 +13,8 @@ function BreweriesList() {
 
   const params = useParams();
   const data = useSelector((state) => state.data.breweries)
-  // console.log(data)
-  console.log(params)
-  const search = data.filter(brewery => brewery.address.includes('Paris')).map(filteredData => console.log(filteredData))
-  console.log(search)
+  const search = data.filter(brewery => brewery.address.includes(params.value)).map(filteredData => console.log(filteredData))
+  
   
   
   
@@ -28,7 +26,7 @@ function BreweriesList() {
       <>
         <Box sx={{ width: '100%', padding: '2rem', marginTop: '5rem' }} > 
 
-        {data.filter(brewery => brewery.address.includes(params)).map(filteredData => (
+        {data.filter(brewery => brewery.address.includes(params.value)).map(filteredData => (
          
                 <OneBrewerie 
                   key={filteredData.id}
@@ -36,6 +34,7 @@ function BreweriesList() {
                   phone={filteredData.phone}
                   address={filteredData.address}
                   tags={filteredData.categories}
+                  image={filteredData.image}
                 />
         ))}
         

@@ -17,6 +17,7 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import classes from "./index.module.css";
 import { StyledHeader } from '../../selector/styles'
+import Logo from '../../asset/images/biere-sans-fond.png'
 
 
 const Search = styled('form')(({ theme }) => ({
@@ -146,7 +147,7 @@ function Header() {
             <ListItemText primary={"Profil"}>Profil</ListItemText>
           </ListItem>
         </Link>}
-
+        
         {!isLogged && <Link to='/Login'>
           <ListItem
            button
@@ -156,7 +157,6 @@ function Header() {
             <ListItemText primary={"Connexion"}>Connexion</ListItemText>
           </ListItem>
         </Link>}
-        
         {isLogged && <Link>
           <ListItem
            button
@@ -195,7 +195,7 @@ function Header() {
         <Toolbar sx={{ justifyContent: 'space-between'}}>
         <Box sx={{p: 1}}>
         <Link to='/'>
-          <SportsBarTwoToneIcon fontSize="large" />
+          <Box component='img' src={Logo} alt='' sx={{width: '4rem'}}/>
         </Link>
         </Box>
 

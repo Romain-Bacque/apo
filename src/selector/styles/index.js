@@ -2,11 +2,11 @@ import { styled } from '@mui/material/styles';
 import { Box, AppBar, Button } from '@mui/material';
 
 const StyledHeader = styled(AppBar)(({ theme }) => ({
-    backgroundColor: '#F7EBC9'
+    backgroundColor: '#F2CC96'
 }));
 
 const StyledFooter = styled(Box)(({ theme }) => ({
-    backgroundColor: '#F2CC96'
+    backgroundColor: '#F7EBC9'
   }));
 
 const StyledButton = styled(Button)(({ theme }) => ({

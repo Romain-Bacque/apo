@@ -21,7 +21,7 @@ function Login() {
   };
   return (
     <>
-      <Box component="form" onSubmit={handleSubmit} sx={{ width: '90%', padding: '2rem', backgroundColor: 'white', display: 'flex', flexDirection: 'column', alignItems: 'space-between', gap: '2rem'}}>
+      <Box component="form" onSubmit={handleSubmit} sx={{ width: '90%', padding: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'space-between', gap: '2rem'}}>
         <Input 
           id="filled-basic"
           variant="filled"
