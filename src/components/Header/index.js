@@ -66,8 +66,6 @@ const StyledInputBase = styled(Input)(({ theme }) => ({
     },
   },
 }));
-
-
  
 
 function Header() {
