@@ -17,30 +17,27 @@ import Breweries from '../Breweries';
 import Events from '../Events';
 import OneEvent from '../Events/OneEvent';
 import Profil from '../Profil';
-
 import UpdateEventBrewery from '../Breweries/UpdateEventBrewery';
-import { useDispatch, useSelector } from 'react-redux';
+
 import Loading from '../App/Loading';
 import { useEffect } from 'react';
-
-
+import { useDispatch, useSelector} from 'react-redux';
 
 
 
 function App() {
   const dispatch = useDispatch();
 
-
   const loading = useSelector((state) => state.data.loading)
     
-
-
   useEffect(() => {
     console.log('fetch data')
     dispatch({
       type: 'FETCH_DATA',
     })
-  }, []);   
+  }, []);
+
+
 
   return (
 
@@ -51,9 +48,10 @@ function App() {
               <Routes>
                 {loading && <Route path='/search' element={<Loading/>} />}
                 {loading === false && <Route path='/search' element={<BreweriesList/>} />}
-                <Route path='/' element={<Map />} />
+                {loading && <Route path='/' element={<Loading />} />}
+                {loading === false && <Route path='/' element={<Map />} />}
                 <Route path='/signup' element={<Register />} />
-                <Route path='/breweries/:name' element={<OneBrewerie />} />
+                <Route path='/breweries/:id' element={<OneBrewerie />} />
                 <Route path='/breweriesList' element={<BreweriesList />} />
                 <Route path='/breweries' element={<Breweries />} />
                 <Route path='/brewery/form_brewery' element={<FormBrewerie />} />

@@ -20,7 +20,9 @@ import ListItemButton from '@mui/material/ListItemButton';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import MenuIcon from '@mui/icons-material/Menu';
 
+
 import classes from "./index.module.css";
+
 
 
 const Search = styled('form')(({ theme }) => ({
@@ -71,11 +73,16 @@ function Header() {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const isLogged = useSelector(state => state.user.isLoggedIn);
   const role = useSelector(state => state.user.role);
-  const handleLogout = () => {
+
+
+  const dispatch = useDispatch();
+
+  const handleLogout = (evt) => {
     dispatch({
       type: 'LOGOUT',
     });
-
+  };
+  const navigate = useNavigate()
     navigate('/');
   };
 
