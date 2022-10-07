@@ -1,13 +1,34 @@
 // == Import
 import './style.scss';
+import  { useNavigate }  from "react-router-dom";
+import { useDispatch } from 'react-redux';
+
 // == Composant
-function Reset() {
+function Test() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    
+  }
+  const handleKeyUp = (e) => {
+    if (e.key === 'Enter' || e.keyCode === 13) {
+      const value = e.target.value;
+      dispatch({
+        type: 'SEARCH_VALUE',
+        value: e.target.value,
+      })
+      navigate(`/search/${value}`)
+     
+  }
+  }
+
   return (
-    <div className="Reset">
-      <h1>Composant : Reset</h1>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input onKeyUp={handleKeyUp}/>
+    </form>
   );
 }
 
 // == Export
-export default Reset;
+export default Test;

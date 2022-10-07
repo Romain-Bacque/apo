@@ -46,8 +46,9 @@ function App() {
       <Header />
             <Box conponent='main' sx={{margin: 'auto', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
               <Routes>
-                {loading && <Route path='/search' element={<Loading/>} />}
-                {loading === false && <Route path='/search' element={<BreweriesList/>} />}
+
+                {loading && <Route path='/search/:value' element={<Loading/>} />}
+                {loading === false && <Route path='/search/:value' element={<BreweriesList />} />}
                 {loading && <Route path='/' element={<Loading />} />}
                 {loading === false && <Route path='/' element={<Map />} />}
                 <Route path='/signup' element={<Register />} />
@@ -62,6 +63,7 @@ function App() {
                 <Route path='/login' element={<Login />} />
                 <Route path='/profil' element={<Profil />} />
                 <Route path='/Brewery/event' element={<UpdateEventBrewery />} />
+                <Route path='/test' element={<Test />} />
               </Routes>
             </Box>
 
