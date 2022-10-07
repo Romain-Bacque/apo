@@ -4,8 +4,8 @@ import reducer from "../reducers";
 
 import debug from '../middlewares/debug';
 import user from '../middlewares/user';
-import search from '../middlewares/search'
-import data from '../middlewares/data'
+import search from '../middlewares/search';
+import data from '../middlewares/data';
 
 
 const middlewares = applyMiddleware(data, debug, user, search);
