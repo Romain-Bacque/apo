@@ -1,14 +1,12 @@
 export const initialState = {
-    isLoggedIn: true,
+    isLoggedIn: false,
     name: '',
     email:  '',
     password: '',
     loading: false,
     role: '',
-    isRegistered: false,
+    isRegistered: true,
 }; 
-
-
 
 const reducer = (state = initialState, action = {}) => {
 
@@ -42,7 +40,7 @@ const reducer = (state = initialState, action = {}) => {
                 password: '',
                 role: '',
             };
-        case 'LOGOUT': //? Logout = boulean isLoggedIn = false
+        case 'LOGOUT': //? Logout = boolean isLoggedIn = false
             return {
                 ...state,
                 isLoggedIn: false,

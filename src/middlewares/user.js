@@ -9,8 +9,8 @@ const user = (store) => (next) => (action) => {
           email: state.user.email,
           password: state.user.password,
         })
-          .then((response) => {
-            console.log(`réponse back ${response.data}`)
+          .then(function (response) {
+            console.log(response.data.data)
             store.dispatch({
               type: 'SAVE_USER',
               // logged: response.data,
@@ -23,17 +23,11 @@ const user = (store) => (next) => (action) => {
       }
     else if (action.type === 'LOGOUT') {
       console.log('je passe dans le middleware user');
-      const state = store.getState();
       axios.post('http://unknown8.fr:4000/user/logout', {
-        email: state.user.email,
-        password: state.user.password,
+        
       })
           .then((response) => {
             console.log(`réponse back ${response.data}`)
-            store.dispatch({
-              type: 'LOGOUT',
-              // logged: response.data,
-            });
           })
           .catch((error) => {
             console.log(error);
@@ -42,6 +36,7 @@ const user = (store) => (next) => (action) => {
         }
     else if (action.type === 'REGISTER'){
       const state = store.getState();
+      console.log(state.user)
       axios.post('http://unknown8.fr:4000/user/register',{
         email: state.user.email,
         password: state.user.password,
@@ -51,8 +46,6 @@ const user = (store) => (next) => (action) => {
       .then((response) => {
         console.log(`réponse back ${response.data}`)
         store.dispatch({
-          type: 'REGISTER',
-        },{
           type: 'GET_ROLE',
         }
         );
@@ -92,12 +85,15 @@ const user = (store) => (next) => (action) => {
         store.dispatch({
           type: 'DELETE_USER',
         });
+
+        console.log('sous le di')
       })
       .catch((error) => {
         console.log(error);
         alert('Erreur impossible de supprimer le user');
       });
     }
+
     next(action);
 };
 
