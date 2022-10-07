@@ -7,6 +7,7 @@ import Input from '../Input'
 import { useDispatch, useSelector} from 'react-redux';
 
 // == Composant
+import { StyledButton } from '../../selector/styles'
 
 function Register() {
 
@@ -133,7 +134,7 @@ function Register() {
             </Snackbar>
           </>
         )} 
-        <Button  sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>S'inscrire</Button>    
+        <StyledButton  sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>S'inscrire</StyledButton>    
       </Box>
     </Container>
   );

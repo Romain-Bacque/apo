@@ -1,7 +1,7 @@
 // == Import
 import { Box, Typography, Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import './style.scss';
+import { StyledButton } from '../../selector/styles'
 // == Composant
 import Input from '../Input'
 function Form_brewerie() {
@@ -52,9 +52,9 @@ function Form_brewerie() {
         label="Description :"
       />
       </Box>
-      <Button sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>Ajouter
+      <StyledButton sx={{width: '100%', marginTop: '2rem'}} type='submit'>Ajouter
         <AddIcon sx={{marginLeft: '1rem'}}/>
-      </Button>
+      </StyledButton>
     </Box>
 
   );

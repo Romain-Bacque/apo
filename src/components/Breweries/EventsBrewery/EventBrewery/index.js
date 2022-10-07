@@ -4,8 +4,8 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { StyledButton } from '../../../../selector/styles'
 
 const bull = (
   <Box
@@ -27,7 +27,7 @@ const card = (
       </Typography>
 
       <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-        <Button> Participer </Button>
+        <StyledButton> Participer </StyledButton>
       </Typography>
 
     </Box>

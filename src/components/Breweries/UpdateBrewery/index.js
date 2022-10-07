@@ -4,9 +4,7 @@ import UpdateIcon from '@mui/icons-material/Update';
 import './style.scss';
 import Input from '../../Input'
 // == Composant
-import logo from '../../Header/logo.svg';
-import Categories from '../../Categories';
-import EventsBrewery from '../EventsBrewery';
+import { StyledButton } from '../../../selector/styles'
 
 function UpdateBrewery() {
   return (
@@ -58,9 +56,9 @@ function UpdateBrewery() {
         value="Un petit lorem"
       />
       </Box>
-      <Button sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>Modifier
+      <StyledButton sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>Modifier
         <UpdateIcon sx={{marginLeft: '1rem'}}/>
-      </Button>
+      </StyledButton>
     </Box>
 
   );

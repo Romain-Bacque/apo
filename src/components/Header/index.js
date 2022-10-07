@@ -1,5 +1,4 @@
 // == Import
-import './style.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 // == Composant
@@ -7,19 +6,18 @@ import React from 'react';
 import Input from '../Input'
 import { Link } from 'react-router-dom'
 import { styled, alpha } from '@mui/material/styles';
-import { AppBar, Box, Toolbar, IconButton } from '@mui/material';
-import Button from '@mui/material/Button';
+import {Box, Toolbar, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import SportsBarTwoToneIcon from '@mui/icons-material/SportsBarTwoTone';
 import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import classes from "./index.module.css";
+import { StyledHeader } from '../../selector/styles'
+
 
 const Search = styled('form')(({ theme }) => ({
   position: 'relative',
@@ -62,6 +60,8 @@ const StyledInputBase = styled(Input)(({ theme }) => ({
     },
   },
 }));
+
+
 
 
 function Header() {
@@ -116,6 +116,7 @@ function Header() {
             <ListItemText primary={"Accueil"}></ListItemText>
           </ListItem>
         </Link>
+
         {isLogged && <Link to='/events'>
           <ListItem
            button
@@ -125,6 +126,7 @@ function Header() {
             <ListItemText primary={"Evenements"}>Evenements</ListItemText>
           </ListItem>
         </Link>}
+
         {isLogged && role === "brewer" && <Link to='/breweries'>
           <ListItem
            button
@@ -134,6 +136,7 @@ function Header() {
             <ListItemText primary={"Mes brasseries"}>Mes brasseries</ListItemText>
           </ListItem>
         </Link>}
+
         {isLogged && <Link to='/profil'>
           <ListItem
            button
@@ -143,6 +146,7 @@ function Header() {
             <ListItemText primary={"Profil"}>Profil</ListItemText>
           </ListItem>
         </Link>}
+
         {!isLogged && <Link to='/Login'>
           <ListItem
            button
@@ -152,6 +156,7 @@ function Header() {
             <ListItemText primary={"Connexion"}>Connexion</ListItemText>
           </ListItem>
         </Link>}
+        
         {isLogged && <Link>
           <ListItem
            button
@@ -186,7 +191,7 @@ function Header() {
 
   
   return (
-      <AppBar sx={{}}>
+      <StyledHeader>
         <Toolbar sx={{ justifyContent: 'space-between'}}>
         <Box sx={{p: 1}}>
         <Link to='/'>
@@ -241,7 +246,7 @@ function Header() {
               
           {/* <Navbar className='header-navbar'/> */}
         </Toolbar>
-      </AppBar>
+      </StyledHeader>
   );
 }
   
