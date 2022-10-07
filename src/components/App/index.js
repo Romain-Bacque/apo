@@ -1,6 +1,5 @@
 // == Import
 import './style.scss';
-
 import { Routes, Route } from 'react-router-dom'
 import {Box} from '@mui/material';
 // == Composant
