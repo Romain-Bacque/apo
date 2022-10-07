@@ -63,7 +63,6 @@ function App() {
                 <Route path='/login' element={<Login />} />
                 <Route path='/profil' element={<Profil />} />
                 <Route path='/Brewery/event' element={<UpdateEventBrewery />} />
-                <Route path='/test' element={<Test />} />
               </Routes>
             </Box>
 

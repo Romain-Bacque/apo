@@ -71,17 +71,10 @@ function Header() {
   const isLogged = useSelector(state => state.user.isLoggedIn);
   const role = useSelector(state => state.user.role);
 
-
-  const dispatch = useDispatch();
-
   const handleLogout = (evt) => {
     dispatch({
       type: 'LOGOUT',
     });
-  };
-
-  const navigate = useNavigate()
-    navigate('/');
   };
 
   const [state, setState] = React.useState({
