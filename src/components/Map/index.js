@@ -7,18 +7,17 @@ import "leaflet-easybutton/src/easy-button.css";
 import "font-awesome/css/font-awesome.min.css";
 import "./style.scss";
 import { style } from "@mui/system";
-import visitorIcon from "./constants";
 import positionIcon from "./MypositionIcon"
 import { Link } from 'react-router-dom';
 import logo from "./logoBrasserie.jpg";
 import { useSelector } from 'react-redux';
+import visitorIcon from './constants'
 
 const { BaseLayer } = LayersControl;
 
 
 
 function Map() {
-
   const breweries = useSelector ((state) => state.data.breweries)
   const [map, setMap] = useState(null);
   const [position, setPosition] = useState(null);
