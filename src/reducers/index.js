@@ -8,6 +8,7 @@ const rootReducer = combineReducers({
     user: userReducer,
     data : dataReducer,
     search : searchReducer 
+
 });
 
 export default rootReducer;

@@ -1,5 +1,6 @@
 // == Import
 import './style.scss';
+import { useDispatch, useSelector } from 'react-redux';
 // == Composant
 import * as React from 'react';
 import Input from '../Input'
@@ -19,9 +20,8 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useDispatch, useSelector  } from 'react-redux';
+import classes from "./index.module.css";
 import  { useNavigate }  from "react-router-dom";
-
 
 
 const Search = styled('form')(({ theme }) => ({
@@ -29,8 +29,7 @@ const Search = styled('form')(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-    border: '0px'
+        border: '0px'
   },
   marginLeft: 0,
   width: '100%',
@@ -66,97 +65,118 @@ const StyledInputBase = styled(Input)(({ theme }) => ({
     },
   },
 }));
- 
+
 
 function Header() {
-  const dispatch = useDispatch()
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const isLogged = useSelector(state => state.user.isLoggedIn);
+  const role = useSelector(state => state.user.role);
+
+  const dispatch = useDispatch();
+
+  const handleLogout = (evt) => {
+    dispatch({
+      type: 'LOGOUT',
+    });
+  };
+
   const navigate = useNavigate()
+
 
   const [state, setState] = React.useState({
     top: false,
   });
-
+  
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event &&
       event.type === 'keydown' &&
       (event.key === 'Tab' || event.key === 'Shift')
-    ) {
-      return;
-    }
+      ) {
+        return;
+      }
+      
+      setState({ ...state, [anchor]: open });
+    };
 
-    setState({ ...state, [anchor]: open });
+  const handleListItemClick = (event, index) => {
+    event.preventDefault();
+
+    setSelectedIndex(index);
   };
-
+    
+    
   const list = (anchor) => (
     <Box
+      component="form"
+      onSubmit={handleLogout}
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250}}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List sx={{ color: 'black', display: 'flex', flexDirection: 'column', padding: '2rem', gap: '1rem' }}>
-                 
-        <Button>Les brasseries autour de moi</Button>
-
-        <ListItem disablePadding >
-
-          <ListItemButton>
-
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-
-            <ListItemText>
-              <Link to='/'> Accueil </Link>
-            </ListItemText>
-
-          </ListItemButton>
-
-        </ListItem>
-
-        <ListItem disablePadding >
-          <ListItemButton>
-            <ListItemText>
-              <Link to='/Login'> Connection </Link>
-            </ListItemText>
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem disablePadding >
-          <ListItemButton>
-            <ListItemText>
-              <Link to='/breweries'> Mes Brasseries </Link>
-            </ListItemText>
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem disablePadding >
-          <ListItemButton>
-            <ListItemText>
-              <Link to='/events'> Evènements </Link>
-            </ListItemText>
-          </ListItemButton>
-        </ListItem>
-
-          <ListItem disablePadding >
-          <ListItemButton>
-            <ListItemText>
-              <Link to='/profil'> Profil</Link>
-            </ListItemText>
-          </ListItemButton>
+       
+      <List sx={{ color: 'black' }} className={classes.header__link}>
+        <Link to='/'>
+          <ListItem
+           button
+           selected={selectedIndex === 1}
+           onClick={(event) => handleListItemClick(event, 1)}
+           >
+            <ListItemText primary={"Accueil"}></ListItemText>
           </ListItem>
-
+        </Link>
+        {!isLogged && <Link to='/events'>
+          <ListItem
+           button
+           selected={selectedIndex === 4}
+           onClick={(event) => handleListItemClick(event, 4)}
+           >
+            <ListItemText primary={"Evenements"}>Evenements</ListItemText>
+          </ListItem>
+        </Link>}
+        {!isLogged && role === "brewer" && <Link to='/breweries'>
+          <ListItem
+           button
+           selected={selectedIndex === 5}
+           onClick={(event) => handleListItemClick(event, 5)}
+           >
+            <ListItemText primary={"Mes brasseries"}>Mes brasseries</ListItemText>
+          </ListItem>
+        </Link>}
+        {!isLogged && <Link to='/profil'>
+          <ListItem
+           button
+           selected={selectedIndex === 6}
+           onClick={(event) => handleListItemClick(event, 1)}
+           >
+            <ListItemText primary={"Profil"}>Profil</ListItemText>
+          </ListItem>
+        </Link>}
+        {!isLogged && <Link end to='/Login'>
+          <ListItem
+           button
+           selected={selectedIndex === 2}
+           onClick={(event) => handleListItemClick(event, 2)}
+           >
+            <ListItemText primary={"Connexion"}>Connexion</ListItemText>
+          </ListItem>
+        </Link>}
+        {isLogged && <Link>
+          <ListItem
+           button
+           selected={selectedIndex === 3}
+           onClick={(event) => handleListItemClick(event, 3)}
+           >
+            <ListItemText primary={"Se déconnecter"}>Se déconnecter</ListItemText>
+          </ListItem>
+        </Link>}
 
       </List>
-
       <Divider />
-
-      <List>
-          <Button sx={{width: '100%'}}>Se déconnecter</Button>           
-      </List>
     </Box>
   );
+
   
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -173,6 +193,7 @@ function Header() {
      
   }
   }
+
   
   return (
       <AppBar sx={{}}>
@@ -227,7 +248,6 @@ function Header() {
               </div>
 
               </IconButton>
-               
               
           {/* <Navbar className='header-navbar'/> */}
         </Toolbar>

@@ -21,6 +21,25 @@ const user = (store) => (next) => (action) => {
             alert('Erreur de chargement, veuillez réessayer');
           });
       }
+    else if (action.type === 'LOGOUT') {
+      console.log('je passe dans le middleware user');
+      const state = store.getState();
+      axios.post('http://unknown8.fr:4000/user/logout', {
+        email: state.user.email,
+        password: state.user.password,
+      })
+          .then((response) => {
+            console.log(`réponse back ${response.data}`)
+            store.dispatch({
+              type: 'LOGOUT',
+              // logged: response.data,
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+            alert('Impossible de ce deconnecter');
+          }); 
+        }
     else if (action.type === 'REGISTER'){
       const state = store.getState();
       axios.post('http://unknown8.fr:4000/user/register',{
@@ -28,13 +47,15 @@ const user = (store) => (next) => (action) => {
         password: state.user.password,
         name: state.user.name,
         role: state.user.role,
-        
       })
       .then((response) => {
         console.log(`réponse back ${response.data}`)
         store.dispatch({
-          type: 'REGISTER_SUCCCESS',
-        });
+          type: 'REGISTER',
+        },{
+          type: 'GET_ROLE',
+        }
+        );
       })
       .catch((error) => {
         console.log(error);

@@ -4,7 +4,8 @@ export const initialState = {
     email:  '',
     password: '',
     loading: false,
-    role: 'user', // TODO a changer 
+    role: '',
+    isRegistered: false,
 }; 
 
 
@@ -20,9 +21,14 @@ const reducer = (state = initialState, action = {}) => {
             // la notation entre crochet me permet de spécifier
             // via une expression le nom de la propriété cliblée
         };
-        case 'REGISTER_SUCCCESS':
+        case 'REGISTER':
             return {
               ...state,
+              isRegistered: true,
+            };
+        case 'GET_ROLE':
+            return {
+                role: '',
             };
         case 'LOGIN':
             return {
@@ -34,19 +40,20 @@ const reducer = (state = initialState, action = {}) => {
                 ...state,
                 email: '',
                 password: '',
+                role: '',
             };
         case 'LOGOUT': //? Logout = boulean isLoggedIn = false
             return {
                 ...state,
                 isLoggedIn: false,
             };
-        case 'DELETE_USER': //? DELETE Un User
+        case 'DELETE_USER': // TODO Delete Un User
             return {
                 ...state,
             };
-            default:
+            default: 
                 return state;
-        case 'UPDATE_USER':
+        case 'UPDATE_USER': // TODO A faire le reducer pour mettre a jouer le profile
             return {
                 ...state
             }
