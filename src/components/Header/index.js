@@ -19,11 +19,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import MenuIcon from '@mui/icons-material/Menu';
-
-
 import classes from "./index.module.css";
-
-
 
 const Search = styled('form')(({ theme }) => ({
   position: 'relative',
@@ -67,6 +63,7 @@ const StyledInputBase = styled(Input)(({ theme }) => ({
   },
 }));
 
+
 function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -74,16 +71,11 @@ function Header() {
   const isLogged = useSelector(state => state.user.isLoggedIn);
   const role = useSelector(state => state.user.role);
 
-
-  const dispatch = useDispatch();
-
   const handleLogout = (evt) => {
     dispatch({
       type: 'LOGOUT',
+      
     });
-  };
-  const navigate = useNavigate()
-    navigate('/');
   };
 
   const [state, setState] = React.useState({
@@ -114,6 +106,7 @@ function Header() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
+       
       <List sx={{ color: 'black' }} className={classes.header__link}>
         <Link to='/'>
           <ListItem
@@ -169,6 +162,7 @@ function Header() {
             <ListItemText primary={"Se déconnecter"}>Se déconnecter</ListItemText>
           </ListItem>
         </Link>}
+
       </List>
       <Divider />
     </Box>
@@ -177,7 +171,18 @@ function Header() {
   
   const handleSubmit = (e) => {
     e.preventDefault()
-    navigate("/search");
+  
+  }
+  const handleKeyUp = (e) => {
+    if (e.key === 'Enter' || e.keyCode === 13) {
+      const value = e.target.value;
+      dispatch({
+        type: 'SEARCH_VALUE',
+        value: e.target.value,
+      })
+      navigate(`/search/${value}`)
+     
+  }
   }
 
   
@@ -199,7 +204,9 @@ function Header() {
                   placeholder="Search…"
                   inputProps={{ 'aria-label': 'search' }}
                   name='search'
+                  type='search'
                   sx={{width: '100%'}}
+                  onKeyUp={handleKeyUp}
                 />
             </Search> 
         

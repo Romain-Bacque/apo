@@ -1,11 +1,12 @@
+
 export const initialState = {
     isLoggedIn: false,
     name: '',
-    email:  '',
+    email: '',
     password: '',
+    confirmPassword: '',
+    role: 'user',
     loading: false,
-    role: '',
-    isRegistered: true,
 }; 
 
 const reducer = (state = initialState, action = {}) => {
@@ -13,49 +14,39 @@ const reducer = (state = initialState, action = {}) => {
     switch (action.type) {
 
         case 'CHANGE_VALUE': // pour ajouter un champ controller
-        return {
-            ...state,
-            [action.key]: action.value,
-            // la notation entre crochet me permet de spécifier
-            // via une expression le nom de la propriété cliblée
-        };
-        case 'REGISTER':
+        console.log(state)
             return {
-              ...state,
-              isRegistered: true,
+                ...state,
+                [action.key]: action.value,
+                // la notation entre crochet me permet de spécifier
+                // via une expression le nom de la propriété cliblée
             };
-        case 'GET_ROLE':
+        case 'RESET':
             return {
+                ...state,
+                name: '',
+                email: '',
+                password: '',
                 role: '',
-            };
-        case 'LOGIN':
-            return {
-              ...state,
-              isLoggedIn: true,
+                isLoggedIn: false,
             };
         case 'SAVE_USER':
             return {
                 ...state,
-                email: '',
-                password: '',
-                role: '',
+                email: action.email,
+                password: action.password,
+                role: action.role,
+                logged: action.logged,
             };
-        case 'LOGOUT': //? Logout = boolean isLoggedIn = false
-            return {
-                ...state,
-                isLoggedIn: false,
-            };
-        case 'DELETE_USER': // TODO Delete Un User
-            return {
-                ...state,
-            };
-            default: 
-                return state;
-        case 'UPDATE_USER': // TODO A faire le reducer pour mettre a jouer le profile
+        case 'UPDATE_USER':
             return {
                 ...state
             }
+        default:
+            return state;
     }
 };
 
 export default reducer;
+
+

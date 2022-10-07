@@ -5,29 +5,47 @@ import './style.scss';
 
 import Input from '../Input'
 import { useDispatch, useSelector} from 'react-redux';
+import { useCallback, useState } from 'react';
 
 // == Composant
 
 function Register() {
-
-
+  const [ isValid, setIsValid ] = useState({});
+  const [ passwordValue, setPasswordValue ] = useState('');
   const dispatch = useDispatch();
-  const  getRole = useSelector(state => state.user.role === 'brewer');
-  const  registered = useSelector(state => state.user.isRegistered);
-  console.log(registered);
-  const handleRegister = (evt) => {
-    evt.preventDefault();
+  const getRole = useSelector(state => state.user.role === 'brewer');
+  const registered = useSelector(state => state.user.isRegistered);
+  const isFormValid = isValid.name &&
+                    isValid.email &&
+                    isValid.password &&
+                    isValid.confirmPassword &&
+                    isValid.role;
+
+  const handleRegister = (event) => {    
+    event.preventDefault();
+
+    if(!isFormValid) return;
+
     dispatch({
       type: 'REGISTER',
+    });  
+  };
+
+  const handleRole = () =>{
+    dispatch({
+      type: 'ROLE',
     },);
   };
 
-  const handleRole =() =>{
-    console.log('Role');
-    dispatch({
-      type: 'ROLE',
-  },);
-};
+  const handleInputValidity = useCallback((event) => {
+    const { name: inputName } = event.target;
+    setIsValid(prevState => {
+      return {
+        ...prevState,
+        [inputName]: true
+      };
+    });
+  }, []);
       
   return (
 
@@ -39,25 +57,23 @@ function Register() {
         <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center', border: 'none'}}>
 
 
-          <label htmlfor='particulier'> Particulier</label>
+          <label htmlFor='particulier'> Particulier</label>
 
           <Input 
             type="radio" 
-            id="particulier" 
             name="role" 
             value="user" 
-            onclick={handleRole}
+            checked={true}
+            onClick={handleRole}
           />
 
-
-          <label htmlfor='particulier'> Brasseur </label>
+          <label htmlFor='particulier'> Brasseur </label>
 
           <Input 
             type="radio" 
-            id="role" 
             name="role" 
             value="brewer" 
-            onclick={handleRole}
+            onClick={handleRole}
             />
 
         </Box>
@@ -68,28 +84,33 @@ function Register() {
           name='name'
           type='text'
           label="Nom ou Pseudo :"
+          onInputValidity={handleInputValidity}
         />
         <Input 
           id="standard-basic"
           variant="standard"
           name='email'
           type='email'
-          label="adresse email :"
-      
+          label="Adresse Email :"
+          onInputValidity={handleInputValidity}      
         />
         <Input 
           id="standard-basic"
           variant="standard"
           name='password'
           type='password'
-          label="Entrer un mot de passe :"
+          label="Entrer le mot de passe :"
+          onPasswordChange={(value) => setPasswordValue(value)}
+          onInputValidity={handleInputValidity}
         />
           <Input 
           id="standard-basic"
           variant="standard"
-          name='confirm-pass'
+          name='confirmPassword'
           type='password'
-          label="comfirmer le mot de passe :"
+          label="Confirmer le mot de passe :"
+          valueToMatch={passwordValue}
+          onInputValidity={handleInputValidity}
         />
 
       <Button  sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>S'inscrire</Button>
