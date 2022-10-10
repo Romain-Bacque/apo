@@ -48,6 +48,7 @@ function One_brewerie () {
 
 
           <Typography variant="body2" color="text.secondary" sx={{marginTop: '2rem'}}>
+            <Categories tags={findBrewery.categories}/>
           </Typography>
 
           <Typography variant="body2" color="text.secondary">

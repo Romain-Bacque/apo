@@ -1,9 +1,9 @@
 // == Import
 import './style.scss';
 // == Composant
-function Category({ tags }) {
+function Category({ tag }) {
   return (
-      <span className='tag'> {tags} <span className='del-tag'> X </span> </span>    
+      <span className='tag'> {tag} <span className='del-tag'> X </span> </span>    
   );
 }
 
