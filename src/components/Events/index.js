@@ -9,7 +9,7 @@ import MyEvent from './MyEvent'
 function Events() {
   return (
     <>
-        <Typography gutterBottom variant="h5" component="div" sx={{marginBottom: '2rem'}}>
+        <Typography gutterBottom variant="h5" component="div">
            Mes évènements (1)
         </Typography>
        

@@ -21,7 +21,7 @@ function One_brewerie () {
   console.log(findBrewery)
   
     return(
-    <Card sx={{ width: '90%' }}>
+    <Card>
 
       <CardActionArea>
         <CardMedia
@@ -30,7 +30,7 @@ function One_brewerie () {
           image={findBrewery.image}
           alt="green iguana"
         />
-        <CardContent sx={{alignItems: 'base-line'}}>
+        <CardContent>
 
           <Typography gutterBottom variant="h5" component="div">
            {findBrewery.title}
@@ -38,16 +38,20 @@ function One_brewerie () {
 
           <Typography variant="body2" color="text.secondary" sx={{alignItems: 'center', marginTop: '2rem'}}>
            <LocationOnIcon /> {findBrewery.address}
+
           </Typography>
 
           <Typography variant="body2" color="text.secondary">
            <PhoneIcon /> {findBrewery.phone}
           </Typography>
 
+
           <Typography sx={{marginTop: '2rem', marginBottom: '2rem'}}> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </Typography>
 
 
-          <Typography variant="body2" color="text.secondary" sx={{marginTop: '2rem'}}>
+          <Typography variant="body2" color="text.secondary">
+           <Categories />
+
           </Typography>
 
           <Typography variant="body2" color="text.secondary">
@@ -60,7 +64,7 @@ function One_brewerie () {
 
       </CardActionArea>
 
-      <CardActions sx={{ justifyContent: 'center'}}>
+      <CardActions>
 
       <Link to='/Brewery/event'> <Button> Gestionnaire d'évènements </Button> </Link> 
       

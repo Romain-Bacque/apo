@@ -2,19 +2,18 @@
 
 import './style.scss';
 // == Composant
-import { StyledButton } from '../../selector/styles'
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import TextField from '@mui/material/TextField';
-import { Box } from '@mui/material';
+import { Box, Button, Container } from '@mui/material';
+import Input from '../Input';
 
 
 function Profil() {
   return (
-    <div>
+    <Container component='form'>
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -25,13 +24,11 @@ function Profil() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-          <form>
-          <Box sx={{display: 'flex',   justifyContent: 'center', alignItems: 'center', gap: '2rem'}}>
-            <TextField id="standard-basic" label="Changer de pseudo :" variant="standard" />
-            <StyledButton variant="contained" type='submit'>Modifier</StyledButton>
-          </Box>
-          </form>
-
+            <Input
+              name='name' 
+              label="Changer de pseudo :"
+            />
+            <Button type='submit'>Modifier</Button>
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -46,12 +43,11 @@ function Profil() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-          <form>
-          <Box sx={{display: 'flex',   justifyContent: 'center', alignItems: 'center', gap: '2rem'}}>
-            <TextField id="standard-basic" label="Changer l'adresse email :" variant="standard" />
-            <StyledButton variant="contained" type='submit'>Modifier</StyledButton>
-          </Box>
-          </form>
+            <Input 
+              name='email'
+              label="Changer l'adresse email :"
+            />
+            <Button variant="contained" type='submit'>Modifier</Button>
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -66,17 +62,11 @@ function Profil() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-          <form>
-          <Box sx={{display: 'flex',   justifyContent: 'center', alignItems: 'center', gap: '2rem'}}>
-            <TextField id="standard-basic" label="Changer de mot de passe :" variant="standard" />
-            <StyledButton variant="contained" type='submit'>Modifier</StyledButton>
-          </Box>
-          </form>
-
+            <Button type='submit'>Réinitialiser le mot de passe</Button>
           </Typography>
         </AccordionDetails>
       </Accordion>
-    </div>
+    </Container>
   );
 }
 export default Profil;

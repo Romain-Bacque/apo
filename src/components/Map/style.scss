@@ -1,9 +1,9 @@
 .leaflet-container {
-    width: 100vw; 
-    height: 85vh;
-    margin: 1rem;
-    margin-top: 4rem;
+    width: 110%; 
+    height: 100vh;
+    margin-top: -68px;
     position: relative;
+    margin-left: -20px;
   }
 
 .leaflet-popup-content-wrapper{
@@ -67,4 +67,32 @@
   font-weight: bold;
 }
 
+@media (min-width: 600px) {
+  .leaflet-container {
+    width: 110%; 
+    height: 100vh;
+    margin-top: -68px;
+    position: relative;
+    margin-left: -25px;
+  }
+ }
+
+ @media (min-width: 1198px) {
+  .leaflet-container {
+    width: 111%; 
+    height: 100vh;
+    margin-top: -68px;
+    position: relative;
+    margin-left: -25px;
+  }
+ }
+ @media (min-width: 1200px) {
+  .leaflet-container {
+    width: 112%; 
+    height: 100vh;
+    margin-top: -68px;
+    position: relative;
+    margin-left: -70px;
+  }
+ }
 
