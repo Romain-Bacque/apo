@@ -1,31 +1,30 @@
 // == Import
-import { Box, Typography, Button, Snackbar, Alert, RadioGroup, FormControlLabel, Radio, InputLabel } from '@mui/material';
-
-import './style.scss';
-
-import Input from '../Input'
 import { useDispatch } from 'react-redux';
 import { useCallback, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-// == Composant
+import { Box, Typography, Button, RadioGroup, FormControlLabel, Radio } from '@mui/material';
+import './style.scss';
+import Input from '../Input'
 
+// == Component
 function Register() {
+  const dispatch = useDispatch();
   const [ inputStatut, setInputStatut ] = useState({
     email: { isValid: false, value: '' },
     password: { isValid: false, value: '' },
     name: { isValid: false, value: '' },
     role: 'user'
   });
-  const dispatch = useDispatch();
 
   const isFormValid = inputStatut.name.isValid &&
-                    inputStatut.email.isValid &&
-                    inputStatut.password.isValid &&
-                    inputStatut.confirmPassword.isValid
-
+  inputStatut.email.isValid &&
+  inputStatut.password.isValid &&
+  inputStatut.confirmPassword.isValid
+  
   const handleRegister = (event) => {    
     event.preventDefault();
-
+    
     if(!isFormValid) return;
 
     dispatch({
@@ -45,46 +44,39 @@ function Register() {
       };
     });
   }, []);
-
+  
   return (
-
     <>
-      <Snackbar autoHideDuration={1000} >
-        <Alert severity="success" sx={{ width: '100%' }}>
-          Vous êtes enregistré avec succès !
-        </Alert>
-      </Snackbar>
-      <Box component="form" onSubmit={handleRegister} sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', padding: '1rem'}}>
-        <Typography component='h2' sx={{ marginTop: '4rem', fontSize: '1.5rem', textAlign: 'center' }}> Créer un compte </Typography>
+      <Box component="form" onSubmit={handleRegister} sx={{ bgcolor: 'white', width: '100%', maxWidth: '500px', display: 'flex', flexDirection: 'column', gap: '2rem', padding: '1rem'}}>
+        <Typography component='h2' sx={{ marginTop: '4rem', fontSize: '1.5rem', textAlign: 'center' }}>Créer un compte</Typography>
 
-        <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center', border: 'none'}}>
+        <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center', border: 'none' }}>
 
-        <RadioGroup
-          defaultValue="user"
-          name="role"
-          sx={{ display: 'inline-block' }}
-        >  
-          <FormControlLabel
-            label="Particulier"
-            value="user"
-            onChange={handleInputChange.bind(null, "role", "user")}
-            control={<Radio />}
-          />
-
-          <FormControlLabel
-            label="Brasseur"
-            value="brewer"
-            onChange={handleInputChange.bind(null, "role", "brewer")}
-            control={<Radio />}
-          />
-        </RadioGroup>
+          <RadioGroup
+            defaultValue="user"
+            name="role"
+            sx={{ display: 'inline-block' }}
+          >  
+            <FormControlLabel
+              label="Particulier"
+              value="user"
+              onChange={handleInputChange.bind(null, "role", "user")}
+              control={<Radio />}
+            />
+            <FormControlLabel
+              label="Brasseur"
+              value="brewer"
+              onChange={handleInputChange.bind(null, "role", "brewer")}
+              control={<Radio />}
+            />
+          </RadioGroup>
 
       </Box>
 
         <Input 
           input={
             {
-              id: "standard-basic",
+              id: "name",
               variant: "standard",
               type: 'text',
               label: "Nom ou Pseudo :"
@@ -96,7 +88,7 @@ function Register() {
         <Input 
           input={
             {
-              id: "standard-basic",
+              id: "email",
               variant: "standard",
               type: 'email',
               label: "Adresse Email :"
@@ -108,7 +100,7 @@ function Register() {
         <Input 
           input={
             {              
-              id: "standard-basic",
+              id: "password",
               variant: "standard",
               type: 'password',
               label: "Entrer le mot de passe :"
@@ -120,7 +112,7 @@ function Register() {
           <Input 
             input={
               {
-                id: "standard-basic",
+                id: "confirmPassword",
                 variant: "standard",
                 type: 'password',
                 label: "Confirmer le mot de passe :"
@@ -130,86 +122,14 @@ function Register() {
           valueToMatch={inputStatut.password.value}
           onInputChange={handleInputChange}
         />
-{/* <Box component='form' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', padding: '1rem' }}> */}
-  
-  {/* {inputStatut.role === "brewer" && ( 
-  <>
-    <Typography component='h2' sx={{ marginTop: '2rem', fontSize: '1.5rem', textAlign: 'center' }}> Enregistrer une brasserie </Typography>
-    <Input
-      input={ 
-        {
-          id: "brewery",
-          variant: "standard",
-          type: 'text',
-          label: "Nom de la brasserie :"
-        } 
-      }        
-      name='title'
-    />
-    <InputLabel htmlFor='image'>Image :</InputLabel>
-    <Input
-      input={
-        {
-          id: "image",
-          variant: "standard",
-          type: 'file',
-          accept: "image/png, image/jpeg", 
-        }
-      }
-      name='Image :'
-      />
-    <Input
-      input={
-        {
-          id: "tel",
-          variant: "standard",
-          type: 'tel',
-          label: "Numéro de téléphone :" 
-        }
-      }
-      name='phone'
-    />
-    <Input
-      input={
-        {            
-          id: "address",
-          variant: "standard",
-          type: 'text',
-          label: "Adresse :"
-        }
-      }      
-      name='address'
-    />
-    <Input
-      input={
-        {            
-          id: "description",
-          type: 'text',
-          label: "Description :",
-          maxRows: 5,
-          multiline: true
-        }
-      }      
-      name='description'
-    />
-    </>
-    )} 
-    {registered && (
-          <>
-            <Snackbar autoHideDuration={1000} >
-            <Alert severity="success" sx={{ width: '100%' }}>
-              Vous êtes enregistré avec succès !
-            </Alert>
-            </Snackbar>
-          </>
-    )}    
-    </Box> */}
+
       <Button
-        type="button"
+        type="submit"
         disabled={!isFormValid}
         variant="contained">
       S'enregistrer
-      </Button>      
+      </Button>
+      <Link to='/login'>Vous êtes déjà enregistré ?</Link>      
     </Box>       
   </>
   );

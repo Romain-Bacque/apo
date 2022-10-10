@@ -8,6 +8,10 @@ const user = (store) => (next) => (action) => {
     const state = store.getState();
 
     if (action.type === 'LOGIN') {
+        store.dispatch({
+          type: 'PENDING',
+          message: null
+        });
         instance.post('/user/login', {
           email: state.user.email,
           password: state.user.password,
@@ -15,6 +19,22 @@ const user = (store) => (next) => (action) => {
           .then((response) => {
             console.log(`réponse back ${response.data}`)
 
+            if(response.status === 200) {
+              store.dispatch({
+                type: 'SUCCESS',
+                message: null
+              });
+            } else if(response.status === 400) {
+              store.dispatch({
+                type: 'ERROR',
+                message: "utilisateur/mot de passe incorrect(s)"
+              });
+            } else {
+              store.dispatch({
+                type: 'ERROR',
+                message: 'Erreur, connexion impossible.'
+              });
+            }
             const user = response.data.data;
 
             store.dispatch({
@@ -27,7 +47,10 @@ const user = (store) => (next) => (action) => {
           })
           .catch((error) => {
             console.log(error);
-            console.log('Erreur de chargement, veuillez réessayer');
+            store.dispatch({
+              type: 'ERROR',
+              message: 'Erreur, connexion impossible.'
+            });
           });
       }
     else if (action.type === 'LOGOUT') {
@@ -45,6 +68,10 @@ const user = (store) => (next) => (action) => {
           }); 
         }
     else if (action.type === 'REGISTER'){
+      store.dispatch({
+        type: 'PENDING',
+        message: null
+      });
       instance.post('/user/register',{
         email: state.email,
         password: state.password,
@@ -67,7 +94,7 @@ const user = (store) => (next) => (action) => {
         } else {
           store.dispatch({
             type: 'ERROR',
-            message: 'Erreur, impossible de s\'enregistrer'
+            message: 'Erreur, enregistrement impossible.'
           });
         }
       })
@@ -75,13 +102,13 @@ const user = (store) => (next) => (action) => {
         console.log(error);
         store.dispatch({
           type: 'ERROR',
-          message: 'Erreur, impossible de s\'enregistrer',
+          message: 'Erreur, enregistrement impossible.',
           statut: 'error'
         });
       });
     }
     else if (action.type === 'DELETE_USER'){
-      instance.delete('/user/delete',{
+      instance.delete('/user/delete', {
         email: state.user.email,
         password: state.user.password,
         name: state.user.name,

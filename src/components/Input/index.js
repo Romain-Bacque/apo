@@ -16,8 +16,8 @@ function Input(props) {
 
   const {
     value: inputValue,
-    isValid: inputIsValid,
-    isTouched: inputIsTouched,
+    isValid: isInputValid,
+    isTouched: isInputTouched,
     changeHandler: inputChangeHandler,
     blurHandler: inputBlurHandler,
     resetHandler: resetInputHandler,
@@ -25,13 +25,13 @@ function Input(props) {
 
   useEffect(() => {
     const isMatching = props.name === "confirmPassword" ?
-        inputValue === props.valueToMatch ?
+        inputValue === props.valueToMatch.trim() ?
         true : false :
-        inputIsValid;
+        isInputValid;
 
     if(!onInputChange) return;
       onInputChange && onInputChange(name, { isValid: isMatching, value: inputValue });
-  }, [onInputChange, inputIsValid, inputValue, name, props.name, props.valueToMatch])
+  }, [onInputChange, isInputValid, inputValue, name, props.name, props.valueToMatch])
 
   useEffect(() => {
     if(props.reset) resetInputHandler();
@@ -41,8 +41,8 @@ function Input(props) {
   <>
     <TextField
       style={props.style}
-      error={inputIsTouched && !inputIsValid}
-      helperText={inputIsTouched && !inputIsValid && "Entrée incorrecte."}
+      error={isInputTouched && !isInputValid}
+      helperText={isInputTouched && !isInputValid && "Entrée incorrecte."}
       value={inputValue}
       required
       onBlur={inputBlurHandler}
@@ -50,16 +50,16 @@ function Input(props) {
       name={props.name}
       {...props.input}
     />
-    {inputIsTouched && props.name === "confirmPassword" &&
+    {isInputTouched && !isInputValid && props.name === "confirmPassword" &&
       <PasswordChecklist
 				rules={["minLength","number","capital","match"]}
 				minLength={8}
 				value={inputValue}
 				valueAgain={props.valueToMatch}
 				messages={{
-					minLength: "Au moin 8 caractères.",
-					number: "Au moin 1 chiffre.",
-					capital: "Au moin 1 majuscule.",
+					minLength: "Au moins 8 caractères.",
+					number: "Au moins 1 chiffre.",
+					capital: "Au moins 1 majuscule.",
 					match: "Les mots de passe correspondent.",
 				}}
 		/>}
