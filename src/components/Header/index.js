@@ -72,7 +72,6 @@ function Header() {
   const role = useSelector(state => state.user.role);
 
 
-
   const handleLogout = (evt) => {
     dispatch({
       type: 'LOGOUT',
