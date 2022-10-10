@@ -1,5 +1,7 @@
 // == Import
-import { StyledFooter } from '../../selector/styles'
+
+import { Box } from "@mui/material";
+
 
 
 
@@ -9,9 +11,7 @@ function Footer() {
   return (
     
     <>
-      <StyledFooter sx={{height: '5rem'}}>
-        
-      </StyledFooter>
+  
     </>
   );
 }

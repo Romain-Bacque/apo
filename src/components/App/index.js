@@ -1,7 +1,7 @@
 // == Import
 import './style.scss';
 import { Routes, Route } from 'react-router-dom'
-import {Box} from '@mui/material';
+import {Box, Container} from '@mui/material';
 // == Composant
 import Header from '../Header';
 import Footer from '../Footer';
@@ -22,6 +22,8 @@ import UpdateEventBrewery from '../Breweries/UpdateEventBrewery';
 import Loading from '../App/Loading';
 import { useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from '../../selector/theme';
 
 
 
@@ -42,9 +44,9 @@ function App() {
   return (
 
 
-      <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}> 
+    <ThemeProvider theme={theme}> 
       <Header />
-            <Box conponent='main' sx={{margin: 'auto', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+            <Container conponent='main'>
               <Routes>
 
                 {loading && <Route path='/search/:value' element={<Loading/>} />}
@@ -64,10 +66,9 @@ function App() {
                 <Route path='/profil' element={<Profil />} />
                 <Route path='/Brewery/event' element={<UpdateEventBrewery />} />
               </Routes>
-            </Box>
-
-            <Footer />
-      </Box>
+            </Container>
+            {/* <Footer /> */}
+    </ThemeProvider>
   );
 }
 

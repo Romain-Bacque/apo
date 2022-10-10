@@ -12,7 +12,7 @@ import {Link} from 'react-router-dom'
 
 function One_brewerie () {
     return(
-    <Card sx={{ width: '90%' }}>
+    <Card>
 
       <CardActionArea>
         <CardMedia
@@ -21,13 +21,13 @@ function One_brewerie () {
           image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
           alt="green iguana"
         />
-        <CardContent sx={{alignItems: 'base-line'}}>
+        <CardContent>
 
           <Typography gutterBottom variant="h5" component="div">
             La brasserie du zythophile
           </Typography>
 
-          <Typography variant="body2" color="text.secondary" sx={{alignItems: 'center', marginTop: '2rem'}}>
+          <Typography variant="body2" color="text.secondary">
            <LocationOnIcon /> 131 rue carno 92450 ville
           </Typography>
 
@@ -35,13 +35,13 @@ function One_brewerie () {
            <PhoneIcon /> 01.30.55.38.20
           </Typography>
 
-          <Typography sx={{marginTop: '2rem', marginBottom: '2rem'}}> Déscription </Typography>
+          <Typography> Déscription </Typography>
 
           <Typography>
           Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.
           </Typography>
 
-          <Typography variant="body2" color="text.secondary" sx={{marginTop: '2rem'}}>
+          <Typography variant="body2" color="text.secondary">
            <Categories />
           </Typography>
 
@@ -55,7 +55,7 @@ function One_brewerie () {
 
       </CardActionArea>
 
-      <CardActions sx={{ justifyContent: 'center'}}>
+      <CardActions>
 
       <Link to='/Brewery/event'> <Button> Gestionnaire d'évènements </Button> </Link> 
       

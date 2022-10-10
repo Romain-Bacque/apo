@@ -3,13 +3,12 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea, CardActions } from '@mui/material';
-import { StyledButton } from '../../../selector/styles'
+import { Button, CardActionArea, CardActions } from '@mui/material';
 // == Composant
 import { Link } from 'react-router-dom'
 function Brewerie() {
   return (
-    <Card sx={{ width: '95%' }}>
+    <Card >
     <CardActionArea>
       <CardMedia
         component="img"
@@ -23,12 +22,12 @@ function Brewerie() {
         </Typography>
       </CardContent>
     </CardActionArea>
-    <CardActions sx={{ justifyContent: 'center' }}>
+    <CardActions>
 
       <Link to='/brewery/update'>
-        <StyledButton size="small" variant="contained" sx={{ display : 'flex', justifyContent: 'flex-end', with: '100%'}}>
+        <Button size="small" variant="contained">
           Gérer
-        </StyledButton>
+        </Button>
       </Link>
 
     </CardActions>

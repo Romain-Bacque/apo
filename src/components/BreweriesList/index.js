@@ -22,9 +22,9 @@ function BreweriesList() {
   
   return (
     
-    <Box sx={{height: '50rem', overflow: 'auto', width: '90%'}}>
+    <Box>
       <>
-        <Box sx={{ width: '100%', padding: '2rem', marginTop: '5rem' }} > 
+        <Box> 
 
         {data.filter(brewery => brewery.address.includes(params.value)).map(filteredData => (
          

@@ -16,7 +16,7 @@ function OneBrewerie ({ title, phone, address, tags, image}) {
     return(
       <Link to='/breweries/:name'>
       
-        <Card sx={{ width: '100%', marginBottom: '1rem' }}>
+        <Card>
           <CardActionArea>
 
             <CardMedia

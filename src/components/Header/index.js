@@ -6,7 +6,7 @@ import React from 'react';
 import Input from '../Input'
 import { Link } from 'react-router-dom'
 import { styled, alpha } from '@mui/material/styles';
-import {Box, Toolbar, IconButton } from '@mui/material';
+import {Box, Toolbar, IconButton, AppBar } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import SportsBarTwoToneIcon from '@mui/icons-material/SportsBarTwoTone';
 import Divider from '@mui/material/Divider';
@@ -16,7 +16,6 @@ import ListItem from '@mui/material/ListItem';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import classes from "./index.module.css";
-import { StyledHeader } from '../../selector/styles'
 import Logo from '../../asset/images/biere-sans-fond.png'
 
 
@@ -191,9 +190,9 @@ function Header() {
 
   
   return (
-      <StyledHeader>
-        <Toolbar sx={{ justifyContent: 'space-between'}}>
-        <Box sx={{p: 1}}>
+      <AppBar>
+        <Toolbar >
+        <Box>
         <Link to='/'>
           <Box component='img' src={Logo} alt='' sx={{width: '4rem'}}/>
         </Link>
@@ -246,7 +245,7 @@ function Header() {
               
           {/* <Navbar className='header-navbar'/> */}
         </Toolbar>
-      </StyledHeader>
+      </AppBar>
   );
 }
   
