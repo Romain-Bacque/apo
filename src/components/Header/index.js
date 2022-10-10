@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 // == Composant
 import React from 'react';
-import Input from '../Input'
-import { Link } from 'react-router-dom'
+import Input from '../Input';
+import { Link } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import { AppBar, Box, Toolbar, IconButton } from '@mui/material';
 import Button from '@mui/material/Button';
@@ -72,7 +72,6 @@ function Header() {
   const role = useSelector(state => state.user.role);
 
 
-  const dispatch = useDispatch();
 
   const handleLogout = (evt) => {
     dispatch({
@@ -80,9 +79,6 @@ function Header() {
     });
   };
 
-  const navigate = useNavigate()
-    navigate('/');
-  };
 
   const [state, setState] = React.useState({
     top: false,

@@ -52,7 +52,8 @@ function App() {
                 {loading && <Route path='/' element={<Loading />} />}
                 {loading === false && <Route path='/' element={<Map />} />}
                 <Route path='/signup' element={<Register />} />
-                <Route path='/breweries/:id' element={<OneBrewerie />} />
+                {loading && <Route path='/breweries/:id' element={<Loading />} />}
+                {loading === false && <Route path='/breweries/:id' element={<OneBrewerie />} />}
                 <Route path='/breweriesList' element={<BreweriesList />} />
                 <Route path='/breweries' element={<Breweries />} />
                 <Route path='/brewery/form_brewery' element={<FormBrewerie />} />
@@ -63,7 +64,6 @@ function App() {
                 <Route path='/login' element={<Login />} />
                 <Route path='/profil' element={<Profil />} />
                 <Route path='/Brewery/event' element={<UpdateEventBrewery />} />
-                <Route path='/test' element={<Test />} />
               </Routes>
             </Box>
 
