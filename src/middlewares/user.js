@@ -27,7 +27,7 @@ const user = (store) => (next) => (action) => {
           })
           .catch((error) => {
             console.log(error);
-            alert('Erreur de chargement, veuillez réessayer');
+            console.log('Erreur de chargement, veuillez réessayer');
           });
       }
     else if (action.type === 'LOGOUT') {
@@ -41,28 +41,43 @@ const user = (store) => (next) => (action) => {
           })
           .catch((error) => {
             console.log(error);
-            alert('Impossible de se deconnecter');
+            console.log('Impossible de se deconnecter');
           }); 
         }
     else if (action.type === 'REGISTER'){
       instance.post('/user/register',{
-        email: state.user.email,
-        password: state.user.password,
-        name: state.user.name,
-        role: state.user.role,
+        email: state.email,
+        password: state.password,
+        name: state.name,
+        role: state.role,
       })
       .then((response) => {
         console.log(`réponse back ${response.data}`)
 
-        const user = response.data.data;
-
-        store.dispatch({
-          type: 'REGISTER_SUCCESS'
-        });
+        if(response.status === 200) {
+          store.dispatch({
+            type: 'SUCCESS',
+            message: null
+          });
+        } else if(response.status === 403) {
+          store.dispatch({
+            type: 'ERROR',
+            message: "utilisateur déjà inscrit"
+          });
+        } else {
+          store.dispatch({
+            type: 'ERROR',
+            message: 'Erreur, impossible de s\'enregistrer'
+          });
+        }
       })
       .catch((error) => {
         console.log(error);
-        alert('Erreur impossible de ce connecter');
+        store.dispatch({
+          type: 'ERROR',
+          message: 'Erreur, impossible de s\'enregistrer',
+          statut: 'error'
+        });
       });
     }
     else if (action.type === 'DELETE_USER'){
@@ -82,7 +97,7 @@ const user = (store) => (next) => (action) => {
       })
       .catch((error) => {
         console.log(error);
-        alert('Erreur impossible de supprimer le user');
+        console.log('Erreur impossible de supprimer le user');
       });
     }
     // else if (action.type === 'UPDATE_USER'){
@@ -99,7 +114,7 @@ const user = (store) => (next) => (action) => {
       // })
       // .catch((error) => {
       //   console.log(error);
-      //   alert('Erreur impossible de supprimer le user');
+      //   console.log('Erreur impossible de supprimer le user');
       // });
     // }
 

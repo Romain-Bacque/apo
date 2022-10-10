@@ -10,11 +10,6 @@ const initialState = {
 const inputReducer = (state, action) => {
   if (action.type === "CHANGE") {
     switch (action.value.type) {
-      case "radio":
-        if (action.value.value === "user" || action.value.value === "brewer") {
-          return { ...state, isValid: true, enteredValue: action.value.value };
-        }
-        break;
       case "text":
         if (action.value.value.length > 0) {
           return { ...state, isValid: true, enteredValue: action.value.value };
@@ -22,6 +17,7 @@ const inputReducer = (state, action) => {
         break;
       case "email":
         const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
         if (action.value.value.match(mailformat)) {
           return { ...state, isValid: true, enteredValue: action.value.value };
         }
@@ -31,8 +27,9 @@ const inputReducer = (state, action) => {
           return { ...state, isValid: true, enteredValue: action.value.value };
         }
         break;
-      case "phone":
-        if (action.value.value >= 0) {
+      case "tel":
+        const phoneNumber = /^((\+)33|0|0033)[1-9](\d{2}){4}$/
+        if (action.value.value.match(phoneNumber)) {
           return { ...state, isValid: true, enteredValue: action.value.value };
         }
         break;
@@ -77,9 +74,9 @@ const inputReducer = (state, action) => {
 const useInput = () => {
   const [inputState, dispatch] = useReducer(inputReducer, initialState);
   
-  const changeHandler = (event) => {
+  const changeHandler = useCallback((event) => {
     dispatch({ type: "CHANGE", value: event.target });
-  };
+  }, []);
 
   const blurHandler = (event) => {
     dispatch({ type: "BLUR", value: event.target });

@@ -1,4 +1,4 @@
-import { FormControlLabel, Radio, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import useInput from '../hooks/use-input'
 import { useEffect } from 'react';
 import PasswordChecklist from "react-password-checklist"
@@ -24,33 +24,32 @@ function Input(props) {
   } = useInput();
 
   useEffect(() => {
-    if(!onInputChange) return
-      onInputChange && onInputChange(name, { isValid: inputIsValid, value: inputValue })
-  }, [onInputChange, inputIsValid, inputValue, name])
+    const isMatching = props.name === "confirmPassword" ?
+        inputValue === props.valueToMatch ?
+        true : false :
+        inputIsValid;
+
+    if(!onInputChange) return;
+      onInputChange && onInputChange(name, { isValid: isMatching, value: inputValue });
+  }, [onInputChange, inputIsValid, inputValue, name, props.name, props.valueToMatch])
 
   useEffect(() => {
     if(props.reset) resetInputHandler();
   }, [props.reset, resetInputHandler])
 
   return (
-    <>
-      {name === "role" && (
-      <FormControlLabel
-        label={props.label}
-        value={props.value}
-        control={<Radio />}
-        onChange={inputChangeHandler}
-        {...props.input}
-      />
-    )}
-    {name !== "role" && <TextField
+  <>
+    <TextField
+      style={props.style}
+      error={inputIsTouched && !inputIsValid}
+      helperText={inputIsTouched && !inputIsValid && "Entrée incorrecte."}
       value={inputValue}
       required
       onBlur={inputBlurHandler}
       onChange={inputChangeHandler}
       name={props.name}
       {...props.input}
-    />}
+    />
     {inputIsTouched && props.name === "confirmPassword" &&
       <PasswordChecklist
 				rules={["minLength","number","capital","match"]}
@@ -63,8 +62,8 @@ function Input(props) {
 					capital: "Au moin 1 majuscule.",
 					match: "Les mots de passe correspondent.",
 				}}
-			/>}
-    </>
+		/>}
+  </>
   );
 }
 
