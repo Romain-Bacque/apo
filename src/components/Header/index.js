@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 // == Composant
 import React from 'react';
-import Input from '../Input'
-import { Link } from 'react-router-dom'
+import Input from '../Input';
+import { Link } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import {Box, Toolbar, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
@@ -72,11 +72,13 @@ function Header() {
   const isLogged = useSelector(state => state.user.isLoggedIn);
   const role = useSelector(state => state.user.role);
 
+
   const handleLogout = (evt) => {
     dispatch({
       type: 'LOGOUT',
     });
   };
+
 
   const [state, setState] = React.useState({
     top: false,
