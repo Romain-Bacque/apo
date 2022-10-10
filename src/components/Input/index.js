@@ -1,6 +1,4 @@
-/* eslint-disable no-unneeded-ternary */
-import PropTypes from 'prop-types';
-import { TextField } from '@mui/material';
+import { FormControlLabel, Radio, TextField } from '@mui/material';
 import useInput from '../hooks/use-input'
 import { useEffect } from 'react';
 import PasswordChecklist from "react-password-checklist"
@@ -10,9 +8,11 @@ import PasswordChecklist from "react-password-checklist"
   on peut utiliser le rest parameter qui va récupérer toutes les valeurs pas encore récupérée
   dans un tableau, sauf pour du destructuring d'objet ce sera dans un objet
 */
-function Input({ reset, name }, props) {
+function Input(props) {
   // pour accéder dynamiquement à une propriété d'un objet
   // on utilise la syntaxe crocher obj['prop'] plutôt que la syntaxe point ob.prop
+
+  const { onInputChange, name } = props;
 
   const {
     value: inputValue,
@@ -23,29 +23,37 @@ function Input({ reset, name }, props) {
     resetHandler: resetInputHandler,
   } = useInput();
 
-  const handleInputChange = () => {
-    if(inputIsTouched) props.onPasswordChange();
-
-    props.onInputValidity();
-
-    inputChangeHandler();
-  }
+  useEffect(() => {
+    if(!onInputChange) return
+      onInputChange && onInputChange(name, { isValid: inputIsValid, value: inputValue })
+  }, [onInputChange, inputIsValid, inputValue, name])
 
   useEffect(() => {
-    if(reset) resetInputHandler();
-  }, [reset, resetInputHandler])
+    if(props.reset) resetInputHandler();
+  }, [props.reset, resetInputHandler])
 
   return (
     <>
-    <TextField
+      {name === "role" && (
+      <FormControlLabel
+        label={props.label}
+        value={props.value}
+        control={<Radio />}
+        onChange={inputChangeHandler}
+        {...props.input}
+      />
+    )}
+    {name !== "role" && <TextField
       value={inputValue}
+      required
       onBlur={inputBlurHandler}
-      onChange={handleInputChange}
-      {...props} // j'utilise le spread operator pour déverser le reste des props sur mon input
-    />
-    {inputIsTouched && name === "confirmPassword" &&
+      onChange={inputChangeHandler}
+      name={props.name}
+      {...props.input}
+    />}
+    {inputIsTouched && props.name === "confirmPassword" &&
       <PasswordChecklist
-				rules={["minLength","specialChar","number","capital","match"]}
+				rules={["minLength","number","capital","match"]}
 				minLength={8}
 				value={inputValue}
 				valueAgain={props.valueToMatch}
@@ -53,17 +61,11 @@ function Input({ reset, name }, props) {
 					minLength: "Au moin 8 caractères.",
 					number: "Au moin 1 chiffre.",
 					capital: "Au moin 1 majuscule.",
-					match: "Les mots de passe ne correspondent pas.",
+					match: "Les mots de passe correspondent.",
 				}}
 			/>}
     </>
   );
 }
-
-// je rend l'info name obligatoire
-// elle me servira de critère pour savoir quelle info récupérer dans le state
-Input.propTypes = {
-  name: PropTypes.string.isRequired,
-};
 
 export default Input;

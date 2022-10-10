@@ -1,5 +1,5 @@
 // == Import
-import { Box, Typography, Button, Snackbar, Alert } from '@mui/material';
+import { Box, Typography, Button, Snackbar, Alert, RadioGroup } from '@mui/material';
 
 import './style.scss';
 
@@ -10,16 +10,19 @@ import { useCallback, useState } from 'react';
 // == Composant
 
 function Register() {
-  const [ isValid, setIsValid ] = useState({});
-  const [ passwordValue, setPasswordValue ] = useState('');
+  const [ inputStatut, setInputStatut ] = useState({
+    email: { isValid: false, value: '' },
+    password: { isValid: false, value: '' },
+    name: { isValid: false, value: '' },
+    role: { isValid: false, value: '' }
+  });
   const dispatch = useDispatch();
-  const getRole = useSelector(state => state.user.role === 'brewer');
   const registered = useSelector(state => state.user.isRegistered);
-  const isFormValid = isValid.name &&
-                    isValid.email &&
-                    isValid.password &&
-                    isValid.confirmPassword &&
-                    isValid.role;
+  const isFormValid = inputStatut.name.isValid &&
+                    inputStatut.email.isValid &&
+                    inputStatut.password.isValid &&
+                    inputStatut.confirmPassword.isValid &&
+                    inputStatut.role.isValid;
 
   const handleRegister = (event) => {    
     event.preventDefault();
@@ -31,22 +34,17 @@ function Register() {
     });  
   };
 
-  const handleRole = () =>{
-    dispatch({
-      type: 'ROLE',
-    },);
-  };
+  const handleInputChange = useCallback((name, statut) => {
+    console.log(name, statut)
 
-  const handleInputValidity = useCallback((event) => {
-    const { name: inputName } = event.target;
-    setIsValid(prevState => {
+    setInputStatut(prevState => {
       return {
         ...prevState,
-        [inputName]: true
+        [name]: statut
       };
     });
   }, []);
-      
+      console.log(inputStatut)
   return (
 
     <>
@@ -56,68 +54,82 @@ function Register() {
 
         <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center', border: 'none'}}>
 
-
-          <label htmlFor='particulier'> Particulier</label>
-
+        <RadioGroup
+        defaultValue="user"
+        name="role"
+        >
           <Input 
-            type="radio" 
-            name="role" 
+            name="role"
+            label="Particulier"
             value="user" 
-            checked={true}
-            onClick={handleRole}
+            onInputChange={handleInputChange}
           />
 
-          <label htmlFor='particulier'> Brasseur </label>
-
           <Input 
-            type="radio" 
-            name="role" 
-            value="brewer" 
-            onClick={handleRole}
+            name="role"
+            label="Brasseur"
+            value= "brewer"
+            onInputChange={handleInputChange}
             />
+      </RadioGroup>
 
         </Box>
 
         <Input 
-          id="standard-basic"
-          variant="standard"
+          input={
+            {
+              id: "standard-basic",
+              variant: "standard",
+              type: 'text',
+              label: "Nom ou Pseudo :"
+            }
+          }
           name='name'
-          type='text'
-          label="Nom ou Pseudo :"
-          onInputValidity={handleInputValidity}
+          onInputChange={handleInputChange}
         />
         <Input 
-          id="standard-basic"
-          variant="standard"
+          input={
+            {
+              id: "standard-basic",
+              variant: "standard",
+              type: 'email',
+              label: "Adresse Email :"
+            }
+          }
           name='email'
-          type='email'
-          label="Adresse Email :"
-          onInputValidity={handleInputValidity}      
+          onInputChange={handleInputChange}      
         />
         <Input 
-          id="standard-basic"
-          variant="standard"
+          input={
+            {              
+              id: "standard-basic",
+              variant: "standard",
+              type: 'password',
+              label: "Entrer le mot de passe :"
+            }
+          }
           name='password'
-          type='password'
-          label="Entrer le mot de passe :"
-          onPasswordChange={(value) => setPasswordValue(value)}
-          onInputValidity={handleInputValidity}
+          onInputChange={handleInputChange}
         />
           <Input 
-          id="standard-basic"
-          variant="standard"
+            input={
+              {
+                id: "standard-basic",
+                variant: "standard",
+                type: 'password',
+                label: "Confirmer le mot de passe :"
+              }
+            }
           name='confirmPassword'
-          type='password'
-          label="Confirmer le mot de passe :"
-          valueToMatch={passwordValue}
-          onInputValidity={handleInputValidity}
+          valueToMatch={inputStatut.password.value}
+          onInputChange={handleInputChange}
         />
 
-      <Button  sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>S'inscrire</Button>
+      <Button disabled={!isFormValid} sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>S'inscrire</Button>
       </Box>
       <Box component='form' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', padding: '1rem' }}>
   
-     { getRole  &&( <>
+     {inputStatut.role.value === "brewer" && ( <>
      <Typography component='h2' sx={{ marginTop: '4rem' }}> Enregistrer une brasserie </Typography><Input
          id="standard-basic"
          variant="standard"

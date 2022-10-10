@@ -8,11 +8,13 @@ const initialState = {
 };
 
 const inputReducer = (state, action) => {
-  if (action.type === "VALUE") {
-    return { ...state, isValid: true, enteredValue: action.value };
-  }
   if (action.type === "CHANGE") {
     switch (action.value.type) {
+      case "radio":
+        if (action.value.value === "user" || action.value.value === "brewer") {
+          return { ...state, isValid: true, enteredValue: action.value.value };
+        }
+        break;
       case "text":
         if (action.value.value.length > 0) {
           return { ...state, isValid: true, enteredValue: action.value.value };
@@ -42,25 +44,20 @@ const inputReducer = (state, action) => {
         const upperCaseLetters = /[A-Z]/g;
         const numbers = /[0-9]/g;
 
-        if (action.value.value.length < 8) {
-          passwordStateArray.push("- Au moin 8 caractères.");
-        }
-        if (!action.value.value.match(lowerCaseLetters)) {
-          passwordStateArray.push("- Au moin 1 minuscule.");
-        }
-        if (!action.value.value.match(upperCaseLetters)) {
-          passwordStateArray.push("- Au moin 1 majuscule.");
-        }
-        if (!action.value.value.match(numbers)) {
-          passwordStateArray.push("- Au moin 1 chiffre.");
-        }
-
-        return {
-          ...state,
-          isValid: passwordStateArray.length > 0 ? false : true,
-          enteredValue: action.value.value,
-          passwordState: passwordStateArray,
-        };
+        if (
+          action.value.value.length >= 8 &&          
+          action.value.value.match(lowerCaseLetters) &&
+          action.value.value.match(upperCaseLetters) &&
+          action.value.value.match(numbers)
+          ) {
+            return {
+              ...state,
+              isValid: passwordStateArray.length > 0 ? false : true,
+              enteredValue: action.value.value,
+              passwordState: passwordStateArray,
+            };        
+          } 
+          break;
       case "textarea":
         return { ...state, enteredValue: action.value.value };
       default:
@@ -79,11 +76,7 @@ const inputReducer = (state, action) => {
 
 const useInput = () => {
   const [inputState, dispatch] = useReducer(inputReducer, initialState);
-
-  const valueHandler = (value) => {
-    dispatch({ type: "VALUE", value });
-  };
-
+  
   const changeHandler = (event) => {
     dispatch({ type: "CHANGE", value: event.target });
   };
@@ -101,7 +94,6 @@ const useInput = () => {
     isValid: inputState.isValid,
     isTouched: inputState.isTouched,
     passwordState: inputState.passwordState,
-    valueHandler,
     changeHandler,
     blurHandler,
     resetHandler,
