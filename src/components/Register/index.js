@@ -1,5 +1,5 @@
 // == Import
-import { Box, Typography, Button, Snackbar, Alert } from '@mui/material';
+import { Box, Typography, Button, Snackbar, Alert, Container } from '@mui/material';
 
 import './style.scss';
 
@@ -7,6 +7,7 @@ import Input from '../Input'
 import { useDispatch, useSelector} from 'react-redux';
 
 // == Composant
+import { StyledButton } from '../../selector/styles'
 
 function Register() {
 
@@ -31,7 +32,7 @@ function Register() {
       
   return (
 
-    <>
+    <Container sx={{marginTop: '100px'}}>
       <Box component="form" onSubmit={handleRegister} sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', padding: '1rem'}}>
 
         <Typography omponent='h2'> Créer un compte </Typography>
@@ -92,7 +93,6 @@ function Register() {
           label="comfirmer le mot de passe :"
         />
 
-      <Button  sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>S'inscrire</Button>
       </Box>
       <Box component='form' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', padding: '1rem' }}>
   
@@ -133,9 +133,10 @@ function Register() {
             </Alert>
             </Snackbar>
           </>
-        )}    
+        )} 
+        <StyledButton  sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>S'inscrire</StyledButton>    
       </Box>
-    </>
+    </Container>
   );
 }
 

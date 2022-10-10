@@ -1,12 +1,12 @@
 // == Import
-import { Box, Button } from '@mui/material';
-
+import { Box } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 
 // == Composant
 import Input from '../Input'
+import { StyledButton } from '../../selector/styles'
 
 function Login() {
 
@@ -21,7 +21,7 @@ function Login() {
   };
   return (
     <>
-      <Box component="form" onSubmit={handleSubmit} sx={{ width: '90%', padding: '2rem', backgroundColor: 'white', display: 'flex', flexDirection: 'column', alignItems: 'space-between', gap: '2rem'}}>
+      <Box component="form" onSubmit={handleSubmit} sx={{ width: '90%', padding: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'space-between', gap: '2rem'}}>
         <Input 
           id="filled-basic"
           variant="filled"
@@ -37,7 +37,7 @@ function Login() {
           type='password'
         />
       
-        <Button variant="contained" type='submit'>Se connecter</Button>
+        <StyledButton variant="contained" type='submit'>Se connecter</StyledButton>
         <Link to='/signup'>Vous n'êtes pas enregistré ?</Link>
       </Box>
 

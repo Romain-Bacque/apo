@@ -9,7 +9,7 @@ import Categories from '../Categories'
 
 
 
-function OneBrewerie ({ title, phone, address, tags}) {
+function OneBrewerie ({ title, phone, address, tags, image}) {
 
 
 
@@ -22,7 +22,7 @@ function OneBrewerie ({ title, phone, address, tags}) {
             <CardMedia
               component="img"
               height="140"
-              image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
+              image={image}
               alt="green iguana"
             />
 

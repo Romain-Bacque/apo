@@ -3,8 +3,8 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
-import './style.scss';
+import { CardActionArea, CardActions } from '@mui/material';
+import { StyledButton } from '../../../selector/styles'
 // == Composant
 import { Link } from 'react-router-dom'
 function Brewerie() {
@@ -26,23 +26,16 @@ function Brewerie() {
     <CardActions sx={{ justifyContent: 'center' }}>
 
       <Link to='/brewery/update'>
-        <Button size="small" color="primary" sx={{ display : 'flex', justifyContent: 'flex-end'}}>
+        <StyledButton size="small" variant="contained" sx={{ display : 'flex', justifyContent: 'flex-end', with: '100%'}}>
           Gérer
-        </Button>
+        </StyledButton>
       </Link>
 
     </CardActions>
   </Card>
 );
 }
-//     <section className="brewerie">
-//       <article className='brewerie-list'>
-//         <h2 className='title'> Titre de la brasserie </h2>
-//         <Link to='/brewery/update' type='submit' className='btn'> Gérer </Link>
-//       </article>
-//     </section>
-//   );
-// }
+
 
 // == Export
 export default Brewerie;

@@ -6,7 +6,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link } from 'react-router-dom'
-import './style.scss';
+import { StyledButton } from '../../../selector/styles'
 // == Composant
 
 function Event() {
@@ -23,7 +23,7 @@ function Event() {
         <Typography sx={{fontWeight: 'bold'}}> Les alcolo du dimanche </Typography>
         <Typography > <Link to='/events/:id'>  Détail </Link></Typography>
           <form>
-            <Button variant="contained" type='submit' sx={{marginTop: '1rem', width: '100%', bgcolor: 'red'}}>Annuler</Button>
+            <StyledButton variant="contained" type='submit' sx={{marginTop: '1rem', width: '100%', bgcolor: 'red'}}>Annuler</StyledButton>
           </form>
         </AccordionDetails>
       </Accordion>  

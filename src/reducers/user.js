@@ -4,7 +4,7 @@ export const initialState = {
     email:  '',
     password: '',
     loading: false,
-    role: '',
+    role: 'brewer',
     isRegistered: true,
 }; 
 
