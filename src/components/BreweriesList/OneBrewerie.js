@@ -9,12 +9,10 @@ import Categories from '../Categories'
 
 
 
-function OneBrewerie ({ title, phone, address, tags, image, key}) {
-console.log(key)
-
+function OneBrewerie ({ title, phone, address, tags, image, id}) {
 
     return(
-      <Link to='/breweries/:id'>
+      <Link to={`/breweries/${id}`}>
       
         <Card>
           <CardActionArea>

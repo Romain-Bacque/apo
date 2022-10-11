@@ -50,7 +50,7 @@ function One_brewerie () {
 
 
           <Typography variant="body2" color="text.secondary">
-           <Categories />
+           <Categories tags={findBrewery.categories}/>
 
           </Typography>
 

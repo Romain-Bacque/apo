@@ -18,12 +18,14 @@ const data = [
   }
 ]
 
-export function findAddress(data, searchedTerm) {
-  const brewery = data.filter((oneData) => {
-    if(oneData.address.includes(searchedTerm)){
-      return oneData
-    }
-  })
+const FindBrewery = data.map(brewery => {
+  if(brewery.address.slice(13, 19).includes('75') || brewery.title.includes('tata')){
+    return brewery
+  }
   return brewery
-}    
+})
+  
+  console.log(data)
+ 
 
+ 
