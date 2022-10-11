@@ -32,6 +32,8 @@ function Login() {
 
     dispatch({
       type: 'LOGIN',
+      email: inputStatut.email.value,
+      password: inputStatut.password.value
     });
   };
 

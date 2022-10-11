@@ -2,7 +2,7 @@
 export const initialState = {
     message: '',
     statut: null,
-    isOpen: false,
+    isOpen: false
 }; 
 
 const reducer = (state = initialState, action = {}) => {

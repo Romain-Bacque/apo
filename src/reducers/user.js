@@ -14,14 +14,13 @@ const reducer = (state = initialState, action = {}) => {
     switch (action.type) {
 
         case 'CHANGE_VALUE': // pour ajouter un champ controller
-        console.log(state)
             return {
                 ...state,
                 [action.key]: action.value,
                 // la notation entre crochet me permet de spécifier
-                // via une expression le nom de la propriété cliblée
+                // via une expression le nom de la propriété ciblée
             };
-        case 'RESET':
+        case 'RESET_USER':
             return {
                 ...state,
                 name: '',

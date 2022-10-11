@@ -13,21 +13,40 @@ const user = (store) => (next) => (action) => {
           message: null
         });
         instance.post('/user/login', {
-          email: state.user.email,
-          password: state.user.password,
+          email: action.email,
+          password: action.password,
         })
           .then((response) => {
-            console.log(`réponse back ${response.data}`)
-
+            console.log(response.status)
             if(response.status === 200) {
+              
+              const user = response.data.data;
+              
               store.dispatch({
                 type: 'SUCCESS',
-                message: null
-              });
-            } else if(response.status === 400) {
+                message: `Bienvenue ${user.name} !`
+              });        
+            store.dispatch({
+              type: 'SAVE_USER',
+              email: user.email,
+              password: user.password, 
+              role: user.role,
+              logged: true
+            });
+          }
+          })
+          .catch((error) => {
+            const { status } = error.response;
+
+            if(status === 400) {
               store.dispatch({
                 type: 'ERROR',
-                message: "utilisateur/mot de passe incorrect(s)"
+                message: "erreur dans un/plusieurs champs"
+              });
+            } else if(status === 401) {
+              store.dispatch({
+                type: 'ERROR',
+                message: "mot de passe/utilisateur incorrect(s)"
               });
             } else {
               store.dispatch({
@@ -35,78 +54,66 @@ const user = (store) => (next) => (action) => {
                 message: 'Erreur, connexion impossible.'
               });
             }
-            const user = response.data.data;
-
+          });
+      }
+      else if (action.type === 'REGISTER'){
+        store.dispatch({
+          type: 'PENDING',
+          message: null
+        });
+        instance.post('/user/register',{
+          name: action.name,
+          email: action.email,
+          password: action.password,
+          role: action.role,
+        })
+        .then((response) => {
+          console.log(response.status)
+          if(response.status === 200) {
             store.dispatch({
-              type: 'SAVE_USER',
-              email: user.email,
-              password: user.password, 
-              role: user.role,
-              logged: user.data
+              type: 'SUCCESS',
+              message: 'enregistrement réussi.'
             });
-          })
-          .catch((error) => {
-            console.log(error);
+          } 
+        })
+        .catch((error) => {
+          const { status } = error.response;
+
+          if(status === 400) {
             store.dispatch({
               type: 'ERROR',
-              message: 'Erreur, connexion impossible.'
+              message: "erreur dans un/plusieurs champs"
             });
-          });
+          } else if(status === 403) {
+            store.dispatch({
+              type: 'ERROR',
+              message: "utilisateur déjà inscrit"
+            });
+          } else {
+            store.dispatch({
+              type: 'ERROR',
+              message: 'Erreur, enregistrement impossible.'
+            });
+          }
+        });
       }
     else if (action.type === 'LOGOUT') {
       axios.post('/user/logout')
           .then((response) => {
-            console.log(`réponse back ${response.data}`)
-
-            store.dispatch({
-              type: 'RESET'
-            });
+            if(response.status === 200) {
+              store.dispatch({
+                type: 'RESET_USER'
+              });
+            }           
           })
           .catch((error) => {
             console.log(error);
-            console.log('Impossible de se deconnecter');
+              store.dispatch({
+                type: 'ERROR',
+                message: 'Erreur, déconnexion impossible.'
+              });                 
           }); 
         }
-    else if (action.type === 'REGISTER'){
-      store.dispatch({
-        type: 'PENDING',
-        message: null
-      });
-      instance.post('/user/register',{
-        email: state.email,
-        password: state.password,
-        name: state.name,
-        role: state.role,
-      })
-      .then((response) => {
-        console.log(`réponse back ${response.data}`)
-
-        if(response.status === 200) {
-          store.dispatch({
-            type: 'SUCCESS',
-            message: null
-          });
-        } else if(response.status === 403) {
-          store.dispatch({
-            type: 'ERROR',
-            message: "utilisateur déjà inscrit"
-          });
-        } else {
-          store.dispatch({
-            type: 'ERROR',
-            message: 'Erreur, enregistrement impossible.'
-          });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        store.dispatch({
-          type: 'ERROR',
-          message: 'Erreur, enregistrement impossible.',
-          statut: 'error'
-        });
-      });
-    }
     else if (action.type === 'DELETE_USER'){
       instance.delete('/user/delete', {
         email: state.user.email,
@@ -114,8 +121,6 @@ const user = (store) => (next) => (action) => {
         name: state.user.name,
       })
       .then((response) => {
-        console.log(`réponse back ${response.data}`)
-
         const user = response.data.data;
 
         store.dispatch({
