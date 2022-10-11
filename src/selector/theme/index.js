@@ -54,7 +54,9 @@ const theme = createTheme({
     },
 
     components: {
+        // Mui suivie du nom du composant
         MuiContainer:{
+            // modification du style css
             styleOverrides:{
                 root:{
                     marginTop: '120px',
@@ -70,6 +72,7 @@ const theme = createTheme({
             }
         },
         MuiButton:{
+            // modifier les proprièter applicable a un composant
             defaultProps: {
                 variant: 'contained',  
             },

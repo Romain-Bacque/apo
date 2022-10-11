@@ -13,12 +13,7 @@ function BreweriesList() {
 
   const params = useParams();
   const data = useSelector((state) => state.data.breweries)
-  const search = data.filter(brewery => brewery.address.includes(params.value)).map(filteredData => console.log(filteredData))
-  
-  
-  
-  
-  
+  data.filter(brewery => brewery.address.includes(params.value)).map(filteredData => console.log(filteredData))
   
   return (
     
@@ -37,10 +32,7 @@ function BreweriesList() {
                   image={filteredData.image}
                 />
         ))}
-        
-          
-            
-        
+                
         </Box>
 
       </>
