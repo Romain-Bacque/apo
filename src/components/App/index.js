@@ -1,7 +1,9 @@
 // == Import
 import './style.scss';
 import { Routes, Route } from 'react-router-dom'
+
 import {Box} from '@mui/material';
+import {Box, Container} from '@mui/material';
 
 // == Composant
 import Header from '../Header';
@@ -23,6 +25,8 @@ import CustomSnackbars from '../UI/CustomSnackbars';
 import Loading from '../App/Loading';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from '../../selector/theme';
 
 
 function App() {
@@ -58,6 +62,7 @@ function App() {
     dispatch
   ]);  
 
+
   return (   
     
     <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}> 
@@ -67,15 +72,20 @@ function App() {
       isOpen={isOpen}
       onClose={() => setIsOpen(false)}
       />}
+
+    <ThemeProvider theme={theme}> 
+
       <Header />
-            <Box conponent='main' sx={{margin: 'auto', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+            <Container conponent='main'>
               <Routes>
-                {loading && <Route path='/search' element={<Loading/>} />}
-                {loading === false && <Route path='/search' element={<BreweriesList/>} />}
+
+                {loading && <Route path='/search/:value' element={<Loading/>} />}
+                {loading === false && <Route path='/search/:value' element={<BreweriesList />} />}
                 {loading && <Route path='/' element={<Loading />} />}
                 {loading === false && <Route path='/' element={<Map />} />}
                 <Route path='/signup' element={<Register />} />
-                <Route path='/breweries/:id' element={<OneBrewerie />} />
+                {loading && <Route path='/breweries/:id' element={<Loading />} />}
+                {loading === false && <Route path='/breweries/:id' element={<OneBrewerie />} />}
                 <Route path='/breweriesList' element={<BreweriesList />} />
                 <Route path='/breweries' element={<Breweries />} />
                 <Route path='/brewery/form_brewery' element={<FormBrewerie />} />
@@ -87,10 +97,9 @@ function App() {
                 <Route path='/profil' element={<Profil />} />
                 <Route path='/Brewery/event' element={<UpdateEventBrewery />} />
               </Routes>
-            </Box>
-
-            <Footer />
-      </Box>
+            </Container>
+            {/* <Footer /> */}
+    </ThemeProvider>
   );
 }
 

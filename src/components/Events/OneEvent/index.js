@@ -13,7 +13,7 @@ import './style.scss';
 
 function OneEvent() {
   return (
-    <Card sx={{ width: '90%' }}>
+    <Card>
 
       <CardActionArea>
         <CardMedia
@@ -22,13 +22,13 @@ function OneEvent() {
           image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
           alt="green iguana"
         />
-        <CardContent sx={{alignItems: 'base-line'}}>
+        <CardContent>
 
           <Typography gutterBottom variant="h5" component="div">
             Les alcolos du dimanche
           </Typography>
 
-          <Typography variant="body2" color="text.secondary" sx={{alignItems: 'center', marginTop: '2rem'}}>
+          <Typography variant="body2" color="text.secondary">
            <CalendarMonthIcon /> mer 05 oct, 9:00
           </Typography>
 
@@ -40,7 +40,7 @@ function OneEvent() {
            <PeopleAltIcon />  300 Participants
           </Typography>
 
-          <Typography sx={{marginTop: '2rem', marginBottom: '2rem'}}> Déscription </Typography>
+          <Typography> Déscription </Typography>
 
           <Typography>
           Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.
@@ -50,10 +50,10 @@ function OneEvent() {
 
       </CardActionArea>
 
-      <CardActions sx={{ justifyContent: 'center'}}>
+      <CardActions>
         <form>
-          <Button variant="contained" type='submit' sx={{marginTop: '1rem', width: '100%', bgcolor: 'red'}}>Annuler</Button>
-          <Link to='/breweries/:name'> <Button variant="contained" type='submit' sx={{marginTop: '1rem', width: '100%'}}>Voir la brasserie</Button> </Link>
+          <Button variant="contained" type='submit'>Annuler</Button>
+          <Link to='/breweries/:name'> <Button variant="contained" type='submit'>Voir la brasserie</Button> </Link>
         </form>
       </CardActions>
 

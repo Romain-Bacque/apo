@@ -1,5 +1,5 @@
 export const initialState = {
-    searchValue: '',
+    value: '',
 }; 
 
 
@@ -9,7 +9,7 @@ const searchReducer = (state = initialState, action = {}) => {
         case 'SEARCH_VALUE': 
         return {
             ...state,
-            searchValue: state.searchValue
+            value: state.value
         };
         default:
             return state;

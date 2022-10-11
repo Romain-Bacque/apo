@@ -1,8 +1,9 @@
 import React from 'react'
 import OneBrewerie from './OneBrewerie';
 import { Box } from '@mui/material';
-
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+
 
 
 
@@ -10,25 +11,40 @@ import { useSelector } from 'react-redux';
 
 function BreweriesList() {
 
+  const params = useParams();
+  const data = useSelector((state) => state.data.breweries)
+  const search = data.filter(brewery => brewery.address.includes(params.value)).map(filteredData => console.log(filteredData))
   
-  const brewery = useSelector((state) => state.data.breweries);
-
   
-    return (
-      // <Box sx={{height: '50rem', overflow: 'auto', width: '90%'}}>
+  
+  
+  
+  
+  return (
+    
+    <Box>
       <>
-        <Box sx={{ width: '100%', padding: '1rem' }} > 
+        <Box> 
 
-          {/* {breweries.map((brewery) => ( */}
-            <OneBrewerie 
-
-            />
-          {/* ))} */}
+        {data.filter(brewery => brewery.address.includes(params.value)).map(filteredData => (
+         
+                <OneBrewerie 
+                  key={filteredData.id}
+                  title={filteredData.title}
+                  phone={filteredData.phone}
+                  address={filteredData.address}
+                  tags={filteredData.categories}
+                  image={filteredData.image}
+                />
+        ))}
+        
+          
+            
         
         </Box>
 
       </>
-      // </Box>
+      </Box>
     );
 }
 

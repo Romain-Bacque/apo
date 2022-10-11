@@ -1,13 +1,17 @@
 // == Import
+
 import { useDispatch } from 'react-redux';
 import { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Box, Typography, Button, Snackbar, Alert, Container} from '@mui/material';
+
 
 import { Box, Typography, Button, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 import './style.scss';
 import Input from '../Input'
 
 // == Component
+
 function Register() {
   const dispatch = useDispatch();
   const [ inputStatut, setInputStatut ] = useState({
@@ -36,6 +40,7 @@ function Register() {
     });  
   };
 
+
   const handleInputChange = useCallback((name, statut) => {
     setInputStatut(prevState => {
       return {
@@ -47,6 +52,7 @@ function Register() {
   
   return (
     <>
+
       <Box component="form" onSubmit={handleRegister} sx={{ bgcolor: 'white', width: '100%', maxWidth: '500px', display: 'flex', flexDirection: 'column', gap: '2rem', padding: '1rem'}}>
         <Typography component='h2' sx={{ marginTop: '4rem', fontSize: '1.5rem', textAlign: 'center' }}>Créer un compte</Typography>
 
@@ -68,11 +74,11 @@ function Register() {
               value="brewer"
               onChange={handleInputChange.bind(null, "role", "brewer")}
               control={<Radio />}
+
             />
           </RadioGroup>
 
       </Box>
-
         <Input 
           input={
             {
@@ -94,10 +100,12 @@ function Register() {
               label: "Adresse Email :"
             }
           }
+
           name='email'
           onInputChange={handleInputChange}      
         />
         <Input 
+
           input={
             {              
               id: "password",
@@ -106,6 +114,7 @@ function Register() {
               label: "Entrer le mot de passe :"
             }
           }
+
           name='password'
           onInputChange={handleInputChange}
         />

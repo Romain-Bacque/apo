@@ -6,12 +6,12 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link } from 'react-router-dom'
-import './style.scss';
+
 // == Composant
 
 function Event() {
   return (
-      <Accordion sx={{ width: '100%'}}>
+      <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
@@ -20,10 +20,10 @@ function Event() {
           <Typography> Mer 05 oct . 9:00 </Typography>
         </AccordionSummary>
         <AccordionDetails>
-        <Typography sx={{fontWeight: 'bold'}}> Les alcolo du dimanche </Typography>
+        <Typography> Les alcolo du dimanche </Typography>
         <Typography > <Link to='/events/:id'>  Détail </Link></Typography>
           <form>
-            <Button variant="contained" type='submit' sx={{marginTop: '1rem', width: '100%', bgcolor: 'red'}}>Annuler</Button>
+            <Button variant="contained" type='submit'>Annuler</Button>
           </form>
         </AccordionDetails>
       </Accordion>  

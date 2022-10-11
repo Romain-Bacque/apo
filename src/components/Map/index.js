@@ -7,19 +7,20 @@ import "leaflet-easybutton/src/easy-button.css";
 import "font-awesome/css/font-awesome.min.css";
 import "./style.scss";
 import { style } from "@mui/system";
-import visitorIcon from "./constants";
 import positionIcon from "./MypositionIcon"
 import { Link } from 'react-router-dom';
 import logo from "./logoBrasserie.jpg";
 import { useSelector } from 'react-redux';
+import visitorIcon from './constants'
+import { MapUiExtend } from '../../selector/Style';
 
 const { BaseLayer } = LayersControl;
 
 
 
 function Map() {
-
   const breweries = useSelector ((state) => state.data.breweries)
+  console.log(breweries)
   const [map, setMap] = useState(null);
   const [position, setPosition] = useState(null);
   
@@ -36,6 +37,7 @@ function Map() {
   }, [map]);
 
   return (
+
     <MapContainer
       zoomControl={false}
       center={[	47.902964, 	1.909251]}
@@ -46,13 +48,13 @@ function Map() {
       <Marker position={[brewerie.lat, brewerie.lon]} icon={visitorIcon} key={brewerie.id}>
         <Popup >
                 <section className='section-img-brewery'>
-                 <img className='img-brewery' src={logo} alt="logo"></img>
+                 <img className='img-brewery' src={brewerie.image} alt="logo"></img>
                 </section>
                 <section className='section-adress'>
                     <h1 className='brewery-title color'>{brewerie.title}</h1>
                     <span className='span-info'>{brewerie.address}</span>
                     <a className="phone-number" href={'tel:' + brewerie.phone}>{brewerie.phone}</a>
-                    <Link to={'/breweries/' + brewerie.id} className='detail-button color-button' type='button'>Voir le détail</Link>
+                    <Link to={`/breweries/${brewerie.id}`} className='detail-button color-button' type='button'>Voir le détail</Link>
                 </section>
           </Popup>
       </Marker>))}
