@@ -5,30 +5,22 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { StyledButton } from '../../../../selector/styles'
+import { Button, Grid } from '@mui/material';
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-  >
-    •
-  </Box>
-);
 
 const card = (
   <React.Fragment>
     <CardContent>
 
-    <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'baseline'}}>
+    <Box>
 
-      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+      <Typography >
         Evenement
       </Typography>
 
-      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-        <StyledButton> Participer </StyledButton>
-      </Typography>
+      <CardActions>
+        <Button> Annuler </Button>
+      </CardActions>
 
     </Box>
 
@@ -36,7 +28,7 @@ const card = (
         Les alcolos du dimanche
       </Typography>
 
-      <Typography sx={{ mb: 1.5 }} color="text.secondary">
+      <Typography>
         Description
       </Typography>
 
@@ -46,7 +38,7 @@ const card = (
 
     </CardContent>
 
-    <CardActions sx={{justifyContent: 'space-between'}}>
+    <CardActions>
       <Typography size="small">Mer 12 oct . 12:30</Typography>
       <Typography size="small">Participants (0) </Typography>
     </CardActions>
@@ -57,9 +49,9 @@ const card = (
 function EventBrewery() {
   return (
 
-    <Box sx={{ minWidth: 275 }}>
-    <Card variant="outlined">{card}</Card>
-  </Box>
+    <Grid item>
+      <Card variant="outlined">{card}</Card>
+    </Grid>
   );
 }
 

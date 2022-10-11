@@ -1,6 +1,6 @@
 import React from 'react'
 import OneBrewerie from './OneBrewerie';
-import { Box } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -15,21 +15,16 @@ function BreweriesList() {
   const data = useSelector((state) => state.data.breweries)
   const search = data.filter(brewery => brewery.address.includes(params.value)).map(filteredData => console.log(filteredData))
   
-  
-  
-  
-  
-  
   return (
     
-    <Box sx={{height: '50rem', overflow: 'auto', width: '90%'}}>
       <>
-        <Box sx={{ width: '100%', padding: '2rem', marginTop: '5rem' }} > 
+        <Grid container spacing={2}> 
 
         {data.filter(brewery => brewery.address.includes(params.value)).map(filteredData => (
          
                 <OneBrewerie 
                   key={filteredData.id}
+                  id={filteredData.id}
                   title={filteredData.title}
                   phone={filteredData.phone}
                   address={filteredData.address}
@@ -41,10 +36,10 @@ function BreweriesList() {
           
             
         
-        </Box>
+        </Grid>
 
       </>
-      </Box>
+
     );
 }
 

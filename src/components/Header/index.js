@@ -6,7 +6,7 @@ import React from 'react';
 import Input from '../Input';
 import { Link } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
-import {Box, Toolbar, IconButton } from '@mui/material';
+import {Box, Toolbar, IconButton, AppBar, InputBase } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import SportsBarTwoToneIcon from '@mui/icons-material/SportsBarTwoTone';
 import Divider from '@mui/material/Divider';
@@ -16,8 +16,8 @@ import ListItem from '@mui/material/ListItem';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import classes from "./index.module.css";
-import { StyledHeader } from '../../selector/styles'
 import Logo from '../../asset/images/biere-sans-fond.png'
+
 
 
 const Search = styled('form')(({ theme }) => ({
@@ -31,7 +31,7 @@ const Search = styled('form')(({ theme }) => ({
   width: '100%',
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(1),
-    width: 'auto',
+    width: '100%',
   },
 }));
 
@@ -45,7 +45,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center',
 }));
 
-const StyledInputBase = styled(Input)(({ theme }) => ({
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
@@ -63,8 +63,6 @@ const StyledInputBase = styled(Input)(({ theme }) => ({
 }));
 
 
-
-
 function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -76,9 +74,9 @@ function Header() {
   const handleLogout = (evt) => {
     dispatch({
       type: 'LOGOUT',
+      
     });
   };
-
 
   const [state, setState] = React.useState({
     top: false,
@@ -193,9 +191,9 @@ function Header() {
 
   
   return (
-      <StyledHeader>
-        <Toolbar sx={{ justifyContent: 'space-between'}}>
-        <Box sx={{p: 1}}>
+      <AppBar>
+        <Toolbar >
+        <Box>
         <Link to='/'>
           <Box component='img' src={Logo} alt='' sx={{width: '4rem'}}/>
         </Link>
@@ -248,7 +246,7 @@ function Header() {
               
           {/* <Navbar className='header-navbar'/> */}
         </Toolbar>
-      </StyledHeader>
+      </AppBar>
   );
 }
   

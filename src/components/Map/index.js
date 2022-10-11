@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import logo from "./logoBrasserie.jpg";
 import { useSelector } from 'react-redux';
 import visitorIcon from './constants'
+import { MapUiExtend } from '../../selector/Style';
 
 const { BaseLayer } = LayersControl;
 
@@ -36,6 +37,7 @@ function Map() {
   }, [map]);
 
   return (
+
     <MapContainer
       zoomControl={false}
       center={[	47.902964, 	1.909251]}

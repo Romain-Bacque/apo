@@ -1,5 +1,4 @@
 // == Import
-import { useSelector } from 'react-redux';
 import './style.scss';
 // == Composant
 import Category from './Category'

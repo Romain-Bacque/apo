@@ -7,12 +7,12 @@ import Input from '../../Input';
 
 function FormEvent() {
   return (
-    <Box component='form' sx={{ width: '95%', height: '40rem', bgcolor: 'white', padding: '2rem'}}>
+    <Box component='form'>
 
 
-      <Box component='form' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem'}}>
+      <Box component='form'>
       
-      <Typography omponent='h2'> Ajouter un évènement </Typography>
+      <Typography variant='h2'> Ajouter un évènement </Typography>
 
       <Input 
         id="standard-basic"
@@ -47,8 +47,8 @@ function FormEvent() {
         label="Description :"
       />
       </Box>
-      <Button sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>Ajouter
-        <AddIcon sx={{marginLeft: '1rem'}}/>
+      <Button variant="contained" type='submit'>Ajouter
+        <AddIcon/>
       </Button>
     </Box>
   );
