@@ -18,9 +18,9 @@ const card = (
         Evenement
       </Typography>
 
-      <Typography>
+      <CardActions>
         <Button> Annuler </Button>
-      </Typography>
+      </CardActions>
 
     </Box>
 

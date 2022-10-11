@@ -1,5 +1,5 @@
 // == Import
-import { Box, Typography, Button, Container } from '@mui/material';
+import {Typography, Button, Container } from '@mui/material';
 import UpdateIcon from '@mui/icons-material/Update';
 import './style.scss';
 import Input from '../../Input';
@@ -10,7 +10,7 @@ function UpdateBrewery() {
   return (
     <Container component='form' sx={{marginTop: '0px'}}>
       
-      <Typography omponent='h2'> Modifier la brasserie </Typography>
+      <Typography variant='h2'> Modifier la brasserie </Typography>
 
       <Input
         name='title'

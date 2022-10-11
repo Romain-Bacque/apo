@@ -9,7 +9,7 @@ function Form_brewerie() {
     <Container component='form' sx={{marginTop: '0px'}}>
 
       
-      <Typography varient='h2'> Ajouter une brasserie </Typography>
+      <Typography variant='h2'> Ajouter une brasserie </Typography>
 
       <Input 
         name='title'

@@ -25,11 +25,14 @@ function Brewerie() {
       </CardActionArea>
       <CardActions>
 
-          <Button>
-            <Link to='/brewery/update'> 
+         
+            <Button 
+              component={Link}
+              to='/brewery/update'
+            > 
               Gérer
-            </Link> 
-          </Button>
+            </Button> 
+         
 
       </CardActions>
     </Card>

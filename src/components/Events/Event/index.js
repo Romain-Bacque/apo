@@ -23,11 +23,11 @@ function Event() {
 
           <CardContent>
 
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography variant="h4">
               La brasserie de lulu
             </Typography>
 
-            <Typography variant="body2" color="text.secondary" >
+            <Typography variant="body2">
             <LocationOnIcon /> 131 rue carno 92450 ville
             </Typography>
 
