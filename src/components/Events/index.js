@@ -1,5 +1,5 @@
 // == Import
-import { Button, Typography } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 
 import './style.scss';
 import Event from '../Events/Event'
@@ -9,11 +9,12 @@ import MyEvent from './MyEvent'
 function Events() {
   return (
     <>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography variant="h2">
            Mes évènements (1)
         </Typography>
-       
+      <Grid container>
         <Event />
+      </Grid>
 
     </>
   );

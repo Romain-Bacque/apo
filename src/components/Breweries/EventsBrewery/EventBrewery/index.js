@@ -5,7 +5,7 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { Button } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 
 
 const card = (
@@ -19,7 +19,7 @@ const card = (
       </Typography>
 
       <Typography>
-        <Button> Participer </Button>
+        <Button> Annuler </Button>
       </Typography>
 
     </Box>
@@ -49,9 +49,9 @@ const card = (
 function EventBrewery() {
   return (
 
-    <Box>
-    <Card variant="outlined">{card}</Card>
-  </Box>
+    <Grid item>
+      <Card variant="outlined">{card}</Card>
+    </Grid>
   );
 }
 
