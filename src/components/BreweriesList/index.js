@@ -1,6 +1,6 @@
 import React from 'react'
 import OneBrewerie from './OneBrewerie';
-import { Box } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -17,9 +17,8 @@ function BreweriesList() {
   
   return (
     
-    <Box>
       <>
-        <Box> 
+        <Grid container spacing={2}> 
 
         {data.filter(brewery => brewery.address.includes(params.value)).map(filteredData => (
          
@@ -37,10 +36,10 @@ function BreweriesList() {
           
             
         
-        </Box>
+        </Grid>
 
       </>
-      </Box>
+
     );
 }
 
