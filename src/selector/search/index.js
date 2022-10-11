@@ -1,4 +1,4 @@
-
+import { useSelector } from 'react-redux';
 const paris = 'paris'
 const data = [
   {
@@ -25,5 +25,5 @@ export function findAddress(data, searchedTerm) {
     }
   })
   return brewery
-}      
+}    
 
