@@ -19,6 +19,7 @@ import classes from "./index.module.css";
 import Logo from '../../asset/images/biere-sans-fond.png'
 
 
+
 const Search = styled('form')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -62,8 +63,6 @@ const StyledInputBase = styled(Input)(({ theme }) => ({
 }));
 
 
-
-
 function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -75,9 +74,9 @@ function Header() {
   const handleLogout = (evt) => {
     dispatch({
       type: 'LOGOUT',
+      
     });
   };
-
 
   const [state, setState] = React.useState({
     top: false,

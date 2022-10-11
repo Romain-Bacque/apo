@@ -1,7 +1,10 @@
 // == Import
 import './style.scss';
 import { Routes, Route } from 'react-router-dom'
+
+import {Box} from '@mui/material';
 import {Box, Container} from '@mui/material';
+
 // == Composant
 import Header from '../Header';
 import Footer from '../Footer';
@@ -18,18 +21,18 @@ import Events from '../Events';
 import OneEvent from '../Events/OneEvent';
 import Profil from '../Profil';
 import UpdateEventBrewery from '../Breweries/UpdateEventBrewery';
-
+import CustomSnackbars from '../UI/CustomSnackbars';
 import Loading from '../App/Loading';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../selector/theme';
 
 
-
 function App() {
+  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
-
+  const snackbarContent = useSelector((state) => state.snackbar);
   const loading = useSelector((state) => state.data.loading)
     
   useEffect(() => {
@@ -37,14 +40,41 @@ function App() {
     dispatch({
       type: 'FETCH_DATA',
     })
-  }, []);
+  }, [dispatch]);
+
+  useEffect(() => {
+    if(snackbarContent.statut) {
+      setIsOpen(true);
+    }
+
+    const timer = setTimeout(() => {
+      dispatch({
+        type: 'RESET_SNACKBAR',
+      })
+    }, 5000);
+
+    return () => {
+      clearTimeout(timer);
+    }
+  }, [
+    snackbarContent.message,
+    snackbarContent.statut,
+    dispatch
+  ]);  
 
 
-
-  return (
-
+  return (   
+    
+    <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}> 
+    {snackbarContent.statut && <CustomSnackbars
+      message={snackbarContent.message}
+      statut={snackbarContent.statut}
+      isOpen={isOpen}
+      onClose={() => setIsOpen(false)}
+      />}
 
     <ThemeProvider theme={theme}> 
+
       <Header />
             <Container conponent='main'>
               <Routes>
