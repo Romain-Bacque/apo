@@ -5,20 +5,10 @@ import Category from './Category'
 
 function Categories({ tags }) {
 
-  const categories = useSelector ((state) => state.data.breweries)
-  console.log(tags)
   return (
    
     <form className="categories">
-<<<<<<< HEAD
-      {tags.map((tag) => (
-        <Category 
-        key={tag.id}
-        tag={tag.tag}
-        />
-        ))}
-=======
-      {categories.map((categorie) => (
+      {tags.map((categorie) => (
               <Category 
                 key={categorie.id}
                 tag={categorie.tag}
@@ -26,7 +16,6 @@ function Categories({ tags }) {
               ))}
 
 
->>>>>>> 4f28158240022a3009f2516801e2d02d9f27bd4a
     </form>
   );
 }

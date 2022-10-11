@@ -24,23 +24,23 @@ function OneEvent() {
         />
         <CardContent>
 
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography variant="h3">
             Les alcolos du dimanche
           </Typography>
 
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2">
            <CalendarMonthIcon /> mer 05 oct, 9:00
           </Typography>
 
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2">
            <LocationOnIcon /> 131 rue carno 92450 ville
           </Typography>
 
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2">
            <PeopleAltIcon />  300 Participants
           </Typography>
 
-          <Typography> Déscription </Typography>
+          <Typography variant='h3'> Déscription </Typography>
 
           <Typography>
           Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.

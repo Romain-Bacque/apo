@@ -9,7 +9,7 @@ import MyEvent from './MyEvent'
 function Events() {
   return (
     <>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography variant="h2">
            Mes évènements (1)
         </Typography>
       <Grid container>

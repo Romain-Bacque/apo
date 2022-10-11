@@ -10,7 +10,7 @@ function UpdateEventBrewery() {
   return (
     <>
     <Link to='/UpdateEventBrewery'> <Button> Ajouter un évènement </Button> </Link>
-    <Typography> Evènements de la brasserie (1)</Typography>
+    <Typography variant='h2'> Evènements de la brasserie (1)</Typography>
     <EventsBrewery />
      
     </>
