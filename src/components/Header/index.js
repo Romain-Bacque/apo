@@ -6,7 +6,7 @@ import React from 'react';
 import Input from '../Input';
 import { Link } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
-import {Box, Toolbar, IconButton, AppBar } from '@mui/material';
+import {Box, Toolbar, IconButton, AppBar, InputBase } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import SportsBarTwoToneIcon from '@mui/icons-material/SportsBarTwoTone';
 import Divider from '@mui/material/Divider';
@@ -31,7 +31,7 @@ const Search = styled('form')(({ theme }) => ({
   width: '100%',
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(1),
-    width: 'auto',
+    width: '100%',
   },
 }));
 
@@ -45,7 +45,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center',
 }));
 
-const StyledInputBase = styled(Input)(({ theme }) => ({
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),

@@ -2,7 +2,7 @@ import React from 'react'
 import OneBrewerie from './OneBrewerie';
 import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 
 
@@ -13,7 +13,9 @@ function BreweriesList() {
 
   const params = useParams();
   const data = useSelector((state) => state.data.breweries)
-  data.filter(brewery => brewery.address.includes(params.value)).map(filteredData => console.log(filteredData))
+  const search = data.filter(brewery => brewery.address.includes(params.value)).map(filteredData => console.log(filteredData))
+  
+  
   
   return (
     
@@ -22,7 +24,7 @@ function BreweriesList() {
         <Box> 
 
         {data.filter(brewery => brewery.address.includes(params.value)).map(filteredData => (
-         
+      
                 <OneBrewerie 
                   key={filteredData.id}
                   title={filteredData.title}
@@ -32,7 +34,10 @@ function BreweriesList() {
                   image={filteredData.image}
                 />
         ))}
-                
+        
+          
+            
+        
         </Box>
 
       </>

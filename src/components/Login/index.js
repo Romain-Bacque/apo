@@ -3,7 +3,7 @@
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useState, useCallback } from 'react';
-import { Box, Button, Typography, Container } from '@mui/material';
+import { Button, Typography, Container } from '@mui/material';
 
 
 // == Composant
@@ -38,17 +38,16 @@ function Login() {
   };
 
   return (
-      <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%', maxWidth: '500px', padding: '2rem', backgroundColor: 'white', display: 'flex', flexDirection: 'column', alignItems: 'space-between', gap: '2rem'}}>
-        <Typography component='h2' sx={{ marginTop: '4rem', fontSize: '1.5rem', textAlign: 'center' }}>Se connecter</Typography>
+      <Container component="form" onSubmit={handleSubmit} sx={{ marginTop: '0px', marginBottom: '0px' }}>
+        <Typography variant='h2'>Se connecter</Typography>
         <Input 
           input={
             {
               id: "email",
-              variant: "standard",
               label: "Email",
-              type: 'email'
+              type: 'email',
+            }
           }
-        }
           onInputChange={handleInputChange}
           name='email'
         />
@@ -56,7 +55,6 @@ function Login() {
         input={
           {
             id: "password",
-            variant: "standard",
             label: "Mot de passe",
             type: 'password'
           }
@@ -71,7 +69,7 @@ function Login() {
       Se connecter
       </Button>
         <Link to='/signup'>Vous n'êtes pas enregistré ?</Link>
-      </Box>
+      </Container>
   );
 }
 

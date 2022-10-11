@@ -14,6 +14,7 @@ function Form_brewerie() {
       <Input 
         name='title'
         type='text'
+        placeholder="Nom de la brasserie :"
         label="Nom de la brasserie :"
     
       />

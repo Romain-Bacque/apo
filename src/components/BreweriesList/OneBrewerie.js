@@ -4,17 +4,17 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import {CardActionArea, CardActions } from '@mui/material';
 import './style.scss';
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Categories from '../Categories'
 
 
 
-function OneBrewerie ({ title, phone, address, tags, image}) {
-
+function OneBrewerie ({ title, phone, address, tags, image, key}) {
+console.log(key)
 
 
     return(
-      <Link to='/breweries/:name'>
+      <Link to='/breweries/:id'>
       
         <Card>
           <CardActionArea>

@@ -50,10 +50,10 @@ function Register() {
   return (
     <>
 
-      <Box component="form" onSubmit={handleRegister} sx={{ bgcolor: 'white', width: '100%', maxWidth: '500px', display: 'flex', flexDirection: 'column', gap: '2rem', padding: '1rem'}}>
-        <Typography component='h2' sx={{ marginTop: '4rem', fontSize: '1.5rem', textAlign: 'center' }}>Créer un compte</Typography>
+      <Container component="form" onSubmit={handleRegister} sx={{ marginTop: '0px', marginBottom: '0px'}}>
+        <Typography variant='h2'>Créer un compte</Typography>
 
-        <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center', border: 'none' }}>
+        <Box>
 
           <RadioGroup
             defaultValue="user"
@@ -80,7 +80,6 @@ function Register() {
           input={
             {
               id: "name",
-              variant: "standard",
               type: 'text',
               label: "Nom ou Pseudo :"
             }
@@ -92,7 +91,6 @@ function Register() {
           input={
             {
               id: "email",
-              variant: "standard",
               type: 'email',
               label: "Adresse Email :"
             }
@@ -106,7 +104,6 @@ function Register() {
           input={
             {              
               id: "password",
-              variant: "standard",
               type: 'password',
               label: "Entrer le mot de passe :"
             }
@@ -119,7 +116,6 @@ function Register() {
             input={
               {
                 id: "confirmPassword",
-                variant: "standard",
                 type: 'password',
                 label: "Confirmer le mot de passe :"
               }
@@ -132,11 +128,11 @@ function Register() {
       <Button
         type="submit"
         disabled={!isFormValid}
-        variant="contained">
+        >
       S'enregistrer
       </Button>
       <Link to='/login'>Vous êtes déjà enregistré ?</Link>      
-    </Box>       
+    </Container>       
   </>
   );
 }
