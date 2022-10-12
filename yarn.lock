@@ -1360,6 +1360,16 @@
   resolved "https://registry.npmjs.org/@fontsource/roboto/-/roboto-4.5.8.tgz"
   integrity sha512-CnD7zLItIzt86q4Sj3kZUiLcBk1dSk81qcqgMGaZe7SQ1P8hFNxhMl5AZthK1zrDM5m74VVhaOpuMGIL4gagaA==
 
+"@geoapify/geocoder-autocomplete@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@geoapify/geocoder-autocomplete/-/geocoder-autocomplete-1.4.2.tgz#a42f57b54fdb7d7d4be0ebebfa967a19e09a6c36"
+  integrity sha512-D7Yh+z9/fTwSbaBfSU4hb+932tFepNPuzhnrtJNFv4w7WHmLDVDw6Res+RK/J7QCkwYxf+Yk1T4nQQo4hGMpcQ==
+
+"@geoapify/react-geocoder-autocomplete@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@geoapify/react-geocoder-autocomplete/-/react-geocoder-autocomplete-1.4.0.tgz#1f749f16eb7d4b6724dad55bcbafe48a7b45a821"
+  integrity sha512-W43N8ZxMOi1meiKGkBWEzkreISCPb0+XpniKksWDgfqniGRSqiTn2cszVdKR6AqptVgj3QZKsBTtbLz2yFo+UA==
+
 "@humanwhocodes/config-array@^0.10.4":
   version "0.10.4"
   resolved "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.10.4.tgz"

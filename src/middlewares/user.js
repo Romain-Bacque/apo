@@ -7,6 +7,10 @@ const instance = axios.create({
 const user = (store) => (next) => (action) => {
     const state = store.getState();
 
+    if(action.type === 'ADD_BREWERY'){
+      
+    }
+
     if (action.type === 'LOGIN') {
         store.dispatch({
           type: 'PENDING',
@@ -28,10 +32,11 @@ const user = (store) => (next) => (action) => {
               });        
             store.dispatch({
               type: 'SAVE_USER',
+              id: user.id,
               email: user.email,
-              password: user.password, 
+              password: user.password,
+              name: user.name, 
               role: user.role,
-              logged: true
             });
           }
           })

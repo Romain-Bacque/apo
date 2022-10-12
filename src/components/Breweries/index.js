@@ -5,9 +5,15 @@ import {Link} from 'react-router-dom'
 import Brewerie from './Brewerie'
 import Add from '@mui/icons-material/Add';
 import {Box, Button, Grid, Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 
 function Breweries() {
+  const breweries = useSelector(state => state.data.breweries);
+  const idUser = useSelector(state => state.user.id)
+  const userBreweries = breweries.filter((brewery) => brewery.user_id === idUser )
+
+
   return (
     <>
         <Box>
@@ -15,11 +21,20 @@ function Breweries() {
             Mes brasseries (1)
           </Typography>
           <Link to='/brewery/form_brewery'>
-            <Button variant="contained">Ajouter une Brasserie  <Add /></Button>
+            <Button variant="contained">Ajouter une Brasserie  <Add /> </Button>
           </Link>
         </Box>
         <Grid container>
-          <Brewerie />  
+        {userBreweries.map((oneBrewery) => (
+          <Brewerie 
+            key={oneBrewery.id}
+            image={oneBrewery.image}
+            title={oneBrewery.title}
+          />  
+
+        ))}
+        
+          
         </Grid>
     </>
   );

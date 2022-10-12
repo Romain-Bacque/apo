@@ -1,7 +1,7 @@
 // == Import
 
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useCallback } from 'react';
 import { Button, Typography, Container } from '@mui/material';
 
@@ -10,7 +10,10 @@ import { Button, Typography, Container } from '@mui/material';
 import Input from '../Input'
 
 function Login() {
+  const logged = useSelector(state => state.user.logged);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  
   const [ inputStatut, setInputStatut ] = useState({
     email: { isValid: false, value: '' },
     password: { isValid: false, value: '' }
@@ -35,7 +38,11 @@ function Login() {
       email: inputStatut.email.value,
       password: inputStatut.password.value
     });
+   
   };
+  if(logged){
+    navigate('/')
+  }
 
   return (
       <Container component="form" onSubmit={handleSubmit} sx={{ marginTop: '0px', marginBottom: '0px' }}>
