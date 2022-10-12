@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+import Silkscreen from '../../asset/fonts/Silkscreen-Regular.ttf'
 
 const theme = createTheme({
     /* 
@@ -52,8 +53,35 @@ const theme = createTheme({
         tonalOffset: 0.2 //  nombre compris entre 0 et 1
 
     },
+    // Attribuer une police au site
+    typography: {
+        fontFamily: 'Silkscreen, Arial',
+      },
+    // utilisée pour les media Query
+    breakpoints: {
+        values: {
+          xs: 0,
+          sm: 600,
+          md: 900,
+          lg: 1200,
+          xl: 1536,
+        },
+      },
 
     components: {
+        // nom du composant pour modifier la police du site
+        MuiCssBaseline: {
+            styleOverrides: `
+              @font-face {
+                font-family: 'Raleway';
+                font-style: normal;
+                font-display: swap;
+                font-weight: 400;
+                src: local('Silkscreen'), local('Silkscreen-Regular'), url(${Silkscreen}) format('ttf');
+                unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+              }
+            `,
+          },
         // Mui suivie du nom du composant
         MuiContainer:{
             // modification du style css

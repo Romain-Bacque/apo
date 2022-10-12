@@ -68,7 +68,7 @@ function One_brewerie () {
 
             <CardActions>
 
-            <Link to='/Brewery/event'> <Button> Gestionnaire d'évènements </Button> </Link> 
+            <Button component={Link} to='/Brewery/event'> Gestionnaire d'évènements </Button>
             
             </CardActions>
 
