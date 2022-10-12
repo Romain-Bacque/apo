@@ -1,7 +1,7 @@
 // == Import
 import './style.scss';
 import { Routes, Route } from 'react-router-dom'
-import {Box, Container} from '@mui/material';
+import {Box, Container, CssBaseline} from '@mui/material';
 
 // == Composant
 import Header from '../Header';
@@ -72,9 +72,9 @@ function App() {
       />}
 
     <ThemeProvider theme={theme}> 
-
+    <CssBaseline />
       <Header />
-            <Container conponent='main'>
+            <Container conponent='main'  sx={{fontFamily: 'Silkscreen'}} >
               <Routes>
 
                 {loading && <Route path='/search/:value' element={<Loading/>} />}
