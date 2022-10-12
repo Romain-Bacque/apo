@@ -1,6 +1,6 @@
 // == Import
 import './style.scss';
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import {Box, Container, CssBaseline} from '@mui/material';
 
 // == Composant
@@ -18,6 +18,7 @@ import Breweries from '../Breweries';
 import Events from '../Events';
 import OneEvent from '../Events/OneEvent';
 import Profil from '../Profil';
+import Test from '../Test';
 import UpdateEventBrewery from '../Breweries/UpdateEventBrewery';
 import CustomSnackbars from '../UI/CustomSnackbars';
 import Loading from '../App/Loading';
@@ -32,6 +33,7 @@ function App() {
   const dispatch = useDispatch();
   const snackbarContent = useSelector((state) => state.snackbar);
   const loading = useSelector((state) => state.data.loading)
+  const logged = useSelector((state) => state.user.logged)
     
   useEffect(() => {
     console.log('fetch data')
@@ -63,7 +65,7 @@ function App() {
 
   return (   
     
-    <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}> 
+    <Box> 
     {snackbarContent.statut && <CustomSnackbars
       message={snackbarContent.message}
       statut={snackbarContent.statut}
@@ -76,24 +78,29 @@ function App() {
       <Header />
             <Container conponent='main'  sx={{fontFamily: 'Silkscreen'}} >
               <Routes>
-
-                {loading && <Route path='/search/:value' element={<Loading/>} />}
-                {loading === false && <Route path='/search/:value' element={<BreweriesList />} />}
                 {loading && <Route path='/' element={<Loading />} />}
                 {loading === false && <Route path='/' element={<Map />} />}
-                <Route path='/signup' element={<Register />} />
-                {loading && <Route path='/breweries/:id' element={<Loading />} />}
                 {loading === false && <Route path='/breweries/:id' element={<OneBrewerie />} />}
-                <Route path='/breweriesList' element={<BreweriesList />} />
+                {loading && <Route path='/breweries/:id' element={<Loading />} />}
+                {loading && <Route path='/search/:value' element={<Loading/>} />}
+                {loading === false && <Route path='/search/:value' element={<BreweriesList />} />}
+                <Route path='/signup' element={<Register />} />
+                <Route path='/login' element={<Login />} />
+
+              {logged ? (
+                <>
                 <Route path='/breweries' element={<Breweries />} />
                 <Route path='/brewery/form_brewery' element={<FormBrewerie />} />
                 <Route path='/brewery/update' element={<UpdateBrewery />} />
                 <Route path='/create-event' element={<FormEvent />} />
                 <Route path='/events' element={<Events />} />
                 <Route path='/events/:id' element={<OneEvent />} />
-                <Route path='/login' element={<Login />} />
                 <Route path='/profil' element={<Profil />} />
                 <Route path='/Brewery/event' element={<UpdateEventBrewery />} />
+                </>
+              ) : <Route path='*' element={<Login />} />}
+
+              <Route path='/test' element={<Test />} />
               </Routes>
             </Container>
             {/* <Footer /> */}

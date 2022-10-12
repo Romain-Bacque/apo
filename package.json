@@ -6,6 +6,8 @@
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@fontsource/roboto": "^4.5.8",
+    "@geoapify/geocoder-autocomplete": "^1.4.2",
+    "@geoapify/react-geocoder-autocomplete": "^1.4.0",
     "@mui/icons-material": "^5.10.6",
     "@mui/material": "^5.10.7",
     "@mui/styled-engine-sc": "^5.10.6",

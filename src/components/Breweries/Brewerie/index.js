@@ -6,20 +6,20 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions, Grid } from '@mui/material';
 // == Composant
 import { Link } from 'react-router-dom'
-function Brewerie() {
+function Brewerie({ image, title}) {
   return (
-    <Grid item>
+    <Grid item xs={12} md={4}>
       <Card >
       <CardActionArea>
         <CardMedia
           component="img"
           height="140"
-          image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
+          image={image}
           alt="green iguana"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            La brasserie de lulu
+          <Typography variant="h5">
+            {title}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -37,7 +37,7 @@ function Brewerie() {
       </CardActions>
     </Card>
     </Grid>
-);
+  );
 }
 
 

@@ -9,9 +9,11 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box, Button, Container } from '@mui/material';
 import Input from '../Input';
+import { useSelector } from 'react-redux';
 
 
 function Profil() {
+  const {name, email} = useSelector(state => state.user)
   return (
     <Container component='form'>
       <Accordion>
@@ -20,7 +22,7 @@ function Profil() {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography> vilanelle </Typography>
+          <Typography> {name} </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -39,7 +41,7 @@ function Profil() {
           aria-controls="panel2a-content"
           id="panel2a-header"
         >
-          <Typography>nom.prenom@gmail.com</Typography>
+          <Typography>{email}</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
