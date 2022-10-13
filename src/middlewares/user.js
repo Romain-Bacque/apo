@@ -27,7 +27,8 @@ const user = (store) => (next) => (action) => {
       .catch((error) => {
         console.log(error);          
       });
-      } else if (action.type === 'LOGIN') {
+      } 
+      else if (action.type === 'LOGIN') {
         store.dispatch({
           type: 'PENDING',
           message: null
@@ -37,47 +38,16 @@ const user = (store) => (next) => (action) => {
           password: action.password,
         })
         .then((response) => {
-        if(response.status === 200) {
+          if(response.status === 200) {
           
-          const user = response.data.data;
-          
-          store.dispatch({
-                type: 'SUCCESS',
-                message: `Bienvenue ${user.name} !`
-              });        
-              store.dispatch({
-                type: 'SAVE_USER',
-                name: user.name, 
-                email: user.email,
-                password: user.password, 
-                role: user.role
-              });
-        }
-
-    if(action.type === 'ADD_BREWERY'){
-      
-    }
-
-    if (action.type === 'LOGIN') {
-        store.dispatch({
-          type: 'PENDING',
-          message: null
-        });
-        instance.post('/user/login', {
-          email: action.email,
-          password: action.password,
-        })
-          .then((response) => {
-            console.log(response.status)
-            if(response.status === 200) {
-              
-              const user = response.data.data;
-              
-              store.dispatch({
-                type: 'SUCCESS',
-                message: `Bienvenue ${user.name} !`
-              });        
-              store.dispatch({
+            const user = response.data.data;
+            
+            store.dispatch({
+                  type: 'SUCCESS',
+                  message: `Bienvenue ${user.name} !`
+                });        
+     
+            store.dispatch({
                 type: 'SAVE_USER',
                 id: user.id,
                 email: user.email,
