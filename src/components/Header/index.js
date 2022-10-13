@@ -76,11 +76,19 @@ function Header() {
   const role = useSelector(state => state.user.role);
 
   function onPlaceSelect(value) {
-    console.log(value);
+    console.log(value.properties);
+       dispatch({
+        type: 'SEARCH_VALUE',
+        value: value.properties.formatted
+      })
+      const searchValue = value.properties.formatted
+       navigate(`/search/${searchValue}`)  
   }
+ 
   
   function onSuggectionChange(value) {
     console.log(value);
+
   }
   
   function preprocessHook(value) {
@@ -217,18 +225,20 @@ function Header() {
   
   }
   const handleKeyUp = (e) => {
-    if (e.key === 'Enter' || e.keyCode === 13) {
-      const value = e.target.value;
-      dispatch({
-        type: 'SEARCH_VALUE',
-        value: e.target.value,
-      })
-      navigate(`/search/${value}`)
+    // if (e.key === 'Enter' || e.keyCode === 13) {
+      console.log('coucou')
+      // const value = e.target.value;
+      // dispatch({
+      //   type: 'SEARCH_VALUE',
+      //   value: e.target.value,
+      // })
+      // navigate(`/search/${value}`)
      
-  }
+  // }
   }
 
   return (
+    <GeoapifyContext apiKey="99188fa618354504b3ba9155a71fb817">
       <AppBar>
         <Toolbar >
         <Box>
@@ -236,23 +246,21 @@ function Header() {
           <Box component='img' src={Logo} alt='' sx={{width: '4rem'}}/>
         </Link>
         </Box>
-
+          <Link to='/test'>Test</Link>
            <Search onSubmit={handleSubmit}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
-              <GeoapifyContext apiKey="99188fa618354504b3ba9155a71fb817">
-                <StyledInputBase
-                  component={GeoapifyGeocoderAutocomplete}
+                <GeoapifyGeocoderAutocomplete
                   placeholder="Search…"
-                  inputProps={{ 'aria-label': 'search' }}
-                  name='search'
-                  type='search'
-                  sx={{width: '100%'}}
-                  onKeyUp={handleKeyUp}
+                  // inputProps={{ 'aria-label': 'search' }}
+                  // name='search'
+                  // type='search'
+                  // sx={{width: '100%'}}
+                  // onChange={handleKeyUp}
                   // value={value}
-                  // type={type}
-                  // lang={language}
+                  // type="locality"
+                  lang="fr"
                   // position={position}
                   // countryCodes={countryCodes}
                   // limit={limit}
@@ -263,13 +271,12 @@ function Header() {
                   // biasByCircle={biasByCircle}
                   // biasByRect={biasByRect}
                   // biasByProximity={biasByProximity}
-                  // placeSelect={onPlaceSelect}
-                  // suggestionsChange={onSuggectionChange}
+                  placeSelect={onPlaceSelect}
+                  suggestionsChange={onSuggectionChange}
                   // preprocessHook={preprocessHook}
                   // postprocessHook={postprocessHook}
                   // suggestionsFilter={suggestionsFilter}
                 />
-              </GeoapifyContext>
 
             </Search> 
         
@@ -278,7 +285,7 @@ function Header() {
               >
               <div>
                 {['top'].map((anchor) => (
-
+                  
                   <React.Fragment key={anchor}>
 
                     <MenuIcon 
@@ -306,6 +313,7 @@ function Header() {
           {/* <Navbar className='header-navbar'/> */}
         </Toolbar>
       </AppBar>
+    </GeoapifyContext>
   );
 }
   
