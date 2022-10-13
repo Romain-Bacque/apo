@@ -7,11 +7,11 @@ import "leaflet-easybutton/src/easy-button.css";
 import "font-awesome/css/font-awesome.min.css";
 import "./style.scss";
 import { style } from "@mui/system";
-import positionIcon from "./MypositionIcon"
+import positionIcon from "./MypositionIcon";
 import { Link } from 'react-router-dom';
 import logo from "./logoBrasserie.jpg";
 import { useSelector } from 'react-redux';
-import visitorIcon from './constants'
+import visitorIcon from './constants';
 import { MapUiExtend } from '../../selector/Style';
 
 const { BaseLayer } = LayersControl;
@@ -41,7 +41,7 @@ function Map() {
     <MapContainer
       zoomControl={false}
       center={[	47.902964, 	1.909251]}
-      zoom={6.2}
+      zoom={5}
       whenCreated={setMap}
     >
       {breweries.map ((brewerie) => (
