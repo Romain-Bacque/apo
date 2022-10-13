@@ -12,7 +12,7 @@ function FormEvent() {
 
       <Box component='form'>
       
-      <Typography omponent='h2'> Ajouter un évènement </Typography>
+      <Typography variant='h2'> Ajouter un évènement </Typography>
 
       <Input 
         id="standard-basic"

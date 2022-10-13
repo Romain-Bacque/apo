@@ -6,7 +6,7 @@ import React from 'react';
 import Input from '../Input';
 import { Link } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
-import {Box, Toolbar, IconButton, AppBar } from '@mui/material';
+import {Box, Toolbar, IconButton, AppBar, InputBase } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
@@ -16,6 +16,12 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import classes from "./index.module.css";
 import Logo from '../../asset/images/biere-sans-fond.png'
+
+import {
+  GeoapifyGeocoderAutocomplete,
+  GeoapifyContext
+} from "@geoapify/react-geocoder-autocomplete";
+import "@geoapify/geocoder-autocomplete/styles/minimal.css";
 
 const Search = styled('form')(({ theme }) => ({
   position: 'relative',
@@ -28,7 +34,7 @@ const Search = styled('form')(({ theme }) => ({
   width: '100%',
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(1),
-    width: 'auto',
+    width: '100%',
   },
 }));
 
@@ -42,7 +48,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center',
 }));
 
-const StyledInputBase = styled(Input)(({ theme }) => ({
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
@@ -64,14 +70,51 @@ function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [selectedIndex, setSelectedIndex] = React.useState(1);
-  const isLogged = useSelector(state => state.user.isLoggedIn);
+  const isLogged = useSelector(state => state.user.logged);
   const role = useSelector(state => state.user.role);
-
-  console.log(isLogged)
 
   const handleLogout = (evt) => {
     dispatch({
       type: 'LOGOUT'      
+
+  function onPlaceSelect(value) {
+    console.log(value);
+  }
+  
+  function onSuggectionChange(value) {
+    console.log(value);
+  }
+  
+  function preprocessHook(value) {
+    return `${value}, Munich, Germany`;
+  }
+  
+  function postprocessHook(feature) {
+    return feature.properties.street;
+  }
+  
+  function suggestionsFilter(suggestions) {
+    const processedStreets = [];
+  
+    const filtered = suggestions.filter((value) => {
+      if (
+        !value.properties.street ||
+        processedStreets.indexOf(value.properties.street) >= 0
+      ) {
+        return false;
+      } else {
+        processedStreets.push(value.properties.street);
+        return true;
+      }
+    });
+  
+    return filtered;
+  }
+  
+  const handleLogout = (evt) => {
+    dispatch({
+      type: 'RESET_USER',
+      
     });
   };
 
@@ -94,7 +137,8 @@ function Header() {
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
   };
-
+  
+//============================================== MENU ==========================================
   const list = (anchor) => (
     <Box
       component="form"
@@ -125,7 +169,7 @@ function Header() {
           </ListItem>
         </Link>}
 
-        {isLogged && role === "brewer" && <Link to='/breweries'>
+        {isLogged && <Link to='/breweries'>
           <ListItem
            button
            selected={selectedIndex === 5}
@@ -168,6 +212,7 @@ function Header() {
       <Divider />
     </Box>
   );
+  //============================================== /MENU ======================================================================================
 
   
   const handleSubmit = (e) => {
@@ -186,7 +231,6 @@ function Header() {
   }
   }
 
-  
   return (
       <AppBar>
         <Toolbar >
@@ -200,15 +244,36 @@ function Header() {
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
-
+              <GeoapifyContext apiKey="99188fa618354504b3ba9155a71fb817">
                 <StyledInputBase
+                  component={GeoapifyGeocoderAutocomplete}
                   placeholder="Search…"
                   inputProps={{ 'aria-label': 'search' }}
                   name='search'
                   type='search'
                   sx={{width: '100%'}}
                   onKeyUp={handleKeyUp}
+                  // value={value}
+                  // type={type}
+                  // lang={language}
+                  // position={position}
+                  // countryCodes={countryCodes}
+                  // limit={limit}
+                  // filterByCountryCode={filterByCountryCode}
+                  // filterByCircle={filterByCircle}
+                  // filterByRect={filterByRect}
+                  // biasByCountryCode={biasByCountryCode}
+                  // biasByCircle={biasByCircle}
+                  // biasByRect={biasByRect}
+                  // biasByProximity={biasByProximity}
+                  // placeSelect={onPlaceSelect}
+                  // suggestionsChange={onSuggectionChange}
+                  // preprocessHook={preprocessHook}
+                  // postprocessHook={postprocessHook}
+                  // suggestionsFilter={suggestionsFilter}
                 />
+              </GeoapifyContext>
+
             </Search> 
         
               <IconButton

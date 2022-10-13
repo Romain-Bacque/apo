@@ -31,7 +31,7 @@ function Map() {
       map.locate().on("locationfound", function (e) {
         setPosition(e.latlng);
         map.flyTo(e.latlng,13, map.getZoom());
-        L.marker(e.latlng, {icon: positionIcon}).addTo(map).bindPopup("Vous êtes ici").openPopup();
+        L.marker(e.latlng, {icon: positionIcon}).addTo(map);
       });
     }).addTo(map);
   }, [map]);

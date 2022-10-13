@@ -4,6 +4,7 @@
     margin-top: -68px;
     position: relative;
     margin-left: -20px;
+  
   }
 
 .leaflet-popup-content-wrapper{
@@ -31,6 +32,8 @@
   border-radius: 30% !important;
   border: none !important;
   box-shadow: 5px 5px 5px grey;
+  margin-top: 2rem;
+  position: fixed;
  
 }
 

@@ -1,11 +1,12 @@
 
 export const initialState = {
-    isLoggedIn: false,
+    logged: false,
+    id: '',
     name: '',
     email: '',
     password: '',
     confirmPassword: '',
-    role: 'user',
+    role: '',
     loading: false,
 }; 
 
@@ -27,16 +28,17 @@ const reducer = (state = initialState, action = {}) => {
                 email: '',
                 password: '',
                 role: '',
-                isLoggedIn: false,
+                logged: false,
             };
         case 'SAVE_USER':
-            console.log('testtttt')
             return {
                 ...state,
+                id: action.id,
                 email: action.email,
                 password: action.password,
+                name: action.name,
                 role: action.role,
-                isLoggedIn: true,
+                logged: true,
             };
         case 'UPDATE_USER':
             return {

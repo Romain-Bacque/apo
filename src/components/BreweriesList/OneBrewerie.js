@@ -2,57 +2,58 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import {CardActionArea, CardActions } from '@mui/material';
+import {CardActionArea, CardActions, Grid } from '@mui/material';
 import './style.scss';
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Categories from '../Categories'
 
 
 
-function OneBrewerie ({ title, phone, address, tags, image}) {
-
-
+function OneBrewerie ({ title, phone, address, tags, image, id}) {
 
     return(
-      <Link to='/breweries/:name'>
-      
-        <Card>
-          <CardActionArea>
+      <Grid item xs={12} md={4}>
+        <Link to={`/breweries/${id}`}>
+        
+          <Card>
+            <CardActionArea>
 
-            <CardMedia
-              component="img"
-              height="140"
-              image={image}
-              alt="green iguana"
-            />
+              <CardMedia
+                component="img"
+                height="140"
+                image={image}
+                alt="green iguana"
+              />
 
-            <CardContent>
+              <CardContent>
 
-              <Typography gutterBottom variant="h5" component="div">
-                {title}
-              </Typography>
+                <Typography gutterBottom variant="h5" component="div">
+                  {title}
+                </Typography>
 
-              <Typography gutterBottom variant="p" component="div">
-                {address}
-              </Typography>
+                <Typography gutterBottom variant="p" component="div">
+                  {address}
+                </Typography>
 
-              <Typography gutterBottom variant="p" component="div">
-                {phone}
-              </Typography>
+                <Typography gutterBottom variant="p" component="div">
+                  {phone}
+                </Typography>
 
-              <Typography gutterBottom variant="h5" component="div">
-              <Categories tags={tags} />
-              </Typography>
+                <Typography gutterBottom variant="h5" component="div">
+                <Categories tags={tags} />
+                </Typography>
 
-            </CardContent>
+              </CardContent>
 
-          </CardActionArea>
+            </CardActionArea>
 
-          <CardActions />
+            <CardActions />
 
-        </Card>
+          </Card>
 
-      </Link>
+        </Link>
+
+      </Grid>
 
     );
 }
