@@ -75,7 +75,10 @@ function Header() {
 
   const handleLogout = (evt) => {
     dispatch({
-      type: 'LOGOUT'      
+      type: 'LOGOUT'
+    })
+
+  }
 
   function onPlaceSelect(value) {
     console.log(value.properties);
@@ -119,12 +122,6 @@ function Header() {
     return filtered;
   }
   
-  const handleLogout = (evt) => {
-    dispatch({
-      type: 'RESET_USER',
-      
-    });
-  };
 
   const [state, setState] = React.useState({
     top: false,
@@ -227,18 +224,7 @@ function Header() {
     e.preventDefault()
   
   }
-  const handleKeyUp = (e) => {
-    // if (e.key === 'Enter' || e.keyCode === 13) {
-      console.log('coucou')
-      // const value = e.target.value;
-      // dispatch({
-      //   type: 'SEARCH_VALUE',
-      //   value: e.target.value,
-      // })
-      // navigate(`/search/${value}`)
-     
-  // }
-  }
+  
 
   return (
     <GeoapifyContext apiKey="99188fa618354504b3ba9155a71fb817">

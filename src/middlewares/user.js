@@ -28,15 +28,15 @@ const user = (store) => (next) => (action) => {
         console.log(error);          
       });
       } else if (action.type === 'LOGIN') {
-      store.dispatch({
-        type: 'PENDING',
-        message: null
-      });
-      instance.post('/user/login', {
-        email: action.email,
-        password: action.password,
-      })
-      .then((response) => {
+        store.dispatch({
+          type: 'PENDING',
+          message: null
+        });
+        instance.post('/user/login', {
+          email: action.email,
+          password: action.password,
+        })
+        .then((response) => {
         if(response.status === 200) {
           
           const user = response.data.data;
@@ -52,7 +52,8 @@ const user = (store) => (next) => (action) => {
                 password: user.password, 
                 role: user.role
               });
-            }
+        }
+
     if(action.type === 'ADD_BREWERY'){
       
     }
@@ -76,15 +77,15 @@ const user = (store) => (next) => (action) => {
                 type: 'SUCCESS',
                 message: `Bienvenue ${user.name} !`
               });        
-            store.dispatch({
-              type: 'SAVE_USER',
-              id: user.id,
-              email: user.email,
-              password: user.password,
-              name: user.name, 
-              role: user.role,
-            });
-          }
+              store.dispatch({
+                type: 'SAVE_USER',
+                id: user.id,
+                email: user.email,
+                password: user.password,
+                name: user.name, 
+                role: user.role,
+              });
+            }
           })
           .catch((error) => {
             console.log(error);
@@ -112,7 +113,7 @@ const user = (store) => (next) => (action) => {
               });
             }
           });
-      } else if (action.type === 'REGISTER'){
+      }else if (action.type === 'REGISTER'){
         store.dispatch({
           type: 'PENDING',
           message: null
@@ -154,7 +155,7 @@ const user = (store) => (next) => (action) => {
         });
       }
     else if (action.type === 'LOGOUT') {
-      instance.post('/user/logout')
+        instance.post('/user/logout')
           .then((response) => {
             if(response.status === 200) {
               store.dispatch({
@@ -169,7 +170,7 @@ const user = (store) => (next) => (action) => {
                 message: 'Erreur, déconnexion impossible.'
               });                 
           }); 
-        }
+    }
     else if (action.type === 'DELETE_USER'){
       instance.delete('/user/delete', {
         email: state.user.email,
