@@ -5,7 +5,6 @@ import {Box, Container, CssBaseline} from '@mui/material';
 
 // == Composant
 import Header from '../Header';
-import Footer from '../Footer';
 import Map from '../Map';
 import Login from '../Login';
 import Register from '../Register';
@@ -33,6 +32,13 @@ function App() {
   const dispatch = useDispatch();
   const snackbarContent = useSelector((state) => state.snackbar);
   const loading = useSelector((state) => state.data.loading)
+
+  useEffect(() => {
+    dispatch({
+      type: 'USER_VERIFICATION',
+    })
+  }, [dispatch]);
+
   const logged = useSelector((state) => state.user.logged)
     
   useEffect(() => {
@@ -64,15 +70,14 @@ function App() {
 
 
   return (   
-    
-    <Box> 
+    <>
     {snackbarContent.statut && <CustomSnackbars
       message={snackbarContent.message}
       statut={snackbarContent.statut}
       isOpen={isOpen}
       onClose={() => setIsOpen(false)}
       />}
-
+    <Box>
     <ThemeProvider theme={theme}> 
     <CssBaseline />
       <Header />
@@ -106,6 +111,7 @@ function App() {
             {/* <Footer /> */}
     </ThemeProvider>
     </Box>
+    </>
   );
 }
 
