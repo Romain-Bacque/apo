@@ -26,6 +26,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../selector/theme';
+import Error from '../Error';
 
 
 function App() {
@@ -86,6 +87,7 @@ function App() {
                 {loading === false && <Route path='/search/:value' element={<BreweriesList />} />}
                 <Route path='/signup' element={<Register />} />
                 <Route path='/login' element={<Login />} />
+                <Route path="*" element={<Error />} />
 
               {logged ? (
                 <>
