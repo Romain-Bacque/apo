@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import {Box, Toolbar, IconButton, AppBar, InputBase } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import SportsBarTwoToneIcon from '@mui/icons-material/SportsBarTwoTone';
 import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import List from '@mui/material/List';
@@ -23,7 +22,6 @@ import {
   GeoapifyContext
 } from "@geoapify/react-geocoder-autocomplete";
 import "@geoapify/geocoder-autocomplete/styles/minimal.css";
-
 
 const Search = styled('form')(({ theme }) => ({
   position: 'relative',
@@ -74,6 +72,10 @@ function Header() {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const isLogged = useSelector(state => state.user.logged);
   const role = useSelector(state => state.user.role);
+
+  const handleLogout = (evt) => {
+    dispatch({
+      type: 'LOGOUT'      
 
   function onPlaceSelect(value) {
     console.log(value);
@@ -135,7 +137,8 @@ function Header() {
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
   };
-//============================================== MENU ======================================================================================
+  
+//============================================== MENU ==========================================
   const list = (anchor) => (
     <Box
       component="form"

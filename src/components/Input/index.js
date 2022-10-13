@@ -40,9 +40,8 @@ function Input(props) {
   return (
   <>
     <TextField
-      style={props.style}
-      error={isInputTouched && !isInputValid}
-      helperText={isInputTouched && !isInputValid && "Entrée incorrecte."}
+      error={props.name !== "search" ? isInputTouched && !isInputValid : false}
+      helperText={ props.name !== "search" ? isInputTouched && !isInputValid && "Entrée incorrecte." : ""}
       value={inputValue}
       required
       onBlur={inputBlurHandler}
