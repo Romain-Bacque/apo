@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import {Box, Toolbar, IconButton, AppBar, InputBase } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import SportsBarTwoToneIcon from '@mui/icons-material/SportsBarTwoTone';
 import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import List from '@mui/material/List';
@@ -22,6 +23,7 @@ import {
   GeoapifyContext
 } from "@geoapify/react-geocoder-autocomplete";
 import "@geoapify/geocoder-autocomplete/styles/minimal.css";
+
 
 const Search = styled('form')(({ theme }) => ({
   position: 'relative',
@@ -73,16 +75,20 @@ function Header() {
   const isLogged = useSelector(state => state.user.logged);
   const role = useSelector(state => state.user.role);
 
-  const handleLogout = (evt) => {
-    dispatch({
-      type: 'LOGOUT'      
-
   function onPlaceSelect(value) {
-    console.log(value);
+    console.log(value.properties);
+       dispatch({
+        type: 'SEARCH_VALUE',
+        value: value.properties.address_line1
+      })
+      const searchValue = value.properties.address_line1
+       navigate(`/search/${searchValue}`)  
   }
+ 
   
   function onSuggectionChange(value) {
     console.log(value);
+
   }
   
   function preprocessHook(value) {
@@ -137,8 +143,7 @@ function Header() {
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
   };
-  
-//============================================== MENU ==========================================
+//============================================== MENU ======================================================================================
   const list = (anchor) => (
     <Box
       component="form"
@@ -219,19 +224,9 @@ function Header() {
     e.preventDefault()
   
   }
-  const handleKeyUp = (e) => {
-    if (e.key === 'Enter' || e.keyCode === 13) {
-      const value = e.target.value;
-      dispatch({
-        type: 'SEARCH_VALUE',
-        value: e.target.value,
-      })
-      navigate(`/search/${value}`)
-     
-  }
-  }
 
   return (
+    <GeoapifyContext apiKey="99188fa618354504b3ba9155a71fb817">
       <AppBar>
         <Toolbar >
         <Box>
@@ -239,25 +234,23 @@ function Header() {
           <Box component='img' src={Logo} alt='' sx={{width: '4rem'}}/>
         </Link>
         </Box>
-
+          <Link to='/test'>Test</Link>
            <Search onSubmit={handleSubmit}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
-              <GeoapifyContext apiKey="99188fa618354504b3ba9155a71fb817">
-                <StyledInputBase
-                  component={GeoapifyGeocoderAutocomplete}
+                <GeoapifyGeocoderAutocomplete
                   placeholder="Search…"
-                  inputProps={{ 'aria-label': 'search' }}
-                  name='search'
-                  type='search'
-                  sx={{width: '100%'}}
-                  onKeyUp={handleKeyUp}
+                  // inputProps={{ 'aria-label': 'search' }}
+                  // name='search'
+                  // type='search'
+                  // sx={{width: '100%'}}
+                  // onChange={handleKeyUp}
                   // value={value}
-                  // type={type}
-                  // lang={language}
+                  type="locality"
+                  lang="fr"
                   // position={position}
-                  // countryCodes={countryCodes}
+                  // countryCodes='fr'
                   // limit={limit}
                   // filterByCountryCode={filterByCountryCode}
                   // filterByCircle={filterByCircle}
@@ -266,13 +259,12 @@ function Header() {
                   // biasByCircle={biasByCircle}
                   // biasByRect={biasByRect}
                   // biasByProximity={biasByProximity}
-                  // placeSelect={onPlaceSelect}
-                  // suggestionsChange={onSuggectionChange}
+                  placeSelect={onPlaceSelect}
+                  suggestionsChange={onSuggectionChange}
                   // preprocessHook={preprocessHook}
                   // postprocessHook={postprocessHook}
                   // suggestionsFilter={suggestionsFilter}
                 />
-              </GeoapifyContext>
 
             </Search> 
         
@@ -281,7 +273,7 @@ function Header() {
               >
               <div>
                 {['top'].map((anchor) => (
-
+                  
                   <React.Fragment key={anchor}>
 
                     <MenuIcon 
@@ -309,6 +301,7 @@ function Header() {
           {/* <Navbar className='header-navbar'/> */}
         </Toolbar>
       </AppBar>
+    </GeoapifyContext>
   );
 }
   

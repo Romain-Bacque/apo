@@ -1,33 +1,14 @@
 import axios from "axios";
-import { apiConfig } from "../config/config";
 
 const instance = axios.create({
-  baseURL: `http://${apiConfig.host}:${apiConfig.port}`,
-  withCredentials: true
+  baseURL: 'http://unknown8.fr:4000',
+  credential: true
 });
 
 const user = (store) => (next) => (action) => {
     const state = store.getState();
 
-    if (action.type === 'USER_VERIFICATION') {
-      instance.get('/')
-      .then((response) => {
-        if(response.status === 200) {
-          const user = response.data.data;
-                console.log(user)
-          store.dispatch({
-            type: 'SAVE_USER',
-            name: user.name, 
-            email: user.email,
-            password: user.password, 
-            role: user.role
-          });
-        }
-      })
-      .catch((error) => {
-        console.log(error);          
-      });
-      } else if (action.type === 'LOGIN') {
+    if (action.type === 'LOGIN') {
       store.dispatch({
         type: 'PENDING',
         message: null
@@ -36,83 +17,52 @@ const user = (store) => (next) => (action) => {
         email: action.email,
         password: action.password,
       })
-      .then((response) => {
-        if(response.status === 200) {
-          
-          const user = response.data.data;
-          
-          store.dispatch({
-                type: 'SUCCESS',
-                message: `Bienvenue ${user.name} !`
-              });        
-              store.dispatch({
-                type: 'SAVE_USER',
-                name: user.name, 
-                email: user.email,
-                password: user.password, 
-                role: user.role
-              });
-            }
-    if(action.type === 'ADD_BREWERY'){
-      
-    }
-
-    if (action.type === 'LOGIN') {
-        store.dispatch({
-          type: 'PENDING',
-          message: null
-        });
-        instance.post('/user/login', {
-          email: action.email,
-          password: action.password,
-        })
-          .then((response) => {
-            console.log(response.status)
-            if(response.status === 200) {
-              
-              const user = response.data.data;
-              
-              store.dispatch({
-                type: 'SUCCESS',
-                message: `Bienvenue ${user.name} !`
-              });        
+        .then((response) => {
+          console.log(response.status)
+          if(response.status === 200) {
+            
+            const user = response.data.data;
+            
             store.dispatch({
-              type: 'SAVE_USER',
-              id: user.id,
-              email: user.email,
-              password: user.password,
-              name: user.name, 
-              role: user.role,
+              type: 'SUCCESS',
+              message: `Bienvenue ${user.name} !`
+            });        
+          store.dispatch({
+            type: 'SAVE_USER',
+            name: user.name,
+            id: user.id,
+            email: user.email,
+            password: user.password, 
+            role: user.role,
+            logged: true
+          });
+        }
+        })
+        .catch((error) => {
+          const { status } = error.response;
+
+          if(status === 400) {
+            store.dispatch({
+              type: 'ERROR',
+              message: "erreur dans un/plusieurs champs"
+            });
+          } else if(status === 401) {
+            store.dispatch({
+              type: 'ERROR',
+              message: "mot de passe/utilisateur incorrect(s)"
+            });
+          } else {
+            store.dispatch({
+              type: 'ERROR',
+              message: 'Erreur, connexion impossible.'
             });
           }
-          })
-          .catch((error) => {
-            console.log(error);
-            const { status } = error.response;
+        });
+    }
 
-            if(status === 400) {
-              store.dispatch({
-                type: 'ERROR',
-                message: "erreur dans un/plusieurs champs"
-              });
-            } else if(status === 401) {
-              store.dispatch({
-                type: 'ERROR',
-                message: "mot de passe/utilisateur incorrect(s)"
-              });
-            } else if(status === 409) {
-              store.dispatch({
-                type: 'ERROR',
-                message: "utilisateur déjà connecté"
-              });
-            } else {
-              store.dispatch({
-                type: 'ERROR',
-                message: 'Erreur, connexion impossible.'
-              });
-            }
-          });
-      } else if (action.type === 'REGISTER'){
+
+
+      else if (action.type === 'REGISTER'){
         store.dispatch({
           type: 'PENDING',
           message: null
@@ -154,7 +104,7 @@ const user = (store) => (next) => (action) => {
         });
       }
     else if (action.type === 'LOGOUT') {
-      instance.post('/user/logout')
+      axios.post('/user/logout')
           .then((response) => {
             if(response.status === 200) {
               store.dispatch({
