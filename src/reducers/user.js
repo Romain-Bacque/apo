@@ -30,12 +30,13 @@ const reducer = (state = initialState, action = {}) => {
                 isLoggedIn: false,
             };
         case 'SAVE_USER':
+            console.log('testtttt')
             return {
                 ...state,
                 email: action.email,
                 password: action.password,
                 role: action.role,
-                logged: action.logged,
+                isLoggedIn: true,
             };
         case 'UPDATE_USER':
             return {

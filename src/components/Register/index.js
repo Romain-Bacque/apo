@@ -1,17 +1,12 @@
 // == Import
-
 import { useDispatch } from 'react-redux';
 import { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Typography, Button, Snackbar, Alert, Container} from '@mui/material';
-
-
 import { Box, Typography, Button, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 import './style.scss';
-import Input from '../Input'
+import Input from '../Input';
 
 // == Component
-
 function Register() {
   const dispatch = useDispatch();
   const [ inputStatut, setInputStatut ] = useState({
@@ -39,7 +34,6 @@ function Register() {
       role: inputStatut.role
     });  
   };
-
 
   const handleInputChange = useCallback((name, statut) => {
     setInputStatut(prevState => {
@@ -114,7 +108,6 @@ function Register() {
               label: "Entrer le mot de passe :"
             }
           }
-
           name='password'
           onInputChange={handleInputChange}
         />

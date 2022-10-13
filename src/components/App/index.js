@@ -1,13 +1,10 @@
 // == Import
 import './style.scss';
 import { Routes, Route } from 'react-router-dom'
-
-import {Box} from '@mui/material';
 import {Box, Container} from '@mui/material';
 
 // == Composant
 import Header from '../Header';
-import Footer from '../Footer';
 import Map from '../Map';
 import Login from '../Login';
 import Register from '../Register';
@@ -34,7 +31,13 @@ function App() {
   const dispatch = useDispatch();
   const snackbarContent = useSelector((state) => state.snackbar);
   const loading = useSelector((state) => state.data.loading)
-    
+
+  useEffect(() => {
+    dispatch({
+      type: 'USER_VERIFICATION',
+    })
+  }, [dispatch]);
+
   useEffect(() => {
     console.log('fetch data')
     dispatch({
@@ -64,14 +67,14 @@ function App() {
 
 
   return (   
-    
-    <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}> 
+    <>
     {snackbarContent.statut && <CustomSnackbars
       message={snackbarContent.message}
       statut={snackbarContent.statut}
       isOpen={isOpen}
       onClose={() => setIsOpen(false)}
       />}
+    <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}> 
 
     <ThemeProvider theme={theme}> 
 
@@ -100,6 +103,8 @@ function App() {
             </Container>
             {/* <Footer /> */}
     </ThemeProvider>
+    </Box>
+    </>
   );
 }
 

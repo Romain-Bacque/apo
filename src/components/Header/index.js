@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import {Box, Toolbar, IconButton, AppBar } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import SportsBarTwoToneIcon from '@mui/icons-material/SportsBarTwoTone';
 import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import List from '@mui/material/List';
@@ -17,8 +16,6 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import classes from "./index.module.css";
 import Logo from '../../asset/images/biere-sans-fond.png'
-
-
 
 const Search = styled('form')(({ theme }) => ({
   position: 'relative',
@@ -70,11 +67,11 @@ function Header() {
   const isLogged = useSelector(state => state.user.isLoggedIn);
   const role = useSelector(state => state.user.role);
 
+  console.log(isLogged)
 
   const handleLogout = (evt) => {
     dispatch({
-      type: 'LOGOUT',
-      
+      type: 'LOGOUT'      
     });
   };
 
