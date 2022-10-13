@@ -96,7 +96,7 @@ function App() {
                 <>
                 <Route path='/breweries' element={<Breweries />} />
                 <Route path='/brewery/form_brewery' element={<FormBrewerie />} />
-                <Route path='/brewery/update' element={<UpdateBrewery />} />
+                <Route path='/brewery/update/:id' element={<UpdateBrewery />} />
                 <Route path='/create-event' element={<FormEvent />} />
                 <Route path='/events' element={<Events />} />
                 <Route path='/events/:id' element={<OneEvent />} />

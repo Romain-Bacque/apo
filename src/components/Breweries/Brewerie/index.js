@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions, Grid } from '@mui/material';
 // == Composant
 import { Link } from 'react-router-dom'
-function Brewerie({ image, title}) {
+function Brewerie({ image, title, id}) {
   return (
     <Grid item xs={12} md={4}>
       <Card >
@@ -28,7 +28,7 @@ function Brewerie({ image, title}) {
          
             <Button 
               component={Link}
-              to='/brewery/update'
+              to={`/brewery/update/${id}`}
             > 
               Gérer
             </Button> 

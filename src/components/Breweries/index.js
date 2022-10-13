@@ -28,6 +28,7 @@ function Breweries() {
         {userBreweries.map((oneBrewery) => (
           <Brewerie 
             key={oneBrewery.id}
+            id={oneBrewery.id}
             image={oneBrewery.image}
             title={oneBrewery.title}
           />  

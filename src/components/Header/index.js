@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import {Box, Toolbar, IconButton, AppBar, InputBase } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import SportsBarTwoToneIcon from '@mui/icons-material/SportsBarTwoTone';
 import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import List from '@mui/material/List';
@@ -22,6 +23,7 @@ import {
   GeoapifyContext
 } from "@geoapify/react-geocoder-autocomplete";
 import "@geoapify/geocoder-autocomplete/styles/minimal.css";
+
 
 const Search = styled('form')(({ theme }) => ({
   position: 'relative',
@@ -73,20 +75,13 @@ function Header() {
   const isLogged = useSelector(state => state.user.logged);
   const role = useSelector(state => state.user.role);
 
-  const handleLogout = (evt) => {
-    dispatch({
-      type: 'LOGOUT'
-    })
-
-  }
-
   function onPlaceSelect(value) {
     console.log(value.properties);
        dispatch({
         type: 'SEARCH_VALUE',
-        value: value.properties.formatted
+        value: value.properties.address_line1
       })
-      const searchValue = value.properties.formatted
+      const searchValue = value.properties.address_line1
        navigate(`/search/${searchValue}`)  
   }
  
@@ -122,6 +117,12 @@ function Header() {
     return filtered;
   }
   
+  const handleLogout = (evt) => {
+    dispatch({
+      type: 'RESET_USER',
+      
+    });
+  };
 
   const [state, setState] = React.useState({
     top: false,
@@ -142,8 +143,7 @@ function Header() {
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
   };
-  
-//============================================== MENU ==========================================
+//============================================== MENU ======================================================================================
   const list = (anchor) => (
     <Box
       component="form"
@@ -224,7 +224,6 @@ function Header() {
     e.preventDefault()
   
   }
-  
 
   return (
     <GeoapifyContext apiKey="99188fa618354504b3ba9155a71fb817">
@@ -248,10 +247,10 @@ function Header() {
                   // sx={{width: '100%'}}
                   // onChange={handleKeyUp}
                   // value={value}
-                  // type="locality"
+                  type="locality"
                   lang="fr"
                   // position={position}
-                  // countryCodes={countryCodes}
+                  // countryCodes='fr'
                   // limit={limit}
                   // filterByCountryCode={filterByCountryCode}
                   // filterByCircle={filterByCircle}
