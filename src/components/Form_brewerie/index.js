@@ -1,5 +1,5 @@
 // == Import
-import {Typography, Button, Container } from '@mui/material';
+import {Typography, Button, Container, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import Input from '../Input';
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,12 +19,6 @@ function Form_brewerie() {
 
 //======================== GEOAPIFY ===================================
 
-
-  
-  function onSuggectionChange(value) {
-    console.log(value);
-
-  }
   
   function preprocessHook(value) {
     return `${value}, Munich, Germany`;
@@ -55,43 +49,60 @@ function Form_brewerie() {
 
   const [ inputStatut, setInputStatut ] = useState({
     title: { isValid: false, value: '' },
-    image: { isValid: true, value: '' },
+    image: { file: null, value: '' },
     phone : { isValid: false, value: '' },
-    address : { isValid: false, value: '' },
+    lat: null,
+    lon: null,
+    address: '',
+    categories: [],
     description : { isValid: false, value: '' }
   });
 
-  // const isFormValid = inputStatut.title.isValid &&
-  // inputStatut.image.isValid &&
-  // inputStatut.phone.isValid &&
-  // inputStatut.address.isValid &&
-  // inputStatut.description.isValid
+  const isFormValid = inputStatut.title.isValid &&
+  inputStatut.phone.isValid &&
+  inputStatut.address &&
+  inputStatut.lat &&
+  inputStatut.lon &&
+  inputStatut.description.isValid
 
   const handleAddBrewery = (event) => {  
     event.preventDefault();
     
-    //  if(!isFormValid) return;
+     if(!isFormValid) return;
 
     dispatch({
       type: 'ADD_BREWERY',
       user_id: id,
       title: inputStatut.title.value,
-      image: inputStatut.image.value,
+      image: inputStatut.image.file,
       phone: inputStatut.phone.value,
+      lon: inputStatut.lon.value,
+      lat: inputStatut.lat.value,
       address: inputStatut.address.value,
+      categories: inputStatut.categories,
       description: inputStatut.description.value
-    });  
+    });
   };
-  function onPlaceSelect(value) {
-    console.log(value.properties);
-       dispatch({
-        type: 'ADD_BREWERY_GEOLOC',
-        lat: value.properties.lat,
-        lon: value.properties.lon,
-        address: value.properties.formatted
-      })
+
+  function handlePlaceSelect(value) {
+      setInputStatut(prevState => {
+        return {
+          ...prevState,
+          lat: value.properties.lat ? value.properties.lat : null,
+          lon: value.properties.lon ? value.properties.lon : null,
+          address: value.properties.formatted ? value.properties.formatted : null
+        };
+      });
   }
- 
+
+  const handleFileChange = (event) => {
+    setInputStatut(prevState => {
+      return {
+        ...prevState,
+        image: { file: event.target.files[0], value: event.target.value }
+      };
+    });
+  }
 
   const handleInputChange = useCallback((name, statut) => {
     setInputStatut(prevState => {
@@ -120,22 +131,15 @@ function Form_brewerie() {
                   }
                 }
           name='title'
-          onInputChange={handleInputChange}
-      
+          onInputChange={handleInputChange}      
         />
-        <Input
-          input={
-                  {
-                    id: "image",
-                    type: 'file',
-                    accept: 'image/png, image/jpeg'
-                  }
-                }
+        <TextField
+          id="image"
+          type='file'
+          accept='image/png, image/jpeg'
           name='image'
-          variant="standard"
-          onInputChange={handleInputChange}
-          
-      
+          value={inputStatut.image.value}
+          onChange={handleFileChange}        
         />
         <Input
           input={
@@ -158,8 +162,7 @@ function Form_brewerie() {
                 }
           name='adress'
           onInputChange={handleInputChange}
-          placeSelect={onPlaceSelect}
-          suggestionsChange={onSuggectionChange}
+          placeSelect={handlePlaceSelect}
         />
           <Input
             input={

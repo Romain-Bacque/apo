@@ -10,9 +10,6 @@ const initialState = {
 const inputReducer = (state, action) => {
   if (action.type === "CHANGE") {
     switch (action.value.type) {
-      case "file":
-        return { ...state, isValid: true, enteredValue: action.value.value 
-        };
       case "text":
         if (action.value.value.length > 0) {
           return { ...state, isValid: true, enteredValue: action.value.value };

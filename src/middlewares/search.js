@@ -1,5 +1,3 @@
-
-
 import axios from "axios";
 
 // const config = {
@@ -9,7 +7,6 @@ import axios from "axios";
 // };
 
 const search = (store) => (next) => (action) => {
-
   // if (action.type === 'SEARCH_VALUE') {
   //     axios(config)
   //     .then(function (response) {
@@ -20,8 +17,7 @@ const search = (store) => (next) => (action) => {
   //     });
   //   }
 
-    next(action);
-
-}
+  next(action);
+};
 
 export default search;

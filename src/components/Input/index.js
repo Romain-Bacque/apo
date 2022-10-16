@@ -8,10 +8,14 @@ import PasswordChecklist from "react-password-checklist"
   on peut utiliser le rest parameter qui va récupérer toutes les valeurs pas encore récupérée
   dans un tableau, sauf pour du destructuring d'objet ce sera dans un objet
 */
+
+
 function Input(props) {
   // pour accéder dynamiquement à une propriété d'un objet
   // on utilise la syntaxe crocher obj['prop'] plutôt que la syntaxe point ob.prop
-
+  let errorContent = false,
+    helperTextContent = '';
+  
   const { onInputChange, name } = props;
 
   const {
@@ -37,11 +41,17 @@ function Input(props) {
     if(props.reset) resetInputHandler();
   }, [props.reset, resetInputHandler])
 
+  // Not required input
+  if (props.name !== "search" && props.name !== "image") {
+    errorContent = isInputTouched && !isInputValid ? true : false;
+    helperTextContent = isInputTouched && !isInputValid ? "Entrée incorrecte." : "";
+  }
+  
   return (
   <>
     <TextField
-      error={props.name !== "search" ? isInputTouched && !isInputValid : false}
-      helperText={ props.name !== "search" ? isInputTouched && !isInputValid && "Entrée incorrecte." : ""}
+      error={errorContent}
+      helperText={helperTextContent}
       value={inputValue}
       required
       onBlur={inputBlurHandler}
