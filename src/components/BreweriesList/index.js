@@ -4,7 +4,8 @@ import { useParams } from "react-router-dom";
 
 import OneBrewerie from "./OneBrewerie";
 import {
-  Box,
+  Container,
+  Divider,
   FormControl,
   Grid,
   InputLabel,
@@ -58,33 +59,45 @@ function BreweriesList() {
   }, [categories]);
 
   if (breweries?.length) {
-    breweriesList = breweries.filter((brewery) => {
+    const filteredBreweriesList = breweries.filter((brewery) => {
       return (
         brewery.address.includes(params.value) &&
         hasSelectedTag(brewery, categoryList)
       );
     });
+
+    breweriesList = filteredBreweriesList.map((filteredBrewery) => (
+      <OneBrewerie
+        key={filteredBrewery.id}
+        id={filteredBrewery.id}
+        title={filteredBrewery.title}
+        phone={filteredBrewery.phone}
+        address={filteredBrewery.address}
+        tags={filteredBrewery.categories}
+        image={filteredBrewery.image}
+      />
+    ));
   }
 
   return (
-    <Box sx={{ maxWidth: 550 }}>
+    <Container maxWidth={400}>
+      <Typography variant="h4" component="div" textAlign="center">
+        {`Liste des brasseries (${breweriesList.length})`}
+      </Typography>
+      <Divider light />
       {categories?.length && (
-        <Box>
+        <Container sx={{ marginTop: 2 }}>
           <TagsList onTagDelete={handleTagDelete} list={categoryList} />
           <FormControl fullWidth>
             <InputLabel variant="standard" htmlFor="category">
               Filtrer par catégorie :
             </InputLabel>
             <NativeSelect
-              defaultValue={"Choisir une categorie"}
+              defaultValue="Choisir une catégorie"
               id="category"
               onClick={handleOptionSelect}
-              inputProps={{
-                name: "age",
-                id: "uncontrolled-native",
-              }}
             >
-              <option disabled>Choisir une categorie</option>
+              <option disabled>Choisir une catégorie</option>
               {categories.map((category) => (
                 <option key={category.id} id={category.id} value={category.tag}>
                   {category.tag}
@@ -92,28 +105,20 @@ function BreweriesList() {
               ))}
             </NativeSelect>
           </FormControl>
-        </Box>
+        </Container>
       )}
       {breweriesList?.length > 0 ? (
-        <Grid container spacing={2}>
-          {breweriesList.map((filteredData) => (
-            <OneBrewerie
-              key={filteredData.id}
-              id={filteredData.id}
-              title={filteredData.title}
-              phone={filteredData.phone}
-              address={filteredData.address}
-              tags={filteredData.categories}
-              image={filteredData.image}
-            />
-          ))}
+        <Grid container spacing={2} justifyContent="center">
+          <Grid item xs={12} sm={6}>
+            {breweriesList}
+          </Grid>
         </Grid>
       ) : (
         <Typography gutterBottom variant="p" component="div">
           Aucun résultat.
         </Typography>
       )}
-    </Box>
+    </Container>
   );
 }
 

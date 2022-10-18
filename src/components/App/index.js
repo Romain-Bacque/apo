@@ -1,6 +1,6 @@
 // == Import
 import "./style.scss";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Box, Container, CssBaseline } from "@mui/material";
 
 // == Composant

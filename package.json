@@ -9,7 +9,7 @@
     "@geoapify/geocoder-autocomplete": "^1.4.2",
     "@geoapify/react-geocoder-autocomplete": "^1.4.0",
     "@mui/icons-material": "^5.10.6",
-    "@mui/material": "^5.10.7",
+    "@mui/material": "^5.10.10",
     "@mui/styled-engine-sc": "^5.10.6",
     "@svgr/cli": "^6.4.0",
     "@testing-library/jest-dom": "^5.16.5",

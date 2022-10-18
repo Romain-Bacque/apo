@@ -2,47 +2,52 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { CardActionArea, CardActions, Grid } from "@mui/material";
+import {
+  Button,
+  CardActionArea,
+  CardActions,
+  Divider,
+  Grid,
+} from "@mui/material";
 import "./style.scss";
 import { Link } from "react-router-dom";
 import TagsList from "../UI/TagsList";
+import { Home, Phone } from "@mui/icons-material";
+import { Box } from "@mui/system";
 
 function OneBrewerie({ title, phone, address, tags, image, id }) {
   return (
-    <Grid item xs={12} md={4}>
-      <Link to={`/breweries/${id}`}>
-        <Card>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              height="140"
-              image={image}
-              alt="green iguana"
-            />
+    <Card sx={{ padding: 1.5 }}>
+      <CardMedia
+        component="img"
+        height="140px"
+        image={image}
+        alt={`carte brasserie '${title}'`}
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h4" component="h4">
+          {title}
+        </Typography>
+        <Box display={"flex"} gap={0.6}>
+          <Home />
+          <Typography gutterBottom variant="p" component="p">
+            {address}
+          </Typography>
+        </Box>
 
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {title}
-              </Typography>
-
-              <Typography gutterBottom variant="p" component="div">
-                {address}
-              </Typography>
-
-              <Typography gutterBottom variant="p" component="div">
-                {phone}
-              </Typography>
-
-              <Typography gutterBottom variant="h5" component="div">
-                <TagsList list={tags} />
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-
-          <CardActions />
-        </Card>
-      </Link>
-    </Grid>
+        <Box display={"flex"} gap={0.6}>
+          <Phone />
+          <Typography gutterBottom variant="p" component="p">
+            {phone}
+          </Typography>
+        </Box>
+        <TagsList list={tags} />
+      </CardContent>
+      <Divider ligth />
+      <Button size="small">
+        <Link to={`/breweries/${id}`}>Plus de détails</Link>
+      </Button>
+    </Card>
   );
 }
 
