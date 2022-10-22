@@ -2,12 +2,14 @@ import { Marker, Popup } from "react-leaflet";
 import { Link } from "react-router-dom";
 import defaultIcon from "../icons/defaultIcon";
 import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
+import { useEffect } from "react";
 
-let content = null;
+let filteredBreweries = null;
 
-const BreweryMarker = ({ data, getGeoFilter }) => {
+const BreweryMarker = ({ data, getGeoFilter, setBreweriesByRegion }) => {
   const geoFilter = getGeoFilter();
-  content = data
+
+  filteredBreweries = data
     ?.filter((brewery) => {
       let filterByGeo;
 
@@ -54,7 +56,13 @@ const BreweryMarker = ({ data, getGeoFilter }) => {
       </Marker>
     ));
 
-  return content;
+  useEffect(() => {
+    if (geoFilter && filteredBreweries) {
+      setBreweriesByRegion(filteredBreweries);
+    } else setBreweriesByRegion([]);
+  }, [geoFilter, setBreweriesByRegion]);
+
+  return filteredBreweries;
 };
 
 export default BreweryMarker;

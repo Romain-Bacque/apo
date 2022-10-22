@@ -20,7 +20,7 @@ let filteredBreweries;
 function Map() {
   const breweries = useSelector((state) => state.brewery.breweries);
   const searchValue = useSelector((state) => state.search.value);
-
+  const [breweriesByRegion, setBreweriesByRegion] = useState([]);
   const [geoFilter, setGeoFilter] = useState(null);
   const [checked, setChecked] = useState(false);
   const containerRef = useRef(null);
@@ -69,7 +69,11 @@ function Map() {
           // Link of entire map
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png "
         />
-        <BreweryMarker data={filteredBreweries} getGeoFilter={getGeoFilter} />
+        <BreweryMarker
+          data={filteredBreweries}
+          getGeoFilter={getGeoFilter}
+          setBreweriesByRegion={setBreweriesByRegion}
+        />
         <LocationMarker />
         <Regions
           data={regions}
