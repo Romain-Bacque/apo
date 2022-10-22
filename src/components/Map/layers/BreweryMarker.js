@@ -1,26 +1,32 @@
-import { useSelector } from "react-redux";
-
 import { Marker, Popup } from "react-leaflet";
 import { Link } from "react-router-dom";
 import defaultIcon from "../icons/defaultIcon";
+import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
 
 let content = null;
 
-const BreweryMarker = () => {
-  const breweries = useSelector((state) => state.brewery.breweries);
-  const searchValue = useSelector((state) => state.search.value);
+const BreweryMarker = ({ data, getGeoFilter }) => {
+  const geoFilter = getGeoFilter();
+  content = data
+    ?.filter((brewery) => {
+      let filterByGeo;
 
-  if (breweries?.length) {
-    const filteredBreweries = breweries.filter((brewery) => {
-      if (brewery.title && brewery.address) {
-        const title = brewery.title.toLowerCase().trim();
-        const address = brewery.address.toLowerCase().trim();
+      if (geoFilter) {
+        // 'booleanPointInPolygon' check if current feature coordinate points are present in the selected continent (geoFilter), return 'true' or 'false'
+        filterByGeo = booleanPointInPolygon(
+          [brewery.lon, brewery.lat],
+          geoFilter
+        );
+      }
 
-        return title.includes(searchValue) || address.includes(searchValue);
-      } else return false;
-    });
+      let doFilter = true;
 
-    content = filteredBreweries.map((brewerie) => (
+      if (geoFilter) {
+        doFilter = filterByGeo;
+      }
+      return doFilter;
+    })
+    .map((brewerie) => (
       <Marker
         position={[brewerie.lat, brewerie.lon]}
         icon={defaultIcon}
@@ -47,7 +53,6 @@ const BreweryMarker = () => {
         </Popup>
       </Marker>
     ));
-  }
 
   return content;
 };
