@@ -35,6 +35,7 @@ function Map() {
         scrollWheelZoom={true}
         zoomControl={false}
         center={[47.902964, 1.909251]}
+        minZoom={6}
         zoom={5}
       >
         {/* Map image */}

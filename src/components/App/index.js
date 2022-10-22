@@ -1,5 +1,4 @@
 // == Import
-import "./style.scss";
 import { Routes, Route } from "react-router-dom";
 import { Box, Container, CssBaseline } from "@mui/material";
 
@@ -20,18 +19,19 @@ import Profil from "../Profil";
 import Test from "../Test";
 import UpdateEventBrewery from "../Breweries/UpdateEventBrewery";
 import CustomSnackbars from "../UI/CustomSnackbars";
-import Loading from "../App/Loading";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../../selector/theme";
 import Error from "../Error";
+import Loader from "../UI/loader";
+
+let loadingContent = null;
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
-  const snackbarContent = useSelector((state) => state.snackbar);
-  const loading = useSelector((state) => state.brewery.loading);
+  const loading = useSelector((state) => state.loading);
 
   useEffect(() => {
     dispatch({
@@ -53,32 +53,41 @@ function App() {
     });
   }, [dispatch]);
 
+  // useEffect(() => {
+  //   if (loading.statut) {
+  //     setIsOpen(true);
+  //   }
+
+  //   const timer = setTimeout(() => {
+  //     dispatch({
+  //       type: "RESET_SNACKBAR",
+  //     });
+  //   }, 5000);
+
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }, [loading.message, loading.statut, dispatch]);
+
   useEffect(() => {
-    if (snackbarContent.statut) {
+    if (loading.statut === "pending") {
+      loadingContent = <Loader />;
+    } else if (loading.statut !== "pending" && loading.message) {
       setIsOpen(true);
-    }
-
-    const timer = setTimeout(() => {
-      dispatch({
-        type: "RESET_SNACKBAR",
-      });
-    }, 5000);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [snackbarContent.message, snackbarContent.statut, dispatch]);
-
-  return (
-    <>
-      {snackbarContent.statut && snackbarContent.message && (
+      loadingContent = (
         <CustomSnackbars
-          message={snackbarContent.message}
-          statut={snackbarContent.statut}
+          message={loading.message}
+          statut={loading.statut}
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
         />
-      )}
+      );
+    }
+  }, [loading, isOpen]);
+
+  return (
+    <>
+      {loadingContent}
       <Box>
         <ThemeProvider theme={theme}>
           <CssBaseline />
@@ -86,14 +95,8 @@ function App() {
           <Container conponent="main" sx={{ fontFamily: "Silkscreen" }}>
             <Routes>
               <Route path="/" element={<Map />} />
-              {loading === false && (
-                <Route path="/breweries/:id" element={<OneBrewerie />} />
-              )}
-              {loading && <Route path="/breweries/:id" element={<Loading />} />}
-              {loading && <Route path="/search/:value" element={<Loading />} />}
-              {loading === false && (
-                <Route path="/search/:value" element={<BreweriesList />} />
-              )}
+              <Route path="/breweries/:id" element={<OneBrewerie />} />
+              <Route path="/search/:value" element={<BreweriesList />} />
               <Route path="/signup" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="*" element={<Error />} />

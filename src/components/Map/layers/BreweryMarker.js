@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { Marker, Popup } from "react-leaflet";
 import { Link } from "react-router-dom";
 import defaultIcon from "../icons/defaultIcon";
-import { useEffect } from "react";
 
 let content = null;
 
@@ -13,7 +12,12 @@ const BreweryMarker = () => {
 
   if (breweries?.length) {
     const filteredBreweries = breweries.filter((brewery) => {
-      return brewery.address?.includes(searchValue);
+      if (brewery.title && brewery.address) {
+        const title = brewery.title.toLowerCase().trim();
+        const address = brewery.address.toLowerCase().trim();
+
+        return title.includes(searchValue) || address.includes(searchValue);
+      } else return false;
     });
 
     content = filteredBreweries.map((brewerie) => (

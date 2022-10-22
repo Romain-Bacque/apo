@@ -31,6 +31,8 @@ function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    if (!isFormValid) return;
+
     dispatch({
       type: "LOGIN",
       email: inputStatut.email.value,

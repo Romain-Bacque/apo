@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import React, { useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
@@ -69,6 +69,7 @@ const StyledToolbar = styled(Toolbar)({
 });
 
 function Header() {
+  const status = useSelector((state) => state.loading);
   const dispatch = useDispatch();
 
   // If user type text in the search bar
@@ -89,13 +90,13 @@ function Header() {
 
   return (
     <GeoapifyContext apiKey="99188fa618354504b3ba9155a71fb817">
-      <AppBar position="sticky">
+      <AppBar>
         <StyledToolbar>
           <Box display="flex" mr="4rem" alignItems={"center"} gap={1.5}>
             <Link to="/">
               <SportsBar
                 sx={{
-                  fontSize: "3.5rem",
+                  fontSize: "3.8rem",
                   color: "white",
                 }}
                 to="/"
@@ -107,16 +108,16 @@ function Header() {
                 fontWeight: "bold",
                 color: "white",
                 fontSize: "1.6rem",
-                width: "7rem",
+                width: "8rem",
               }}
               variant="h5"
             >
-              Biere de ta région
+              Biere de ta région.
             </Typography>
           </Box>
           <Box sx={{ width: "60%" }}>
             <GeoapifyGeocoderAutocomplete
-              placeholder="Search…"
+              placeholder="Rechercher..."
               type="locality"
               lang="fr"
               onUserInput={handleUserInput}

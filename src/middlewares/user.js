@@ -127,9 +127,17 @@ const user = (store) => (next) => (action) => {
     instance
       .post("/user/logout")
       .then((response) => {
+        store.dispatch({
+          type: "PENDING",
+          message: null,
+        });
         if (response.status === 200) {
           store.dispatch({
             type: "RESET_USER",
+          });
+          store.dispatch({
+            type: "SUCCESS",
+            message: null,
           });
         }
       })

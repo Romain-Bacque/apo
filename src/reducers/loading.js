@@ -1,7 +1,6 @@
 export const initialState = {
   message: "",
   statut: null,
-  isOpen: false,
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -21,15 +20,10 @@ const reducer = (state = initialState, action = {}) => {
         message: action.message,
         statut: "error",
       };
-    case "RESET_SNACKBAR":
+    case "RESET_LOADING":
       return {
         message: "",
         statut: null,
-      };
-    case "SHOW":
-      return {
-        ...state,
-        isOpen: action.isOpen,
       };
     default:
       return state;

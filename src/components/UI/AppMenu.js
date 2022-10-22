@@ -1,34 +1,34 @@
 import { useState, useRef, useEffect } from "react";
-import Button from "@mui/material/Button";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Grow from "@mui/material/Grow";
 import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
-import Stack from "@mui/material/Stack";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { IconButton } from "@mui/material";
 import { MenuRounded } from "@mui/icons-material";
 import styled from "@emotion/styled";
 
+// Style
 const StyledMenuItem = styled(MenuItem)({
   padding: ".5rem 1rem",
   margin: "1rem 0",
   fontSize: "1.4rem",
   fontWeight: "bold",
   color: "rgb(75, 75, 75)",
-  "&.Mui-selected": {
+  "&.active": {
     borderLeft: "2px solid gray",
     backgroundColor: "transparent",
   },
 });
 
+// Component
 const AppMenu = () => {
   const [open, setOpen] = useState(false);
+  const anchorRef = useRef(null);
   const dispatch = useDispatch();
-  const [selectedIndex, setSelectedIndex] = useState(1);
   const isLogged = useSelector((state) => state.user.isLogged);
   const userRole = useSelector((state) => state.user.role);
 
@@ -39,6 +39,10 @@ const AppMenu = () => {
   };
 
   const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+
     setOpen(false);
   };
 
@@ -51,102 +55,106 @@ const AppMenu = () => {
     }
   }
 
-  const handleMenuItemClick = (_, index) => {
-    setSelectedIndex(index);
-  };
+  // return focus to the button when we transitioned from !open -> open
+  const prevOpen = useRef(open);
+  useEffect(() => {
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current.focus();
+    }
+
+    prevOpen.current = open;
+  }, [open]);
 
   return (
-    <Stack direction="row" spacing={2}>
-      <div>
-        <IconButton onClick={() => setOpen(true)} size="large">
-          <MenuRounded fontSize="large" sx={{ color: "white" }} />
-        </IconButton>
-        <Popper
-          open={open}
-          role={undefined}
-          placement="bottom-start"
-          transition
-          disablePortal
-        >
-          {({ TransitionProps, placement }) => (
-            <Grow
-              {...TransitionProps}
-              style={{
-                transformOrigin:
-                  placement === "bottom-start" ? "left top" : "left bottom",
-              }}
-            >
-              <Paper sx={{ padding: "1.5rem 6rem" }}>
-                <ClickAwayListener onClickAway={handleClose}>
-                  <MenuList
-                    autoFocusItem={open}
-                    id="composition-menu"
-                    aria-labelledby="composition-button"
-                    onKeyDown={handleListKeyDown}
-                  >
-                    <MenuList onClick={() => setOpen(false)}>
+    <div>
+      <IconButton ref={anchorRef} onClick={() => setOpen(true)} size="large">
+        <MenuRounded fontSize="large" sx={{ color: "white" }} />
+      </IconButton>
+      <Popper
+        open={open}
+        anchorEl={anchorRef.current}
+        role={undefined}
+        placement="bottom-start"
+        transition
+        disablePortal
+      >
+        {({ TransitionProps, placement }) => (
+          <Grow
+            {...TransitionProps}
+            style={{
+              transformOrigin:
+                placement === "bottom-start" ? "left top" : "left bottom",
+            }}
+          >
+            <Paper sx={{ padding: "1.5rem 6rem 1.5rem 3.5rem" }}>
+              <ClickAwayListener onClickAway={handleClose}>
+                <MenuList
+                  autoFocusItem={open}
+                  id="composition-menu"
+                  aria-labelledby="composition-button"
+                  onKeyDown={handleListKeyDown}
+                >
+                  <MenuList onClick={() => setOpen(false)}>
+                    <StyledMenuItem
+                      end // 'end' will ensure this component isn't matched as "active" when its descendant paths are matched.
+                      activeclassname="active" // "active" class is added to DOM if the link is active.
+                      component={NavLink}
+                      to="/"
+                    >
+                      Accueil
+                    </StyledMenuItem>
+                    {isLogged && userRole === "brewer" && (
                       <StyledMenuItem
-                        selected={selectedIndex === 1}
-                        component={Link}
-                        to="/"
-                        onClick={(event) => handleMenuItemClick(event, 1)}
+                        activeclassname="active"
+                        component={NavLink}
+                        to="/breweries"
                       >
-                        Accueil
+                        Mes brasseries
                       </StyledMenuItem>
-                      {isLogged && userRole === "brewer" && (
-                        <StyledMenuItem
-                          selected={selectedIndex === 2}
-                          component={Link}
-                          to="/breweries"
-                          onClick={(event) => handleMenuItemClick(event, 2)}
-                        >
-                          Mes brasseries
-                        </StyledMenuItem>
-                      )}
-                      {isLogged && (
-                        <StyledMenuItem
-                          selected={selectedIndex === 3}
-                          component={Link}
-                          to="/events"
-                          onClick={(event) => handleMenuItemClick(event, 3)}
-                        >
-                          Evenements
-                        </StyledMenuItem>
-                      )}
-                      {isLogged && (
-                        <StyledMenuItem
-                          selected={selectedIndex === 4}
-                          component={Link}
-                          to="/profil"
-                          onClick={(event) => handleMenuItemClick(event, 4)}
-                        >
-                          Profil
-                        </StyledMenuItem>
-                      )}
-                      {!isLogged && (
-                        <StyledMenuItem
-                          selected={selectedIndex === 5}
-                          component={Link}
-                          to="/Login"
-                          onClick={(event) => handleMenuItemClick(event, 5)}
-                        >
-                          Connexion
-                        </StyledMenuItem>
-                      )}
-                      {isLogged && (
-                        <StyledMenuItem component={Link} onClick={handleLogout}>
-                          Se déconnecter
-                        </StyledMenuItem>
-                      )}
-                    </MenuList>
+                    )}
+                    {isLogged && (
+                      <StyledMenuItem
+                        activeclassname="active"
+                        component={NavLink}
+                        to="/events"
+                      >
+                        Evenements
+                      </StyledMenuItem>
+                    )}
+                    {isLogged && (
+                      <StyledMenuItem
+                        activeclassname="active"
+                        component={NavLink}
+                        to="/profil"
+                      >
+                        Profil
+                      </StyledMenuItem>
+                    )}
+                    {!isLogged && (
+                      <StyledMenuItem
+                        activeclassname="active"
+                        component={NavLink}
+                        to="/Login"
+                      >
+                        Connexion
+                      </StyledMenuItem>
+                    )}
+                    {isLogged && (
+                      <StyledMenuItem
+                        component={NavLink}
+                        onClick={handleLogout}
+                      >
+                        Se déconnecter
+                      </StyledMenuItem>
+                    )}
                   </MenuList>
-                </ClickAwayListener>
-              </Paper>
-            </Grow>
-          )}
-        </Popper>
-      </div>
-    </Stack>
+                </MenuList>
+              </ClickAwayListener>
+            </Paper>
+          </Grow>
+        )}
+      </Popper>
+    </div>
   );
 };
 

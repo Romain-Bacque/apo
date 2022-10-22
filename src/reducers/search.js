@@ -7,7 +7,7 @@ const searchReducer = (state = initialState, action = {}) => {
     case "SEARCH_VALUE":
       return {
         ...state,
-        value: action.value,
+        value: action.value.toLowerCase().trim(),
       };
     default:
       return state;
