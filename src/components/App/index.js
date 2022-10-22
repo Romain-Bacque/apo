@@ -53,22 +53,6 @@ function App() {
     });
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   if (loading.statut) {
-  //     setIsOpen(true);
-  //   }
-
-  //   const timer = setTimeout(() => {
-  //     dispatch({
-  //       type: "RESET_SNACKBAR",
-  //     });
-  //   }, 5000);
-
-  //   return () => {
-  //     clearTimeout(timer);
-  //   };
-  // }, [loading.message, loading.statut, dispatch]);
-
   useEffect(() => {
     if (loading.statut === "pending") {
       loadingContent = <Loader />;

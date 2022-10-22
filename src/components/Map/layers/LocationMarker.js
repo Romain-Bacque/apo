@@ -10,12 +10,21 @@ const LocationMarker = () => {
   const map = useMap();
 
   useEffect(() => {
-    L.easyButton("fa-globe", function (btn, map) {
-      // Callback function is triggered when current user location change, thanks to 'locationfound' event.
-      map.locate().on("locationfound", function (event) {
-        setPosition(event.latlng);
-        map.flyTo(event.latlng, map.getZoom()); // Sets the view of the map (geographical center and zoom) performing a smooth pan-zoom animation.
-      });
+    L.easyButton({
+      states: [
+        {
+          stateName: "breweries-around-you", // name the state
+          icon: "fa-crosshairs", // and define its properties
+          title: "Brasseries autour de vous", // like its title
+          onClick: function (btn, map) {
+            // Callback function is triggered when current user location change, thanks to 'locationfound' event
+            map.locate().on("locationfound", function (event) {
+              setPosition(event.latlng);
+              map.flyTo(event.latlng, map.getZoom()); // Sets the view of the map (geographical center and zoom) performing a smooth pan-zoom animation.
+            });
+          },
+        },
+      ],
     }).addTo(map);
   }, [map]);
 

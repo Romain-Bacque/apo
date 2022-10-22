@@ -16,12 +16,11 @@ import TagsList from "../UI/TagsList";
 
 let breweriesList;
 
-function BreweriesList() {
+function BreweriesList({ data }) {
   const [categoryList, setCategoryList] = useState([]);
   const params = useParams();
-  const breweries = useSelector((state) => state.brewery.breweries);
   const categories = useSelector((state) => state.category.categories);
-
+  console.log(data);
   const hasSelectedTag = (brewery, categoryList) => {
     const filteredList = categoryList.filter((object1) => {
       return brewery.categories.some((object2) => {
@@ -58,10 +57,10 @@ function BreweriesList() {
     setCategoryList(categories);
   }, [categories]);
 
-  if (breweries?.length) {
-    const filteredBreweriesList = breweries.filter((brewery) => {
+  if (data?.length) {
+    const filteredBreweriesList = data.filter((brewery) => {
       return (
-        brewery.address.includes(params.value) &&
+        brewery.address?.includes(params.value) &&
         hasSelectedTag(brewery, categoryList)
       );
     });

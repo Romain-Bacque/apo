@@ -3,6 +3,28 @@ import { Link } from "react-router-dom";
 import defaultIcon from "../icons/defaultIcon";
 import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
 import { useEffect } from "react";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Divider,
+  Typography,
+} from "@mui/material";
+import { Home, Phone } from "@mui/icons-material";
+import TagsList from "../../UI/TagsList";
+import styled from "@emotion/styled";
+
+// Style
+const StyledLink = styled(Link)({
+  display: "inline-block",
+  width: "100%",
+  fontSize: "1.5rem",
+  fontWeight: "bold",
+  marginTop: "2rem",
+  textAlign: "center",
+});
 
 let filteredBreweries = null;
 
@@ -35,23 +57,52 @@ const BreweryMarker = ({ data, getGeoFilter, setBreweriesByRegion }) => {
         key={brewerie.id}
       >
         <Popup>
-          <section className="section-img-brewery">
-            <img className="img-brewery" src={brewerie.image} alt="logo"></img>
-          </section>
-          <section className="section-adress">
-            <h1 className="brewery-title color">{brewerie.title}</h1>
-            <span className="span-info">{brewerie.address}</span>
-            <a className="phone-number" href={"tel:" + brewerie.phone}>
-              {brewerie.phone}
-            </a>
-            <Link
-              to={`/breweries/${brewerie.id}`}
-              className="detail-button color-button"
-              type="button"
+          <Card
+            elevation={0}
+            sx={{ padding: 0.5, border: "none", width: "200px" }}
+          >
+            <CardMedia
+              component="img"
+              image={brewerie.image}
+              alt={`image/logo brasserie '${brewerie.title}'`}
+            />
+            <CardContent
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                padding: "2rem 0",
+              }}
             >
-              Voir le détail
-            </Link>
-          </section>
+              <Box>
+                <Typography variant="h5" component="h5">
+                  {brewerie.title}
+                </Typography>
+                <Typography
+                  fontSize="1rem"
+                  color="gray"
+                  variant="p"
+                  component="p"
+                >
+                  {brewerie.address}
+                </Typography>
+              </Box>
+              <Box display={"flex"} alignItems="center" gap={0.6}>
+                <Phone />
+                <Typography
+                  fontSize="1rem"
+                  gutterBottom
+                  variant="p"
+                  component="p"
+                >
+                  {brewerie.phone}
+                </Typography>
+              </Box>
+              <Divider />
+              <StyledLink to={`/breweries/${brewerie.id}`}>
+                Plus de détails
+              </StyledLink>
+            </CardContent>
+          </Card>
         </Popup>
       </Marker>
     ));

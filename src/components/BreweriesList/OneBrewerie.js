@@ -22,7 +22,7 @@ function OneBrewerie({ title, phone, address, tags, image, id }) {
         component="img"
         height="140px"
         image={image}
-        alt={`carte brasserie '${title}'`}
+        alt={`image/logo brasserie '${title}'`}
       />
       <CardContent>
         <Typography gutterBottom variant="h4" component="h4">
@@ -43,7 +43,7 @@ function OneBrewerie({ title, phone, address, tags, image, id }) {
         </Box>
         <TagsList list={tags} />
       </CardContent>
-      <Divider ligth />
+      <Divider light />
       <Button size="small">
         <Link to={`/breweries/${id}`}>Plus de détails</Link>
       </Button>

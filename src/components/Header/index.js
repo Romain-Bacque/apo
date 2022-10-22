@@ -56,10 +56,10 @@ function Header() {
                 display: { xs: "none", sm: "block" },
                 fontWeight: "bold",
                 color: "white",
-                fontSize: "1.6rem",
+                fontSize: "1.4rem",
                 width: "8rem",
               }}
-              variant="h5"
+              variant="span"
             >
               Biere de ta région.
             </Typography>
