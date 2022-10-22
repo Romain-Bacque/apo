@@ -1,27 +1,26 @@
-.header{
-    height: 5rem;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 2rem;
+.header {
+  height: 5rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem;
+  background-color: #ffc75f;
+  position: static;
+
+  &-logo {
+    width: 5rem;
+  }
+
+  .header-searchbar {
+    border-radius: 50px;
+    height: 2rem;
+    width: 70%;
     padding: 1rem;
-    background-color: #FFC75F;
-    position: static;
-   
-
-    &-logo {
-        width: 5rem;
-    }
-
-    .header-searchbar{
-        border-radius: 50px;
-        height: 2rem;
-        width: 70%;
-        padding: 1rem;
-    }
+  }
 }
 
-.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root{
-    border-radius: 20px;
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
+  border-radius: 20px;
 }

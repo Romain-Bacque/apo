@@ -85,8 +85,7 @@ function App() {
           <Header />
           <Container conponent="main" sx={{ fontFamily: "Silkscreen" }}>
             <Routes>
-              {loading && <Route path="/" element={<Loading />} />}
-              {loading === false && <Route path="/" element={<Map />} />}
+              <Route path="/" element={<Map />} />
               {loading === false && (
                 <Route path="/breweries/:id" element={<OneBrewerie />} />
               )}
@@ -98,7 +97,6 @@ function App() {
               <Route path="/signup" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="*" element={<Error />} />
-
               {isLogged ? (
                 <>
                   <Route path="/breweries" element={<Breweries />} />
@@ -122,7 +120,6 @@ function App() {
               ) : (
                 <Route path="*" element={<Login />} />
               )}
-
               <Route path="/test" element={<Test />} />
             </Routes>
           </Container>
