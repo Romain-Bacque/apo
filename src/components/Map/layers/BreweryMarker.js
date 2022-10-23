@@ -1,22 +1,35 @@
+import L from "leaflet";
 import { Marker, Popup } from "react-leaflet";
 import { Link } from "react-router-dom";
 import defaultIcon from "../icons/defaultIcon";
 import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
-import { useEffect } from "react";
 import {
   Box,
-  Button,
   Card,
   CardContent,
   CardMedia,
   Divider,
   Typography,
 } from "@mui/material";
-import { Home, Phone } from "@mui/icons-material";
-import TagsList from "../../UI/TagsList";
+import { Phone } from "@mui/icons-material";
 import styled from "@emotion/styled";
 
 // Style
+const StyledCard = styled(Card)({
+  padding: 0.5,
+  border: "none",
+  width: "200px",
+});
+const StyledCardContent = styled(CardContent)({
+  display: "flex",
+  flexDirection: "column",
+  padding: "2rem 0",
+});
+const StyledBox = styled(Box)({
+  display: "flex",
+  alignItems: "center",
+  gap: 0.6,
+});
 const StyledLink = styled(Link)({
   display: "inline-block",
   width: "100%",
@@ -28,25 +41,30 @@ const StyledLink = styled(Link)({
 
 let filteredBreweries = null;
 
-const BreweryMarker = ({ data, getGeoFilter, setBreweriesByRegion }) => {
+const BreweryMarker = ({
+  data,
+  getGeoFilter,
+  getRadiusFilter,
+  setBreweriesByFilter,
+}) => {
   const geoFilter = getGeoFilter();
+  const radiusFilter = getRadiusFilter();
 
   filteredBreweries = data
     ?.filter((brewery) => {
-      let filterByGeo;
-
-      if (geoFilter) {
-        // 'booleanPointInPolygon' check if current feature coordinate points are present in the selected continent (geoFilter), return 'true' or 'false'
-        filterByGeo = booleanPointInPolygon(
-          [brewery.lon, brewery.lat],
-          geoFilter
-        );
-      }
-
+      let currentPoint, centerPoint;
       let doFilter = true;
 
-      if (geoFilter) {
-        doFilter = filterByGeo;
+      if (radiusFilter) {
+        const { coordinates } = radiusFilter;
+
+        centerPoint = L.latLng(coordinates);
+        currentPoint = L.latLng(brewery.lat, brewery.lon);
+        doFilter =
+          centerPoint.distanceTo(currentPoint) / 1000 <= radiusFilter.radius; // 'distanceTo' method get distance between two points // 'distanceTo' function works as meters, so we divide by 1000 to get the value in kilometers
+      } else if (geoFilter) {
+        // 'booleanPointInPolygon' check if current feature coordinate points are present in the selected continent (geoFilter), return 'true' or 'false'
+        doFilter = booleanPointInPolygon([brewery.lon, brewery.lat], geoFilter);
       }
       return doFilter;
     })
@@ -57,22 +75,13 @@ const BreweryMarker = ({ data, getGeoFilter, setBreweriesByRegion }) => {
         key={brewerie.id}
       >
         <Popup>
-          <Card
-            elevation={0}
-            sx={{ padding: 0.5, border: "none", width: "200px" }}
-          >
+          <StyledCard elevation={0}>
             <CardMedia
               component="img"
               image={brewerie.image}
               alt={`image/logo brasserie '${brewerie.title}'`}
             />
-            <CardContent
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                padding: "2rem 0",
-              }}
-            >
+            <StyledCardContent>
               <Box>
                 <Typography variant="h5" component="h5">
                   {brewerie.title}
@@ -86,32 +95,25 @@ const BreweryMarker = ({ data, getGeoFilter, setBreweriesByRegion }) => {
                   {brewerie.address}
                 </Typography>
               </Box>
-              <Box display={"flex"} alignItems="center" gap={0.6}>
+              <StyledBox>
                 <Phone />
-                <Typography
-                  fontSize="1rem"
-                  gutterBottom
-                  variant="p"
-                  component="p"
-                >
+                <Typography fontSize="1rem" variant="p" component="p">
                   {brewerie.phone}
                 </Typography>
-              </Box>
+              </StyledBox>
               <Divider />
               <StyledLink to={`/breweries/${brewerie.id}`}>
                 Plus de détails
               </StyledLink>
-            </CardContent>
-          </Card>
+            </StyledCardContent>
+          </StyledCard>
         </Popup>
       </Marker>
     ));
 
-  useEffect(() => {
-    if (geoFilter && filteredBreweries) {
-      setBreweriesByRegion(filteredBreweries);
-    } else setBreweriesByRegion([]);
-  }, [geoFilter, setBreweriesByRegion]);
+  if (filteredBreweries) {
+    // setBreweriesByFilter({filter:, filteredBreweries});
+  } else setBreweriesByFilter([]);
 
   return filteredBreweries;
 };

@@ -2,18 +2,18 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import {
-  Button,
-  CardActionArea,
-  CardActions,
-  Divider,
-  Grid,
-} from "@mui/material";
-import "./style.scss";
+import { Button, Divider } from "@mui/material";
 import { Link } from "react-router-dom";
 import TagsList from "../UI/TagsList";
 import { Home, Phone } from "@mui/icons-material";
 import { Box } from "@mui/system";
+import styled from "@emotion/styled";
+
+// Style
+const StyledBox = styled(Box)({
+  display: "flex",
+  gap: 0.6,
+});
 
 function OneBrewerie({ title, phone, address, tags, image, id }) {
   return (
@@ -28,19 +28,18 @@ function OneBrewerie({ title, phone, address, tags, image, id }) {
         <Typography gutterBottom variant="h4" component="h4">
           {title}
         </Typography>
-        <Box display={"flex"} gap={0.6}>
+        <StyledBox>
           <Home />
           <Typography gutterBottom variant="p" component="p">
             {address}
           </Typography>
-        </Box>
-
-        <Box display={"flex"} gap={0.6}>
+        </StyledBox>
+        <StyledBox>
           <Phone />
           <Typography gutterBottom variant="p" component="p">
             {phone}
           </Typography>
-        </Box>
+        </StyledBox>
         <TagsList list={tags} />
       </CardContent>
       <Divider light />

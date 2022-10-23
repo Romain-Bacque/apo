@@ -7,7 +7,7 @@ import "leaflet-easybutton/src/easy-button.js";
 import "leaflet-easybutton/src/easy-button.css";
 import "font-awesome/css/font-awesome.min.css";
 import "./style.scss";
-import { Box, FormControlLabel, Slide, Switch } from "@mui/material";
+import { Box, FormControlLabel, Switch } from "@mui/material";
 import BreweryMarker from "./layers/BreweryMarker";
 import LocationMarker from "./layers/LocationMarker";
 import Regions from "./layers/Regions";
@@ -21,10 +21,12 @@ let filteredBreweries;
 function Map() {
   const breweries = useSelector((state) => state.brewery.breweries);
   const searchValue = useSelector((state) => state.search.value);
-  const [breweriesByRegion, setBreweriesByRegion] = useState([]);
+  const [breweriesByFilter, setBreweriesByFilter] = useState([]);
+  const [radiusFilter, setRadiusFilter] = useState(null);
   const [geoFilter, setGeoFilter] = useState(null);
   const [checked, setChecked] = useState(false);
 
+  const getRadiusFilter = () => radiusFilter;
   const getGeoFilter = () => geoFilter;
 
   const handleChange = () => {
@@ -63,10 +65,11 @@ function Map() {
           />
           <BreweryMarker
             data={filteredBreweries}
+            getRadiusFilter={getRadiusFilter}
             getGeoFilter={getGeoFilter}
-            setBreweriesByRegion={setBreweriesByRegion}
+            setBreweriesByFilter={setBreweriesByFilter}
           />
-          <LocationMarker />
+          <LocationMarker setRadiusFilter={setRadiusFilter} />
           <Regions
             data={regions}
             setGeoFilter={setGeoFilter}

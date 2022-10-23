@@ -20,7 +20,6 @@ function BreweriesList({ data }) {
   const [categoryList, setCategoryList] = useState([]);
   const params = useParams();
   const categories = useSelector((state) => state.category.categories);
-  console.log(data);
   const hasSelectedTag = (brewery, categoryList) => {
     const filteredList = categoryList.filter((object1) => {
       return brewery.categories.some((object2) => {
