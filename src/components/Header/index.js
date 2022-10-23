@@ -30,10 +30,10 @@ function Header() {
   }
 
   // If user select an address in the search bar
-  function onPlaceSelect(value) {
+  function handlePlaceSelect(value) {
     dispatch({
       type: "SEARCH_VALUE",
-      value: value.properties.address_line1,
+      value: value ? value.properties.address_line1 : "",
     });
   }
 
@@ -70,7 +70,7 @@ function Header() {
               type="locality"
               lang="fr"
               onUserInput={handleUserInput}
-              placeSelect={onPlaceSelect}
+              placeSelect={handlePlaceSelect}
             />
           </Box>
           <AppMenu />

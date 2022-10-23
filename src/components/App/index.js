@@ -16,7 +16,6 @@ import Breweries from "../Breweries";
 import Events from "../Events";
 import OneEvent from "../Events/OneEvent";
 import Profil from "../Profil";
-import Test from "../Test";
 import UpdateEventBrewery from "../Breweries/UpdateEventBrewery";
 import CustomSnackbars from "../UI/CustomSnackbars";
 import { useEffect, useState } from "react";
@@ -107,7 +106,6 @@ function App() {
               ) : (
                 <Route path="*" element={<Login />} />
               )}
-              <Route path="/test" element={<Test />} />
             </Routes>
           </Container>
           {/* <Footer /> */}

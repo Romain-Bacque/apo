@@ -17,7 +17,7 @@ const StyledBox = styled(Box)({
 
 function OneBrewerie({ title, phone, address, tags, image, id }) {
   return (
-    <Card sx={{ padding: 1.5 }}>
+    <Card sx={{ width: "95%", padding: 1.5 }}>
       <CardMedia
         component="img"
         height="140px"

@@ -7,7 +7,7 @@ import "leaflet-easybutton/src/easy-button.js";
 import "leaflet-easybutton/src/easy-button.css";
 import "font-awesome/css/font-awesome.min.css";
 import "./style.scss";
-import { Box, FormControlLabel, Switch } from "@mui/material";
+import { Box, Divider, FormControlLabel, Switch } from "@mui/material";
 import BreweryMarker from "./layers/BreweryMarker";
 import LocationMarker from "./layers/LocationMarker";
 import Regions from "./layers/Regions";
@@ -15,38 +15,37 @@ import Regions from "./layers/Regions";
 // GeoJSON data
 import { regions } from "./data/regions";
 import BreweriesList from "../BreweriesList";
+import styled from "@emotion/styled";
 
-let filteredBreweries;
+// Style
+const StyledBox = styled(Box)({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: 2,
+  borderRadius: "10px",
+  minWidth: "300px",
+});
 
 function Map() {
   const breweries = useSelector((state) => state.brewery.breweries);
   const searchValue = useSelector((state) => state.search.value);
-  const [breweriesByFilter, setBreweriesByFilter] = useState([]);
+  const [breweriesByFilter, setBreweriesByFilter] = useState({});
   const [radiusFilter, setRadiusFilter] = useState(null);
   const [geoFilter, setGeoFilter] = useState(null);
   const [checked, setChecked] = useState(false);
 
   const getRadiusFilter = () => radiusFilter;
   const getGeoFilter = () => geoFilter;
+  const getSearchbarFilter = () => searchValue;
 
   const handleChange = () => {
     setChecked((prevState) => !prevState);
   };
 
-  if (breweries?.length) {
-    filteredBreweries = breweries.filter((brewery) => {
-      if (brewery.title && brewery.address) {
-        const title = brewery.title.toLowerCase().trim();
-        const address = brewery.address.toLowerCase().trim();
-
-        return title.includes(searchValue) || address.includes(searchValue);
-      } else return false;
-    });
-  }
-
   return (
-    <Box display="flex" alignItems={"center"} gap={2} borderRadius="10px">
-      <Box height="80vh" width="80%" position="relative">
+    <StyledBox>
+      <Box height="80vh" width="70%" position="relative">
         <MapContainer
           className="leaflet"
           scrollWheelZoom={true}
@@ -64,9 +63,10 @@ function Map() {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png "
           />
           <BreweryMarker
-            data={filteredBreweries}
+            data={breweries}
             getRadiusFilter={getRadiusFilter}
             getGeoFilter={getGeoFilter}
+            getSearchbarFilter={getSearchbarFilter}
             setBreweriesByFilter={setBreweriesByFilter}
           />
           <LocationMarker setRadiusFilter={setRadiusFilter} />
@@ -78,13 +78,28 @@ function Map() {
         </MapContainer>
       </Box>
       <Box>
-        <FormControlLabel
-          control={<Switch checked={checked} onChange={handleChange} />}
-          label="Show from target"
-        />
-        {breweries?.length && <BreweriesList data={breweries} />}
+        <Box
+          borderRadius="5px"
+          m="1rem"
+          borderBottom="1px solid lightgray"
+          textAlign="center"
+        >
+          <FormControlLabel
+            control={<Switch checked={checked} onChange={handleChange} />}
+            label="Show from target"
+            sx={{ textAlign: "center" }}
+          />
+        </Box>
+        {breweries?.length && (
+          <BreweriesList
+            filter={breweriesByFilter.filter ? breweriesByFilter.filter : null}
+            data={
+              breweriesByFilter.filter ? breweriesByFilter.value : breweries
+            }
+          />
+        )}
       </Box>
-    </Box>
+    </StyledBox>
   );
 }
 

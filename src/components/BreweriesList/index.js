@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 
 import OneBrewerie from "./OneBrewerie";
 import {
@@ -10,32 +9,34 @@ import {
   Grid,
   InputLabel,
   NativeSelect,
+  Stack,
   Typography,
 } from "@mui/material";
 import TagsList from "../UI/TagsList";
+import { Box } from "@mui/system";
 
 let breweriesList;
 
-function BreweriesList({ data }) {
+function BreweriesList({ filter, data }) {
   const [categoryList, setCategoryList] = useState([]);
-  const params = useParams();
   const categories = useSelector((state) => state.category.categories);
+
   const hasSelectedTag = (brewery, categoryList) => {
     const filteredList = categoryList.filter((object1) => {
       return brewery.categories.some((object2) => {
+        console.log(brewery);
         return parseInt(object1.id) === parseInt(object2.id);
       });
     });
-
-    if (filteredList.length) {
-      return true;
-    } else return false;
+    return !!filteredList.length;
   };
 
   const handleOptionSelect = (event) => {
     const { value: tag } = event.target;
     const { options } = event.target;
     const { id } = options[options.selectedIndex];
+
+    if (!id) return; // Prevent to select option with "Choisir une catégorie" value
 
     if (
       !categoryList.find((category) => parseInt(category.id) === parseInt(id))
@@ -58,10 +59,7 @@ function BreweriesList({ data }) {
 
   if (data?.length) {
     const filteredBreweriesList = data.filter((brewery) => {
-      return (
-        brewery.address?.includes(params.value) &&
-        hasSelectedTag(brewery, categoryList)
-      );
+      return hasSelectedTag(brewery, categoryList);
     });
 
     breweriesList = filteredBreweriesList.map((filteredBrewery) => (
@@ -78,24 +76,33 @@ function BreweriesList({ data }) {
   }
 
   return (
-    <Container maxWidth={400}>
-      <Typography variant="h4" component="div" textAlign="center">
-        {`Liste des brasseries (${breweriesList.length})`}
+    <Container sx={{ mt: "1rem" }} maxWidth={400}>
+      <Typography variant="h4" component="h4" textAlign="center">
+        {`Liste des brasseries (${breweriesList?.length})`}
+      </Typography>
+      <Typography variant="span" component="span" textAlign="center">
+        {`Filtre(s) appliqué : ${filter ? filter.join(" | ") : "Aucun filtre"}`}
       </Typography>
       <Divider light />
       {categories?.length && (
         <Container sx={{ marginTop: 2 }}>
           <TagsList onTagDelete={handleTagDelete} list={categoryList} />
           <FormControl fullWidth>
-            <InputLabel variant="standard" htmlFor="category">
-              Filtrer par catégorie :
+            <InputLabel
+              variant="standard"
+              htmlFor="category"
+              sx={{ fontSize: "1.5rem" }}
+            >
+              Quelle catégorie(s) de bière vous intéresse ?
             </InputLabel>
             <NativeSelect
               defaultValue="Choisir une catégorie"
-              id="category"
+              id={"category"}
               onClick={handleOptionSelect}
             >
-              <option disabled>Choisir une catégorie</option>
+              <option key={null} id={null} disabled>
+                Choisir une catégorie
+              </option>
               {categories.map((category) => (
                 <option key={category.id} id={category.id} value={category.tag}>
                   {category.tag}
@@ -105,17 +112,17 @@ function BreweriesList({ data }) {
           </FormControl>
         </Container>
       )}
-      {breweriesList?.length > 0 ? (
-        <Grid container spacing={2} justifyContent="center">
-          <Grid item xs={12} sm={6}>
+      <Box sx={{ height: "45vh", overflow: "auto" }}>
+        {breweriesList?.length ? (
+          <Stack direction="column" gap={2}>
             {breweriesList}
-          </Grid>
-        </Grid>
-      ) : (
-        <Typography gutterBottom variant="p" component="div">
-          Aucun résultat.
-        </Typography>
-      )}
+          </Stack>
+        ) : (
+          <Typography gutterBottom variant="p" component="div">
+            Aucun résultat.
+          </Typography>
+        )}
+      </Box>
     </Container>
   );
 }
