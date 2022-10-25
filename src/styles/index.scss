@@ -1,5 +1,4 @@
 @use "reset";
-@use "vars";
 
 html {
   font-size: 10px;
@@ -8,8 +7,4 @@ html {
 body {
   font-size: 1.6rem;
   height: 100vh;
-}
-
-* {
-  font-family: "Roboto", sans-serif;
 }

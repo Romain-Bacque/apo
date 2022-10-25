@@ -8,13 +8,13 @@ const Regions = ({ data, setGeoFilter, getGeoFilter }) => {
       key="geo-json-layer"
       data={data}
       eventHandlers={{
-        dblclick: (e) => {
-          e.originalEvent.view.L.DomEvent.stopPropagation(e); // Use it to prevent zoom when double click
+        dblclick: (event) => {
+          event.originalEvent.view.L.DomEvent.stopPropagation(event); // Use it to prevent zoom when double click
         },
-        click: (e) =>
+        click: (event) =>
           setGeoFilter((prevState) => {
-            const same = prevState === e.propagatedFrom.feature; // 'e.propagatedFrom.feature' -> get the GeoJSON data of the current region I clicked on
-            return same ? null : e.propagatedFrom.feature; // if I click the same region again, the filter will be removed and all breweries will be present.
+            const same = prevState === event.propagatedFrom.feature; // 'e.propagatedFrom.feature' -> get the GeoJSON data of the current region I clicked on
+            return same ? null : event.propagatedFrom.feature; // if I click the same region again, the filter will be removed and all breweries will be present.
           }),
       }}
       style={(feature) => {
@@ -24,7 +24,7 @@ const Regions = ({ data, setGeoFilter, getGeoFilter }) => {
           fillOpacity: 0.3,
         };
       }}
-    ></GeoJSON>
+    />
   );
 };
 

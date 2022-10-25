@@ -156,8 +156,6 @@ const user = (store) => (next) => (action) => {
         name: state.user.name,
       })
       .then((response) => {
-        const user = response.data.data;
-
         store.dispatch({
           type: "DELETE_USER",
         });

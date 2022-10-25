@@ -12,15 +12,22 @@ import styled from "@emotion/styled";
 // Style
 const StyledBox = styled(Box)({
   display: "flex",
-  gap: 0.6,
+  gap: 1,
+});
+const StyledButton = styled(Button)({
+  p: ".5rem",
+  fontSize: "1rem",
+  color: "white",
+  marginTop: "1.2rem",
 });
 
-function OneBrewerie({ title, phone, address, tags, image, id }) {
+function BrewerieCard({ title, phone, address, tags, image, id }) {
   return (
     <Card sx={{ width: "95%", padding: 1.5 }}>
       <CardMedia
         component="img"
         height="140px"
+        width="100%"
         image={image}
         alt={`image/logo brasserie '${title}'`}
       />
@@ -43,11 +50,11 @@ function OneBrewerie({ title, phone, address, tags, image, id }) {
         <TagsList list={tags} />
       </CardContent>
       <Divider light />
-      <Button size="small">
+      <StyledButton size="small">
         <Link to={`/breweries/${id}`}>Plus de détails</Link>
-      </Button>
+      </StyledButton>
     </Card>
   );
 }
 
-export default OneBrewerie;
+export default BrewerieCard;

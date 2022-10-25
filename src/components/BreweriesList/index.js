@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import OneBrewerie from "./OneBrewerie";
+import OneBrewerie from "./BrewerieCard";
 import {
   Container,
   Divider,
   FormControl,
-  Grid,
   InputLabel,
   NativeSelect,
   Stack,
@@ -18,13 +17,13 @@ import { Box } from "@mui/system";
 let breweriesList;
 
 function BreweriesList({ filter, data }) {
+  const loading = useSelector((state) => state.loading);
   const [categoryList, setCategoryList] = useState([]);
   const categories = useSelector((state) => state.category.categories);
 
   const hasSelectedTag = (brewery, categoryList) => {
     const filteredList = categoryList.filter((object1) => {
       return brewery.categories.some((object2) => {
-        console.log(brewery);
         return parseInt(object1.id) === parseInt(object2.id);
       });
     });
@@ -76,15 +75,15 @@ function BreweriesList({ filter, data }) {
   }
 
   return (
-    <Container sx={{ mt: "1rem" }} maxWidth={400}>
+    <Container sx={{ mt: "1rem", minWidth: "300px", height: "70%" }}>
       <Typography variant="h4" component="h4" textAlign="center">
         {`Liste des brasseries (${breweriesList?.length})`}
       </Typography>
-      <Typography variant="span" component="span" textAlign="center">
+      <Typography color="gray" variant="h6" component="span" textAlign="center">
         {`Filtre(s) appliqué : ${filter ? filter.join(" | ") : "Aucun filtre"}`}
       </Typography>
       <Divider light />
-      {categories?.length && (
+      {categories?.length > 0 && (
         <Container sx={{ marginTop: 2 }}>
           <TagsList onTagDelete={handleTagDelete} list={categoryList} />
           <FormControl fullWidth>
@@ -113,7 +112,7 @@ function BreweriesList({ filter, data }) {
         </Container>
       )}
       <Box sx={{ height: "45vh", overflow: "auto" }}>
-        {breweriesList?.length ? (
+        {breweriesList?.length > 0 ? (
           <Stack direction="column" gap={2}>
             {breweriesList}
           </Stack>

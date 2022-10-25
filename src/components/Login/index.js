@@ -1,10 +1,9 @@
-// == Import
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
 import { useState, useCallback } from "react";
-import { Button, Typography, Container } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-// == Composant
+import { Link } from "react-router-dom";
+import { Button, Typography, Container } from "@mui/material";
 import Input from "../Input";
 
 function Login() {
@@ -76,5 +75,4 @@ function Login() {
   );
 }
 
-// == Export
 export default Login;

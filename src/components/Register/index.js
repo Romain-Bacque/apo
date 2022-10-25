@@ -1,6 +1,6 @@
-// == Import
 import { useDispatch } from "react-redux";
 import { useCallback, useState } from "react";
+
 import { Link } from "react-router-dom";
 import {
   Box,
@@ -14,7 +14,6 @@ import {
 import "./style.scss";
 import Input from "../Input";
 
-// == Component
 function Register() {
   const dispatch = useDispatch();
   const [inputStatut, setInputStatut] = useState({

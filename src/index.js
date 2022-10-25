@@ -7,6 +7,8 @@ import { BrowserRouter } from "react-router-dom";
 import "./styles/index.scss";
 import App from "./components/App";
 import store from "./store";
+import { ThemeProvider } from "@mui/material";
+import theme from "./styles/theme";
 
 // == Render
 // 1. Élément React racine (celui qui contient l'ensemble de l'app)
@@ -14,7 +16,9 @@ import store from "./store";
 const rootReactElement = (
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </BrowserRouter>
   </Provider>
 );
