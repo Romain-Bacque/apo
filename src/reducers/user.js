@@ -14,9 +14,7 @@ const reducer = (state = initialState, action = {}) => {
     case "CHANGE_VALUE":
       return {
         ...state,
-        [action.key]: action.value,
-        // la notation entre crochet me permet de spécifier
-        // via une expression le nom de la propriété ciblée
+        [action.key]: action.value, // action.key contains the name of the property
       };
     case "RESET_USER":
       return {

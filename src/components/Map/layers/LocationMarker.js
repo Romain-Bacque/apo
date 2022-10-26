@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 
-import L from "leaflet";
 import { Marker, Tooltip, useMap } from "react-leaflet";
 import locationIcon from "../icons/locationIcon";
 

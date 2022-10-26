@@ -53,15 +53,7 @@ function Register() {
   }, []);
 
   return (
-    <Container
-      component="form"
-      onSubmit={handleRegister}
-      sx={{
-        marginTop: "0px",
-        marginBottom: "0px",
-        width: "600px",
-      }}
-    >
+    <Container component="form" onSubmit={handleRegister}>
       <Typography variant="h2">Créer un compte</Typography>
 
       <Box>

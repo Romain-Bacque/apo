@@ -18,6 +18,7 @@ import Profil from "../Profil";
 import UpdateEventBrewery from "../Breweries/UpdateEventBrewery";
 import CustomSnackbars from "../UI/CustomSnackbars";
 import NotFound from "../NotFound";
+import Footer from "../Footer";
 
 function App() {
   const loading = useSelector((state) => state.loading);
@@ -88,7 +89,7 @@ function App() {
             )}
           </Routes>
         </Box>
-        {/* <Footer /> */}
+        <Footer />
       </Box>
     </>
   );

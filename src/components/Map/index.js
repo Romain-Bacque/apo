@@ -1,19 +1,13 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-import { LayersControl, MapContainer, TileLayer, useMap } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-easybutton/src/easy-button.js";
 import "leaflet-easybutton/src/easy-button.css";
 import "font-awesome/css/font-awesome.min.css";
 import "./style.scss";
-import {
-  Box,
-  Divider,
-  FormControlLabel,
-  Switch,
-  Typography,
-} from "@mui/material";
+import { Box, FormControlLabel, Switch, Typography } from "@mui/material";
 import BreweryMarker from "./layers/BreweryMarker";
 import LocationMarker from "./layers/LocationMarker";
 import Regions from "./layers/Regions";
@@ -27,30 +21,44 @@ import LocationButtonFilter from "./controls/LocationButtonFilter";
 import ShowActiveFiltersControl from "./controls/ShowActiveFiltersControl";
 
 // Style
-const StyledBox = styled(Box)(({ theme }) => ({
-  margin: "2rem auto",
+const StyledMapContainer = styled(Box)(({ theme }) => ({
+  position: "relative",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  alignContent: "stretch",
   gap: 2,
-  borderRadius: "10px",
+  margin: "auto",
   maxWidth: "1200px",
+  height: "calc(100vh - 80px)",
+  overflow: "hidden",
   [theme.breakpoints.down("md")]: {
-    display: "block",
     width: "100%",
+    height: "100%",
   },
 }));
-const StyledTypography = styled(Typography)(() => ({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  height: "100px",
+const StyledSwitchContainer = styled(Box)(({ theme }) => ({
+  boxSizing: "border-box",
   textAlign: "center",
-  textTransform: "capitalize",
-  letterSpacing: "0.35rem",
-  marginBottom: "2rem",
-  borderBottom: "1px solid rgba(215, 215, 215, 0.7)",
-  color: "rgb(170, 170, 170)",
+  height: "5rem",
+  [theme.breakpoints.up("md")]: {
+    display: "none",
+  },
+}));
+const StyledBreweriesListContainer = styled(Box)(({ theme }) => ({
+  backgroundColor: "white",
+  transition: "0.3s ease-out;",
+  [theme.breakpoints.down("md")]: {
+    width: "100%",
+    height: "100%",
+    position: "fixed",
+    zIndex: 3,
+    bottom: "7rem",
+    transform: "translateY(100%)",
+    "&.active": {
+      bottom: "calc(100% - 5.5rem)",
+    },
+  },
 }));
 
 function Map() {
@@ -72,16 +80,9 @@ function Map() {
     radiusFilter,
   });
 
-  const handleChange = () => {
-    setChecked((prevState) => !prevState);
-  };
-
   return (
     <>
-      <StyledTypography variant="h4" component="h1">
-        Carte Des Brasseries
-      </StyledTypography>
-      <StyledBox>
+      <StyledMapContainer>
         {loadingStatut === "pending" ? (
           <Loader />
         ) : (
@@ -123,18 +124,28 @@ function Map() {
                 <ShowActiveFiltersControl getFilters={getFilters} />
               </MapContainer>
             </Box>
-            <Box borderRadius="5px" flex={1.5}>
-              <Box
+            <StyledBreweriesListContainer
+              flex={1.5}
+              className={`${checked ? "active" : ""}`}
+            >
+              <StyledSwitchContainer
                 m="1rem"
                 borderBottom="1px solid lightgray"
                 textAlign="center"
               >
                 <FormControlLabel
-                  control={<Switch checked={checked} onChange={handleChange} />}
-                  label="Show from target"
+                  control={
+                    <Switch
+                      checked={checked}
+                      onChange={() => setChecked((prevState) => !prevState)}
+                    />
+                  }
+                  label={`${
+                    checked ? "Cacher" : "Afficher"
+                  } la liste des brasseries`}
                   sx={{ textAlign: "center" }}
                 />
-              </Box>
+              </StyledSwitchContainer>
               <BreweriesList
                 filter={
                   breweriesByFilter.filter ? breweriesByFilter.filter : null
@@ -143,10 +154,10 @@ function Map() {
                   breweriesByFilter.filter ? breweriesByFilter.value : breweries
                 }
               />
-            </Box>
+            </StyledBreweriesListContainer>
           </>
         )}
-      </StyledBox>
+      </StyledMapContainer>
     </>
   );
 }

@@ -7,7 +7,7 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { IconButton } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import { MenuRounded } from "@mui/icons-material";
 import styled from "@emotion/styled";
 
@@ -109,7 +109,7 @@ const AppMenu = () => {
                         component={NavLink}
                         to="/breweries"
                       >
-                        Mes brasseries
+                        Mes Brasseries
                       </StyledMenuItem>
                     )}
                     {isLogged && (
@@ -141,7 +141,8 @@ const AppMenu = () => {
                     )}
                     {isLogged && (
                       <StyledMenuItem
-                        component={NavLink}
+                        sx={{ textTransform: "capitalize" }}
+                        component={Button}
                         onClick={handleLogout}
                       >
                         Se déconnecter

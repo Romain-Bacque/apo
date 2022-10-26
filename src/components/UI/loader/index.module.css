@@ -1,5 +1,5 @@
 .loader-container {
-  margin: 0 auto 1rem;
+  margin: 2rem auto;
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -9,6 +9,7 @@
 }
 
 .loader-container .loader-container__dot {
+  z-index: 100000;
   background-color: gray;
   border-color: gray;
   height: 10px;
