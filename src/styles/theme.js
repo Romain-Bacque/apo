@@ -91,8 +91,12 @@ const theme = createTheme({
         root: {
           width: "100%",
           padding: "1rem ",
+          margin: "1rem 0",
           boxShadow: "none",
           borderRadius: "5px",
+          color: "white",
+          fontWeight: 700,
+          fontSize: "1rem",
         },
       },
     },
@@ -103,6 +107,8 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           width: "100%",
+          margin: ".5rem 0",
+          padding: ".5rem",
         },
       },
     },

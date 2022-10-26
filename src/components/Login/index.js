@@ -46,7 +46,7 @@ function Login() {
     <Container
       component="form"
       onSubmit={handleSubmit}
-      sx={{ marginTop: "0px", marginBottom: "0px" }}
+      sx={{ marginTop: "0px", marginBottom: "0px", width: "600px" }}
     >
       <Typography variant="h2">Se connecter</Typography>
       <Input

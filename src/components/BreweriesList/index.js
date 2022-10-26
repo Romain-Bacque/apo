@@ -103,7 +103,12 @@ function BreweriesList({ filter, data }) {
                 Choisir une catégorie
               </option>
               {categories.map((category) => (
-                <option key={category.id} id={category.id} value={category.tag}>
+                <option
+                  style={{ padding: "1rem" }}
+                  key={category.id}
+                  id={category.id}
+                  value={category.tag}
+                >
                   {category.tag}
                 </option>
               ))}

@@ -23,6 +23,7 @@ import NotFound from "../NotFound";
 let loadingContent = null;
 
 function App() {
+  const loading = useSelector((state) => state.loading);
   const [isOpen, setIsOpen] = useState(false);
   const isLogged = useSelector((state) => state.user.isLogged);
   const dispatch = useDispatch();
@@ -45,8 +46,22 @@ function App() {
     });
   }, [dispatch]);
 
+  useEffect(() => {
+    if (loading.statut !== "info" && loading.message) {
+      setIsOpen(true);
+    }
+  }, [loading]);
+
   return (
     <>
+      {loading.statut !== "info" && loading.message && (
+        <CustomSnackbars
+          message={loading.message}
+          statut={loading.statut}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+        />
+      )}
       <Box>
         <CssBaseline />
         <Header />

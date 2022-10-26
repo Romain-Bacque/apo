@@ -11,7 +11,7 @@ export const initialState = {
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case "CHANGE_VALUE": // pour ajouter un champ controller
+    case "CHANGE_VALUE":
       return {
         ...state,
         [action.key]: action.value,

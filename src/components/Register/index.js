@@ -53,76 +53,78 @@ function Register() {
   }, []);
 
   return (
-    <>
-      <Container
-        component="form"
-        onSubmit={handleRegister}
-        sx={{ marginTop: "0px", marginBottom: "0px" }}
-      >
-        <Typography variant="h2">Créer un compte</Typography>
+    <Container
+      component="form"
+      onSubmit={handleRegister}
+      sx={{
+        marginTop: "0px",
+        marginBottom: "0px",
+        width: "600px",
+      }}
+    >
+      <Typography variant="h2">Créer un compte</Typography>
 
-        <Box>
-          <RadioGroup
-            defaultValue="user"
-            name="role"
-            sx={{ display: "inline-block" }}
-          >
-            <FormControlLabel
-              label="Particulier"
-              value="user"
-              onChange={handleInputChange.bind(null, "role", "user")}
-              control={<Radio />}
-            />
-            <FormControlLabel
-              label="Brasseur"
-              value="brewer"
-              onChange={handleInputChange.bind(null, "role", "brewer")}
-              control={<Radio />}
-            />
-          </RadioGroup>
-        </Box>
-        <Input
-          input={{
-            id: "name",
-            type: "text",
-            label: "Nom ou Pseudo :",
-          }}
-          name="name"
-          onInputChange={handleInputChange}
-        />
-        <Input
-          input={{
-            id: "email",
-            type: "email",
-            label: "Adresse Email :",
-          }}
-          name="email"
-          onInputChange={handleInputChange}
-        />
-        <Input
-          input={{
-            id: "password",
-            type: "password",
-            label: "Entrer le mot de passe :",
-          }}
-          name="password"
-          onInputChange={handleInputChange}
-        />
-        <Input
-          input={{
-            id: "confirmPassword",
-            type: "password",
-            label: "Confirmer le mot de passe :",
-          }}
-          name="confirmPassword"
-          valueToMatch={inputStatut.password.value}
-          onInputChange={handleInputChange}
-        />
+      <Box>
+        <RadioGroup
+          defaultValue="user"
+          name="role"
+          sx={{ display: "inline-block" }}
+        >
+          <FormControlLabel
+            label="Particulier"
+            value="user"
+            onChange={handleInputChange.bind(null, "role", "user")}
+            control={<Radio />}
+          />
+          <FormControlLabel
+            label="Brasseur"
+            value="brewer"
+            onChange={handleInputChange.bind(null, "role", "brewer")}
+            control={<Radio />}
+          />
+        </RadioGroup>
+      </Box>
+      <Input
+        input={{
+          id: "name",
+          type: "text",
+          label: "Nom ou Pseudo :",
+        }}
+        name="name"
+        onInputChange={handleInputChange}
+      />
+      <Input
+        input={{
+          id: "email",
+          type: "email",
+          label: "Adresse Email :",
+        }}
+        name="email"
+        onInputChange={handleInputChange}
+      />
+      <Input
+        input={{
+          id: "password",
+          type: "password",
+          label: "Entrer le mot de passe :",
+        }}
+        name="password"
+        onInputChange={handleInputChange}
+      />
+      <Input
+        input={{
+          id: "confirmPassword",
+          type: "password",
+          label: "Confirmer le mot de passe :",
+        }}
+        name="confirmPassword"
+        valueToMatch={inputStatut.password.value}
+        onInputChange={handleInputChange}
+      />
 
-        <Button type="submit">S'enregistrer</Button>
-        <Link to="/login">Vous êtes déjà enregistré ?</Link>
-      </Container>
-    </>
+      <Button type="submit">S'enregistrer</Button>
+      <Link to="/login">Vous êtes déjà enregistré ?</Link>
+    </Container>
   );
 }
 
