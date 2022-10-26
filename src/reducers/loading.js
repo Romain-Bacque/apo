@@ -1,11 +1,16 @@
 export const initialState = {
   message: "",
-  statut: null,
+  statut: "pending",
 };
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case "PENDING":
+      return {
+        message: action.message,
+        statut: "pending",
+      };
+    case "INFO":
       return {
         message: action.message,
         statut: "info",

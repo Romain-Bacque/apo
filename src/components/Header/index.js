@@ -1,16 +1,15 @@
 import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 import { styled } from "@mui/material/styles";
 import { Box, Toolbar, AppBar, Typography } from "@mui/material";
 import { SportsBar } from "@mui/icons-material";
-
 import {
   GeoapifyGeocoderAutocomplete,
   GeoapifyContext,
 } from "@geoapify/react-geocoder-autocomplete";
 import "@geoapify/geocoder-autocomplete/styles/round-borders.css";
 import AppMenu from "../UI/AppMenu";
-import { Link } from "react-router-dom";
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -20,26 +19,39 @@ const StyledToolbar = styled(Toolbar)({
 
 function Header() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // If user type text in the search bar
-  function handleUserInput(value) {
+  const setSearchValue = (value) => {
     dispatch({
       type: "SEARCH_VALUE",
       value,
     });
+  };
+
+  // If user type 'enter' key on keyboard
+  function handleKeyDown(event) {
+    if (event.keyCode === 13 && event.target.value) {
+      setSearchValue(event.target.value);
+      navigate("/");
+    }
+  }
+
+  // If user type text in the search bar
+  function handleUserInput(value) {
+    setSearchValue(value);
   }
 
   // If user select an address in the search bar
   function handlePlaceSelect(value) {
-    dispatch({
-      type: "SEARCH_VALUE",
-      value: value ? value.properties.address_line1 : "",
-    });
+    const searchValue = value ? value.properties.address_line1 : "";
+
+    setSearchValue(searchValue);
+    navigate("/");
   }
 
   return (
     <GeoapifyContext apiKey="99188fa618354504b3ba9155a71fb817">
-      <AppBar sx={{ boxShadow: "0 0 1px black" }}>
+      <AppBar position="sticky" sx={{ boxShadow: "0 0 1px black" }}>
         <StyledToolbar>
           <Box display="flex" mr="4rem" alignItems={"center"} gap={1.5}>
             <Link to="/">
@@ -64,7 +76,11 @@ function Header() {
               Biere de ta région.
             </Typography>
           </Box>
-          <Box sx={{ width: "60%" }}>
+          <div
+            tabIndex="0" // tabindex is an integer indicating whether the element can capture the focus and if so, in what order it captures it when navigating with the keyboard (usually using the Tab key).
+            onKeyDown={handleKeyDown}
+            style={{ width: "60%" }}
+          >
             <GeoapifyGeocoderAutocomplete
               placeholder="Rechercher..."
               type="locality"
@@ -72,7 +88,7 @@ function Header() {
               onUserInput={handleUserInput}
               placeSelect={handlePlaceSelect}
             />
-          </Box>
+          </div>
           <AppMenu />
         </StyledToolbar>
       </AppBar>

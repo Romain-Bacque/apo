@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Routes, Route } from "react-router-dom";
-import { Box, Container, CssBaseline } from "@mui/material";
+import { Box, CssBaseline } from "@mui/material";
 import Header from "../Header";
 import Map from "../Map";
 import Login from "../Login";
@@ -10,7 +10,6 @@ import Register from "../Register";
 import FormBrewerie from "../Form_brewerie";
 import UpdateBrewery from "../Breweries/UpdateBrewery";
 import OneBrewerie from "../One_brewerie";
-import BreweriesList from "../BreweriesList";
 import FormEvent from "../Events/FormEvent";
 import Breweries from "../Breweries";
 import Events from "../Events";
@@ -19,8 +18,6 @@ import Profil from "../Profil";
 import UpdateEventBrewery from "../Breweries/UpdateEventBrewery";
 import CustomSnackbars from "../UI/CustomSnackbars";
 import NotFound from "../NotFound";
-
-let loadingContent = null;
 
 function App() {
   const loading = useSelector((state) => state.loading);
@@ -47,14 +44,14 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (loading.statut !== "info" && loading.message) {
+    if (loading.statut !== "pending" && loading.message) {
       setIsOpen(true);
     }
   }, [loading]);
 
   return (
     <>
-      {loading.statut !== "info" && loading.message && (
+      {loading.statut !== "pending" && loading.message && (
         <CustomSnackbars
           message={loading.message}
           statut={loading.statut}
@@ -65,7 +62,7 @@ function App() {
       <Box>
         <CssBaseline />
         <Header />
-        <Container component="main" sx={{ fontFamily: "Silkscreen" }}>
+        <Box component="main" sx={{ fontFamily: "Silkscreen" }}>
           <Routes>
             <Route path="/" element={<Map />} />
             <Route path="/breweries/:id" element={<OneBrewerie />} />
@@ -90,7 +87,7 @@ function App() {
               <Route path="*" element={<Login />} />
             )}
           </Routes>
-        </Container>
+        </Box>
         {/* <Footer /> */}
       </Box>
     </>
