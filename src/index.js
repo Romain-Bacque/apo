@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./styles/index.scss";
 import App from "./components/App";
 import store from "./store";
-import { ThemeProvider } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import theme from "./styles/theme";
 
 // == Render
@@ -17,6 +17,7 @@ const rootReactElement = (
   <Provider store={store}>
     <BrowserRouter>
       <ThemeProvider theme={theme}>
+        <CssBaseline />
         <App />
       </ThemeProvider>
     </BrowserRouter>

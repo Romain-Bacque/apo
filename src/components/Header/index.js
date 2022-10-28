@@ -51,10 +51,7 @@ function Header() {
 
   return (
     <GeoapifyContext apiKey="99188fa618354504b3ba9155a71fb817">
-      <AppBar
-        position="sticky"
-        sx={{ maxHeight: "7rem", boxShadow: "0 0 1px black" }}
-      >
+      <AppBar position="sticky" sx={{ height: "56px", boxShadow: "none" }}>
         <StyledToolbar>
           <Box display="flex" mr="4rem" alignItems={"center"} gap={1.5}>
             <Link to="/">

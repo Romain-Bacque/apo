@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Routes, Route } from "react-router-dom";
-import { Box, CssBaseline } from "@mui/material";
+import { Box } from "@mui/material";
 import Header from "../Header";
 import Map from "../Map";
 import Login from "../Login";
@@ -24,6 +24,7 @@ import styled from "@emotion/styled";
 // Style
 const Main = styled(Box)(({ theme }) => ({
   margin: "2rem",
+  height: "calc(100vh - 56px)",
   fontFamily: "Silkscreen",
   [theme.breakpoints.down("md")]: {
     margin: "0",
@@ -70,7 +71,6 @@ function App() {
           setIsOpen={setIsOpen}
         />
       )}
-      <CssBaseline />
       <Header />
       <Main component="main">
         <Routes>
@@ -100,5 +100,4 @@ function App() {
   );
 }
 
-// == Export
 export default App;
