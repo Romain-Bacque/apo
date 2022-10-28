@@ -1,20 +1,7 @@
-// == Import
-
 import { Box } from "@mui/material";
 
-
-
-
-// == Composant
-
 function Footer() {
-  return (
-    
-    <>
-  
-    </>
-  );
+  return <></>;
 }
 
-// == Export
 export default Footer;

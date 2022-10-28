@@ -1,101 +1,13 @@
-.leaflet-container {
-    width: 110%; 
-    height: 100vh;
-    margin-top: -68px;
-    position: relative;
-    margin-left: -20px;
-  
-  }
-
-.leaflet-popup-content-wrapper{
-  border-radius: 7%;
-  text-align: center;
-  width: 20rem !important;
-}
-
-.detail-button {
-  box-shadow: 5px 5px 5px grey;
-}
-
-.size{
+.leaflet.leaflet-container {
   width: 100%;
-  margin: 0 auto;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
 }
 
-.leaflet-control-layers-toggle {
-  display: none;
+.leaflet-popup-content-wrapper {
+  border-radius: 10px;
+  text-align: start;
 }
-
-.easy-button-button{
-  width: 3rem !important;
-  height: 3rem !important;
-  border-radius: 30% !important;
-  border: none !important;
-  box-shadow: 5px 5px 5px grey;
-  margin-top: 2rem;
-  position: fixed;
- 
-}
-
-.fa{
-  margin-top: 0.4rem;
-  margin-right: 0.3rem;
-}
-
-.leaflet-touch .leaflet-bar{
-  border: none;
-}
-
-.blue {
-  color: #398DEB;
-}
-
-.img-brewery{
-  width: 100%;
-}
-
-.color{
-  color: black !important;
-}
-
-.color-button{
-  background-color: #398DEB !important;
-  color: white !important;
-  font-weight: bold;
-}
-.phone-number{
-  color: black;
-  font-size: 1.3rem;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-}
-
-@media (min-width: 600px) {
-  .leaflet-container {
-    width: 110%; 
-    height: 100vh;
-    margin-top: -68px;
-    position: relative;
-    margin-left: -25px;
-  }
- }
-
- @media (min-width: 1198px) {
-  .leaflet-container {
-    width: 111%; 
-    height: 100vh;
-    margin-top: -68px;
-    position: relative;
-    margin-left: -25px;
-  }
- }
- @media (min-width: 1200px) {
-  .leaflet-container {
-    width: 112%; 
-    height: 100vh;
-    margin-top: -68px;
-    position: relative;
-    margin-left: -70px;
-  }
- }
-
