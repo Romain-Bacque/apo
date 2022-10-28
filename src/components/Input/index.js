@@ -1,39 +1,84 @@
-/* eslint-disable no-unneeded-ternary */
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { TextField } from '@mui/material';
+import { TextField } from "@mui/material";
+import useInput from "../hooks/use-input";
+import { useEffect } from "react";
+import PasswordChecklist from "react-password-checklist";
 
-/*
-  Dans un destructuring ou dans les paramètres d'une fonction
-  on peut utiliser le rest parameter qui va récupérer toutes les valeurs pas encore récupérée
-  dans un tableau, sauf pour du destructuring d'objet ce sera dans un objet
-*/
-function Input({ name, ...props }) {
+function Input(props) {
   // pour accéder dynamiquement à une propriété d'un objet
   // on utilise la syntaxe crocher obj['prop'] plutôt que la syntaxe point ob.prop
-  const value = useSelector((state) => state.user[name]);
-  const dispatch = useDispatch();
-  const handleChange = (event) => {
-    dispatch({
-      type: 'CHANGE_VALUE',
-      value: event.target.value,
-      key: name,
-    });
-  };
+  let errorContent = false,
+    helperTextContent = "";
+
+  const { onInputChange, name } = props;
+
+  const {
+    value: inputValue,
+    isValid: isInputValid,
+    isTouched: isInputTouched,
+    changeHandler: inputChangeHandler,
+    blurHandler: inputBlurHandler,
+    resetHandler: resetInputHandler,
+  } = useInput();
+
+  useEffect(() => {
+    const isMatching =
+      props.name === "confirmPassword"
+        ? inputValue === props.valueToMatch.trim()
+          ? true
+          : false
+        : isInputValid;
+
+    if (!onInputChange) return;
+    onInputChange &&
+      onInputChange(name, { isValid: isMatching, value: inputValue });
+  }, [
+    onInputChange,
+    isInputValid,
+    inputValue,
+    name,
+    props.name,
+    props.valueToMatch,
+  ]);
+
+  useEffect(() => {
+    if (props.reset) resetInputHandler();
+  }, [props.reset, resetInputHandler]);
+
+  // Not required input
+  if (props.name !== "search" && props.name !== "image") {
+    errorContent = isInputTouched && !isInputValid ? true : false;
+    helperTextContent =
+      isInputTouched && !isInputValid ? "Entrée incorrecte." : "";
+  }
+
   return (
-    <TextField
-      name={name}
-      value={value ? value : ''}
-      onChange={handleChange}
-      {...props} // j'utilise le spread operator pour déverser le reste des props sur mon input
-    />
+    <>
+      <TextField
+        error={errorContent}
+        helperText={helperTextContent}
+        value={inputValue}
+        required
+        onBlur={inputBlurHandler}
+        onChange={inputChangeHandler}
+        name={props.name}
+        {...props.input}
+      />
+      {isInputTouched && !isInputValid && props.name === "confirmPassword" && (
+        <PasswordChecklist
+          rules={["minLength", "number", "capital", "match"]}
+          minLength={8}
+          value={inputValue}
+          valueAgain={props.valueToMatch}
+          messages={{
+            minLength: "Au moins 8 caractères.",
+            number: "Au moins 1 chiffre.",
+            capital: "Au moins 1 majuscule.",
+            match: "Les mots de passe correspondent.",
+          }}
+        />
+      )}
+    </>
   );
 }
-
-// je rend l'info name obligatoire
-// elle me servira de critère pour savoir quelle info récupérer dans le state
-Input.propTypes = {
-  name: PropTypes.string.isRequired,
-};
 
 export default Input;

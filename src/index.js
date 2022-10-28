@@ -1,18 +1,14 @@
 // == Import : npm
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 
-// == Import : local
-import './styles/index.scss'
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
-// Composants
-import App from './components/App';
-import store from './store';
+import "./styles/index.scss";
+import App from "./components/App";
+import store from "./store";
+import { ThemeProvider } from "@mui/material";
+import theme from "./styles/theme";
 
 // == Render
 // 1. Élément React racine (celui qui contient l'ensemble de l'app)
@@ -20,13 +16,15 @@ import store from './store';
 const rootReactElement = (
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </BrowserRouter>
   </Provider>
 );
 
 // 2. La cible du DOM (là où la structure doit prendre vie dans le DOM)
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 // 3. Déclenchement du rendu de React (virtuel) => DOM (page web)
 root.render(rootReactElement);

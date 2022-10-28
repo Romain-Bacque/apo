@@ -3,57 +3,43 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
-import './style.scss';
+import { Button, CardActionArea, CardActions, Grid } from '@mui/material';
 // == Composant
 import { Link } from 'react-router-dom'
-function Brewerie() {
+function Brewerie({ image, title, id}) {
   return (
-    <Card sx={{ width: '90%' }}>
-    <CardActionArea>
-      <CardMedia
-        component="img"
-        height="140"
-        image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
-        alt="green iguana"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Nom de la brasserie
-        </Typography>
-      </CardContent>
-    </CardActionArea>
-    <CardActions sx={{ justifyContent: 'center' }}>
+    <Grid item xs={12} md={4}>
+      <Card >
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          height="140"
+          image={image}
+          alt="green iguana"
+        />
+        <CardContent>
+          <Typography variant="h5">
+            {title}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
 
-      <Link to='/create-event'>
-        <Button size="small" color="primary">
-          évènements
-        </Button>
-      </Link>
+         
+            <Button 
+              component={Link}
+              to={`/brewery/update/${id}`}
+            > 
+              Gérer
+            </Button> 
+         
 
-      <Link to='/brewery/update'>
-        <Button size="small" color="primary">
-          Modifier
-        </Button>
-      </Link>
-
-      
-      <Button size="small" color="primary">
-        Supprimer
-      </Button>
-
-    </CardActions>
-  </Card>
-);
+      </CardActions>
+    </Card>
+    </Grid>
+  );
 }
-//     <section className="brewerie">
-//       <article className='brewerie-list'>
-//         <h2 className='title'> Titre de la brasserie </h2>
-//         <Link to='/brewery/update' type='submit' className='btn'> Gérer </Link>
-//       </article>
-//     </section>
-//   );
-// }
+
 
 // == Export
 export default Brewerie;

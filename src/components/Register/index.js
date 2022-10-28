@@ -1,137 +1,122 @@
-// == Import
-import { Box, Typography, Button } from '@mui/material';
+import { useDispatch } from "react-redux";
+import { useCallback, useState } from "react";
 
-import './style.scss';
-
-import Input from '../Input'
-import { useDispatch, useSelector } from 'react-redux';
-
-// == Composant
+import { Link } from "react-router-dom";
+import {
+  Box,
+  Typography,
+  Button,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  Container,
+} from "@mui/material";
+import "./style.scss";
+import Input from "../Input";
 
 function Register() {
-
-
-
   const dispatch = useDispatch();
-  const handleRegister = (evt) => {
-    evt.preventDefault();
-    console.log('je passe par register');
+  const [inputStatut, setInputStatut] = useState({
+    email: { isValid: false, value: "" },
+    password: { isValid: false, value: "" },
+    name: { isValid: false, value: "" },
+    role: "user",
+  });
+
+  const isFormValid =
+    inputStatut.name.isValid &&
+    inputStatut.email.isValid &&
+    inputStatut.password.isValid &&
+    inputStatut.confirmPassword.isValid;
+
+  const handleRegister = (event) => {
+    event.preventDefault();
+
+    if (!isFormValid) return;
+
     dispatch({
-      type: 'REGISTER_SUCCCESS',
+      type: "REGISTER",
+      email: inputStatut.email.value,
+      password: inputStatut.password.value,
+      name: inputStatut.name.value,
+      role: inputStatut.role,
     });
-    console.log('je sort de handleregister');
   };
-                
+
+  const handleInputChange = useCallback((name, statut) => {
+    setInputStatut((prevState) => {
+      return {
+        ...prevState,
+        [name]: statut,
+      };
+    });
+  }, []);
+
   return (
+    <Container component="form" onSubmit={handleRegister}>
+      <Typography variant="h2">Créer un compte</Typography>
 
-    <>
-
-      <Box component="form" onSubmit={handleRegister} sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', padding: '1rem'}}>
-
-        <Typography omponent='h2'> Créer un compte </Typography>
-
-        <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center', border: 'none'}}>
-
-          <label htmlFor='particulier'> Particulier</label>
-          <Input 
-            type="radio" 
-            id="particulier" 
-            name="role" 
-            value="particulier" 
-            checked 
+      <Box>
+        <RadioGroup
+          defaultValue="user"
+          name="role"
+          sx={{ display: "inline-block" }}
+        >
+          <FormControlLabel
+            label="Particulier"
+            value="user"
+            onChange={handleInputChange.bind(null, "role", "user")}
+            control={<Radio />}
           />
-
-          <label HtmlFor='particulier'> Brasseur </label>
-          <Input 
-            type="radio" 
-            id="role" 
-            name="role" 
-            value="brasseur" 
-            />
-
-        </Box>
-
-        <Input 
-          id="standard-basic"
-          variant="standard"
-          name='name'
-          type='text'
-          label="Nom ou Pseudo :"
-        />
-        <Input 
-          id="standard-basic"
-          variant="standard"
-          name='email'
-          type='email'
-          label="adresse email :"
-      
-        />
-        <Input 
-          id="standard-basic"
-          variant="standard"
-          name='password'
-          type='password'
-          label="Entrer un mot de passe :"
-        />
-          <Input 
-          id="standard-basic"
-          variant="standard"
-          name='confirm-pass'
-          type='password'
-          label="comfirmer le mot de passe :"
-        />
-        <Button  sx={{width: '100%', marginTop: '2rem'}} variant="contained" type='submit'>S'inscrire</Button>
+          <FormControlLabel
+            label="Brasseur"
+            value="brewer"
+            onChange={handleInputChange.bind(null, "role", "brewer")}
+            control={<Radio />}
+          />
+        </RadioGroup>
       </Box>
-
-      <Box component='form' sx={{ bgcolor: 'white', display: 'flex', flexDirection: 'column', gap: '2rem', width: '100%', padding: '1rem' }}>
-      
-      <Typography component='h2' sx={{ marginTop: '4rem'}}> Enregistrer une brasserie </Typography>
-
-
-      <Input 
-        id="standard-basic"
-        variant="standard"
-        name='title'
-        type='text'
-        label="Nom de la brasserie :"
-    
+      <Input
+        input={{
+          id: "name",
+          type: "text",
+          label: "Nom ou Pseudo :",
+        }}
+        name="name"
+        onInputChange={handleInputChange}
       />
-      <Input 
-        id="standard-basic"
-        variant="standard"
-        name='image'
-        type='file'
-        accept="image/png, image/jpeg"
-        
-    
+      <Input
+        input={{
+          id: "email",
+          type: "email",
+          label: "Adresse Email :",
+        }}
+        name="email"
+        onInputChange={handleInputChange}
       />
-      <Input 
-        id="standard-basic"
-        variant="standard"
-        name='phone'
-        type='tel'
-        label="Numéro de téléphone :"
+      <Input
+        input={{
+          id: "password",
+          type: "password",
+          label: "Entrer le mot de passe :",
+        }}
+        name="password"
+        onInputChange={handleInputChange}
       />
-        <Input 
-        id="standard-basic"
-        variant="standard"
-        name='adress'
-        type='text'
-        label="Adresse :"
-      />
-        <Input
-        id="standard-basic"
-        variant="standard"
-        name='adress'
-        type='text'
-        label="Description :"
+      <Input
+        input={{
+          id: "confirmPassword",
+          type: "password",
+          label: "Confirmer le mot de passe :",
+        }}
+        name="confirmPassword"
+        valueToMatch={inputStatut.password.value}
+        onInputChange={handleInputChange}
       />
 
-      </Box>
-
-      
-    </>
-  
+      <Button type="submit">S'enregistrer</Button>
+      <Link to="/login">Vous êtes déjà enregistré ?</Link>
+    </Container>
   );
 }
 

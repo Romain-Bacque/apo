@@ -1,188 +1,102 @@
-// == Import
-import './style.scss';
-// == Composant
-import * as React from 'react';
-import Input from '../Input'
-import { Link } from 'react-router-dom'
-import { styled, alpha } from '@mui/material/styles';
-import { AppBar, Box, Toolbar, IconButton } from '@mui/material';
-import Button from '@mui/material/Button';
-import SearchIcon from '@mui/icons-material/Search';
-import SportsBarTwoToneIcon from '@mui/icons-material/SportsBarTwoTone';
-import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import MenuIcon from '@mui/icons-material/Menu';
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
+import { styled } from "@mui/material/styles";
+import { Box, Toolbar, AppBar, Typography } from "@mui/material";
+import { SportsBar } from "@mui/icons-material";
+import {
+  GeoapifyGeocoderAutocomplete,
+  GeoapifyContext,
+} from "@geoapify/react-geocoder-autocomplete";
+import "@geoapify/geocoder-autocomplete/styles/round-borders.css";
+import AppMenu from "../UI/AppMenu";
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-    border: '0px'
-  },
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
-    width: 'auto',
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(Input)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
-  },
-}));
-
-
- 
+const StyledToolbar = styled(Toolbar)({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+});
 
 function Header() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const [state, setState] = React.useState({
-    top: false,
-  });
-
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event &&
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
-    ) {
-      return;
-    }
-
-    setState({ ...state, [anchor]: open });
+  const setSearchValue = (value) => {
+    dispatch({
+      type: "SEARCH_VALUE",
+      value,
+    });
   };
 
-  const list = (anchor) => (
-    <Box
-      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250}}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List sx={{ color: 'black' }}>
-        {['Accueil', 'Connection', 'Mes Brasseries', 'Evènements', 'Profil', 'Se déconnecter'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText>
-                { text === 'Accueil' &&  <Link to='/'> {text} </Link>}
-                { text === 'Connection' &&  <Link to='/Login'> {text} </Link>}
-                { text === 'Mes Brasseries' &&  <Link to='/breweries'> {text} </Link>}
-                { text === 'Evènements' &&  <Link to='/events'> {text} </Link>}
-                { text === 'Profil' &&  <Link to='/profil'> {text} </Link>}
-                { text === 'Se déconnecter' &&  <Button>{text}</Button>}
-              </ListItemText>
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
+  // If user type 'enter' key on keyboard
+  function handleKeyDown(event) {
+    if (event.keyCode === 13 && event.target.value) {
+      setSearchValue(event.target.value);
+      navigate("/");
+    }
+  }
 
-  
+  // If user type text in the search bar
+  function handleUserInput(value) {
+    setSearchValue(value);
+  }
+
+  // If user select an address in the search bar
+  function handlePlaceSelect(value) {
+    const searchValue = value ? value.properties.address_line1 : "";
+
+    setSearchValue(searchValue);
+    navigate("/");
+  }
+
   return (
-      <AppBar sx={{}}>
-        <Toolbar sx={{ justifyContent: 'space-between'}}>
-        <Box sx={{p: 1}}>
-        <Link to='/'>
-          <SportsBarTwoToneIcon fontSize="large" />
-        </Link>
-        </Box>
-      
-            <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  inputProps={{ 'aria-label': 'search' }}
-                  name='search'
-                  sx={{width: '100%'}} 
-                />
-              </Search>
-
-              <IconButton
-                size="large"
-              >
-              <div>
-                {['top'].map((anchor) => (
-                  <React.Fragment key={anchor}>
-                    <MenuIcon 
-                      onClick={toggleDrawer(anchor, true)}
-                      fontSize='large'
-                      sx={{ color: 'white' }}
-                      >
-                        {anchor}
-                    </MenuIcon>
-
-                    <SwipeableDrawer
-                      anchor={anchor}
-                      open={state[anchor]}
-                      onClose={toggleDrawer(anchor, false)}
-                      onOpen={toggleDrawer(anchor, true)}
-                    >
-                      {list(anchor)}
-                    </SwipeableDrawer>
-                  </React.Fragment>
-                ))}
-              </div>
-
-              </IconButton>
-               
-              
-          {/* <Navbar className='header-navbar'/> */}
-        </Toolbar>
+    <GeoapifyContext apiKey="99188fa618354504b3ba9155a71fb817">
+      <AppBar
+        position="sticky"
+        sx={{ maxHeight: "7rem", boxShadow: "0 0 1px black" }}
+      >
+        <StyledToolbar>
+          <Box display="flex" mr="4rem" alignItems={"center"} gap={1.5}>
+            <Link to="/">
+              <SportsBar
+                sx={{
+                  fontSize: "3.8rem",
+                  color: "white",
+                }}
+                to="/"
+              />
+            </Link>
+            <Typography
+              sx={{
+                display: { xs: "none", sm: "block" },
+                fontWeight: "bold",
+                color: "white",
+                fontSize: "1.4rem",
+                width: "8rem",
+              }}
+              variant="span"
+            >
+              Biere de ta région.
+            </Typography>
+          </Box>
+          <div
+            tabIndex="0" // tabindex is an integer indicating whether the element can capture the focus and if so, in what order it captures it when navigating with the keyboard (usually using the Tab key).
+            onKeyDown={handleKeyDown}
+            style={{ width: "60%" }}
+          >
+            <GeoapifyGeocoderAutocomplete
+              placeholder="Rechercher..."
+              type="locality"
+              lang="fr"
+              onUserInput={handleUserInput}
+              placeSelect={handlePlaceSelect}
+            />
+          </div>
+          <AppMenu />
+        </StyledToolbar>
       </AppBar>
+    </GeoapifyContext>
   );
 }
-  
-// == Export
+
 export default Header;

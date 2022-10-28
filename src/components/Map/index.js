@@ -1,61 +1,165 @@
-import { React, useEffect, useState } from "react";
-import { LayersControl, MapContainer, Popup, TileLayer, ZoomControl, Marker } from "react-leaflet";
+import { useCallback, useState } from "react";
+import { useSelector } from "react-redux";
+
+import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import L from "leaflet";
 import "leaflet-easybutton/src/easy-button.js";
 import "leaflet-easybutton/src/easy-button.css";
 import "font-awesome/css/font-awesome.min.css";
 import "./style.scss";
-import { style } from "@mui/system";
-import visitorIcon from "./constants";
-import { Link } from 'react-router-dom';
-import logo from "./logoBrasserie.png";
+import { Box, FormControlLabel, Switch } from "@mui/material";
+import BreweryMarker from "./layers/BreweryMarker";
+import LocationMarker from "./layers/LocationMarker";
+import Regions from "./layers/Regions";
+import Loader from "../UI/loader";
 
-const { BaseLayer } = LayersControl;
+// GeoJSON data
+import { regions } from "./data/regions";
+import BreweriesList from "../BreweriesList";
+import styled from "@emotion/styled";
+import LocationButtonFilter from "./controls/LocationButtonFilter";
+import ShowActiveFiltersControl from "./controls/ShowActiveFiltersControl";
 
-export default function Map() {
-  const [map, setMap] = useState(null);
+// Style
+const StyledMapContainer = styled(Box)(({ theme }) => ({
+  position: "relative",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  alignContent: "stretch",
+  gap: 2,
+  margin: "auto",
+  maxWidth: "1200px",
+  height: "calc(100vh - 80px)",
+  overflow: "hidden",
+  [theme.breakpoints.down("md")]: {
+    width: "100%",
+    height: "100%",
+  },
+}));
+const StyledSwitchContainer = styled(Box)(({ theme }) => ({
+  boxSizing: "border-box",
+  textAlign: "center",
+  height: "5rem",
+  [theme.breakpoints.up("md")]: {
+    display: "none",
+  },
+}));
+const StyledBreweriesListContainer = styled(Box)(({ theme }) => ({
+  backgroundColor: "white",
+  transition: "0.3s ease-out;",
+  [theme.breakpoints.down("md")]: {
+    width: "100%",
+    height: "100%",
+    position: "fixed",
+    zIndex: 3,
+    bottom: "7rem",
+    transform: "translateY(100%)",
+    "&.active": {
+      bottom: "calc(100% - 5.5rem)",
+    },
+  },
+}));
+
+function Map() {
+  const loadingStatut = useSelector((state) => state.loading.statut);
+  const breweries = useSelector((state) => state.brewery.breweries);
+  const searchValue = useSelector((state) => state.search.value);
   const [position, setPosition] = useState(null);
+  const [breweriesByFilter, setBreweriesByFilter] = useState({});
+  const [radiusFilter, setRadiusFilter] = useState(null);
+  const [geoFilter, setGeoFilter] = useState(null);
+  const [checked, setChecked] = useState(false);
 
-  useEffect(() => {
-    if (!map) return;
-
-    L.easyButton("fa-solid fa-location-arrow fa-4x blue", () => {
-      map.locate().on("locationfound", function (e) {
-        setPosition(e.latlng);
-        map.flyTo(e.latlng, map.getZoom());
-      });
-    }).addTo(map);
-  }, [map]);
+  const getRadiusFilter = useCallback(() => radiusFilter, [radiusFilter]);
+  const getGeoFilter = useCallback(() => geoFilter, [geoFilter]);
+  const getSearchbarFilter = () => searchValue;
+  const getFilters = () => ({
+    searchValue,
+    geoFilter,
+    radiusFilter,
+  });
 
   return (
-    <MapContainer
-      zoomControl={false}
-      center={[	48.856614, 	2.3522219]}
-      zoom={13}
-      whenCreated={setMap}
-    >
-      <Marker position={[48.856614, 2.3522219 ]} icon={visitorIcon}>
-        <Popup >
-                <section className='section-img'>
-                 <img className='brewery-img' src={logo} alt="logo"></img>
-                </section>
-                <section className='section-adress'>
-                    <h1 className='brewery-title'>La brasserie belge</h1>
-                    <span className='span-info'>8 rue Claude Francois, 75000 Paris</span>
-                    <span className='span-info'>01 12 12 12 12</span>
-                    <Link to='/breweriesList' className='detail-button size' type='button'>Voir le détail</Link>
-                </section>
-          </Popup>
-      </Marker>
-      <LayersControl>
-        <BaseLayer checked name="OpenStreetMap">
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png "
-          />
-        </BaseLayer>
-      </LayersControl>
-    </MapContainer>
+    <>
+      <StyledMapContainer>
+        {loadingStatut === "pending" ? (
+          <Loader />
+        ) : (
+          <>
+            <Box flex={2} height="80vh" position="relative">
+              <MapContainer
+                className="leaflet"
+                scrollWheelZoom={true}
+                zoomControl={false}
+                center={[47.902964, 1.909251]}
+                minZoom={4.2}
+                maxZoom={18}
+                zoom={5}
+              >
+                {/* Map image */}
+                <TileLayer
+                  // Copyright
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  // Link of entire map
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png "
+                />
+                <Regions
+                  data={regions}
+                  setGeoFilter={setGeoFilter}
+                  getGeoFilter={getGeoFilter}
+                />
+                <BreweryMarker
+                  data={breweries}
+                  getRadiusFilter={getRadiusFilter}
+                  getGeoFilter={getGeoFilter}
+                  getSearchbarFilter={getSearchbarFilter}
+                  setBreweriesByFilter={setBreweriesByFilter}
+                />
+                <LocationMarker position={position} setPosition={setPosition} />
+                <LocationButtonFilter
+                  currentPosition={position}
+                  setRadiusFilter={setRadiusFilter}
+                />
+                <ShowActiveFiltersControl getFilters={getFilters} />
+              </MapContainer>
+            </Box>
+            <StyledBreweriesListContainer
+              flex={1.5}
+              className={`${checked ? "active" : ""}`}
+            >
+              <StyledSwitchContainer
+                m="1rem"
+                borderBottom="1px solid lightgray"
+                textAlign="center"
+              >
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={checked}
+                      onChange={() => setChecked((prevState) => !prevState)}
+                    />
+                  }
+                  label={`${
+                    checked ? "Cacher" : "Afficher"
+                  } la liste des brasseries`}
+                  sx={{ textAlign: "center" }}
+                />
+              </StyledSwitchContainer>
+              <BreweriesList
+                filter={
+                  breweriesByFilter.filter ? breweriesByFilter.filter : null
+                }
+                data={
+                  breweriesByFilter.filter ? breweriesByFilter.value : breweries
+                }
+              />
+            </StyledBreweriesListContainer>
+          </>
+        )}
+      </StyledMapContainer>
+    </>
   );
 }
+
+export default Map;

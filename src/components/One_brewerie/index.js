@@ -1,84 +1,79 @@
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
-import PhoneIcon from '@mui/icons-material/Phone';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import './style.scss';
-import Categories from '../Categories';
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import { Button, CardActionArea, CardActions, Grid } from "@mui/material";
+import PhoneIcon from "@mui/icons-material/Phone";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import EventsBrewery from "../Breweries/EventsBrewery";
+import "./style.scss";
+import { useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import TagsList from "../UI/TagsList";
 
-function One_brewerie () {
-    return(
-    <Card sx={{ width: '90%' }}>
+function One_brewerie() {
+  const { id } = useParams();
+  const breweriesList = useSelector((state) => state.brewery.breweries);
+  const findBrewery = breweriesList.find((brewery) => {
+    return brewery.id === Number(id);
+  });
 
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="140"
-          image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
-          alt="green iguana"
-        />
-        <CardContent sx={{alignItems: 'base-line'}}>
+  return (
+    <Card>
+      <CardMedia
+        component="img"
+        height="140"
+        image={findBrewery.image}
+        alt="green iguana"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          {findBrewery.title}
+        </Typography>
 
-          <Typography gutterBottom variant="h5" component="div">
-            La brasserie du zythophile
-          </Typography>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ alignItems: "center", marginTop: "2rem" }}
+        >
+          <LocationOnIcon /> {findBrewery.address}
+        </Typography>
 
-          <Typography variant="body2" color="text.secondary" sx={{alignItems: 'center', marginTop: '2rem'}}>
-           <LocationOnIcon /> 131 rue carno 92450 ville
-          </Typography>
+        <Typography variant="body2" color="text.secondary">
+          <PhoneIcon /> {findBrewery.phone}
+        </Typography>
 
-          <Typography variant="body2" color="text.secondary">
-           <PhoneIcon /> 01.30.55.38.20
-          </Typography>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ marginTop: "2rem" }}
+        ></Typography>
 
-          <Typography variant="body2" color="text.secondary" sx={{marginTop: '2rem'}}>
-           <Categories />
-          </Typography>
+        <Typography sx={{ marginTop: "2rem", marginBottom: "2rem" }}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur.
+        </Typography>
 
-          <Typography variant="body2" color="text.secondary">
-        
-          </Typography>
+        <Typography variant="body2" color="text.secondary">
+          <TagsList list={findBrewery.categories} />
+        </Typography>
 
-          <Typography sx={{marginTop: '2rem', marginBottom: '2rem'}}> Déscription </Typography>
+        <Typography variant="body2" color="text.secondary">
+          <EventsBrewery />
+        </Typography>
+      </CardContent>
 
-          <Typography>
-          Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte.
-          </Typography>
-
-        </CardContent>
-
-      </CardActionArea>
-
-      <CardActions sx={{ justifyContent: 'center'}}>
-      
+      <CardActions>
+        <Button component={Link} to="/Brewery/event">
+          Gestionnaire d'évènements
+        </Button>
       </CardActions>
-
     </Card>
-
-
-
-        // <div className='brewery'>
-        //     <div className='brewery-header'>
-        //         <section className='section-img'>
-        //          <img className='brewery-img' src={logo} alt="logo"></img>
-        //         </section>
-        //         <section className='section-adress'>
-        //             <h1 className='brewery-title'>Nom de la brasserie</h1>
-        //             <span className='span-info'>adresse</span>
-        //             <span className='span-info'>téléphone</span>
-        //         </section>
-        //     </div>
-
-        //     <p className='brawery-description'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi a rutrum justo, non
-        //     consequat quam. </p>
-
-        //     <div className='event-list'>
-        //         <Events />
-        //     </div>
-        // </div>
-    );
+  );
 }
 
 export default One_brewerie;
