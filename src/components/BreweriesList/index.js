@@ -17,7 +17,6 @@ import { Box } from "@mui/system";
 let breweriesList;
 
 function BreweriesList({ filter, data }) {
-  const loading = useSelector((state) => state.loading);
   const [categoryList, setCategoryList] = useState([]);
   const categories = useSelector((state) => state.category.categories);
 
@@ -122,7 +121,7 @@ function BreweriesList({ filter, data }) {
             {breweriesList}
           </Stack>
         ) : (
-          <Typography gutterBottom variant="p" component="div">
+          <Typography m="1.5rem" textAlign="center" component="div">
             Aucun résultat.
           </Typography>
         )}

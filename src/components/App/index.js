@@ -19,6 +19,16 @@ import UpdateEventBrewery from "../Breweries/UpdateEventBrewery";
 import CustomSnackbars from "../UI/CustomSnackbars";
 import NotFound from "../NotFound";
 import Footer from "../Footer";
+import styled from "@emotion/styled";
+
+// Style
+const Main = styled(Box)(({ theme }) => ({
+  margin: "2rem",
+  fontFamily: "Silkscreen",
+  [theme.breakpoints.down("md")]: {
+    margin: "0",
+  },
+}));
 
 function App() {
   const loading = useSelector((state) => state.loading);
@@ -60,37 +70,32 @@ function App() {
           setIsOpen={setIsOpen}
         />
       )}
-      <Box>
-        <CssBaseline />
-        <Header />
-        <Box component="main" sx={{ fontFamily: "Silkscreen" }}>
-          <Routes>
-            <Route path="/" element={<Map />} />
-            <Route path="/breweries/:id" element={<OneBrewerie />} />
-            <Route path="/signup" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="*" element={<NotFound />} />
-            {isLogged ? (
-              <>
-                <Route path="/breweries" element={<Breweries />} />
-                <Route
-                  path="/brewery/form_brewery"
-                  element={<FormBrewerie />}
-                />
-                <Route path="/brewery/update/:id" element={<UpdateBrewery />} />
-                <Route path="/create-event" element={<FormEvent />} />
-                <Route path="/events" element={<Events />} />
-                <Route path="/events/:id" element={<OneEvent />} />
-                <Route path="/profil" element={<Profil />} />
-                <Route path="/Brewery/event" element={<UpdateEventBrewery />} />
-              </>
-            ) : (
-              <Route path="*" element={<Login />} />
-            )}
-          </Routes>
-        </Box>
-        <Footer />
-      </Box>
+      <CssBaseline />
+      <Header />
+      <Main component="main">
+        <Routes>
+          <Route path="/" element={<Map />} />
+          <Route path="/breweries/:id" element={<OneBrewerie />} />
+          <Route path="/signup" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<NotFound />} />
+          {isLogged ? (
+            <>
+              <Route path="/breweries" element={<Breweries />} />
+              <Route path="/brewery/form_brewery" element={<FormBrewerie />} />
+              <Route path="/brewery/update/:id" element={<UpdateBrewery />} />
+              <Route path="/create-event" element={<FormEvent />} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/events/:id" element={<OneEvent />} />
+              <Route path="/profil" element={<Profil />} />
+              <Route path="/Brewery/event" element={<UpdateEventBrewery />} />
+            </>
+          ) : (
+            <Route path="*" element={<Login />} />
+          )}
+        </Routes>
+      </Main>
+      <Footer />
     </>
   );
 }

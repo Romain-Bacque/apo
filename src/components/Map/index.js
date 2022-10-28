@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { MapContainer, TileLayer } from "react-leaflet";
@@ -7,7 +7,7 @@ import "leaflet-easybutton/src/easy-button.js";
 import "leaflet-easybutton/src/easy-button.css";
 import "font-awesome/css/font-awesome.min.css";
 import "./style.scss";
-import { Box, FormControlLabel, Switch, Typography } from "@mui/material";
+import { Box, FormControlLabel, Switch } from "@mui/material";
 import BreweryMarker from "./layers/BreweryMarker";
 import LocationMarker from "./layers/LocationMarker";
 import Regions from "./layers/Regions";
@@ -71,8 +71,8 @@ function Map() {
   const [geoFilter, setGeoFilter] = useState(null);
   const [checked, setChecked] = useState(false);
 
-  const getRadiusFilter = () => radiusFilter;
-  const getGeoFilter = () => geoFilter;
+  const getRadiusFilter = useCallback(() => radiusFilter, [radiusFilter]);
+  const getGeoFilter = useCallback(() => geoFilter, [geoFilter]);
   const getSearchbarFilter = () => searchValue;
   const getFilters = () => ({
     searchValue,
@@ -93,7 +93,7 @@ function Map() {
                 scrollWheelZoom={true}
                 zoomControl={false}
                 center={[47.902964, 1.909251]}
-                minZoom={5.2}
+                minZoom={4.2}
                 maxZoom={18}
                 zoom={5}
               >

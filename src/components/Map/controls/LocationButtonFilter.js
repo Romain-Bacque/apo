@@ -6,10 +6,12 @@ import MyLocationIcon from "@mui/icons-material/MyLocation";
 const DEFAULT_RADIUS = 10;
 
 const LocationButtonFilter = ({ currentPosition, setRadiusFilter }) => {
-  const map = useMap();
+  const map = useMap(); // Hook providing the Leaflet Map instance in any descendant of a MapContainer.
 
   const handleLocationFilter = () => {
-    if (currentPosition?.lat && currentPosition?.lng) {
+    map.flyTo(currentPosition, map.getZoom()); // Sets the view of the map (geographical center and zoom) performing a smooth pan-zoom animation.
+    map.once("moveend", function () {
+      // When 'flyTo' method movement is finish, then we execute instructions below
       setRadiusFilter((prevState) => {
         if (prevState) {
           return null;
@@ -20,9 +22,7 @@ const LocationButtonFilter = ({ currentPosition, setRadiusFilter }) => {
           };
         }
       });
-    }
-
-    map.flyTo(currentPosition, map.getZoom()); // Sets the view of the map (geographical center and zoom) performing a smooth pan-zoom animation.
+    });
   };
 
   return (

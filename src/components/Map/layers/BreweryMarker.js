@@ -125,7 +125,6 @@ const BreweryMarker = ({
       } else if (!geoFilter && radiusFilter && searchbarFilter) {
         filter = ["Autour de moi", searchbarFilter];
       }
-      console.log(filteredBreweries);
       setBreweriesByFilter({
         filter,
         value: filteredBreweries,
