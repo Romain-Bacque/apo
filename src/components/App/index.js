@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Routes, Route } from "react-router-dom";
-import { Box } from "@mui/material";
-import Header from "../Header";
+import Layout from "./Layout";
 import Map from "../Map";
 import Login from "../Login";
 import Register from "../Register";
@@ -16,24 +15,9 @@ import Events from "../Events";
 import OneEvent from "../Events/OneEvent";
 import Profil from "../Profil";
 import UpdateEventBrewery from "../Breweries/UpdateEventBrewery";
-import CustomSnackbars from "../UI/CustomSnackbars";
 import NotFound from "../NotFound";
-import Footer from "../Footer";
-import styled from "@emotion/styled";
-
-// Style
-const Main = styled(Box)(({ theme }) => ({
-  margin: "2rem",
-  fontFamily: "Silkscreen",
-  [theme.breakpoints.down("md")]: {
-    margin: "0",
-  },
-}));
 
 function App() {
-  const appBarRef = useRef();
-  const loading = useSelector((state) => state.loading);
-  const [isOpen, setIsOpen] = useState(false);
   const isLogged = useSelector((state) => state.user.isLogged);
   const dispatch = useDispatch();
 
@@ -55,27 +39,9 @@ function App() {
     });
   }, [dispatch]);
 
-  useEffect(() => {
-    if (loading.statut !== "pending" && loading.message) {
-      setIsOpen(true);
-    }
-  }, [loading]);
-
   return (
     <>
-      {loading.statut !== "pending" && loading.message && (
-        <CustomSnackbars
-          message={loading.message}
-          statut={loading.statut}
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-        />
-      )}
-      <Header ref={appBarRef} />
-      <Main
-        height={`calc(100vh - ${appBarRef.current?.clientHeight || "60"}px)`}
-        component="main"
-      >
+      <Layout>
         <Routes>
           <Route path="/" element={<Map />} />
           <Route path="/breweries/:id" element={<OneBrewerie />} />
@@ -97,8 +63,7 @@ function App() {
             <Route path="*" element={<Login />} />
           )}
         </Routes>
-      </Main>
-      <Footer />
+      </Layout>
     </>
   );
 }
