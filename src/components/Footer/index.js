@@ -7,6 +7,15 @@ import { Divider } from "@mui/material";
 import { Mail, LinkedIn, GitHub, SportsBar } from "@mui/icons-material";
 
 // Style
+const FooterContainer = styled(Box)({
+  display: "flex",
+  justifyContent: "space-between",
+  flexWrap: "wrap",
+  alignItems: "center",
+  marginTop: "1rem",
+  padding: "2rem",
+  borderTop: "1px solid rgb(230, 230, 230)",
+});
 const FooterNav = styled(Box)(({ theme }) => ({
   display: "flex",
   flexWrap: "wrap",
@@ -77,16 +86,7 @@ function Footer() {
   };
 
   return (
-    <Box
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        flexWrap: "wrap",
-        alignItems: "center",
-        padding: "2rem",
-        borderTop: "1px solid rgb(230, 230, 230)",
-      }}
-    >
+    <FooterContainer>
       <FooterNav component="nav">
         <FooterLink
           href={content.link1.link}
@@ -124,7 +124,7 @@ function Footer() {
           {content.copy}
         </Typography>
       </BrandContainer>
-    </Box>
+    </FooterContainer>
   );
 }
 

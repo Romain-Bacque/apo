@@ -75,7 +75,7 @@ function BreweriesList({ filter, data }) {
 
   return (
     <Container sx={{ mt: "1rem", minWidth: "300px", height: "70%" }}>
-      <Typography variant="h4" component="h4" textAlign="center">
+      <Typography variant="h4" component="h3" textAlign="center">
         {`Liste des brasseries (${breweriesList?.length || 0})`}
       </Typography>
       <Typography color="gray" variant="h6" component="span" textAlign="center">

@@ -14,7 +14,6 @@ export default function CustomSnackbars({
   setIsOpen,
 }) {
   const handleClose = (_, reason) => {
-    console.log("fsd");
     if (reason === "clickaway") {
       return;
     }

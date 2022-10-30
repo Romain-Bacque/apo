@@ -2,7 +2,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Button, Divider } from "@mui/material";
+import { Button, CardActions, Divider } from "@mui/material";
 import { Link } from "react-router-dom";
 import TagsList from "../UI/TagsList";
 import { Home, Phone } from "@mui/icons-material";
@@ -10,15 +10,12 @@ import { Box } from "@mui/system";
 import styled from "@emotion/styled";
 
 // Style
-const StyledBox = styled(Box)({
+const StyledTypography = styled(Box)({
   display: "flex",
-  gap: 1,
-});
-const StyledButton = styled(Button)({
-  p: ".5rem",
-  fontSize: "1rem",
-  color: "white",
-  marginTop: "1.2rem",
+  gap: 0.5,
+  fontStyle: "italic",
+  fontSize: "1.3rem",
+  color: "gray",
 });
 
 function BrewerieCard({ title, phone, address, tags, image, id }) {
@@ -32,27 +29,27 @@ function BrewerieCard({ title, phone, address, tags, image, id }) {
         alt={`image/logo brasserie '${title}'`}
       />
       <CardContent>
-        <Typography gutterBottom variant="h4" component="h4">
+        <Typography gutterBottom variant="h5" component="h4">
           {title}
         </Typography>
-        <StyledBox>
-          <Home />
-          <Typography gutterBottom variant="p" component="p">
-            {address}
-          </Typography>
-        </StyledBox>
-        <StyledBox>
+        <StyledTypography gutterBottom variant="p" component="p">
+          <Home sx={{ fontSize: "2rem" }} />
+          {address}
+        </StyledTypography>
+        <StyledTypography>
           <Phone />
           <Typography gutterBottom variant="p" component="p">
             {phone}
           </Typography>
-        </StyledBox>
+        </StyledTypography>
         <TagsList list={tags} />
       </CardContent>
       <Divider light />
-      <StyledButton size="small">
-        <Link to={`/breweries/${id}`}>Plus de détails</Link>
-      </StyledButton>
+      <CardActions>
+        <Button size="small">
+          <Link to={`/breweries/${id}`}>Plus de détails</Link>
+        </Button>
+      </CardActions>
     </Card>
   );
 }

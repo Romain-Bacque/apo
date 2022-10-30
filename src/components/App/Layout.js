@@ -25,6 +25,7 @@ const Layout = (props) => {
       setIsOpen(true);
     }
   }, [loading]);
+
   return (
     <>
       {loading.statut !== "pending" && loading.message && (

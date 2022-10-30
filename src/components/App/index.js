@@ -21,18 +21,21 @@ function App() {
   const isLogged = useSelector((state) => state.user.isLogged);
   const dispatch = useDispatch();
 
+  // Check if user is currently connected
   useEffect(() => {
     dispatch({
       type: "USER_VERIFICATION",
     });
   }, [dispatch]);
 
+  // Get all breweries list
   useEffect(() => {
     dispatch({
       type: "FETCH_BREWERIES",
     });
   }, [dispatch]);
 
+  // Get all categories list
   useEffect(() => {
     dispatch({
       type: "FETCH_CATEGORIES",

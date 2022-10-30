@@ -71,7 +71,6 @@ const theme = createTheme({
     MuiContainer: {
       styleOverrides: {
         root: {
-          marginTop: "120px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -90,8 +89,9 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           width: "100%",
-          padding: "1rem ",
-          margin: "1rem 0",
+          maxWidth: "350px",
+          padding: "1rem .5rem",
+          margin: "1rem 0.5rem",
           boxShadow: "none",
           borderRadius: "5px",
           color: "white",
