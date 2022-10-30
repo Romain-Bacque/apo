@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Routes, Route } from "react-router-dom";
-import { Box, CssBaseline } from "@mui/material";
+import { Box } from "@mui/material";
 import Header from "../Header";
 import Map from "../Map";
 import Login from "../Login";
@@ -31,6 +31,7 @@ const Main = styled(Box)(({ theme }) => ({
 }));
 
 function App() {
+  const appBarRef = useRef();
   const loading = useSelector((state) => state.loading);
   const [isOpen, setIsOpen] = useState(false);
   const isLogged = useSelector((state) => state.user.isLogged);
@@ -70,9 +71,11 @@ function App() {
           setIsOpen={setIsOpen}
         />
       )}
-      <CssBaseline />
-      <Header />
-      <Main component="main">
+      <Header ref={appBarRef} />
+      <Main
+        height={`calc(100vh - ${appBarRef.current?.clientHeight || "60"}px)`}
+        component="main"
+      >
         <Routes>
           <Route path="/" element={<Map />} />
           <Route path="/breweries/:id" element={<OneBrewerie />} />
@@ -100,5 +103,4 @@ function App() {
   );
 }
 
-// == Export
 export default App;

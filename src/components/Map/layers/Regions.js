@@ -1,12 +1,7 @@
-import { useEffect } from "react";
 import { GeoJSON } from "react-leaflet";
 
 const Regions = ({ data, setGeoFilter, getGeoFilter }) => {
   const geoFilter = getGeoFilter();
-
-  useEffect(() => {
-    console.log("df");
-  }, [getGeoFilter]);
 
   return (
     <GeoJSON

@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
+import { forwardRef } from "react";
 import { styled } from "@mui/material/styles";
 import { Box, Toolbar, AppBar, Typography } from "@mui/material";
 import { SportsBar } from "@mui/icons-material";
@@ -15,9 +16,10 @@ const StyledToolbar = styled(Toolbar)({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
+  height: "100%",
 });
 
-function Header() {
+const Header = forwardRef((_, ref) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -52,8 +54,11 @@ function Header() {
   return (
     <GeoapifyContext apiKey="99188fa618354504b3ba9155a71fb817">
       <AppBar
+        ref={ref}
         position="sticky"
-        sx={{ maxHeight: "7rem", boxShadow: "0 0 1px black" }}
+        sx={{
+          boxShadow: "none",
+        }}
       >
         <StyledToolbar>
           <Box display="flex" mr="4rem" alignItems={"center"} gap={1.5}>
@@ -97,6 +102,6 @@ function Header() {
       </AppBar>
     </GeoapifyContext>
   );
-}
+});
 
 export default Header;
