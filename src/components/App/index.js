@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Routes, Route } from "react-router-dom";
@@ -24,7 +24,6 @@ import styled from "@emotion/styled";
 // Style
 const Main = styled(Box)(({ theme }) => ({
   margin: "2rem",
-  height: "calc(100vh - 56px)",
   fontFamily: "Silkscreen",
   [theme.breakpoints.down("md")]: {
     margin: "0",
@@ -32,6 +31,7 @@ const Main = styled(Box)(({ theme }) => ({
 }));
 
 function App() {
+  const appBarRef = useRef();
   const loading = useSelector((state) => state.loading);
   const [isOpen, setIsOpen] = useState(false);
   const isLogged = useSelector((state) => state.user.isLogged);
@@ -71,8 +71,11 @@ function App() {
           setIsOpen={setIsOpen}
         />
       )}
-      <Header />
-      <Main component="main">
+      <Header ref={appBarRef} />
+      <Main
+        height={`calc(100vh - ${appBarRef.current?.clientHeight || "60"}px)`}
+        component="main"
+      >
         <Routes>
           <Route path="/" element={<Map />} />
           <Route path="/breweries/:id" element={<OneBrewerie />} />

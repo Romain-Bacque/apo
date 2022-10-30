@@ -1,5 +1,5 @@
 // == Import : npm
-import React from "react";
+import React, { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
@@ -18,7 +18,9 @@ const rootReactElement = (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <App />
+        <StrictMode>
+          <App />
+        </StrictMode>
       </ThemeProvider>
     </BrowserRouter>
   </Provider>

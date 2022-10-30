@@ -83,7 +83,7 @@ function Footer() {
         justifyContent: "space-between",
         flexWrap: "wrap",
         alignItems: "center",
-        padding: "3rem 2rem",
+        padding: "2rem",
         borderTop: "1px solid rgb(230, 230, 230)",
       }}
     >
