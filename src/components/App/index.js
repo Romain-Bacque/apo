@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Routes, Route, useLocation } from "react-router-dom";
 
-import { Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
 import Map from "../Map";
 import Login from "../Login";
@@ -18,8 +18,17 @@ import UpdateEventBrewery from "../Breweries/UpdateEventBrewery";
 import NotFound from "../NotFound";
 
 function App() {
+  const [searchValue, setSearchValue] = useState("");
   const isLogged = useSelector((state) => state.user.isLogged);
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  // If current location is not home page, then we reset searchValue state
+  useEffect(() => {
+    if (location.pathname !== "/") {
+      setSearchValue("");
+    }
+  }, [location]);
 
   // Check if user is currently connected
   useEffect(() => {
@@ -44,9 +53,9 @@ function App() {
 
   return (
     <>
-      <Layout>
+      <Layout setSearchValue={setSearchValue}>
         <Routes>
-          <Route path="/" element={<Map />} />
+          <Route path="/" element={<Map searchValue={searchValue} />} />
           <Route path="/breweries/:id" element={<OneBrewerie />} />
           <Route path="/signup" element={<Register />} />
           <Route path="/login" element={<Login />} />

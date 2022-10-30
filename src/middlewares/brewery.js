@@ -65,6 +65,44 @@ const brewery = (store) => (next) => (action) => {
       .catch((error) => {
         console.log(error);
       });
+  } else if (action.type === "DELETE_BREWERY") {
+    console.log(action);
+    instance
+      .delete(`/brewery/${action.breweryId}`)
+      .then((response) => {
+        store.dispatch({
+          type: "PENDING",
+          message: null,
+        });
+        if (response.status === 200) {
+          console.log(response.status);
+          store.dispatch({
+            type: "INFO",
+            message: "Brasserie supprimée",
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        const { status } = error.response;
+
+        if (status === 401) {
+          store.dispatch({
+            type: "ERROR",
+            message: "Action non autorisée",
+          });
+        } else if (status === 404) {
+          store.dispatch({
+            type: "ERROR",
+            message: "La brasserie n'a pas été trouvée",
+          });
+        } else {
+          store.dispatch({
+            type: "ERROR",
+            message: "Une erreur est survenue",
+          });
+        }
+      });
   }
 
   next(action);

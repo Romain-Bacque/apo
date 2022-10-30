@@ -46,7 +46,7 @@ function BrewerieCard({ title, phone, address, tags, image, id }) {
       </CardContent>
       <Divider light />
       <CardActions>
-        <Button size="small">
+        <Button sx={{ marginLeft: "auto", marginRight: "auto" }} size="small">
           <Link to={`/breweries/${id}`}>Plus de détails</Link>
         </Button>
       </CardActions>

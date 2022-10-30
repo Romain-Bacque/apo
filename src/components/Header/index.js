@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 import { styled } from "@mui/material/styles";
 import { Box, Toolbar, AppBar, Typography } from "@mui/material";
 import { SportsBar } from "@mui/icons-material";
@@ -19,35 +19,22 @@ const StyledToolbar = styled(Toolbar)({
   height: "100%",
 });
 
-const Header = forwardRef((_, ref) => {
-  const dispatch = useDispatch();
+const Header = forwardRef((props, ref) => {
   const navigate = useNavigate();
-
-  const setSearchValue = (value) => {
-    dispatch({
-      type: "SEARCH_VALUE",
-      value,
-    });
-  };
 
   // If user type 'enter' key on keyboard
   function handleKeyDown(event) {
-    if (event.keyCode === 13 && event.target.value) {
-      setSearchValue(event.target.value);
+    if (event.keyCode === 13) {
+      props.setSearchValue(event.target.value);
       navigate("/");
     }
-  }
-
-  // If user type text in the search bar
-  function handleUserInput(value) {
-    setSearchValue(value);
   }
 
   // If user select an address in the search bar
   function handlePlaceSelect(value) {
     const searchValue = value ? value.properties.address_line1 : "";
 
-    setSearchValue(searchValue);
+    props.setSearchValue(searchValue);
     navigate("/");
   }
 
@@ -93,7 +80,6 @@ const Header = forwardRef((_, ref) => {
               placeholder="Rechercher..."
               type="locality"
               lang="fr"
-              onUserInput={handleUserInput}
               placeSelect={handlePlaceSelect}
             />
           </div>

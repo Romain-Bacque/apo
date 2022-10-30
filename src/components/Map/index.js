@@ -61,10 +61,9 @@ const StyledBreweriesContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-function Map() {
+function Map({ searchValue }) {
   const loadingStatut = useSelector((state) => state.loading.statut);
   const breweries = useSelector((state) => state.brewery.breweries);
-  const searchValue = useSelector((state) => state.search.value);
   const [position, setPosition] = useState(null);
   const [breweriesByFilter, setBreweriesByFilter] = useState({});
   const [radiusFilter, setRadiusFilter] = useState(null);

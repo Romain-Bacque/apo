@@ -20,7 +20,14 @@ const ModalCard = styled(Card)({
   padding: "1.5rem",
 });
 
-function CustomModal({ isOpen, setIsOpen, title, description }) {
+function CustomModal({
+  id,
+  title,
+  description,
+  isOpen,
+  setIsOpen,
+  onValidate,
+}) {
   return (
     <>
       <Modal
@@ -41,7 +48,9 @@ function CustomModal({ isOpen, setIsOpen, title, description }) {
           </CardContent>
           <Divider light />
           <CardActions sx={{ padding: 0, marginTop: "1rem" }}>
-            <Button size="small">Accepter</Button>
+            <Button onClick={() => onValidate(id)} size="small">
+              Valider
+            </Button>
             <Button
               sx={{ color: "#f2cc96" }}
               variant="outlined"

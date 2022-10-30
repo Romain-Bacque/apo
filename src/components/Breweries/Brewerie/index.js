@@ -16,9 +16,9 @@ const StyledTypography = styled(Box)({
   color: "gray",
 });
 
-function Brewerie({ image, title, address, id, setIsOpen }) {
+function Brewerie({ image, title, address, id, onDelete }) {
   return (
-    <Grid item xs={12} md={4}>
+    <Grid item xs={12} md={6} lg={4}>
       <Card sx={{ width: "95%", p: 1.5 }}>
         <CardMedia
           component="img"
@@ -44,7 +44,7 @@ function Brewerie({ image, title, address, id, setIsOpen }) {
           <Button
             sx={{ color: "#f2cc96" }}
             variant="outlined"
-            onClick={() => setIsOpen(true)}
+            onClick={() => onDelete(id)}
           >
             Supprimer
           </Button>

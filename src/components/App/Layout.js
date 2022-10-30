@@ -36,7 +36,7 @@ const Layout = (props) => {
           setIsOpen={setIsOpen}
         />
       )}
-      <Header ref={appBarRef} />
+      <Header setSearchValue={props.setSearchValue} ref={appBarRef} />
       <Main
         height={`calc(100vh - ${appBarRef.current?.clientHeight || "60"}px)`}
         component="main"
