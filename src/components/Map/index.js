@@ -37,7 +37,7 @@ const StyledMapContainer = styled(Box)(({ theme }) => ({
     height: "100%",
   },
 }));
-const StyledSwitchContainer = styled(Box)(({ theme }) => ({
+const SwitchContainer = styled(Box)(({ theme }) => ({
   boxSizing: "border-box",
   textAlign: "center",
   height: "5rem",
@@ -45,7 +45,7 @@ const StyledSwitchContainer = styled(Box)(({ theme }) => ({
     display: "none",
   },
 }));
-const StyledBreweriesContainer = styled(Box)(({ theme }) => ({
+const BreweriesContainer = styled(Box)(({ theme }) => ({
   backgroundColor: "white",
   transition: "0.3s ease-out",
   [theme.breakpoints.down("md")]: {
@@ -62,7 +62,7 @@ const StyledBreweriesContainer = styled(Box)(({ theme }) => ({
 }));
 
 function Map({ searchValue }) {
-  const loadingStatut = useSelector((state) => state.loading.statut);
+  const loadingStatus = useSelector((state) => state.loading.status);
   const breweries = useSelector((state) => state.brewery.breweries);
   const [position, setPosition] = useState(null);
   const [breweriesByFilter, setBreweriesByFilter] = useState({});
@@ -81,7 +81,7 @@ function Map({ searchValue }) {
 
   return (
     <StyledMapContainer>
-      {loadingStatut === "pending" ? (
+      {loadingStatus === "pending" ? (
         <Loader />
       ) : (
         <>
@@ -122,11 +122,11 @@ function Map({ searchValue }) {
               <ShowActiveFiltersControl getFilters={getFilters} />
             </MapContainer>
           </Box>
-          <StyledBreweriesContainer
+          <BreweriesContainer
             flex={1.5}
             className={`${checked ? "active" : ""}`}
           >
-            <StyledSwitchContainer
+            <SwitchContainer
               m="1rem"
               borderBottom="1px solid lightgray"
               textAlign="center"
@@ -143,7 +143,7 @@ function Map({ searchValue }) {
                 } la liste des brasseries`}
                 sx={{ textAlign: "center" }}
               />
-            </StyledSwitchContainer>
+            </SwitchContainer>
             <BreweriesList
               filter={
                 breweriesByFilter.filter ? breweriesByFilter.filter : null
@@ -152,7 +152,7 @@ function Map({ searchValue }) {
                 breweriesByFilter.filter ? breweriesByFilter.value : breweries
               }
             />
-          </StyledBreweriesContainer>
+          </BreweriesContainer>
         </>
       )}
     </StyledMapContainer>

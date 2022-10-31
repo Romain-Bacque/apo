@@ -11,18 +11,18 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [inputStatut, setInputStatut] = useState({
+  const [inputStatus, setInputStatus] = useState({
     email: { isValid: false, value: "" },
     password: { isValid: false, value: "" },
   });
 
-  const isFormValid = inputStatut.email.isValid && inputStatut.password.isValid;
+  const isFormValid = inputStatus.email.isValid && inputStatus.password.isValid;
 
-  const handleInputChange = useCallback((name, statut) => {
-    setInputStatut((prevState) => {
+  const handleInputChange = useCallback((name, status) => {
+    setInputStatus((prevState) => {
       return {
         ...prevState,
-        [name]: statut,
+        [name]: status,
       };
     });
   }, []);
@@ -34,8 +34,8 @@ function Login() {
 
     dispatch({
       type: "LOGIN",
-      email: inputStatut.email.value,
-      password: inputStatut.password.value,
+      email: inputStatus.email.value,
+      password: inputStatus.password.value,
     });
   };
   if (isLogged) {
@@ -43,8 +43,14 @@ function Login() {
   }
 
   return (
-    <Container component="form" onSubmit={handleSubmit}>
-      <Typography variant="h2">Se connecter</Typography>
+    <Container
+      style={{ maxWidth: "600px", marginTop: "15vh" }}
+      component="form"
+      onSubmit={handleSubmit}
+    >
+      <Typography component="h2" variant="h3" color="gray">
+        Se connecter
+      </Typography>
       <Input
         input={{
           id: "email",

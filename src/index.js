@@ -14,16 +14,16 @@ import theme from "./styles/theme";
 // 1. Élément React racine (celui qui contient l'ensemble de l'app)
 //    => crée une structure d'objets imbriqués (DOM virtuel)
 const rootReactElement = (
-  <Provider store={store}>
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <StrictMode>
+  <StrictMode>
+    <Provider store={store}>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
           <App />
-        </StrictMode>
-      </ThemeProvider>
-    </BrowserRouter>
-  </Provider>
+        </ThemeProvider>
+      </BrowserRouter>
+    </Provider>
+  </StrictMode>
 );
 
 // 2. La cible du DOM (là où la structure doit prendre vie dans le DOM)

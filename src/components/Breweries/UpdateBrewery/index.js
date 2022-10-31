@@ -12,7 +12,7 @@ function UpdateBrewery() {
   const breweries = useSelector((state) => state.brewery.breweries);
   const dispatch = useDispatch();
   const params = useParams();
-  const [inputStatut, setInputStatut] = useState({
+  const [inputStatus, setInputStatus] = useState({
     id: { isValid: false, value: "" },
     title: { isValid: false, value: "" },
     phone: { isValid: false, value: "" },
@@ -29,14 +29,14 @@ function UpdateBrewery() {
   );
   console.log(brewery);
   const isFormValid =
-    inputStatut.id.isValid &&
-    inputStatut.title.isValid &&
-    inputStatut.phone.isValid &&
-    inputStatut.description.isValid &&
-    inputStatut.address.isValid &&
-    inputStatut.lat.isValid &&
-    inputStatut.lon.isValid &&
-    inputStatut.user_id.isValid;
+    inputStatus.id.isValid &&
+    inputStatus.title.isValid &&
+    inputStatus.phone.isValid &&
+    inputStatus.description.isValid &&
+    inputStatus.address.isValid &&
+    inputStatus.lat.isValid &&
+    inputStatus.lon.isValid &&
+    inputStatus.user_id.isValid;
 
   const handleEdit = (event) => {
     event.preventDefault();
@@ -45,22 +45,22 @@ function UpdateBrewery() {
 
     dispatch({
       type: "UPDATE_BREWERY",
-      id: inputStatut.id.value,
-      title: inputStatut.title.value,
-      phone: inputStatut.phone.value,
-      description: inputStatut.description,
-      address: inputStatut.address,
-      lat: inputStatut.lat,
-      image: inputStatut.image,
-      user_id: inputStatut.user_id,
+      id: inputStatus.id.value,
+      title: inputStatus.title.value,
+      phone: inputStatus.phone.value,
+      description: inputStatus.description,
+      address: inputStatus.address,
+      lat: inputStatus.lat,
+      image: inputStatus.image,
+      user_id: inputStatus.user_id,
     });
   };
 
-  const handleInputChange = useCallback((name, statut) => {
-    setInputStatut((prevState) => {
+  const handleInputChange = useCallback((name, status) => {
+    setInputStatus((prevState) => {
       return {
         ...prevState,
-        [name]: statut,
+        [name]: status,
       };
     });
   }, []);

@@ -135,11 +135,11 @@ const user = (store) => (next) => (action) => {
         });
         if (response.status === 200) {
           store.dispatch({
-            type: "RESET_USER",
-          });
-          store.dispatch({
             type: "SUCCESS",
             message: null,
+          });
+          store.dispatch({
+            type: "RESET_USER",
           });
         }
       })

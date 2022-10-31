@@ -32,7 +32,7 @@ const AppMenu = () => {
   const isLogged = useSelector((state) => state.user.isLogged);
   const userRole = useSelector((state) => state.user.role);
 
-  const handleLogout = (evt) => {
+  const handleLogout = () => {
     dispatch({
       type: "LOGOUT",
     });
@@ -141,6 +141,7 @@ const AppMenu = () => {
                     )}
                     {isLogged && (
                       <StyledMenuItem
+                        variant="text"
                         sx={{ textTransform: "capitalize" }}
                         component={Button}
                         onClick={handleLogout}

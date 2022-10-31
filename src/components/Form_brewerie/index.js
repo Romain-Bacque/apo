@@ -45,7 +45,7 @@ function Form_brewerie() {
   }
   //======================== /GEOAPIFY ===================================
 
-  const [inputStatut, setInputStatut] = useState({
+  const [inputStatus, setInputStatus] = useState({
     title: { isValid: false, value: "" },
     image: { file: null, value: "" },
     phone: { isValid: false, value: "" },
@@ -57,12 +57,12 @@ function Form_brewerie() {
   });
 
   const isFormValid =
-    inputStatut.title.isValid &&
-    inputStatut.phone.isValid &&
-    inputStatut.address &&
-    inputStatut.lat &&
-    inputStatut.lon &&
-    inputStatut.description.isValid;
+    inputStatus.title.isValid &&
+    inputStatus.phone.isValid &&
+    inputStatus.address &&
+    inputStatus.lat &&
+    inputStatus.lon &&
+    inputStatus.description.isValid;
 
   const handleAddBrewery = (event) => {
     event.preventDefault();
@@ -72,19 +72,19 @@ function Form_brewerie() {
     dispatch({
       type: "ADD_BREWERY",
       user_id: id,
-      title: inputStatut.title.value,
-      image: inputStatut.image.file,
-      phone: inputStatut.phone.value,
-      lon: inputStatut.lon.value,
-      lat: inputStatut.lat.value,
-      address: inputStatut.address.value,
-      categories: inputStatut.categories,
-      description: inputStatut.description.value,
+      title: inputStatus.title.value,
+      image: inputStatus.image.file,
+      phone: inputStatus.phone.value,
+      lon: inputStatus.lon.value,
+      lat: inputStatus.lat.value,
+      address: inputStatus.address.value,
+      categories: inputStatus.categories,
+      description: inputStatus.description.value,
     });
   };
 
   function handlePlaceSelect(value) {
-    setInputStatut((prevState) => {
+    setInputStatus((prevState) => {
       return {
         ...prevState,
         lat: value.properties.lat ? value.properties.lat : null,
@@ -95,7 +95,7 @@ function Form_brewerie() {
   }
 
   const handleFileChange = (event) => {
-    setInputStatut((prevState) => {
+    setInputStatus((prevState) => {
       return {
         ...prevState,
         image: { file: event.target.files[0], value: event.target.value },
@@ -103,11 +103,11 @@ function Form_brewerie() {
     });
   };
 
-  const handleInputChange = useCallback((name, statut) => {
-    setInputStatut((prevState) => {
+  const handleInputChange = useCallback((name, status) => {
+    setInputStatus((prevState) => {
       return {
         ...prevState,
-        [name]: statut,
+        [name]: status,
       };
     });
   }, []);
@@ -117,10 +117,11 @@ function Form_brewerie() {
       <Container
         component="form"
         onSubmit={handleAddBrewery}
-        sx={{ marginTop: "0px" }}
+        style={{ maxWidth: "600px", marginTop: "15vh" }}
       >
-        <Typography variant="h2"> Ajouter une brasserie </Typography>
-
+        <Typography variant="h3" component="h2">
+          Ajouter une brasserie
+        </Typography>
         <Input
           input={{
             id: "title",
@@ -135,7 +136,7 @@ function Form_brewerie() {
           type="file"
           accept="image/png, image/jpeg"
           name="image"
-          value={inputStatut.image.value}
+          value={inputStatus.image.value}
           onChange={handleFileChange}
         />
         <Input

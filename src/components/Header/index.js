@@ -1,7 +1,6 @@
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-import { forwardRef, useState } from "react";
+import { useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import { Box, Toolbar, AppBar, Typography } from "@mui/material";
 import { SportsBar } from "@mui/icons-material";
@@ -11,6 +10,7 @@ import {
 } from "@geoapify/react-geocoder-autocomplete";
 import "@geoapify/geocoder-autocomplete/styles/round-borders.css";
 import AppMenu from "../UI/AppMenu";
+import { useSelector } from "react-redux";
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -19,8 +19,9 @@ const StyledToolbar = styled(Toolbar)({
   height: "100%",
 });
 
-const Header = forwardRef((props, ref) => {
+const Header = (props) => {
   const navigate = useNavigate();
+  const isLogged = useSelector((state) => state.user.isLogged);
 
   // If user type 'enter' key on keyboard
   function handleKeyDown(event) {
@@ -29,6 +30,13 @@ const Header = forwardRef((props, ref) => {
       navigate("/");
     }
   }
+
+  // if user is disconnected
+  useEffect(() => {
+    if (!isLogged) {
+      navigate("/");
+    }
+  }, [isLogged]);
 
   // If user select an address in the search bar
   function handlePlaceSelect(value) {
@@ -41,7 +49,6 @@ const Header = forwardRef((props, ref) => {
   return (
     <GeoapifyContext apiKey="99188fa618354504b3ba9155a71fb817">
       <AppBar
-        ref={ref}
         position="sticky"
         sx={{
           boxShadow: "none",
@@ -88,6 +95,6 @@ const Header = forwardRef((props, ref) => {
       </AppBar>
     </GeoapifyContext>
   );
-});
+};
 
 export default Header;

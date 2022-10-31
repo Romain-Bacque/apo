@@ -8,20 +8,11 @@ const instance = axios.create({
 
 const brewery = (store) => (next) => (action) => {
   if (action.type === "FETCH_BREWERIES") {
-    store.dispatch({
-      type: "PENDING",
-      message: null,
-    });
     instance
       .get("/brewery")
       .then((response) => {
         if (response.status === 200) {
           const breweries = response.data.data;
-
-          store.dispatch({
-            type: "SUCCESS",
-            message: null,
-          });
           store.dispatch({
             type: "SAVE_BREWERIES",
             breweries,
@@ -30,19 +21,10 @@ const brewery = (store) => (next) => (action) => {
       })
       .catch((error) => {
         console.log(error);
-        const { status } = error;
-
-        if (status === 404) {
-          store.dispatch({
-            type: "ERROR",
-            message: "Il n'y a aucune brasserie d'enregistrée.",
-          });
-        } else {
-          store.dispatch({
-            type: "ERROR",
-            message: "Une erreur est survenue.",
-          });
-        }
+        store.dispatch({
+          type: "ERROR",
+          message: "Une erreur est survenue.",
+        });
       });
   } else if (action.type === "ADD_BREWERY") {
     const formData = new FormData();
@@ -66,7 +48,6 @@ const brewery = (store) => (next) => (action) => {
         console.log(error);
       });
   } else if (action.type === "DELETE_BREWERY") {
-    console.log(action);
     instance
       .delete(`/brewery/${action.breweryId}`)
       .then((response) => {
@@ -75,7 +56,6 @@ const brewery = (store) => (next) => (action) => {
           message: null,
         });
         if (response.status === 200) {
-          console.log(response.status);
           store.dispatch({
             type: "INFO",
             message: "Brasserie supprimée",

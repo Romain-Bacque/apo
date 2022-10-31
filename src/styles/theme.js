@@ -76,7 +76,6 @@ const theme = createTheme({
           justifyContent: "center",
           marginBottom: "20px",
           gap: 2,
-          width: "100%",
           paddingTop: "1rem",
           paddingBottom: "1rem",
         },
@@ -89,9 +88,8 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           width: "100%",
-          maxWidth: "350px",
           padding: "1rem .5rem",
-          margin: "1rem 0.5rem",
+          margin: "1rem auto",
           boxShadow: "none",
           borderRadius: "5px",
           color: "white",

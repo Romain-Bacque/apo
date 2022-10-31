@@ -38,7 +38,11 @@ function Brewerie({ image, title, address, id, onDelete }) {
         </CardContent>
         <Divider light />
         <CardActions>
-          <Button component={Link} to={`/brewery/update/${id}`}>
+          <Button
+            sx={{ mr: "0.5rem" }}
+            component={Link}
+            to={`/brewery/update/${id}`}
+          >
             Gérer
           </Button>
           <Button

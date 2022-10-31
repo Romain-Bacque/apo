@@ -1,7 +1,7 @@
-import { useDispatch } from "react-redux";
-import { useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useCallback, useEffect, useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -14,9 +14,13 @@ import {
 import "./style.scss";
 import Input from "../Input";
 
+let isRegistering = false;
+
 function Register() {
+  const loading = useSelector((state) => state.loading);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [inputStatut, setInputStatut] = useState({
+  const [inputStatus, setInputStatus] = useState({
     email: { isValid: false, value: "" },
     password: { isValid: false, value: "" },
     name: { isValid: false, value: "" },
@@ -24,37 +28,50 @@ function Register() {
   });
 
   const isFormValid =
-    inputStatut.name.isValid &&
-    inputStatut.email.isValid &&
-    inputStatut.password.isValid &&
-    inputStatut.confirmPassword.isValid;
+    inputStatus.name.isValid &&
+    inputStatus.email.isValid &&
+    inputStatus.password.isValid &&
+    inputStatus.confirmPassword.isValid;
 
   const handleRegister = (event) => {
     event.preventDefault();
-
     if (!isFormValid) return;
-
+    isRegistering = true;
     dispatch({
       type: "REGISTER",
-      email: inputStatut.email.value,
-      password: inputStatut.password.value,
-      name: inputStatut.name.value,
-      role: inputStatut.role,
+      email: inputStatus.email.value,
+      password: inputStatus.password.value,
+      name: inputStatus.name.value,
+      role: inputStatus.role,
     });
   };
 
-  const handleInputChange = useCallback((name, statut) => {
-    setInputStatut((prevState) => {
+  const handleInputChange = useCallback((name, status) => {
+    setInputStatus((prevState) => {
       return {
         ...prevState,
-        [name]: statut,
+        [name]: status,
       };
     });
   }, []);
 
+  // if user is successfully registered
+  useEffect(() => {
+    if (loading.status === "success" && isRegistering) {
+      isRegistering = false;
+      navigate("/login");
+    }
+  }, [loading]);
+
   return (
-    <Container component="form" onSubmit={handleRegister}>
-      <Typography variant="h2">Créer un compte</Typography>
+    <Container
+      style={{ maxWidth: "600px", marginTop: "15vh" }}
+      component="form"
+      onSubmit={handleRegister}
+    >
+      <Typography component="h2" variant="h3" color="gray">
+        Créer un compte
+      </Typography>
 
       <Box>
         <RadioGroup
@@ -110,7 +127,7 @@ function Register() {
           label: "Confirmer le mot de passe :",
         }}
         name="confirmPassword"
-        valueToMatch={inputStatut.password.value}
+        valueToMatch={inputStatus.password.value}
         onInputChange={handleInputChange}
       />
 
@@ -120,5 +137,4 @@ function Register() {
   );
 }
 
-// == Export
 export default Register;

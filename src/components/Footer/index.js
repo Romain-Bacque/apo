@@ -8,13 +8,18 @@ import { Mail, LinkedIn, GitHub, SportsBar } from "@mui/icons-material";
 
 // Style
 const FooterContainer = styled(Box)({
+  position: "fixed",
+  bottom: 0,
+  left: 0,
+  right: 0,
   display: "flex",
-  justifyContent: "space-between",
+  justifyContent: "space-around",
   flexWrap: "wrap",
   alignItems: "center",
   marginTop: "1rem",
-  padding: "2rem",
+  padding: "0.5rem 2rem",
   borderTop: "1px solid rgb(230, 230, 230)",
+  backgroundColor: "white",
 });
 const FooterNav = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -23,11 +28,7 @@ const FooterNav = styled(Box)(({ theme }) => ({
   alignItems: "center",
   marginRight: "auto",
   [theme.breakpoints.down("md")]: {
-    borderBottom: "1px solid rgb(220, 220, 220)",
-    width: "100%",
-    marginLeft: "auto",
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
+    display: "none",
   },
 }));
 const FooterLink = styled(Link)(({ theme }) => ({
