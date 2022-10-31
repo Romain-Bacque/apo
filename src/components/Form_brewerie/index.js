@@ -1,16 +1,9 @@
-// == Import
 import { Typography, Button, Container, TextField } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 import Input from "../Input";
 import { useSelector, useDispatch } from "react-redux";
 import { useCallback, useState } from "react";
-// == Composant
-
-import {
-  GeoapifyGeocoderAutocomplete,
-  GeoapifyContext,
-} from "@geoapify/react-geocoder-autocomplete";
 import "@geoapify/geocoder-autocomplete/styles/minimal.css";
+import SearchBar from "../UI/SearchBar";
 
 function Form_brewerie() {
   const id = useSelector((state) => state.user.id);
@@ -113,66 +106,52 @@ function Form_brewerie() {
   }, []);
 
   return (
-    <GeoapifyContext apiKey="99188fa618354504b3ba9155a71fb817">
-      <Container
-        component="form"
-        onSubmit={handleAddBrewery}
-        style={{ maxWidth: "600px", marginTop: "15vh" }}
-      >
-        <Typography variant="h3" component="h2">
-          Ajouter une brasserie
-        </Typography>
-        <Input
-          input={{
-            id: "title",
-            type: "text",
-            label: "Nom de la brasserie :",
-          }}
-          name="title"
-          onInputChange={handleInputChange}
-        />
-        <TextField
-          id="image"
-          type="file"
-          accept="image/png, image/jpeg"
-          name="image"
-          value={inputStatus.image.value}
-          onChange={handleFileChange}
-        />
-        <Input
-          input={{
-            id: "phone",
-            type: "tel",
-            label: "Numéro de téléphone :",
-          }}
-          name="phone"
-          onInputChange={handleInputChange}
-        />
-        <GeoapifyGeocoderAutocomplete
-          input={{
-            id: "adress",
-            type: "text",
-            label: "Adresse :",
-          }}
-          name="adress"
-          onInputChange={handleInputChange}
-          placeSelect={handlePlaceSelect}
-        />
-        <Input
-          input={{
-            id: "description",
-            type: "text",
-            label: "Description :",
-          }}
-          name="description"
-          onInputChange={handleInputChange}
-        />
-        <Button type="submit">
-          Ajouter
-          <AddIcon />
-        </Button>
-      </Container>
-    </GeoapifyContext>
+    <Container
+      component="form"
+      onSubmit={handleAddBrewery}
+      style={{ maxWidth: "600px", marginTop: "15vh", color: "gray" }}
+    >
+      <Typography variant="h3" component="h2">
+        Ajouter une brasserie
+      </Typography>
+      <Input
+        input={{
+          id: "title",
+          type: "text",
+          label: "Nom de la brasserie :",
+        }}
+        name="title"
+        onInputChange={handleInputChange}
+      />
+      <TextField
+        id="image"
+        type="file"
+        accept="image/png, image/jpeg"
+        name="image"
+        value={inputStatus.image.value}
+        onChange={handleFileChange}
+      />
+      <Input
+        input={{
+          id: "phone",
+          type: "tel",
+          label: "Numéro de téléphone :",
+        }}
+        name="phone"
+        onInputChange={handleInputChange}
+      />
+      <SearchBar />
+      <Input
+        input={{
+          id: "description",
+          type: "text",
+          label: "Description :",
+        }}
+        name="description"
+        onInputChange={handleInputChange}
+      />
+      <Button type="submit">Enregistrer</Button>
+    </Container>
   );
 }
 

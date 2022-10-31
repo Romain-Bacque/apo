@@ -11,6 +11,7 @@ import {
 import "@geoapify/geocoder-autocomplete/styles/round-borders.css";
 import AppMenu from "../UI/AppMenu";
 import { useSelector } from "react-redux";
+import { apiConfig } from "../../config/config";
 
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
@@ -47,7 +48,7 @@ const Header = (props) => {
   }
 
   return (
-    <GeoapifyContext apiKey="99188fa618354504b3ba9155a71fb817">
+    <GeoapifyContext apiKey={apiConfig.apiKey || ""}>
       <AppBar
         position="sticky"
         sx={{
@@ -87,6 +88,7 @@ const Header = (props) => {
               placeholder="Rechercher..."
               type="locality"
               lang="fr"
+              countryCodes={["fr"]}
               placeSelect={handlePlaceSelect}
             />
           </div>

@@ -28,7 +28,7 @@ const inputReducer = (state, action) => {
         }
         break;
       case "tel":
-        const phoneNumber = /^((\+)33|0|0033)[1-9](\d{2}){4}$/
+        const phoneNumber = /^((\+)33|0|0033)[1-9](\d{2}){4}$/;
         if (action.value.value.match(phoneNumber)) {
           return { ...state, isValid: true, enteredValue: action.value.value };
         }
@@ -42,19 +42,19 @@ const inputReducer = (state, action) => {
         const numbers = /[0-9]/g;
 
         if (
-          action.value.value.length >= 8 &&          
+          action.value.value.length >= 8 &&
           action.value.value.match(lowerCaseLetters) &&
           action.value.value.match(upperCaseLetters) &&
           action.value.value.match(numbers)
-          ) {
-            return {
-              ...state,
-              isValid: passwordStateArray.length > 0 ? false : true,
-              enteredValue: action.value.value,
-              passwordState: passwordStateArray,
-            };        
-          } 
-          break;
+        ) {
+          return {
+            ...state,
+            isValid: passwordStateArray.length > 0 ? false : true,
+            enteredValue: action.value.value,
+            passwordState: passwordStateArray,
+          };
+        }
+        break;
       case "textarea":
         return { ...state, enteredValue: action.value.value };
       default:
@@ -73,7 +73,7 @@ const inputReducer = (state, action) => {
 
 const useInput = () => {
   const [inputState, dispatch] = useReducer(inputReducer, initialState);
-  
+
   const changeHandler = useCallback((event) => {
     dispatch({ type: "CHANGE", value: event.target });
   }, []);

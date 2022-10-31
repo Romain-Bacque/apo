@@ -24,10 +24,13 @@ const Title = styled(Box)({
   alignItems: "center",
   gap: 0.5,
 });
-const TitleText = styled(Typography)({
-  flex: 1,
+const TitleText = styled(Typography)(({ theme }) => ({
+  flex: 1.5,
   textAlign: "center",
-});
+  [theme.breakpoints.down("md")]: {
+    flex: 1,
+  },
+}));
 const TitleButton = styled(Button)({
   flex: 1,
   fontSize: "1rem",
@@ -95,10 +98,10 @@ function Breweries() {
             Ajouter une Brasserie
           </TitleButton>
         </Title>
-        {breweries?.length > 0 ? (
+        {userBreweries?.length > 0 ? (
           <Box marginTop="4rem" overflow="auto" height="65vh">
             <Grid spacing={2} textAlign="center" container>
-              {breweries.map((brewery) => (
+              {userBreweries.map((brewery) => (
                 <Brewerie
                   key={brewery.id}
                   id={brewery.id}

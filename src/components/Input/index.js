@@ -45,7 +45,7 @@ function Input(props) {
   }, [props.reset, resetInputHandler]);
 
   // Not required input
-  if (props.name !== "search" && props.name !== "image") {
+  if (props.name !== "image") {
     errorContent = isInputTouched && !isInputValid ? true : false;
     helperTextContent =
       isInputTouched && !isInputValid ? "Entrée incorrecte." : "";
@@ -54,6 +54,7 @@ function Input(props) {
   return (
     <>
       <TextField
+        {...props.params}
         error={errorContent}
         helperText={helperTextContent}
         value={inputValue}
