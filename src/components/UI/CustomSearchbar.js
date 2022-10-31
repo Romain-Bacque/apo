@@ -1,11 +1,12 @@
-import { Autocomplete } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
+
+import { Autocomplete } from "@mui/material";
 import { apiConfig } from "../../config/config";
 import Input from "../Input";
 import { debounce } from "lodash";
 import axios from "axios";
 
-const SearchBar = () => {
+const CustomSearchbar = () => {
   const [addressesList, setAdressesList] = useState([]);
   const getGeoapiData = useRef(
     // 'debounce' prevent API server spamming, and authorize ajax request 500ms after input value stopped change
@@ -36,20 +37,21 @@ const SearchBar = () => {
   useEffect(() => {
     getGeoapiData.cancel();
   }, [getGeoapiData]);
-  console.log(addressesList);
+
   return (
     <Autocomplete
       freeSolo
+      onBlur={() => setAdressesList([])}
       options={addressesList}
       renderInput={(params) => (
         <Input
           params={params}
           input={{
-            id: "adress",
+            id: "address",
             type: "text",
             label: "Adresse",
           }}
-          name="adress"
+          name="address"
           onInputChange={handleInputChange}
         />
       )}
@@ -57,4 +59,4 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+export default CustomSearchbar;

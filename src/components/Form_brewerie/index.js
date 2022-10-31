@@ -3,7 +3,7 @@ import Input from "../Input";
 import { useSelector, useDispatch } from "react-redux";
 import { useCallback, useState } from "react";
 import "@geoapify/geocoder-autocomplete/styles/minimal.css";
-import SearchBar from "../UI/SearchBar";
+import CustomSearchbar from "../UI/CustomSearchbar";
 
 function Form_brewerie() {
   const id = useSelector((state) => state.user.id);
@@ -140,7 +140,7 @@ function Form_brewerie() {
         name="phone"
         onInputChange={handleInputChange}
       />
-      <SearchBar />
+      <CustomSearchbar />
       <Input
         input={{
           id: "description",
