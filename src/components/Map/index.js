@@ -21,7 +21,7 @@ import LocationButtonFilter from "./controls/LocationButtonFilter";
 import ShowActiveFiltersControl from "./controls/ShowActiveFiltersControl";
 
 // Style
-const StyledMapContainer = styled(Box)(({ theme }) => ({
+const StyledContainer = styled(Box)(({ theme }) => ({
   position: "relative",
   display: "flex",
   justifyContent: "center",
@@ -37,15 +37,23 @@ const StyledMapContainer = styled(Box)(({ theme }) => ({
     height: "100%",
   },
 }));
+const StyledMapContainer = styled(Box)({
+  flex: 2,
+  height: "calc(100% - 6rem)",
+  position: "relative",
+});
 const SwitchContainer = styled(Box)(({ theme }) => ({
-  boxSizing: "border-box",
+  margin: "1rem",
+  borderBottom: "1px solid lightgray",
   textAlign: "center",
+  boxSizing: "border-box",
   height: "5rem",
   [theme.breakpoints.up("md")]: {
     display: "none",
   },
 }));
 const BreweriesContainer = styled(Box)(({ theme }) => ({
+  flex: "1.5",
   backgroundColor: "white",
   transition: "0.3s ease-out",
   [theme.breakpoints.down("md")]: {
@@ -53,7 +61,7 @@ const BreweriesContainer = styled(Box)(({ theme }) => ({
     height: "100%",
     position: "absolute",
     zIndex: 3,
-    bottom: "7rem",
+    bottom: "6rem",
     transform: "translateY(100%)",
     "&.active": {
       bottom: "100%",
@@ -80,12 +88,12 @@ function Map({ searchValue }) {
   });
 
   return (
-    <StyledMapContainer>
+    <StyledContainer>
       {loadingStatus === "pending" ? (
         <Loader />
       ) : (
         <>
-          <Box flex={2} height="80vh" position="relative">
+          <StyledMapContainer>
             <MapContainer
               className="leaflet"
               scrollWheelZoom={true}
@@ -121,16 +129,9 @@ function Map({ searchValue }) {
               />
               <ShowActiveFiltersControl getFilters={getFilters} />
             </MapContainer>
-          </Box>
-          <BreweriesContainer
-            flex={1.5}
-            className={`${checked ? "active" : ""}`}
-          >
-            <SwitchContainer
-              m="1rem"
-              borderBottom="1px solid lightgray"
-              textAlign="center"
-            >
+          </StyledMapContainer>
+          <BreweriesContainer className={`${checked ? "active" : ""}`}>
+            <SwitchContainer>
               <FormControlLabel
                 control={
                   <Switch
@@ -155,7 +156,7 @@ function Map({ searchValue }) {
           </BreweriesContainer>
         </>
       )}
-    </StyledMapContainer>
+    </StyledContainer>
   );
 }
 

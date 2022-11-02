@@ -15,6 +15,7 @@ function Input(props) {
     value: inputValue,
     isValid: isInputValid,
     isTouched: isInputTouched,
+    valueHandler: inputValueHandler,
     changeHandler: inputChangeHandler,
     blurHandler: inputBlurHandler,
     resetHandler: resetInputHandler,
@@ -50,6 +51,10 @@ function Input(props) {
     helperTextContent =
       isInputTouched && !isInputValid ? "Entrée incorrecte." : "";
   }
+
+  useEffect(() => {
+    inputValueHandler(props.selectedValue);
+  }, [props.selectedValue, inputValueHandler]);
 
   return (
     <>

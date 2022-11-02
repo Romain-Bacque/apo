@@ -8,11 +8,21 @@ const initialState = {
 };
 
 const inputReducer = (state, action) => {
+  if (action.type === "VALUE") {
+    if (action.value) {
+      return { ...state, isValid: true, enteredValue: action.value };
+    }
+    return { ...state, isValid: false, enteredValue: "" };
+  }
   if (action.type === "CHANGE") {
     switch (action.value.type) {
       case "text":
         if (action.value.value.length > 0) {
-          return { ...state, isValid: true, enteredValue: action.value.value };
+          return {
+            ...state,
+            isValid: action.value.name !== "address" ? true : state.isValid,
+            enteredValue: action.value.value,
+          };
         }
         break;
       case "email":
@@ -74,12 +84,16 @@ const inputReducer = (state, action) => {
 const useInput = () => {
   const [inputState, dispatch] = useReducer(inputReducer, initialState);
 
+  const valueHandler = useCallback((value) => {
+    dispatch({ type: "VALUE", value });
+  }, []);
+
   const changeHandler = useCallback((event) => {
     dispatch({ type: "CHANGE", value: event.target });
   }, []);
 
-  const blurHandler = (event) => {
-    dispatch({ type: "BLUR", value: event.target });
+  const blurHandler = () => {
+    dispatch({ type: "BLUR" });
   };
 
   const resetHandler = useCallback(() => {
@@ -91,6 +105,7 @@ const useInput = () => {
     isValid: inputState.isValid,
     isTouched: inputState.isTouched,
     passwordState: inputState.passwordState,
+    valueHandler,
     changeHandler,
     blurHandler,
     resetHandler,

@@ -4,57 +4,23 @@ import { useSelector, useDispatch } from "react-redux";
 import { useCallback, useState } from "react";
 import "@geoapify/geocoder-autocomplete/styles/minimal.css";
 import CustomSearchbar from "../UI/CustomSearchbar";
+import Category from "../Category";
 
 function Form_brewerie() {
-  const id = useSelector((state) => state.user.id);
-  const dispatch = useDispatch();
-
-  //======================== GEOAPIFY ===================================
-
-  function preprocessHook(value) {
-    return `${value}, Munich, Germany`;
-  }
-
-  function postprocessHook(feature) {
-    return feature.properties.street;
-  }
-
-  function suggestionsFilter(suggestions) {
-    const processedStreets = [];
-
-    const filtered = suggestions.filter((value) => {
-      if (
-        !value.properties.street ||
-        processedStreets.indexOf(value.properties.street) >= 0
-      ) {
-        return false;
-      } else {
-        processedStreets.push(value.properties.street);
-        return true;
-      }
-    });
-
-    return filtered;
-  }
-  //======================== /GEOAPIFY ===================================
-
   const [inputStatus, setInputStatus] = useState({
     title: { isValid: false, value: "" },
     image: { file: null, value: "" },
     phone: { isValid: false, value: "" },
-    lat: null,
-    lon: null,
-    address: "",
+    location: { isValid: false, value: null },
     categories: [],
     description: { isValid: false, value: "" },
   });
+  const dispatch = useDispatch();
 
   const isFormValid =
     inputStatus.title.isValid &&
     inputStatus.phone.isValid &&
-    inputStatus.address &&
-    inputStatus.lat &&
-    inputStatus.lon &&
+    inputStatus.location &&
     inputStatus.description.isValid;
 
   const handleAddBrewery = (event) => {
@@ -64,28 +30,16 @@ function Form_brewerie() {
 
     dispatch({
       type: "ADD_BREWERY",
-      user_id: id,
       title: inputStatus.title.value,
       image: inputStatus.image.file,
       phone: inputStatus.phone.value,
-      lon: inputStatus.lon.value,
-      lat: inputStatus.lat.value,
-      address: inputStatus.address.value,
+      address: inputStatus.location.value.address,
+      lon: inputStatus.location.value.lon,
+      lat: inputStatus.location.value.lat,
       categories: inputStatus.categories,
       description: inputStatus.description.value,
     });
   };
-
-  function handlePlaceSelect(value) {
-    setInputStatus((prevState) => {
-      return {
-        ...prevState,
-        lat: value.properties.lat ? value.properties.lat : null,
-        lon: value.properties.lon ? value.properties.lon : null,
-        address: value.properties.formatted ? value.properties.formatted : null,
-      };
-    });
-  }
 
   const handleFileChange = (event) => {
     setInputStatus((prevState) => {
@@ -101,6 +55,15 @@ function Form_brewerie() {
       return {
         ...prevState,
         [name]: status,
+      };
+    });
+  }, []);
+
+  const handleSelectedCategories = useCallback((list) => {
+    setInputStatus((prevState) => {
+      return {
+        ...prevState,
+        categories: list,
       };
     });
   }, []);
@@ -140,7 +103,7 @@ function Form_brewerie() {
         name="phone"
         onInputChange={handleInputChange}
       />
-      <CustomSearchbar />
+      <CustomSearchbar setInputStatus={setInputStatus} />
       <Input
         input={{
           id: "description",
@@ -150,10 +113,10 @@ function Form_brewerie() {
         name="description"
         onInputChange={handleInputChange}
       />
+      <Category onSelectedCategories={handleSelectedCategories} />
       <Button type="submit">Enregistrer</Button>
     </Container>
   );
 }
 
-// == Export
 export default Form_brewerie;

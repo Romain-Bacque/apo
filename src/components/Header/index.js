@@ -27,7 +27,7 @@ const Header = (props) => {
   // If user type 'enter' key on keyboard
   function handleKeyDown(event) {
     if (event.keyCode === 13) {
-      props.setSearchValue(event.target.value);
+      props.setSearchValue(event.target.value.toLowerCase().trim());
       navigate("/");
     }
   }
@@ -86,7 +86,6 @@ const Header = (props) => {
           >
             <GeoapifyGeocoderAutocomplete
               placeholder="Rechercher..."
-              type="locality"
               lang="fr"
               countryCodes={["fr"]}
               placeSelect={handlePlaceSelect}

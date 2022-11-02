@@ -49,7 +49,7 @@ const StyledDivider = styled(Divider)(({ theme }) => ({
   },
 }));
 const BrandContainer = styled(Box)({
-  paddingTop: "1rem",
+  padding: "0.5rem",
   display: "flex",
   flexWrap: "wrap",
   justifyContent: "start",

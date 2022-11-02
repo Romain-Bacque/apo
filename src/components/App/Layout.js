@@ -8,7 +8,7 @@ import Footer from "../Footer";
 
 // Style
 const Main = styled(Box)(({ theme }) => ({
-  height: "100%",
+  height: "82%",
   margin: "2rem",
   fontFamily: "Silkscreen",
   [theme.breakpoints.down("md")]: {

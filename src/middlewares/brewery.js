@@ -34,10 +34,10 @@ const brewery = (store) => (next) => (action) => {
       .append("image", action.image)
       .append("phone", action.phone)
       .append("address", action.address)
-      .append("description", action.description)
       .append("lat", action.lat)
       .append("lon", action.lon)
-      .append("categories", action.categories);
+      .append("categories", action.categories)
+      .append("description", action.description);
 
     instance
       .post("/brewery", formData)

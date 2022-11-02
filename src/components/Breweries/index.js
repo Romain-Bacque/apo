@@ -42,7 +42,6 @@ let userBreweries = [];
 
 function Breweries() {
   const [isOpen, setIsOpen] = useState(false);
-  // const [userBreweries, setUserBreweries] = useState([]);
   const [breweryId, setBreweryId] = useState(null);
   const userId = useSelector((state) => state.user.id);
   const loading = useSelector((state) => state.loading);
@@ -98,10 +97,10 @@ function Breweries() {
             Ajouter une Brasserie
           </TitleButton>
         </Title>
-        {userBreweries?.length > 0 ? (
+        {breweries?.length > 0 ? (
           <Box marginTop="4rem" overflow="auto" height="65vh">
             <Grid spacing={2} textAlign="center" container>
-              {userBreweries.map((brewery) => (
+              {breweries.map((brewery) => (
                 <Brewerie
                   key={brewery.id}
                   id={brewery.id}
