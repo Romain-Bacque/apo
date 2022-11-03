@@ -10,7 +10,7 @@ const initialState = {
 const inputReducer = (state, action) => {
   if (action.type === "VALUE") {
     if (action.value) {
-      return { ...state, isValid: true, enteredValue: action.value };
+      return { ...state, isValid: true, enteredValue: action.value.address };
     }
     return { ...state, isValid: false, enteredValue: "" };
   }
@@ -20,7 +20,7 @@ const inputReducer = (state, action) => {
         if (action.value.value.length > 0) {
           return {
             ...state,
-            isValid: action.value.name !== "address" ? true : state.isValid,
+            isValid: action.value.name !== "location" ? true : false,
             enteredValue: action.value.value,
           };
         }

@@ -19,21 +19,22 @@ function BreweriesList({ filter, data }) {
   };
 
   if (data?.length) {
-    const filteredBreweriesList = data.filter((brewery) => {
-      return hasSelectedTag(brewery, selectedCategories);
-    });
-
-    breweriesList = filteredBreweriesList.map((filteredBrewery) => (
-      <OneBrewerie
-        key={filteredBrewery.id}
-        id={filteredBrewery.id}
-        title={filteredBrewery.title}
-        phone={filteredBrewery.phone}
-        address={filteredBrewery.address}
-        tags={filteredBrewery.categories}
-        image={filteredBrewery.image}
-      />
-    ));
+    breweriesList = data
+      .filter((brewery) => {
+        if (!selectedCategories.length) return true; // If there is no category selected, then filter by category is not applied
+        return hasSelectedTag(brewery, selectedCategories); // filter by selected category(ies)
+      })
+      .map((filteredBrewery) => (
+        <OneBrewerie
+          key={filteredBrewery.id}
+          id={filteredBrewery.id}
+          title={filteredBrewery.title}
+          phone={filteredBrewery.phone}
+          address={filteredBrewery.address}
+          tags={filteredBrewery.categories}
+          image={filteredBrewery.image}
+        />
+      ));
   }
 
   return (

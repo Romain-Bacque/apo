@@ -43,7 +43,7 @@ function Brewerie({ image, title, address, id, onDelete }) {
             component={Link}
             to={`/brewery/update/${id}`}
           >
-            Gérer
+            Modifier
           </Button>
           <Button
             sx={{ color: "#f2cc96" }}

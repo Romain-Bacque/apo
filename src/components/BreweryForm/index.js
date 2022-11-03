@@ -1,12 +1,13 @@
+import { useDispatch } from "react-redux";
+import { useCallback, useState } from "react";
+
 import { Typography, Button, Container, TextField } from "@mui/material";
 import Input from "../Input";
-import { useSelector, useDispatch } from "react-redux";
-import { useCallback, useState } from "react";
 import "@geoapify/geocoder-autocomplete/styles/minimal.css";
 import CustomSearchbar from "../UI/CustomSearchbar";
 import Category from "../Category";
 
-function Form_brewerie() {
+function BreweryForm() {
   const [inputStatus, setInputStatus] = useState({
     title: { isValid: false, value: "" },
     image: { file: null, value: "" },
@@ -25,17 +26,15 @@ function Form_brewerie() {
 
   const handleAddBrewery = (event) => {
     event.preventDefault();
-
     if (!isFormValid) return;
-
     dispatch({
       type: "ADD_BREWERY",
       title: inputStatus.title.value,
       image: inputStatus.image.file,
       phone: inputStatus.phone.value,
       address: inputStatus.location.value.address,
-      lon: inputStatus.location.value.lon,
       lat: inputStatus.location.value.lat,
+      lon: inputStatus.location.value.lon,
       categories: inputStatus.categories,
       description: inputStatus.description.value,
     });
@@ -87,6 +86,7 @@ function Form_brewerie() {
         onInputChange={handleInputChange}
       />
       <TextField
+        label="Logo/Photo de la brasserie"
         id="image"
         type="file"
         accept="image/png, image/jpeg"
@@ -119,4 +119,4 @@ function Form_brewerie() {
   );
 }
 
-export default Form_brewerie;
+export default BreweryForm;

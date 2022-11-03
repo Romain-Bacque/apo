@@ -87,7 +87,7 @@ const Header = (props) => {
             <GeoapifyGeocoderAutocomplete
               placeholder="Rechercher..."
               lang="fr"
-              countryCodes={["fr"]}
+              filterByCountryCode={["fr"]}
               placeSelect={handlePlaceSelect}
             />
           </div>

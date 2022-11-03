@@ -8,7 +8,6 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import CustomModal from "../UI/CustomModal";
 import Loader from "../UI/loader";
-import { textAlign } from "@mui/system";
 
 // Style
 const BreweriesContainer = styled(Container)({
@@ -97,10 +96,10 @@ function Breweries() {
             Ajouter une Brasserie
           </TitleButton>
         </Title>
-        {breweries?.length > 0 ? (
+        {userBreweries?.length > 0 ? (
           <Box marginTop="4rem" overflow="auto" height="65vh">
-            <Grid spacing={2} textAlign="center" container>
-              {breweries.map((brewery) => (
+            <Grid spacing={2} justifyContent="center" container>
+              {userBreweries.map((brewery) => (
                 <Brewerie
                   key={brewery.id}
                   id={brewery.id}

@@ -36,10 +36,6 @@ function Category({ onSelectedCategories }) {
   };
 
   useEffect(() => {
-    setCategoriesList(categories);
-  }, [categories]);
-
-  useEffect(() => {
     onSelectedCategories && onSelectedCategories(categoriesList);
   }, [categoriesList, onSelectedCategories]);
 

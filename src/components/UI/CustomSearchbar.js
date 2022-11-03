@@ -7,40 +7,43 @@ import { debounce } from "lodash";
 import axios from "axios";
 
 const CustomSearchbar = ({ setInputStatus }) => {
-  const [selectedValue, setSelectedValue] = useState({});
-  const [breweriesLocationList, setBreweriesLocationList] = useState([]);
+  const [selectedValue, setSelectedValue] = useState(null);
+  const [breweriesLocations, setBreweriesLocations] = useState([]);
   const getGeoapiData = useRef(
     // 'debounce' prevent API server spamming, and authorize ajax request 500ms after input value stopped change
     debounce(async (value) => {
-      try {
-        const response = await axios.get(
-          `https://api.geoapify.com/v1/geocode/autocomplete?text=${value}&filter=countrycode:fr&format=json&limit=15&lang=fr&apiKey=${apiConfig.apiKey}`
-        );
+      let data = [];
 
-        if (response.status === 200) {
-          setBreweriesLocationList(
-            response.data.results.map((brewery) => ({
+      if (value) {
+        try {
+          const response = await axios.get(
+            `https://api.geoapify.com/v1/geocode/autocomplete?text=${value}&filter=countrycode:fr&format=json&limit=15&lang=fr&apiKey=${apiConfig.apiKey}`
+          );
+
+          if (response.status === 200) {
+            data = response.data.results.map((brewery) => ({
               address: brewery.formatted,
               lat: brewery.lat,
               lon: brewery.lon,
-            }))
-          );
+            }));
+          }
+        } catch (err) {
+          console.log(err);
         }
-      } catch (err) {
-        console.log(err);
       }
+      setBreweriesLocations(data);
     }, 300)
   ).current;
 
   const handleInputChange = useCallback(
-    (_, status) => {
+    (name, status) => {
+      if (!status.isValid) return getGeoapiData(status.value);
       setInputStatus((prevState) => {
         return {
           ...prevState,
-          location: { isValid: status.isValid, value: selectedValue },
+          [name]: { isValid: status.isValid, value: selectedValue },
         };
       });
-      getGeoapiData(status.value);
     },
     [getGeoapiData, setInputStatus, selectedValue]
   );
@@ -53,8 +56,8 @@ const CustomSearchbar = ({ setInputStatus }) => {
     <Autocomplete
       freeSolo
       onChange={(_, value) => setSelectedValue(value)}
-      onBlur={() => setBreweriesLocationList([])}
-      options={breweriesLocationList}
+      onBlur={() => setBreweriesLocations([])}
+      options={breweriesLocations}
       getOptionLabel={(option) => option.address} // Display the 'address' property value of each object from the array of object provide in 'options' prop
       renderInput={(params) => (
         <Input
@@ -62,10 +65,10 @@ const CustomSearchbar = ({ setInputStatus }) => {
           input={{
             id: "address",
             type: "text",
-            label: "Adresse",
+            label: "Adresse :",
           }}
           selectedValue={selectedValue}
-          name="address"
+          name="location"
           onInputChange={handleInputChange}
         />
       )}

@@ -4,6 +4,7 @@ import { apiConfig } from "../config/config";
 const instance = axios.create({
   baseURL: `http://${apiConfig.host}:${apiConfig.port}`,
   withCredentials: true,
+  headers: { "Content-Type": "multipart/form-data" },
 });
 
 const brewery = (store) => (next) => (action) => {
@@ -29,16 +30,16 @@ const brewery = (store) => (next) => (action) => {
   } else if (action.type === "ADD_BREWERY") {
     const formData = new FormData();
 
-    formData
-      .append("title", action.title)
-      .append("image", action.image)
-      .append("phone", action.phone)
-      .append("address", action.address)
-      .append("lat", action.lat)
-      .append("lon", action.lon)
-      .append("categories", action.categories)
-      .append("description", action.description);
-
+    formData.append("title", action.title);
+    formData.append("image", action.image);
+    formData.append("phone", action.phone);
+    formData.append("address", action.address);
+    formData.append("lat", action.lat);
+    formData.append("lon", action.lon);
+    for (let category of action.categories) {
+      formData.append("categories[]", category.id);
+    }
+    formData.append("description", action.description);
     instance
       .post("/brewery", formData)
       .then((response) => {

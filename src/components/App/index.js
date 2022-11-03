@@ -6,7 +6,6 @@ import Layout from "./Layout";
 import Map from "../Map";
 import Login from "../Login";
 import Register from "../Register";
-import FormBrewerie from "../Form_brewerie";
 import UpdateBrewery from "../Breweries/UpdateBrewery";
 import OneBrewerie from "../One_brewerie";
 import FormEvent from "../Events/FormEvent";
@@ -16,6 +15,7 @@ import OneEvent from "../Events/OneEvent";
 import Profil from "../Profil";
 import UpdateEventBrewery from "../Breweries/UpdateEventBrewery";
 import NotFound from "../NotFound";
+import BreweryForm from "../BreweryForm";
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
@@ -62,7 +62,7 @@ function App() {
           {isLogged && (
             <>
               <Route path="/breweries" element={<Breweries />} />
-              <Route path="/brewery/form_brewery" element={<FormBrewerie />} />
+              <Route path="/brewery/form_brewery" element={<BreweryForm />} />
               <Route path="/brewery/update/:id" element={<UpdateBrewery />} />
               <Route path="/create-event" element={<FormEvent />} />
               <Route path="/events" element={<Events />} />
