@@ -1,13 +1,27 @@
-import { useDispatch } from "react-redux";
-import { useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { Typography, Button, Container, TextField } from "@mui/material";
+import {
+  Typography,
+  Button,
+  Container,
+  TextField,
+  Box,
+  IconButton,
+} from "@mui/material";
 import Input from "../Input";
 import "@geoapify/geocoder-autocomplete/styles/minimal.css";
 import CustomSearchbar from "../UI/CustomSearchbar";
 import Category from "../Category";
+import Loader from "../UI/loader";
+import { ArrowBackRounded } from "@mui/icons-material";
+
+let isAdded = false;
 
 function BreweryForm() {
+  const loadingStatus = useSelector((state) => state.loading.status);
+  const navigate = useNavigate();
   const [inputStatus, setInputStatus] = useState({
     title: { isValid: false, value: "" },
     image: { file: null, value: "" },
@@ -38,6 +52,7 @@ function BreweryForm() {
       categories: inputStatus.categories,
       description: inputStatus.description.value,
     });
+    isAdded = true;
   };
 
   const handleFileChange = (event) => {
@@ -67,15 +82,28 @@ function BreweryForm() {
     });
   }, []);
 
+  useEffect(() => {
+    if (loadingStatus === "success" && isAdded) {
+      isAdded = false;
+      navigate("/breweries");
+    }
+  }, [loadingStatus]);
+
   return (
     <Container
       component="form"
       onSubmit={handleAddBrewery}
       style={{ maxWidth: "600px", marginTop: "15vh", color: "gray" }}
     >
-      <Typography variant="h3" component="h2">
-        Ajouter une brasserie
-      </Typography>
+      {loadingStatus === "pending" && <Loader />}
+      <Box display="flex" alignItems="center" gap={1}>
+        <IconButton onClick={() => navigate("/breweries")}>
+          <ArrowBackRounded sx={{ fontSize: "3rem", color: "gray" }} />
+        </IconButton>
+        <Typography variant="h3" component="h2">
+          Ajouter une brasserie
+        </Typography>
+      </Box>
       <Input
         input={{
           id: "title",

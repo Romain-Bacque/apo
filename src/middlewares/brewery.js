@@ -9,14 +9,23 @@ const instance = axios.create({
 
 const brewery = (store) => (next) => (action) => {
   if (action.type === "FETCH_BREWERIES") {
+    store.dispatch({
+      type: "PENDING",
+      message: null,
+    });
     instance
       .get("/brewery")
       .then((response) => {
         if (response.status === 200) {
           const breweries = response.data.data;
+
           store.dispatch({
             type: "SAVE_BREWERIES",
             breweries,
+          });
+          store.dispatch({
+            type: "SUCCESS",
+            message: null,
           });
         }
       })
@@ -40,25 +49,65 @@ const brewery = (store) => (next) => (action) => {
       formData.append("categories[]", category.id);
     }
     formData.append("description", action.description);
+    store.dispatch({
+      type: "PENDING",
+      message: null,
+    });
     instance
       .post("/brewery", formData)
       .then((response) => {
-        console.log(response.status);
+        if (response.status === 200) {
+          const breweries = response.data.data;
+
+          store.dispatch({
+            type: "SAVE_BREWERIES",
+            breweries,
+          });
+          store.dispatch({
+            type: "SUCCESS",
+            message: "Brasserie ajoutée",
+          });
+        }
       })
       .catch((error) => {
         console.log(error);
+        const { status } = error.response;
+
+        if (status === 401) {
+          store.dispatch({
+            type: "ERROR",
+            message: "Action non autorisée",
+          });
+        } else if (status === 400) {
+          store.dispatch({
+            type: "ERROR",
+            message: "Erreur dans un/plusieurs champs",
+          });
+        } else {
+          store.dispatch({
+            type: "ERROR",
+            message: "Une erreur est survenue",
+          });
+        }
       });
   } else if (action.type === "DELETE_BREWERY") {
+    store.dispatch({
+      type: "PENDING",
+      message: null,
+    });
+
     instance
       .delete(`/brewery/${action.breweryId}`)
       .then((response) => {
-        store.dispatch({
-          type: "PENDING",
-          message: null,
-        });
         if (response.status === 200) {
+          const breweries = response.data.data;
+
           store.dispatch({
-            type: "INFO",
+            type: "SAVE_BREWERIES",
+            breweries,
+          });
+          store.dispatch({
+            type: "SUCCESS",
             message: "Brasserie supprimée",
           });
         }

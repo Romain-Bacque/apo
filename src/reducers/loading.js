@@ -10,11 +10,6 @@ const reducer = (state = initialState, action = {}) => {
         message: action.message,
         status: "pending",
       };
-    case "INFO":
-      return {
-        message: action.message,
-        status: "info",
-      };
     case "SUCCESS":
       return {
         message: action.message,

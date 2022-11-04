@@ -3,7 +3,7 @@ import useInput from "../hooks/use-input";
 import { useEffect } from "react";
 import PasswordChecklist from "react-password-checklist";
 
-function Input(props) {
+const Input = (props) => {
   // pour accéder dynamiquement à une propriété d'un objet
   // on utilise la syntaxe crocher obj['prop'] plutôt que la syntaxe point ob.prop
   let errorContent = false,
@@ -18,7 +18,6 @@ function Input(props) {
     valueHandler: inputValueHandler,
     changeHandler: inputChangeHandler,
     blurHandler: inputBlurHandler,
-    resetHandler: resetInputHandler,
   } = useInput();
 
   useEffect(() => {
@@ -40,10 +39,6 @@ function Input(props) {
     props.name,
     props.valueToMatch,
   ]);
-
-  useEffect(() => {
-    if (props.reset) resetInputHandler();
-  }, [props.reset, resetInputHandler]);
 
   // Not required input
   if (props.name !== "image") {
@@ -85,6 +80,6 @@ function Input(props) {
       )}
     </>
   );
-}
+};
 
 export default Input;

@@ -64,7 +64,7 @@ const BreweriesContainer = styled(Box)(({ theme }) => ({
     bottom: "6rem",
     transform: "translateY(100%)",
     "&.active": {
-      bottom: "100%",
+      bottom: "100.1%",
     },
   },
 }));

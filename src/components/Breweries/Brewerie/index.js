@@ -4,7 +4,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Box, Button, CardActions, Divider, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
-import { Home } from "@mui/icons-material";
+import { Edit, Home } from "@mui/icons-material";
 import styled from "@emotion/styled";
 
 // Style
@@ -24,7 +24,7 @@ function Brewerie({ image, title, address, id, onDelete }) {
           component="img"
           height="140px"
           width="100%"
-          image={image}
+          image={JSON.parse(image).path}
           alt={`image/logo brasserie '${title}'`}
         />
         <CardContent sx={{ textAlign: "start" }}>
@@ -43,6 +43,7 @@ function Brewerie({ image, title, address, id, onDelete }) {
             component={Link}
             to={`/brewery/update/${id}`}
           >
+            <Edit sx={{ mr: "0.5rem" }} />
             Modifier
           </Button>
           <Button

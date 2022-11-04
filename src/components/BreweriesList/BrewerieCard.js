@@ -25,7 +25,7 @@ function BrewerieCard({ title, phone, address, tags, image, id }) {
         component="img"
         height="140px"
         width="100%"
-        image={image}
+        image={JSON.parse(image).path}
         alt={`image/logo brasserie '${title}'`}
       />
       <CardContent>

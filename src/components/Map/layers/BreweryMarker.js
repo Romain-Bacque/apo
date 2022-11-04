@@ -142,7 +142,7 @@ const BreweryMarker = ({
         <StyledCard elevation={0}>
           <CardMedia
             component="img"
-            image={brewerie.image}
+            image={JSON.parse(brewerie.image).path}
             alt={`image/logo brasserie '${brewerie.title}'`}
           />
           <StyledCardContent>

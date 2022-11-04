@@ -126,13 +126,13 @@ const user = (store) => (next) => (action) => {
         }
       });
   } else if (action.type === "LOGOUT") {
+    store.dispatch({
+      type: "PENDING",
+      message: null,
+    });
     instance
       .post("/user/logout")
       .then((response) => {
-        store.dispatch({
-          type: "PENDING",
-          message: null,
-        });
         if (response.status === 200) {
           store.dispatch({
             type: "SUCCESS",
