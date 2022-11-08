@@ -10,7 +10,7 @@ const initialState = {
 const inputReducer = (state, action) => {
   if (action.type === "VALUE") {
     if (action.value) {
-      return { ...state, isValid: true, enteredValue: action.value.address };
+      return { ...state, isValid: true, enteredValue: action.value };
     }
     return { ...state, isValid: false, enteredValue: "" };
   }
@@ -39,6 +39,7 @@ const inputReducer = (state, action) => {
         break;
       case "tel":
         const phoneNumber = /^((\+)33|0|0033)[1-9](\d{2}){4}$/;
+
         if (action.value.value.match(phoneNumber)) {
           return { ...state, isValid: true, enteredValue: action.value.value };
         }

@@ -10,11 +10,10 @@ import {
   Box,
   IconButton,
 } from "@mui/material";
-import Input from "../Input";
+import Input from "../../Input";
 import "@geoapify/geocoder-autocomplete/styles/minimal.css";
-import CustomSearchbar from "../UI/CustomSearchbar";
-import Category from "../Category";
-import Loader from "../UI/loader";
+import CustomSearchbar from "../../UI/CustomSearchbar";
+import Category from "../../Category";
 import { ArrowBackRounded } from "@mui/icons-material";
 
 let isAdded = false;
@@ -93,9 +92,8 @@ function BreweryForm() {
     <Container
       component="form"
       onSubmit={handleAddBrewery}
-      style={{ maxWidth: "600px", marginTop: "15vh", color: "gray" }}
+      style={{ maxWidth: "600px", color: "gray" }}
     >
-      {loadingStatus === "pending" && <Loader />}
       <Box display="flex" alignItems="center" gap={1}>
         <IconButton onClick={() => navigate("/breweries")}>
           <ArrowBackRounded sx={{ fontSize: "3rem", color: "gray" }} />

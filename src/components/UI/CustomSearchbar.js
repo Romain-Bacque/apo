@@ -6,7 +6,8 @@ import Input from "../Input";
 import { debounce } from "lodash";
 import axios from "axios";
 
-const CustomSearchbar = ({ setInputStatus }) => {
+const CustomSearchbar = ({ setInputStatus, location }) => {
+  const isFirstRender = useRef(true);
   const [selectedValue, setSelectedValue] = useState(null);
   const [breweriesLocations, setBreweriesLocations] = useState([]);
   const getGeoapiData = useRef(
@@ -52,13 +53,20 @@ const CustomSearchbar = ({ setInputStatus }) => {
     getGeoapiData.cancel();
   }, [getGeoapiData]);
 
+  useEffect(() => {
+    if (location?.address && isFirstRender.current) {
+      setBreweriesLocations([location]);
+      isFirstRender.current = false;
+    }
+  }, [location]);
+
   return (
     <Autocomplete
-      freeSolo
       onChange={(_, value) => setSelectedValue(value)}
       onBlur={() => setBreweriesLocations([])}
       options={breweriesLocations}
-      getOptionLabel={(option) => option.address} // Display the 'address' property value of each object from the array of object provide in 'options' prop
+      getOptionLabel={(option) => (option.address ? option.address : "")} // Display the 'address' property value of each object from the array of object provide in 'options' prop
+      defaultValue={location || null}
       renderInput={(params) => (
         <Input
           params={params}
@@ -67,7 +75,7 @@ const CustomSearchbar = ({ setInputStatus }) => {
             type: "text",
             label: "Adresse :",
           }}
-          selectedValue={selectedValue}
+          selectedValue={selectedValue?.address}
           name="location"
           onInputChange={handleInputChange}
         />

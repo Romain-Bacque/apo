@@ -5,9 +5,13 @@ import { useSelector } from "react-redux";
 import CustomSnackbars from "../UI/CustomSnackbars";
 import Header from "../Header";
 import Footer from "../Footer";
+import Loader from "../UI/loader";
 
 // Style
 const Main = styled(Box)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
   height: "82%",
   margin: "2rem",
   fontFamily: "Silkscreen",
@@ -35,6 +39,7 @@ const Layout = (props) => {
 
   return (
     <>
+      {loading.status === "pending" && <Loader />}
       {loading.status !== "pending" && loading.message && (
         <CustomSnackbars
           message={loading.message}

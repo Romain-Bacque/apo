@@ -1,58 +1,74 @@
-// == Import
-import { Typography, Button, Container } from "@mui/material";
-import UpdateIcon from "@mui/icons-material/Update";
+import { useDispatch, useSelector } from "react-redux";
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
+import {
+  Typography,
+  Button,
+  Container,
+  TextField,
+  Box,
+  IconButton,
+} from "@mui/material";
 import "./style.scss";
 import Input from "../../Input";
-import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useState } from "react";
-import { useParams } from "react-router-dom";
+import CustomSearchbar from "../../UI/CustomSearchbar";
+import { ArrowBackRounded } from "@mui/icons-material";
+import Category from "../../Category";
 
-// == Composant
-function UpdateBrewery() {
+let isSaved = false;
+
+function BreweryForm() {
+  const loadingStatus = useSelector((state) => state.loading.status);
+  const navigate = useNavigate();
   const breweries = useSelector((state) => state.brewery.breweries);
   const dispatch = useDispatch();
   const params = useParams();
   const [inputStatus, setInputStatus] = useState({
-    id: { isValid: false, value: "" },
     title: { isValid: false, value: "" },
+    image: { file: null, value: "" },
     phone: { isValid: false, value: "" },
+    location: { isValid: false, value: null },
+    categories: [],
     description: { isValid: false, value: "" },
-    address: { isValid: false, value: "" },
-    lat: { isValid: false, value: "" },
-    lon: { isValid: false, value: "" },
-    image: { isValid: false, value: "" },
-    user_id: { isValid: false, value: "" },
   });
+  let breweryToUpdate = null;
 
-  const brewery = breweries.find(
-    (brewery) => brewery.id === parseInt(params.id)
-  );
-  console.log(brewery);
+  if (params.id) {
+    breweryToUpdate = breweries.find(
+      (brewery) => brewery.id === parseInt(params.id)
+    );
+  }
+
   const isFormValid =
-    inputStatus.id.isValid &&
     inputStatus.title.isValid &&
     inputStatus.phone.isValid &&
-    inputStatus.description.isValid &&
-    inputStatus.address.isValid &&
-    inputStatus.lat.isValid &&
-    inputStatus.lon.isValid &&
-    inputStatus.user_id.isValid;
+    inputStatus.location &&
+    inputStatus.description.isValid;
 
-  const handleEdit = (event) => {
+  const handleBrewerySubmit = (event) => {
     event.preventDefault();
-
     if (!isFormValid) return;
-
     dispatch({
-      type: "UPDATE_BREWERY",
-      id: inputStatus.id.value,
+      type: params.id ? "UPDATE_BREWERY" : "ADD_BREWERY",
+      id: params.id ? params.id : null,
       title: inputStatus.title.value,
+      image: inputStatus.image.file,
       phone: inputStatus.phone.value,
-      description: inputStatus.description,
-      address: inputStatus.address,
-      lat: inputStatus.lat,
-      image: inputStatus.image,
-      user_id: inputStatus.user_id,
+      address: inputStatus.location.value.address,
+      lat: inputStatus.location.value.lat,
+      lon: inputStatus.location.value.lon,
+      categories: inputStatus.categories,
+      description: inputStatus.description.value,
+    });
+  };
+
+  const handleFileChange = (event) => {
+    setInputStatus((prevState) => {
+      return {
+        ...prevState,
+        image: { file: event.target.files[0], value: event.target.value },
+      };
     });
   };
 
@@ -65,64 +81,84 @@ function UpdateBrewery() {
     });
   }, []);
 
+  const handleSelectedCategories = useCallback((list) => {
+    setInputStatus((prevState) => {
+      return {
+        ...prevState,
+        categories: list,
+      };
+    });
+  }, []);
+
+  useEffect(() => {
+    if (loadingStatus === "success" && isSaved) {
+      isSaved = false;
+      navigate("/breweries");
+    }
+  }, [loadingStatus]);
+
   return (
-    <Container component="form" onSubmit={handleEdit} sx={{ marginTop: "0px" }}>
-      <Typography variant="h2"> Modifier la brasserie </Typography>
+    <Container
+      component="form"
+      onSubmit={handleBrewerySubmit}
+      style={{ maxWidth: "600px", color: "gray" }}
+    >
+      <Box display="flex" alignItems="center" gap={1}>
+        <IconButton onClick={() => navigate("/breweries")}>
+          <ArrowBackRounded sx={{ fontSize: "3rem", color: "gray" }} />
+        </IconButton>
+        <Typography variant="h3" component="h2">
+          {params.id ? "Modifier La Brasserie" : "Ajouter Une Brasserie"}
+        </Typography>
+      </Box>
 
       <Input
         input={{
           type: "text",
           label: "Nom de la brasserie :",
-          value: brewery.title || "",
         }}
+        selectedValue={breweryToUpdate?.title}
         onInputChange={handleInputChange}
         name="title"
       />
-      <Input
-        input={{
-          required: false,
-          variant: "standard",
-          type: "text",
-          value: brewery.image || "",
-          accept: "image/png, image/jpeg",
-        }}
-        onInputChange={handleInputChange}
+      <TextField
+        label="Logo/Photo de la brasserie"
+        id="image"
+        type="file"
+        accept="image/png, image/jpeg"
         name="image"
+        onChange={handleFileChange}
       />
       <Input
         input={{
           type: "tel",
           label: "Numéro de téléphone :",
-          value: brewery.phone || "",
         }}
+        selectedValue={breweryToUpdate?.phone}
         onInputChange={handleInputChange}
         name="phone"
       />
-      <Input
-        input={{
-          type: "text",
-          label: "Adresse :",
-          value: brewery.address || "",
+      <CustomSearchbar
+        setInputStatus={setInputStatus}
+        location={{
+          address: breweryToUpdate?.address,
+          lat: breweryToUpdate?.lat,
+          lon: breweryToUpdate?.lon,
         }}
-        onInputChange={handleInputChange}
-        name="adress"
       />
       <Input
         input={{
           type: "text",
           label: "Description :",
-          value: brewery.description || "",
         }}
+        selectedValue={breweryToUpdate?.description}
         onInputChange={handleInputChange}
         name="description"
       />
-      <Button type="submit">
-        Modifier
-        <UpdateIcon />
-      </Button>
+      <Category onSelectedCategories={handleSelectedCategories} />
+      <Button type="submit">Enregistrer</Button>
     </Container>
   );
 }
 
-// == Export
-export default UpdateBrewery;
+export default BreweryForm;

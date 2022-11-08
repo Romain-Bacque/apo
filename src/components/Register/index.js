@@ -65,7 +65,7 @@ function Register() {
 
   return (
     <Container
-      style={{ maxWidth: "600px", marginTop: "15vh" }}
+      style={{ maxWidth: "600px" }}
       component="form"
       onSubmit={handleRegister}
     >

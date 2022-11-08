@@ -18,7 +18,7 @@ const StyledTypography = styled(Box)({
 
 function Brewerie({ image, title, address, id, onDelete }) {
   return (
-    <Grid item xs={12} md={6} lg={4}>
+    <Grid item xs={12} lg={6}>
       <Card sx={{ width: "95%", p: 1.5 }}>
         <CardMedia
           component="img"
@@ -41,7 +41,7 @@ function Brewerie({ image, title, address, id, onDelete }) {
           <Button
             sx={{ mr: "0.5rem" }}
             component={Link}
-            to={`/brewery/update/${id}`}
+            to={`/brewery/breweryForm/${id}`}
           >
             <Edit sx={{ mr: "0.5rem" }} />
             Modifier

@@ -11,7 +11,6 @@ import { Box, FormControlLabel, Switch } from "@mui/material";
 import BreweryMarker from "./layers/BreweryMarker";
 import LocationMarker from "./layers/LocationMarker";
 import Regions from "./layers/Regions";
-import Loader from "../UI/loader";
 
 // GeoJSON data
 import { regions } from "./data/regions";
@@ -28,6 +27,7 @@ const StyledContainer = styled(Box)(({ theme }) => ({
   alignItems: "center",
   gap: 2,
   margin: "auto",
+  minWidth: "70%",
   maxWidth: "1200px",
   height: "100%",
   overflow: "hidden",
@@ -56,9 +56,9 @@ const BreweriesContainer = styled(Box)(({ theme }) => ({
   flex: "1.5",
   backgroundColor: "white",
   transition: "0.3s ease-out",
+  alignSelf: "stretch",
   [theme.breakpoints.down("md")]: {
     width: "100%",
-    height: "100%",
     position: "absolute",
     zIndex: 3,
     bottom: "6rem",
@@ -70,7 +70,6 @@ const BreweriesContainer = styled(Box)(({ theme }) => ({
 }));
 
 function Map({ searchValue }) {
-  const loadingStatus = useSelector((state) => state.loading.status);
   const breweries = useSelector((state) => state.brewery.breweries);
   const [position, setPosition] = useState(null);
   const [breweriesByFilter, setBreweriesByFilter] = useState({});
@@ -89,73 +88,61 @@ function Map({ searchValue }) {
 
   return (
     <StyledContainer>
-      {loadingStatus === "pending" ? (
-        <Loader />
-      ) : (
-        <>
-          <StyledMapContainer>
-            <MapContainer
-              className="leaflet"
-              scrollWheelZoom={true}
-              zoomControl={false}
-              center={[47.902964, 1.909251]}
-              minZoom={4.2}
-              maxZoom={18}
-              zoom={5}
-            >
-              {/* Map image */}
-              <TileLayer
-                // Copyright
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                // Link of entire map
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png "
+      <StyledMapContainer>
+        <MapContainer
+          className="leaflet"
+          scrollWheelZoom={true}
+          zoomControl={false}
+          center={[47.902964, 1.909251]}
+          minZoom={4.2}
+          maxZoom={18}
+          zoom={5}
+        >
+          {/* Map image */}
+          <TileLayer
+            // Copyright
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            // Link of entire map
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png "
+          />
+          <Regions
+            data={regions}
+            setGeoFilter={setGeoFilter}
+            getGeoFilter={getGeoFilter}
+          />
+          <BreweryMarker
+            data={breweries}
+            getRadiusFilter={getRadiusFilter}
+            getGeoFilter={getGeoFilter}
+            getSearchbarFilter={getSearchbarFilter}
+            setBreweriesByFilter={setBreweriesByFilter}
+          />
+          <LocationMarker position={position} setPosition={setPosition} />
+          <LocationButtonFilter
+            currentPosition={position}
+            setRadiusFilter={setRadiusFilter}
+          />
+          <ShowActiveFiltersControl getFilters={getFilters} />
+        </MapContainer>
+      </StyledMapContainer>
+      <BreweriesContainer className={`${checked ? "active" : ""}`}>
+        <SwitchContainer>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={checked}
+                onChange={() => setChecked((prevState) => !prevState)}
               />
-              <Regions
-                data={regions}
-                setGeoFilter={setGeoFilter}
-                getGeoFilter={getGeoFilter}
-              />
-              <BreweryMarker
-                data={breweries}
-                getRadiusFilter={getRadiusFilter}
-                getGeoFilter={getGeoFilter}
-                getSearchbarFilter={getSearchbarFilter}
-                setBreweriesByFilter={setBreweriesByFilter}
-              />
-              <LocationMarker position={position} setPosition={setPosition} />
-              <LocationButtonFilter
-                currentPosition={position}
-                setRadiusFilter={setRadiusFilter}
-              />
-              <ShowActiveFiltersControl getFilters={getFilters} />
-            </MapContainer>
-          </StyledMapContainer>
-          <BreweriesContainer className={`${checked ? "active" : ""}`}>
-            <SwitchContainer>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={checked}
-                    onChange={() => setChecked((prevState) => !prevState)}
-                  />
-                }
-                label={`${
-                  checked ? "Cacher" : "Afficher"
-                } la liste des brasseries`}
-                sx={{ textAlign: "center" }}
-              />
-            </SwitchContainer>
-            <BreweriesList
-              filter={
-                breweriesByFilter.filter ? breweriesByFilter.filter : null
-              }
-              data={
-                breweriesByFilter.filter ? breweriesByFilter.value : breweries
-              }
-            />
-          </BreweriesContainer>
-        </>
-      )}
+            }
+            label={`${checked ? "Cacher" : "Afficher"} la liste des brasseries`}
+            sx={{ textAlign: "center" }}
+          />
+        </SwitchContainer>
+        <BreweriesList
+          filter={breweriesByFilter.filter ? breweriesByFilter.filter : null}
+          data={breweriesByFilter.filter ? breweriesByFilter.value : breweries}
+        />
+      </BreweriesContainer>
     </StyledContainer>
   );
 }

@@ -7,8 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "@emotion/styled";
 import { useState } from "react";
 import CustomModal from "../UI/CustomModal";
-import Loader from "../UI/loader";
-import { ArrowBack } from "@mui/icons-material";
 
 // Style
 const BreweriesContainer = styled(Container)({
@@ -40,7 +38,6 @@ const TitleButton = styled(Button)({
 let userBreweries = [];
 
 function Breweries() {
-  const loadingStatus = useSelector((state) => state.loading.status);
   const [isOpen, setIsOpen] = useState(false);
   const [breweryId, setBreweryId] = useState(null);
   const userId = useSelector((state) => state.user.id);
@@ -80,12 +77,11 @@ function Breweries() {
           <TitleText variant="h4" component="h3">
             Mes brasseries
           </TitleText>
-          <TitleButton component={Link} to={"/brewery/form_brewery"}>
+          <TitleButton component={Link} to={"/brewery/breweryForm"}>
             <Add />
             Ajouter une Brasserie
           </TitleButton>
         </Title>
-        {loadingStatus === "pending" && <Loader />}
         {userBreweries?.length > 0 ? (
           <Box marginTop="4rem" overflow="auto" height="65vh">
             <Grid spacing={2} justifyContent="center" container>

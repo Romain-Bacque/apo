@@ -48,7 +48,9 @@ const Input = (props) => {
   }
 
   useEffect(() => {
-    inputValueHandler(props.selectedValue);
+    if (props.selectedValue) {
+      inputValueHandler(props.selectedValue);
+    }
   }, [props.selectedValue, inputValueHandler]);
 
   return (
