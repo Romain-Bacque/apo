@@ -15,6 +15,7 @@ import Profil from "../Profil";
 import UpdateEventBrewery from "../Breweries/UpdateEventBrewery";
 import NotFound from "../NotFound";
 import BreweryForm from "../Breweries/UpdateBrewery";
+import ForgetPassword from "../ForgetPassword";
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
@@ -66,6 +67,7 @@ function App() {
             <>
               <Route path="/signup" element={<Register />} />
               <Route path="/signin" element={<Login />} />
+              <Route path="/forgetPassword" element={<ForgetPassword />} />
             </>
           )}
           {isLogged && (

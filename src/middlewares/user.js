@@ -2,7 +2,7 @@ import axios from "axios";
 import { apiConfig } from "../config/config";
 
 const instance = axios.create({
-  baseURL: `http://${apiConfig.host}:${apiConfig.port}`,
+  baseURL: `http://${apiConfig.host}:${apiConfig.port}/user`,
   withCredentials: true, // authorize cookie sending to server
 });
 
@@ -35,7 +35,7 @@ const user = (store) => (next) => (action) => {
       message: null,
     });
     instance
-      .post("/user/login", {
+      .post("/login", {
         email: action.email,
         password: action.password,
       })
@@ -89,7 +89,7 @@ const user = (store) => (next) => (action) => {
       message: null,
     });
     instance
-      .post("/user/register", {
+      .post("/register", {
         name: action.name,
         email: action.email,
         password: action.password,
@@ -131,7 +131,7 @@ const user = (store) => (next) => (action) => {
       message: null,
     });
     instance
-      .post("/user/logout")
+      .post("/logout")
       .then((response) => {
         if (response.status === 200) {
           store.dispatch({
@@ -150,9 +150,33 @@ const user = (store) => (next) => (action) => {
           message: "Erreur, déconnexion impossible.",
         });
       });
+  } else if (action.type === "FORGOT_PASSWORD") {
+    store.dispatch({
+      type: "PENDING",
+      message: null,
+    });
+    instance
+      .post("/forgot-password", {
+        email: action.email,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          store.dispatch({
+            type: "SUCCESS",
+            message: null,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        store.dispatch({
+          type: "ERROR",
+          message: "Erreur, envoi du mail de réinitialisation impossible.",
+        });
+      });
   } else if (action.type === "DELETE_USER") {
     instance
-      .delete("/user/delete", {
+      .delete("/delete", {
         email: state.user.email,
         password: state.user.password,
         name: state.user.name,
