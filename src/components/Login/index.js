@@ -1,14 +1,12 @@
 import { useState, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import { Link } from "react-router-dom";
 import { Button, Typography, Container } from "@mui/material";
 import Input from "../Input";
 
+// Component
 function Login() {
-  const isLogged = useSelector((state) => state.user.isLogged);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [inputStatus, setInputStatus] = useState({
@@ -38,9 +36,6 @@ function Login() {
       password: inputStatus.password.value,
     });
   };
-  if (isLogged) {
-    navigate("/");
-  }
 
   return (
     <Container

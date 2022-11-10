@@ -1,6 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 import { useEffect } from "react";
+
+import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
 import { Box, Toolbar, AppBar, Typography } from "@mui/material";
 import { SportsBar } from "@mui/icons-material";
@@ -10,9 +12,9 @@ import {
 } from "@geoapify/react-geocoder-autocomplete";
 import "@geoapify/geocoder-autocomplete/styles/round-borders.css";
 import AppMenu from "../UI/AppMenu";
-import { useSelector } from "react-redux";
 import { apiConfig } from "../../config/config";
 
+// Style
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
   justifyContent: "space-between",
@@ -20,14 +22,15 @@ const StyledToolbar = styled(Toolbar)({
   height: "100%",
 });
 
-const Header = (props) => {
+// Component
+const Header = ({ setSearchValue }) => {
   const navigate = useNavigate();
   const isLogged = useSelector((state) => state.user.isLogged);
 
   // If user type 'enter' key on keyboard
   function handleKeyDown(event) {
     if (event.keyCode === 13) {
-      props.setSearchValue(event.target.value.toLowerCase().trim());
+      setSearchValue(event.target.value.toLowerCase().trim());
       navigate("/");
     }
   }
@@ -43,7 +46,7 @@ const Header = (props) => {
   function handlePlaceSelect(value) {
     const searchValue = value ? value.properties.address_line1 : "";
 
-    props.setSearchValue(searchValue);
+    setSearchValue(searchValue);
     navigate("/");
   }
 
@@ -80,7 +83,9 @@ const Header = (props) => {
             </Typography>
           </Box>
           <div
-            tabIndex="0" // tabindex is an integer indicating whether the element can capture the focus and if so, in what order it captures it when navigating with the keyboard (usually using the Tab key).
+            // tabindex is an integer indicating whether the element can capture the focus and if so,
+            // in what order it captures it when navigating with the keyboard (usually using the Tab key).
+            tabIndex="0"
             onKeyDown={handleKeyDown}
             style={{ width: "60%" }}
           >
@@ -96,6 +101,10 @@ const Header = (props) => {
       </AppBar>
     </GeoapifyContext>
   );
+};
+
+Header.propTypes = {
+  setSearchValue: PropTypes.func.isRequired,
 };
 
 export default Header;

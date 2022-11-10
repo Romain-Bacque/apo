@@ -37,6 +37,7 @@ const TitleButton = styled(Button)({
 
 let userBreweries = [];
 
+// Component
 function Breweries() {
   const [isOpen, setIsOpen] = useState(false);
   const [breweryId, setBreweryId] = useState(null);

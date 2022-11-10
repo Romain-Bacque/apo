@@ -18,6 +18,7 @@ import { ArrowBackRounded } from "@mui/icons-material";
 
 let isAdded = false;
 
+// Component
 function BreweryForm() {
   const loadingStatus = useSelector((state) => state.loading.status);
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ function BreweryForm() {
   const isFormValid =
     inputStatus.title.isValid &&
     inputStatus.phone.isValid &&
-    inputStatus.location &&
+    inputStatus.location.isValid &&
     inputStatus.description.isValid;
 
   const handleAddBrewery = (event) => {

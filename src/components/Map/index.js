@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 
+import PropTypes from "prop-types";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-easybutton/src/easy-button.js";
@@ -69,6 +70,7 @@ const BreweriesContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
+// Component
 function Map({ searchValue }) {
   const breweries = useSelector((state) => state.brewery.breweries);
   const [position, setPosition] = useState(null);
@@ -146,5 +148,9 @@ function Map({ searchValue }) {
     </StyledContainer>
   );
 }
+
+Map.propTypes = {
+  searchValue: PropTypes.string.isRequired,
+};
 
 export default Map;

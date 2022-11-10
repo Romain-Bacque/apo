@@ -1,7 +1,9 @@
-import styled from "@emotion/styled";
-import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+
+import PropTypes from "prop-types";
+import styled from "@emotion/styled";
+import { Box } from "@mui/material";
 import CustomSnackbars from "../UI/CustomSnackbars";
 import Header from "../Header";
 import Footer from "../Footer";
@@ -20,7 +22,8 @@ const Main = styled(Box)(({ theme }) => ({
   },
 }));
 
-const Layout = (props) => {
+// Component
+const Layout = ({ setSearchValue, children }) => {
   const loading = useSelector((state) => state.loading);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -48,11 +51,16 @@ const Layout = (props) => {
           setIsOpen={setIsOpen}
         />
       )}
-      <Header setSearchValue={props.setSearchValue} />
-      <Main component="main">{props.children}</Main>
+      <Header setSearchValue={setSearchValue} />
+      <Main component="main">{children}</Main>
       <Footer />
     </>
   );
+};
+
+Layout.propTypes = {
+  setSearchValue: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default Layout;

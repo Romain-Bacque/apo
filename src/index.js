@@ -1,33 +1,28 @@
-// == Import : npm
-import React, { StrictMode } from "react";
+import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
-
-import "./styles/index.scss";
-import App from "./components/App";
 import store from "./store";
+import { BrowserRouter } from "react-router-dom";
 import { CssBaseline, ThemeProvider } from "@mui/material";
+import "./styles/index.scss";
 import theme from "./styles/theme";
+import App from "./components/App";
 
-// == Render
-// 1. Élément React racine (celui qui contient l'ensemble de l'app)
-//    => crée une structure d'objets imbriqués (DOM virtuel)
 const rootReactElement = (
   <StrictMode>
     <Provider store={store}>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <App />
+          <App /> {/* React items tree (Virtual DOM) */}
         </ThemeProvider>
       </BrowserRouter>
     </Provider>
   </StrictMode>
 );
 
-// 2. La cible du DOM (là où la structure doit prendre vie dans le DOM)
+// DOM Target
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-// 3. Déclenchement du rendu de React (virtuel) => DOM (page web)
+// Reconciliation between Real DOM and Virtual DOM
 root.render(rootReactElement);

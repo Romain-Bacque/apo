@@ -3,7 +3,7 @@ import { apiConfig } from "../config/config";
 
 const instance = axios.create({
   baseURL: `http://${apiConfig.host}:${apiConfig.port}`,
-  withCredentials: true,
+  withCredentials: true, // authorize cookie sending to server
 });
 
 const category = (store) => (next) => (action) => {

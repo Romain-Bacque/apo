@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 
+import PropTypes from "prop-types";
 import { Marker, Tooltip, useMap } from "react-leaflet";
 import locationIcon from "../icons/locationIcon";
 
+// Component
 const LocationMarker = ({ position, setPosition }) => {
   const map = useMap();
 
@@ -19,4 +21,10 @@ const LocationMarker = ({ position, setPosition }) => {
     </Marker>
   );
 };
+
+LocationMarker.propTypes = {
+  position: PropTypes.object,
+  setPosition: PropTypes.func.isRequired,
+};
+
 export default LocationMarker;

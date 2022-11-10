@@ -1,18 +1,16 @@
-import React from "react";
+import { forwardRef } from "react";
+import PropTypes from "prop-types";
 import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
-const Alert = React.forwardRef(function Alert(props, ref) {
+// Child Component
+const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function CustomSnackbars({
-  isOpen,
-  message,
-  status,
-  setIsOpen,
-}) {
+// Component
+function CustomSnackbars({ isOpen, message, status, setIsOpen }) {
   const handleClose = (_, reason) => {
     if (reason === "clickaway") {
       return;
@@ -39,3 +37,12 @@ export default function CustomSnackbars({
     </Stack>
   );
 }
+
+CustomSnackbars.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  message: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
+  setIsOpen: PropTypes.func.isRequired,
+};
+
+export default CustomSnackbars;

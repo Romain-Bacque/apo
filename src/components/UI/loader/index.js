@@ -1,5 +1,6 @@
-import classes from "./index.module.css";
+import classes from "./style.module.scss";
 
+// Component
 const Loader = () => {
   return (
     <div className={classes["loader-container"]}>

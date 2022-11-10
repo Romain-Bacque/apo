@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import {
   Button,
@@ -20,6 +21,7 @@ const ModalCard = styled(Card)({
   padding: "1.5rem",
 });
 
+// Component
 function CustomModal({
   id,
   title,
@@ -65,5 +67,14 @@ function CustomModal({
     </>
   );
 }
+
+CustomModal.propTypes = {
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  setIsOpen: PropTypes.func.isRequired,
+  onValidate: PropTypes.func.isRequired,
+};
 
 export default CustomModal;

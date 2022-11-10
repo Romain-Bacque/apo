@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useMap } from "react-leaflet";
 
 import { IconButton } from "@mui/material";
@@ -5,6 +6,7 @@ import MyLocationIcon from "@mui/icons-material/MyLocation";
 
 const DEFAULT_RADIUS = 10;
 
+// Component
 const LocationButtonFilter = ({ currentPosition, setRadiusFilter }) => {
   const map = useMap(); // Hook providing the Leaflet Map instance in any descendant of a MapContainer.
 
@@ -44,6 +46,11 @@ const LocationButtonFilter = ({ currentPosition, setRadiusFilter }) => {
       </div>
     </div>
   );
+};
+
+LocationButtonFilter.propTypes = {
+  currentPosition: PropTypes.object,
+  setRadiusFilter: PropTypes.func.isRequired,
 };
 
 export default LocationButtonFilter;

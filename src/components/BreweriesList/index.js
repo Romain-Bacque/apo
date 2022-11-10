@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import PropTypes from "prop-types";
 import OneBrewerie from "./BrewerieCard";
 import { Container, Divider, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
@@ -7,6 +8,7 @@ import Category from "../Category";
 
 let breweriesList;
 
+// Component
 function BreweriesList({ filter, data }) {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const hasSelectedTag = (brewery, categoryList) => {
@@ -61,5 +63,10 @@ function BreweriesList({ filter, data }) {
     </Container>
   );
 }
+
+BreweriesList.propTypes = {
+  filter: PropTypes.array,
+  data: PropTypes.array,
+};
 
 export default BreweriesList;

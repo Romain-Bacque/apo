@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
 import Layout from "./Layout";
 import Map from "../Map";
@@ -18,6 +18,7 @@ import BreweryForm from "../Breweries/UpdateBrewery";
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate();
   const isLogged = useSelector((state) => state.user.isLogged);
   const dispatch = useDispatch();
   const location = useLocation();
@@ -28,6 +29,11 @@ function App() {
       setSearchValue("");
     }
   }, [location]);
+
+  // If login status change, we always navigate to home page
+  useEffect(() => {
+    navigate("/");
+  }, [isLogged]);
 
   // Check if user is currently connected
   useEffect(() => {
@@ -56,8 +62,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Map searchValue={searchValue} />} />
           <Route path="/breweries/:id" element={<OneBrewerie />} />
-          <Route path="/signup" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          {!isLogged && (
+            <>
+              <Route path="/signup" element={<Register />} />
+              <Route path="/signin" element={<Login />} />
+            </>
+          )}
           {isLogged && (
             <>
               <Route path="/breweries" element={<Breweries />} />

@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -11,11 +12,11 @@ import {
   Radio,
   Container,
 } from "@mui/material";
-import "./style.scss";
 import Input from "../Input";
 
 let isRegistering = false;
 
+// Component
 function Register() {
   const loading = useSelector((state) => state.loading);
   const navigate = useNavigate();
@@ -132,7 +133,7 @@ function Register() {
       />
 
       <Button type="submit">S'enregistrer</Button>
-      <Link to="/login">Vous êtes déjà enregistré ?</Link>
+      <Link to="/signin">Vous êtes déjà enregistré ?</Link>
     </Container>
   );
 }

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -16,17 +17,22 @@ const StyledTypography = styled(Box)({
   color: "gray",
 });
 
-function Brewerie({ image, title, address, id, onDelete }) {
+// Component
+function Brewerie({ id, image, title, address, onDelete }) {
+  const parsedImage = JSON.parse(image);
+
   return (
     <Grid item xs={12} lg={6}>
       <Card sx={{ width: "95%", p: 1.5 }}>
-        <CardMedia
-          component="img"
-          height="140px"
-          width="100%"
-          image={JSON.parse(image).path}
-          alt={`image/logo brasserie '${title}'`}
-        />
+        {parsedImage && (
+          <CardMedia
+            component="img"
+            height="140px"
+            width="100%"
+            image={parsedImage.path}
+            alt={`image/logo brasserie '${title}'`}
+          />
+        )}
         <CardContent sx={{ textAlign: "start" }}>
           <Typography gutterBottom variant="h5" component="h4">
             {title}
@@ -59,5 +65,12 @@ function Brewerie({ image, title, address, id, onDelete }) {
   );
 }
 
-// == Export
+Brewerie.propTypes = {
+  id: PropTypes.number.isRequired,
+  image: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  address: PropTypes.string.isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
+
 export default Brewerie;

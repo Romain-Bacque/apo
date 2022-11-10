@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import PropTypes from "prop-types";
 import { Autocomplete } from "@mui/material";
 import { apiConfig } from "../../config/config";
 import Input from "../Input";
 import { debounce } from "lodash";
 import axios from "axios";
 
+// Component
 const CustomSearchbar = ({ setInputStatus, location }) => {
   const isFirstRender = useRef(true);
   const [selectedValue, setSelectedValue] = useState(null);
@@ -56,12 +58,14 @@ const CustomSearchbar = ({ setInputStatus, location }) => {
   useEffect(() => {
     if (location?.address && isFirstRender.current) {
       setBreweriesLocations([location]);
+      setSelectedValue(location);
       isFirstRender.current = false;
     }
   }, [location]);
 
   return (
     <Autocomplete
+      freeSolo
       onChange={(_, value) => setSelectedValue(value)}
       onBlur={() => setBreweriesLocations([])}
       options={breweriesLocations}
@@ -75,13 +79,18 @@ const CustomSearchbar = ({ setInputStatus, location }) => {
             type: "text",
             label: "Adresse :",
           }}
-          selectedValue={selectedValue?.address}
+          selectedValue={selectedValue}
           name="location"
           onInputChange={handleInputChange}
         />
       )}
     />
   );
+};
+
+CustomSearchbar.propTypes = {
+  setInputStatus: PropTypes.func.isRequired,
+  location: PropTypes.object,
 };
 
 export default CustomSearchbar;

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
+import PropTypes from "prop-types";
 import {
   Container,
   FormControl,
@@ -9,7 +10,8 @@ import {
 } from "@mui/material";
 import TagsList from "../UI/TagsList";
 
-function Category({ onSelectedCategories }) {
+// Component
+function Category({ selectedCategories, onSelectedCategories }) {
   const [categoriesList, setCategoriesList] = useState([]);
   const categories = useSelector((state) => state.category.categories);
 
@@ -36,13 +38,23 @@ function Category({ onSelectedCategories }) {
   };
 
   useEffect(() => {
-    onSelectedCategories && onSelectedCategories(categoriesList);
+    onSelectedCategories(categoriesList);
   }, [categoriesList, onSelectedCategories]);
+
+  useEffect(() => {
+    if (selectedCategories) {
+      const filteredCategories = selectedCategories.filter(
+        (selectedCategory) => selectedCategory.id // remove category where id is null
+      );
+
+      setCategoriesList(filteredCategories);
+    }
+  }, [selectedCategories]);
 
   return (
     categories?.length > 0 && (
       <Container sx={{ marginTop: 2 }}>
-        <TagsList onTagDelete={handleTagDelete} list={categoriesList} />
+        <TagsList list={categoriesList} onTagDelete={handleTagDelete} />
         <FormControl fullWidth>
           <InputLabel
             variant="standard"
@@ -75,5 +87,10 @@ function Category({ onSelectedCategories }) {
     )
   );
 }
+
+Category.propTypes = {
+  selectedCategories: PropTypes.array,
+  onSelectedCategories: PropTypes.func.isRequired,
+};
 
 export default Category;

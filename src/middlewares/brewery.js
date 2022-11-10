@@ -3,7 +3,7 @@ import { apiConfig } from "../config/config";
 
 const instance = axios.create({
   baseURL: `http://${apiConfig.host}:${apiConfig.port}`,
-  withCredentials: true,
+  withCredentials: true, // authorize cookie sending to server
   headers: { "Content-Type": "multipart/form-data" },
 });
 
@@ -73,15 +73,20 @@ const brewery = (store) => (next) => (action) => {
         console.log(error);
         const { status } = error.response;
 
-        if (status === 401) {
+        if (status === 400) {
+          store.dispatch({
+            type: "ERROR",
+            message: "Erreur dans un/plusieurs champs",
+          });
+        } else if (status === 401) {
           store.dispatch({
             type: "ERROR",
             message: "Action non autorisée",
           });
-        } else if (status === 400) {
+        } else if (status === 404) {
           store.dispatch({
             type: "ERROR",
-            message: "Erreur dans un/plusieurs champs",
+            message: "La brasserie n'a pas été trouvée",
           });
         } else {
           store.dispatch({
@@ -108,7 +113,7 @@ const brewery = (store) => (next) => (action) => {
       message: null,
     });
     instance
-      .put(`/brewery/${action.title}`, formData)
+      .put(`/brewery/${action.id}`, formData)
       .then((response) => {
         if (response.status === 200) {
           const breweries = response.data.data;

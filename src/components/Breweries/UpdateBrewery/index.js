@@ -16,8 +16,9 @@ import CustomSearchbar from "../../UI/CustomSearchbar";
 import { ArrowBackRounded } from "@mui/icons-material";
 import Category from "../../Category";
 
-let isSaved = false;
+let isHTTPRequestSend = false;
 
+// Component
 function BreweryForm() {
   const loadingStatus = useSelector((state) => state.loading.status);
   const navigate = useNavigate();
@@ -39,11 +40,10 @@ function BreweryForm() {
       (brewery) => brewery.id === parseInt(params.id)
     );
   }
-
   const isFormValid =
     inputStatus.title.isValid &&
     inputStatus.phone.isValid &&
-    inputStatus.location &&
+    inputStatus.location.isValid &&
     inputStatus.description.isValid;
 
   const handleBrewerySubmit = (event) => {
@@ -61,6 +61,7 @@ function BreweryForm() {
       categories: inputStatus.categories,
       description: inputStatus.description.value,
     });
+    isHTTPRequestSend = true;
   };
 
   const handleFileChange = (event) => {
@@ -91,8 +92,8 @@ function BreweryForm() {
   }, []);
 
   useEffect(() => {
-    if (loadingStatus === "success" && isSaved) {
-      isSaved = false;
+    if (loadingStatus === "success" && isHTTPRequestSend) {
+      isHTTPRequestSend = false;
       navigate("/breweries");
     }
   }, [loadingStatus]);
@@ -127,6 +128,7 @@ function BreweryForm() {
         type="file"
         accept="image/png, image/jpeg"
         name="image"
+        value={inputStatus.image.value}
         onChange={handleFileChange}
       />
       <Input
@@ -155,7 +157,10 @@ function BreweryForm() {
         onInputChange={handleInputChange}
         name="description"
       />
-      <Category onSelectedCategories={handleSelectedCategories} />
+      <Category
+        selectedCategories={breweryToUpdate?.categories}
+        onSelectedCategories={handleSelectedCategories}
+      />
       <Button type="submit">Enregistrer</Button>
     </Container>
   );

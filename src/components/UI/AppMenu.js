@@ -134,7 +134,7 @@ const AppMenu = () => {
                       <StyledMenuItem
                         activeclassname="active"
                         component={NavLink}
-                        to="/Login"
+                        to="/signin"
                       >
                         Connexion
                       </StyledMenuItem>

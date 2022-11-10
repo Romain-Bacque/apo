@@ -74,6 +74,7 @@ const BrandText = styled(Typography)({
   fontSize: "1.1rem",
 });
 
+// Component
 function Footer() {
   const content = {
     brand: "Bière de ta région.",
