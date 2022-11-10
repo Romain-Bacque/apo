@@ -1,12 +1,9 @@
-import { useEffect } from "react";
+import PropTypes from "prop-types";
 import { GeoJSON } from "react-leaflet";
 
+// Component
 const Regions = ({ data, setGeoFilter, getGeoFilter }) => {
   const geoFilter = getGeoFilter();
-
-  useEffect(() => {
-    console.log("df");
-  }, [getGeoFilter]);
 
   return (
     <GeoJSON
@@ -31,6 +28,12 @@ const Regions = ({ data, setGeoFilter, getGeoFilter }) => {
       }}
     />
   );
+};
+
+Regions.propTypes = {
+  data: PropTypes.object.isRequired,
+  setGeoFilter: PropTypes.func.isRequired,
+  getGeoFilter: PropTypes.func.isRequired,
 };
 
 export default Regions;

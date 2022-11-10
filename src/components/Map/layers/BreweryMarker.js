@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import L from "leaflet";
 import { Marker, Popup } from "react-leaflet";
 import { Link } from "react-router-dom";
@@ -42,6 +43,7 @@ const StyledLink = styled(Link)({
 
 let filteredBreweries = null;
 
+// Component
 const BreweryMarker = ({
   data,
   getGeoFilter,
@@ -132,48 +134,62 @@ const BreweryMarker = ({
     } else setBreweriesByFilter({});
   }, [radiusFilter, geoFilter, setBreweriesByFilter, searchbarFilter]);
 
-  return filteredBreweries?.map((brewerie) => (
-    <Marker
-      position={[brewerie.lat, brewerie.lon]}
-      icon={defaultIcon}
-      key={brewerie.id}
-    >
-      <Popup>
-        <StyledCard elevation={0}>
-          <CardMedia
-            component="img"
-            image={brewerie.image}
-            alt={`image/logo brasserie '${brewerie.title}'`}
-          />
-          <StyledCardContent>
-            <Box>
-              <Typography variant="h5" component="h5">
-                {brewerie.title}
-              </Typography>
-              <Typography
-                fontSize="1rem"
-                color="gray"
-                variant="p"
-                component="p"
-              >
-                {brewerie.address}
-              </Typography>
-            </Box>
-            <StyledBox>
-              <Phone />
-              <Typography fontSize="1rem" variant="p" component="p">
-                {brewerie.phone}
-              </Typography>
-            </StyledBox>
-            <Divider />
-            <StyledLink to={`/breweries/${brewerie.id}`}>
-              Plus de détails
-            </StyledLink>
-          </StyledCardContent>
-        </StyledCard>
-      </Popup>
-    </Marker>
-  ));
+  return filteredBreweries?.map((brewery) => {
+    const parsedImage = JSON.parse(brewery.image);
+
+    return (
+      <Marker
+        position={[brewery.lat, brewery.lon]}
+        icon={defaultIcon}
+        key={brewery.id}
+      >
+        <Popup>
+          <StyledCard elevation={0}>
+            {parsedImage && (
+              <CardMedia
+                component="img"
+                image={parsedImage.path}
+                alt={`image/logo brasserie '${brewery.title}'`}
+              />
+            )}
+            <StyledCardContent>
+              <Box>
+                <Typography variant="h5" component="h5">
+                  {brewery.title}
+                </Typography>
+                <Typography
+                  fontSize="1rem"
+                  color="gray"
+                  variant="p"
+                  component="p"
+                >
+                  {brewery.address}
+                </Typography>
+              </Box>
+              <StyledBox>
+                <Phone />
+                <Typography fontSize="1rem" variant="p" component="p">
+                  {brewery.phone}
+                </Typography>
+              </StyledBox>
+              <Divider />
+              <StyledLink to={`/brewerys/${brewery.id}`}>
+                Plus de détails
+              </StyledLink>
+            </StyledCardContent>
+          </StyledCard>
+        </Popup>
+      </Marker>
+    );
+  });
+};
+
+BreweryMarker.propTypes = {
+  data: PropTypes.array.isRequired,
+  getGeoFilter: PropTypes.func.isRequired,
+  getRadiusFilter: PropTypes.func.isRequired,
+  getSearchbarFilter: PropTypes.func.isRequired,
+  setBreweriesByFilter: PropTypes.func.isRequired,
 };
 
 export default BreweryMarker;

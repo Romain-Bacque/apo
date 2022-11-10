@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import {
   List,
@@ -15,7 +16,7 @@ const StyledList = styled(List)({
   bgcolor: "background.paper",
 });
 
-// Active Filter functional component
+// Component
 const ShowActiveFiltersControl = ({ getFilters }) => {
   const { geoFilter, radiusFilter, searchValue } = getFilters();
 
@@ -71,6 +72,10 @@ const ShowActiveFiltersControl = ({ getFilters }) => {
       </div>
     </div>
   );
+};
+
+ShowActiveFiltersControl.propTypes = {
+  getFilters: PropTypes.func.isRequired,
 };
 
 export default ShowActiveFiltersControl;

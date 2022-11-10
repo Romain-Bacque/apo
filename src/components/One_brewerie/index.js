@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import TagsList from "../UI/TagsList";
 
+// Component
 function One_brewerie() {
   const { id } = useParams();
   const breweriesList = useSelector((state) => state.brewery.breweries);
