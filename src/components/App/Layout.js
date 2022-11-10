@@ -1,13 +1,20 @@
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
+import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { Box } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
 import CustomSnackbars from "../UI/CustomSnackbars";
 import Header from "../Header";
 import Footer from "../Footer";
+import Loader from "../UI/loader";
 
 // Style
 const Main = styled(Box)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "82%",
   margin: "2rem",
   fontFamily: "Silkscreen",
   [theme.breakpoints.down("md")]: {
@@ -15,36 +22,45 @@ const Main = styled(Box)(({ theme }) => ({
   },
 }));
 
-const Layout = (props) => {
-  const appBarRef = useRef();
+// Component
+const Layout = ({ setSearchValue, children }) => {
   const loading = useSelector((state) => state.loading);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (loading.statut !== "pending" && loading.message) {
-      setIsOpen(true);
-    }
+    if (loading.status === "pending" || !loading.message) return;
+    setIsOpen(true);
+
+    const timer = setTimeout(() => {
+      setIsOpen(false);
+    }, 5000);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [loading]);
+
   return (
     <>
-      {loading.statut !== "pending" && loading.message && (
+      {loading.status === "pending" && <Loader />}
+      {loading.status !== "pending" && loading.message && (
         <CustomSnackbars
           message={loading.message}
-          statut={loading.statut}
+          status={loading.status}
           isOpen={isOpen}
           setIsOpen={setIsOpen}
         />
       )}
-      <Header ref={appBarRef} />
-      <Main
-        height={`calc(100vh - ${appBarRef.current?.clientHeight || "60"}px)`}
-        component="main"
-      >
-        {props.children}
-      </Main>
+      <Header setSearchValue={setSearchValue} />
+      <Main component="main">{children}</Main>
       <Footer />
     </>
   );
+};
+
+Layout.propTypes = {
+  setSearchValue: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default Layout;

@@ -3,7 +3,7 @@ import { apiConfig } from "../config/config";
 
 const instance = axios.create({
   baseURL: `http://${apiConfig.host}:${apiConfig.port}`,
-  withCredentials: true,
+  withCredentials: true, // authorize cookie sending to server
 });
 
 const user = (store) => (next) => (action) => {
@@ -18,6 +18,7 @@ const user = (store) => (next) => (action) => {
 
           store.dispatch({
             type: "SAVE_USER",
+            id: user.id,
             name: user.name,
             email: user.email,
             password: user.password,
@@ -63,17 +64,17 @@ const user = (store) => (next) => (action) => {
         if (status === 400) {
           store.dispatch({
             type: "ERROR",
-            message: "erreur dans un/plusieurs champs",
+            message: "Erreur dans un/plusieurs champs",
           });
         } else if (status === 401) {
           store.dispatch({
             type: "ERROR",
-            message: "mot de passe/utilisateur incorrect(s)",
+            message: "Mot de passe/utilisateur incorrect(s)",
           });
         } else if (status === 409) {
           store.dispatch({
             type: "ERROR",
-            message: "utilisateur déjà connecté",
+            message: "Utilisateur déjà connecté",
           });
         } else {
           store.dispatch({
@@ -99,22 +100,23 @@ const user = (store) => (next) => (action) => {
         if (response.status === 200) {
           store.dispatch({
             type: "SUCCESS",
-            message: "enregistrement réussi.",
+            message: "Enregistrement réussi.",
           });
         }
       })
       .catch((error) => {
+        console.log(error);
         const { status } = error.response;
 
         if (status === 400) {
           store.dispatch({
             type: "ERROR",
-            message: "erreur dans un/plusieurs champs",
+            message: "Erreur dans un/plusieurs champs",
           });
         } else if (status === 403) {
           store.dispatch({
             type: "ERROR",
-            message: "utilisateur déjà inscrit",
+            message: "Utilisateur déjà inscrit",
           });
         } else {
           store.dispatch({
@@ -124,20 +126,20 @@ const user = (store) => (next) => (action) => {
         }
       });
   } else if (action.type === "LOGOUT") {
+    store.dispatch({
+      type: "PENDING",
+      message: null,
+    });
     instance
       .post("/user/logout")
       .then((response) => {
-        store.dispatch({
-          type: "PENDING",
-          message: null,
-        });
         if (response.status === 200) {
-          store.dispatch({
-            type: "RESET_USER",
-          });
           store.dispatch({
             type: "SUCCESS",
             message: null,
+          });
+          store.dispatch({
+            type: "RESET_USER",
           });
         }
       })

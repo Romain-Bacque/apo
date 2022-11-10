@@ -1,7 +1,8 @@
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
-import { forwardRef } from "react";
+import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
 import { Box, Toolbar, AppBar, Typography } from "@mui/material";
 import { SportsBar } from "@mui/icons-material";
@@ -11,7 +12,9 @@ import {
 } from "@geoapify/react-geocoder-autocomplete";
 import "@geoapify/geocoder-autocomplete/styles/round-borders.css";
 import AppMenu from "../UI/AppMenu";
+import { apiConfig } from "../../config/config";
 
+// Style
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
   justifyContent: "space-between",
@@ -19,29 +22,25 @@ const StyledToolbar = styled(Toolbar)({
   height: "100%",
 });
 
-const Header = forwardRef((_, ref) => {
-  const dispatch = useDispatch();
+// Component
+const Header = ({ setSearchValue }) => {
   const navigate = useNavigate();
-
-  const setSearchValue = (value) => {
-    dispatch({
-      type: "SEARCH_VALUE",
-      value,
-    });
-  };
+  const isLogged = useSelector((state) => state.user.isLogged);
 
   // If user type 'enter' key on keyboard
   function handleKeyDown(event) {
-    if (event.keyCode === 13 && event.target.value) {
-      setSearchValue(event.target.value);
+    if (event.keyCode === 13) {
+      setSearchValue(event.target.value.toLowerCase().trim());
       navigate("/");
     }
   }
 
-  // If user type text in the search bar
-  function handleUserInput(value) {
-    setSearchValue(value);
-  }
+  // if user is disconnected
+  useEffect(() => {
+    if (!isLogged) {
+      navigate("/");
+    }
+  }, [isLogged]);
 
   // If user select an address in the search bar
   function handlePlaceSelect(value) {
@@ -52,9 +51,8 @@ const Header = forwardRef((_, ref) => {
   }
 
   return (
-    <GeoapifyContext apiKey="99188fa618354504b3ba9155a71fb817">
+    <GeoapifyContext apiKey={apiConfig.apiKey || ""}>
       <AppBar
-        ref={ref}
         position="sticky"
         sx={{
           boxShadow: "none",
@@ -85,15 +83,16 @@ const Header = forwardRef((_, ref) => {
             </Typography>
           </Box>
           <div
-            tabIndex="0" // tabindex is an integer indicating whether the element can capture the focus and if so, in what order it captures it when navigating with the keyboard (usually using the Tab key).
+            // tabindex is an integer indicating whether the element can capture the focus and if so,
+            // in what order it captures it when navigating with the keyboard (usually using the Tab key).
+            tabIndex="0"
             onKeyDown={handleKeyDown}
             style={{ width: "60%" }}
           >
             <GeoapifyGeocoderAutocomplete
               placeholder="Rechercher..."
-              type="locality"
               lang="fr"
-              onUserInput={handleUserInput}
+              filterByCountryCode={["fr"]}
               placeSelect={handlePlaceSelect}
             />
           </div>
@@ -102,6 +101,10 @@ const Header = forwardRef((_, ref) => {
       </AppBar>
     </GeoapifyContext>
   );
-});
+};
+
+Header.propTypes = {
+  setSearchValue: PropTypes.func.isRequired,
+};
 
 export default Header;

@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+
+import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
@@ -16,12 +18,13 @@ const ListItem = styled("li")(({ theme }) => ({
   margin: theme.spacing(0.5),
 }));
 
-export default function TagsList({ onTagDelete, list }) {
+// Component
+function TagsList({ onTagDelete, list }) {
   const [chipData, setChipData] = useState([]);
 
   const handleDelete = (chipToDelete) => () => {
     setChipData((chips) => chips.filter((chip) => chip.id !== chipToDelete.id));
-    onTagDelete && onTagDelete(chipToDelete);
+    onTagDelete(chipToDelete);
   };
 
   useEffect(() => {
@@ -33,15 +36,25 @@ export default function TagsList({ onTagDelete, list }) {
       {chipData.length > 0 &&
         chipData.map((data) => {
           return (
-            <ListItem key={data.id}>
-              <Chip
-                sx={{ fontSize: "0.95rem" }}
-                label={data.tag}
-                onDelete={onTagDelete && handleDelete(data)}
-              />
-            </ListItem>
+            data.id &&
+            data.tag && (
+              <ListItem key={data.id}>
+                <Chip
+                  sx={{ fontSize: "0.95rem" }}
+                  label={data.tag}
+                  onDelete={onTagDelete && handleDelete(data)}
+                />
+              </ListItem>
+            )
           );
         })}
     </StyledPaper>
   );
 }
+
+TagsList.propTypes = {
+  onTagDelete: PropTypes.func,
+  list: PropTypes.array.isRequired,
+};
+
+export default TagsList;

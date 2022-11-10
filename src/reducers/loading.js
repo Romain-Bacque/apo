@@ -1,6 +1,6 @@
 export const initialState = {
   message: "",
-  statut: "pending",
+  status: "pending",
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -8,27 +8,17 @@ const reducer = (state = initialState, action = {}) => {
     case "PENDING":
       return {
         message: action.message,
-        statut: "pending",
-      };
-    case "INFO":
-      return {
-        message: action.message,
-        statut: "info",
+        status: "pending",
       };
     case "SUCCESS":
       return {
         message: action.message,
-        statut: "success",
+        status: "success",
       };
     case "ERROR":
       return {
         message: action.message,
-        statut: "error",
-      };
-    case "RESET_LOADING":
-      return {
-        message: "",
-        statut: null,
+        status: "error",
       };
     default:
       return state;
