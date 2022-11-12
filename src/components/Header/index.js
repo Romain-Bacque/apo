@@ -35,13 +35,6 @@ const Header = ({ setSearchValue }) => {
     }
   }
 
-  // if user is disconnected
-  useEffect(() => {
-    if (!isLogged) {
-      navigate("/");
-    }
-  }, [isLogged]);
-
   // If user select an address in the search bar
   function handlePlaceSelect(value) {
     const searchValue = value ? value.properties.address_line1 : "";

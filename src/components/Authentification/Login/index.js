@@ -3,17 +3,18 @@ import { useDispatch } from "react-redux";
 
 import { Link } from "react-router-dom";
 import { Button, Typography, Container } from "@mui/material";
-import Input from "../Input";
+import Input from "../../Input";
 
 // Component
-function ForgetPassword() {
+function Login() {
   const dispatch = useDispatch();
 
   const [inputStatus, setInputStatus] = useState({
     email: { isValid: false, value: "" },
+    password: { isValid: false, value: "" },
   });
 
-  const isFormValid = inputStatus.email.isValid;
+  const isFormValid = inputStatus.email.isValid && inputStatus.password.isValid;
 
   const handleInputChange = useCallback((name, status) => {
     setInputStatus((prevState) => {
@@ -30,8 +31,9 @@ function ForgetPassword() {
     if (!isFormValid) return;
 
     dispatch({
-      type: "FORGET_PASSWORD",
+      type: "LOGIN",
       email: inputStatus.email.value,
+      password: inputStatus.password.value,
     });
   };
 
@@ -42,7 +44,7 @@ function ForgetPassword() {
       onSubmit={handleSubmit}
     >
       <Typography component="h2" variant="h3" color="gray">
-        Réinitialisation du mot de passe{" "}
+        Se connecter
       </Typography>
       <Input
         input={{
@@ -53,11 +55,22 @@ function ForgetPassword() {
         onInputChange={handleInputChange}
         name="email"
       />
+      <Input
+        input={{
+          id: "password",
+          label: "Mot de passe",
+          type: "password",
+        }}
+        onInputChange={handleInputChange}
+        name="password"
+      />
+      <Link to="/forget-password">Mot de passe perdu</Link>
       <Button type="submit" variant="contained">
-        Envoyer un lien de réinitialisation
+        Se connecter
       </Button>
+      <Link to="/signup">Vous n'êtes pas enregistré ?</Link>
     </Container>
   );
 }
 
-export default ForgetPassword;
+export default Login;

@@ -150,14 +150,47 @@ const user = (store) => (next) => (action) => {
           message: "Erreur, déconnexion impossible.",
         });
       });
-  } else if (action.type === "FORGOT_PASSWORD") {
+  } else if (action.type === "FORGET_PASSWORD") {
     store.dispatch({
       type: "PENDING",
       message: null,
     });
     instance
-      .post("/forgot-password", {
+      .post("/forget-password", {
         email: action.email,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          store.dispatch({
+            type: "SUCCESS",
+            message: "Un mail de réinitialisation vous a été envoyé.",
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        const { status } = error.response;
+
+        if (status === 401) {
+          store.dispatch({
+            type: "ERROR",
+            message: "Adresse mail incorrecte.",
+          });
+        } else {
+          store.dispatch({
+            type: "ERROR",
+            message: "Erreur, réinitialisation impossible.",
+          });
+        }
+      });
+  } else if (action.type === "RESET_PASSWORD") {
+    store.dispatch({
+      type: "PENDING",
+      message: null,
+    });
+    instance
+      .post(`/reset-password/${action.id}/${action.token}`, {
+        password: action.password,
       })
       .then((response) => {
         if (response.status === 200) {
@@ -169,10 +202,19 @@ const user = (store) => (next) => (action) => {
       })
       .catch((error) => {
         console.log(error);
-        store.dispatch({
-          type: "ERROR",
-          message: "Erreur, envoi du mail de réinitialisation impossible.",
-        });
+        const { status } = error.response;
+
+        if (status === 401) {
+          store.dispatch({
+            type: "ERROR",
+            message: "Utilisateur non enregistré",
+          });
+        } else {
+          store.dispatch({
+            type: "ERROR",
+            message: "Erreur, réinitialisation impossible.",
+          });
+        }
       });
   } else if (action.type === "DELETE_USER") {
     instance

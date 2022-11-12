@@ -94,7 +94,7 @@ function Map({ searchValue }) {
         <MapContainer
           className="leaflet"
           scrollWheelZoom={true}
-          zoomControl={false}
+          zoomControl={false} // prevent zoom control to appear on the map
           center={[47.902964, 1.909251]}
           minZoom={4.2}
           maxZoom={18}

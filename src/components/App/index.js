@@ -4,8 +4,10 @@ import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
 import Layout from "./Layout";
 import Map from "../Map";
-import Login from "../Login";
-import Register from "../Register";
+import Login from "../Authentification/Login";
+import Register from "../Authentification/Register";
+import ForgetPassword from "../Authentification/ForgetPassword";
+import ResetPassword from "../Authentification/ResetPassword";
 import OneBrewerie from "../One_brewerie";
 import FormEvent from "../Events/FormEvent";
 import Breweries from "../Breweries";
@@ -14,8 +16,7 @@ import OneEvent from "../Events/OneEvent";
 import Profil from "../Profil";
 import UpdateEventBrewery from "../Breweries/UpdateEventBrewery";
 import NotFound from "../NotFound";
-import BreweryForm from "../Breweries/UpdateBrewery";
-import ForgetPassword from "../ForgetPassword";
+import BreweryForm from "../Breweries/BreweryForm";
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
@@ -30,11 +31,6 @@ function App() {
       setSearchValue("");
     }
   }, [location]);
-
-  // If login status change, we always navigate to home page
-  useEffect(() => {
-    navigate("/");
-  }, [isLogged]);
 
   // Check if user is currently connected
   useEffect(() => {
@@ -58,37 +54,36 @@ function App() {
   }, [dispatch]);
 
   return (
-    <>
-      <Layout setSearchValue={setSearchValue}>
-        <Routes>
-          <Route path="/" element={<Map searchValue={searchValue} />} />
-          <Route path="/breweries/:id" element={<OneBrewerie />} />
-          {!isLogged && (
-            <>
-              <Route path="/signup" element={<Register />} />
-              <Route path="/signin" element={<Login />} />
-              <Route path="/forgetPassword" element={<ForgetPassword />} />
-            </>
-          )}
-          {isLogged && (
-            <>
-              <Route path="/breweries" element={<Breweries />} />
-              <Route path="/brewery/breweryForm" element={<BreweryForm />} />
-              <Route
-                path="/brewery/breweryForm/:id"
-                element={<BreweryForm />}
-              />
-              <Route path="/create-event" element={<FormEvent />} />
-              <Route path="/events" element={<Events />} />
-              <Route path="/events/:id" element={<OneEvent />} />
-              <Route path="/profil" element={<Profil />} />
-              <Route path="/Brewery/event" element={<UpdateEventBrewery />} />
-            </>
-          )}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Layout>
-    </>
+    <Layout setSearchValue={setSearchValue}>
+      <Routes>
+        <Route path="/" element={<Map searchValue={searchValue} />} />
+        <Route path="/breweries/:id" element={<OneBrewerie />} />
+        {!isLogged && (
+          <>
+            <Route path="/signup" element={<Register />} />
+            <Route path="/signin" element={<Login />} />
+            <Route path="/forget-password" element={<ForgetPassword />} />
+            <Route
+              path="/reset-password/:id/:token"
+              element={<ResetPassword />}
+            />
+          </>
+        )}
+        {isLogged && (
+          <>
+            <Route path="/breweries" element={<Breweries />} />
+            <Route path="/brewery/breweryForm" element={<BreweryForm />} />
+            <Route path="/brewery/breweryForm/:id" element={<BreweryForm />} />
+            <Route path="/create-event" element={<FormEvent />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/events/:id" element={<OneEvent />} />
+            <Route path="/profil" element={<Profil />} />
+            <Route path="/Brewery/event" element={<UpdateEventBrewery />} />
+          </>
+        )}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Layout>
   );
 }
 

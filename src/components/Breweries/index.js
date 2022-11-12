@@ -89,8 +89,8 @@ function Breweries() {
               {userBreweries.map((brewery) => {
                 return (
                   <Brewerie
-                    key={brewery.id}
                     id={brewery.id}
+                    key={brewery.id}
                     image={brewery.image}
                     title={brewery.title}
                     address={brewery.address}

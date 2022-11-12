@@ -90,7 +90,11 @@ const CustomSearchbar = ({ setInputStatus, location }) => {
 
 CustomSearchbar.propTypes = {
   setInputStatus: PropTypes.func.isRequired,
-  location: PropTypes.object,
+  location: PropTypes.shape({
+    address: PropTypes.string,
+    lat: PropTypes.string,
+    lon: PropTypes.string,
+  }),
 };
 
 export default CustomSearchbar;

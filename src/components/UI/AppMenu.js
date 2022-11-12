@@ -91,7 +91,6 @@ const AppMenu = () => {
                 <MenuList
                   autoFocusItem={open}
                   id="composition-menu"
-                  aria-labelledby="composition-button"
                   onKeyDown={handleListKeyDown}
                 >
                   <MenuList onClick={() => setOpen(false)}>

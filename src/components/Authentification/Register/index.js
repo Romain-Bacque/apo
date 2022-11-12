@@ -12,7 +12,7 @@ import {
   Radio,
   Container,
 } from "@mui/material";
-import Input from "../Input";
+import Input from "../../Input";
 
 let isRegistering = false;
 
@@ -22,9 +22,10 @@ function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [inputStatus, setInputStatus] = useState({
+    name: { isValid: false, value: "" },
     email: { isValid: false, value: "" },
     password: { isValid: false, value: "" },
-    name: { isValid: false, value: "" },
+    confirmPassword: { isValid: false, value: "" },
     role: "user",
   });
 
@@ -37,7 +38,6 @@ function Register() {
   const handleRegister = (event) => {
     event.preventDefault();
     if (!isFormValid) return;
-    isRegistering = true;
     dispatch({
       type: "REGISTER",
       email: inputStatus.email.value,
@@ -45,6 +45,7 @@ function Register() {
       name: inputStatus.name.value,
       role: inputStatus.role,
     });
+    isRegistering = true;
   };
 
   const handleInputChange = useCallback((name, status) => {
@@ -131,7 +132,6 @@ function Register() {
         valueToMatch={inputStatus.password.value}
         onInputChange={handleInputChange}
       />
-
       <Button type="submit">S'enregistrer</Button>
       <Link to="/signin">Vous êtes déjà enregistré ?</Link>
     </Container>
