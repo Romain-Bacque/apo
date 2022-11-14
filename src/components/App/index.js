@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import Layout from "./Layout";
 import Map from "../Map";
-import Login from "../Authentification/Login";
-import Register from "../Authentification/Register";
-import ForgetPassword from "../Authentification/ForgetPassword";
-import ResetPassword from "../Authentification/ResetPassword";
+import Login from "../authentification/Login";
+import Register from "../authentification/Register";
+import ForgetPassword from "../authentification/ForgetPassword";
+import ResetPassword from "../authentification/ResetPassword";
 import OneBrewerie from "../One_brewerie";
 import FormEvent from "../Events/FormEvent";
 import Breweries from "../Breweries";
@@ -20,7 +20,6 @@ import BreweryForm from "../Breweries/BreweryForm";
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
-  const navigate = useNavigate();
   const isLogged = useSelector((state) => state.user.isLogged);
   const dispatch = useDispatch();
   const location = useLocation();
@@ -78,7 +77,7 @@ function App() {
             <Route path="/events" element={<Events />} />
             <Route path="/events/:id" element={<OneEvent />} />
             <Route path="/profil" element={<Profil />} />
-            <Route path="/Brewery/event" element={<UpdateEventBrewery />} />
+            <Route path="/brewery/event" element={<UpdateEventBrewery />} />
           </>
         )}
         <Route path="*" element={<NotFound />} />

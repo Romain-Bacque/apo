@@ -1,23 +1,20 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Button, Typography, Container } from "@mui/material";
 import Input from "../../Input";
 
-let isResetting = false;
-
 // Component
-function ForgetPassword() {
-  const loading = useSelector((state) => state.loading);
+function Login() {
+  const isLogged = useSelector((state) => state.user.isLogged);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const [inputStatus, setInputStatus] = useState({
     email: { isValid: false, value: "" },
+    password: { isValid: false, value: "" },
   });
 
-  const isFormValid = inputStatus.email.isValid;
+  const isFormValid = inputStatus.email.isValid && inputStatus.password.isValid;
 
   const handleInputChange = useCallback((name, status) => {
     setInputStatus((prevState) => {
@@ -30,21 +27,20 @@ function ForgetPassword() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     if (!isFormValid) return;
+
     dispatch({
-      type: "FORGET_PASSWORD",
+      type: "LOGIN",
       email: inputStatus.email.value,
+      password: inputStatus.password.value,
     });
-    isResetting = true;
   };
 
-  // if ureset email successfully sent
-  useEffect(() => {
-    if (loading.status === "success" && isResetting) {
-      isResetting = false;
-      navigate("/");
-    }
-  }, [loading]);
+  // If user is connected, then we redirect to home page
+  if (isLogged) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <Container
@@ -53,7 +49,7 @@ function ForgetPassword() {
       onSubmit={handleSubmit}
     >
       <Typography component="h2" variant="h3" color="gray">
-        Réinitialisation du mot de passe
+        Se connecter
       </Typography>
       <Input
         input={{
@@ -64,11 +60,22 @@ function ForgetPassword() {
         onInputChange={handleInputChange}
         name="email"
       />
+      <Input
+        input={{
+          id: "password",
+          label: "Mot de passe",
+          type: "password",
+        }}
+        onInputChange={handleInputChange}
+        name="password"
+      />
+      <Link to="/forget-password">Mot de passe perdu</Link>
       <Button type="submit" variant="contained">
-        Envoyer un lien de réinitialisation
+        Se connecter
       </Button>
+      <Link to="/signup">Vous n'êtes pas enregistré ?</Link>
     </Container>
   );
 }
 
-export default ForgetPassword;
+export default Login;

@@ -58,12 +58,14 @@ const BreweriesContainer = styled(Box)(({ theme }) => ({
   backgroundColor: "white",
   transition: "0.3s ease-out",
   alignSelf: "stretch",
+  borderRadius: "10px",
   [theme.breakpoints.down("md")]: {
     width: "100%",
     position: "absolute",
     zIndex: 3,
     bottom: "6rem",
     transform: "translateY(100%)",
+    borderRadius: "none",
     "&.active": {
       bottom: "100.1%",
     },

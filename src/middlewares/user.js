@@ -171,7 +171,7 @@ const user = (store) => (next) => (action) => {
         console.log(error);
         const { status } = error.response;
 
-        if (status === 401) {
+        if (status === 400 || status === 401) {
           store.dispatch({
             type: "ERROR",
             message: "Adresse mail incorrecte.",
@@ -184,6 +184,7 @@ const user = (store) => (next) => (action) => {
         }
       });
   } else if (action.type === "RESET_PASSWORD") {
+    console.log(action);
     store.dispatch({
       type: "PENDING",
       message: null,

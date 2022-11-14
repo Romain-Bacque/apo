@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 import {
   Typography,
@@ -20,6 +20,7 @@ let isHTTPRequestSend = false;
 
 // Component
 function BreweryForm() {
+  const isLogged = useSelector((state) => state.user.isLogged);
   const loadingStatus = useSelector((state) => state.loading.status);
   const navigate = useNavigate();
   const breweries = useSelector((state) => state.brewery.breweries);
@@ -94,9 +95,14 @@ function BreweryForm() {
   useEffect(() => {
     if (loadingStatus === "success" && isHTTPRequestSend) {
       isHTTPRequestSend = false;
-      navigate("/breweries");
+      return <Navigate to="/breweries" replace />;
     }
   }, [loadingStatus]);
+
+  // If user is not connected, then we redirect to home page
+  if (!isLogged) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <Container

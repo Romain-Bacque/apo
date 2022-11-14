@@ -1,6 +1,4 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
 
 import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
@@ -25,7 +23,6 @@ const StyledToolbar = styled(Toolbar)({
 // Component
 const Header = ({ setSearchValue }) => {
   const navigate = useNavigate();
-  const isLogged = useSelector((state) => state.user.isLogged);
 
   // If user type 'enter' key on keyboard
   function handleKeyDown(event) {

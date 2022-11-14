@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 import { Link } from "react-router-dom";
 import {
@@ -18,8 +18,8 @@ let isRegistering = false;
 
 // Component
 function Register() {
+  const isLogged = useSelector((state) => state.user.isLogged);
   const loading = useSelector((state) => state.loading);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [inputStatus, setInputStatus] = useState({
     name: { isValid: false, value: "" },
@@ -61,9 +61,14 @@ function Register() {
   useEffect(() => {
     if (loading.status === "success" && isRegistering) {
       isRegistering = false;
-      navigate("/login");
+      return <Navigate to="/login" replace />;
     }
   }, [loading]);
+
+  // If user is connected, then we redirect to home page
+  if (isLogged) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <Container

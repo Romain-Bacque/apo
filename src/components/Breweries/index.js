@@ -1,5 +1,5 @@
 import "./style.scss";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import Brewerie from "./Brewerie";
 import Add from "@mui/icons-material/Add";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
@@ -40,6 +40,7 @@ let userBreweries = [];
 // Component
 function Breweries() {
   const [isOpen, setIsOpen] = useState(false);
+  const isLogged = useSelector((state) => state.user.isLogged);
   const [breweryId, setBreweryId] = useState(null);
   const userId = useSelector((state) => state.user.id);
   const breweries = useSelector((state) => state.brewery.breweries);
@@ -62,6 +63,11 @@ function Breweries() {
       });
     }
   };
+
+  // If user is not connected, then it redirect to home page
+  if (!isLogged) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <>
