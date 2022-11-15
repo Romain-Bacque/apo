@@ -124,7 +124,7 @@ const AppMenu = () => {
                       <StyledMenuItem
                         activeclassname="active"
                         component={NavLink}
-                        to="/profil"
+                        to="/profile"
                       >
                         Profil
                       </StyledMenuItem>

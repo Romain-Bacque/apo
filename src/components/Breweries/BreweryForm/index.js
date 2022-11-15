@@ -95,80 +95,79 @@ function BreweryForm() {
   useEffect(() => {
     if (loadingStatus === "success" && isHTTPRequestSend) {
       isHTTPRequestSend = false;
-      return <Navigate to="/breweries" replace />;
+      navigate("/breweries");
     }
   }, [loadingStatus]);
 
-  // If user is not connected, then we redirect to home page
-  if (!isLogged) {
-    return <Navigate to="/" replace />;
-  }
-
   return (
-    <Container
-      component="form"
-      onSubmit={handleBrewerySubmit}
-      style={{ maxWidth: "600px", color: "gray" }}
-    >
-      <Box display="flex" alignItems="center" gap={1}>
-        <IconButton onClick={() => navigate("/breweries")}>
-          <ArrowBackRounded sx={{ fontSize: "3rem", color: "gray" }} />
-        </IconButton>
-        <Typography variant="h3" component="h2">
-          {params.id ? "Modifier La Brasserie" : "Ajouter Une Brasserie"}
-        </Typography>
-      </Box>
+    <>
+      {/* If user is not connected, then we redirect to home page */}
+      {!isLogged && <Navigate to="/" />}
+      <Container
+        component="form"
+        onSubmit={handleBrewerySubmit}
+        style={{ maxWidth: "600px", color: "gray" }}
+      >
+        <Box display="flex" alignItems="center" gap={1}>
+          <IconButton onClick={() => navigate("/breweries")}>
+            <ArrowBackRounded sx={{ fontSize: "3rem", color: "gray" }} />
+          </IconButton>
+          <Typography variant="h3" component="h2">
+            {params.id ? "Modifier La Brasserie" : "Ajouter Une Brasserie"}
+          </Typography>
+        </Box>
 
-      <Input
-        input={{
-          type: "text",
-          label: "Nom de la brasserie :",
-        }}
-        selectedValue={breweryToUpdate?.title}
-        onInputChange={handleInputChange}
-        name="title"
-      />
-      <TextField
-        label="Logo/Photo de la brasserie"
-        id="image"
-        type="file"
-        accept="image/png, image/jpeg"
-        name="image"
-        value={inputStatus.image.value}
-        onChange={handleFileChange}
-      />
-      <Input
-        input={{
-          type: "tel",
-          label: "Numéro de téléphone :",
-        }}
-        selectedValue={breweryToUpdate?.phone}
-        onInputChange={handleInputChange}
-        name="phone"
-      />
-      <CustomSearchbar
-        setInputStatus={setInputStatus}
-        location={{
-          address: breweryToUpdate?.address,
-          lat: breweryToUpdate?.lat,
-          lon: breweryToUpdate?.lon,
-        }}
-      />
-      <Input
-        input={{
-          type: "text",
-          label: "Description :",
-        }}
-        selectedValue={breweryToUpdate?.description}
-        onInputChange={handleInputChange}
-        name="description"
-      />
-      <Category
-        selectedCategories={breweryToUpdate?.categories}
-        onSelectedCategories={handleSelectedCategories}
-      />
-      <Button type="submit">Enregistrer</Button>
-    </Container>
+        <Input
+          input={{
+            type: "text",
+            label: "Nom de la brasserie :",
+          }}
+          selectedValue={breweryToUpdate?.title}
+          onInputChange={handleInputChange}
+          name="title"
+        />
+        <TextField
+          label="Logo/Photo de la brasserie"
+          id="image"
+          type="file"
+          accept="image/png, image/jpeg"
+          name="image"
+          value={inputStatus.image.value}
+          onChange={handleFileChange}
+        />
+        <Input
+          input={{
+            type: "tel",
+            label: "Numéro de téléphone :",
+          }}
+          selectedValue={breweryToUpdate?.phone}
+          onInputChange={handleInputChange}
+          name="phone"
+        />
+        <CustomSearchbar
+          setInputStatus={setInputStatus}
+          location={{
+            address: breweryToUpdate?.address,
+            lat: breweryToUpdate?.lat,
+            lon: breweryToUpdate?.lon,
+          }}
+        />
+        <Input
+          input={{
+            type: "text",
+            label: "Description :",
+          }}
+          selectedValue={breweryToUpdate?.description}
+          onInputChange={handleInputChange}
+          name="description"
+        />
+        <Category
+          selectedCategories={breweryToUpdate?.categories}
+          onSelectedCategories={handleSelectedCategories}
+        />
+        <Button type="submit">Enregistrer</Button>
+      </Container>
+    </>
   );
 }
 

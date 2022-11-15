@@ -7,8 +7,6 @@ const instance = axios.create({
 });
 
 const user = (store) => (next) => (action) => {
-  const state = store.getState();
-
   if (action.type === "USER_VERIFICATION") {
     instance
       .get("/")
@@ -184,20 +182,19 @@ const user = (store) => (next) => (action) => {
         }
       });
   } else if (action.type === "RESET_PASSWORD") {
-    console.log(action);
     store.dispatch({
       type: "PENDING",
       message: null,
     });
     instance
-      .post(`/reset-password/${action.id}/${action.token}`, {
+      .patch(`/reset-password/${action.id}/${action.token}`, {
         password: action.password,
       })
       .then((response) => {
         if (response.status === 200) {
           store.dispatch({
             type: "SUCCESS",
-            message: null,
+            message: "mot de passe réinitialisé, veuillez vous connecter",
           });
         }
       })
@@ -217,40 +214,55 @@ const user = (store) => (next) => (action) => {
           });
         }
       });
-  } else if (action.type === "DELETE_USER") {
+  } else if (action.type === "UPDATE_USER") {
+    store.dispatch({
+      type: "PENDING",
+      message: null,
+    });
     instance
-      .delete("/delete", {
-        email: state.user.email,
-        password: state.user.password,
-        name: state.user.name,
+      .put(`/profile/${action.id}`, {
+        name: action.name,
+        email: action.email,
+        password: action.password,
       })
       .then((response) => {
+        if (response.status === 200) {
+          store.dispatch({
+            type: "SUCCESS",
+            message: "Votre compte a été modifié avec succès",
+          });
+        }
         store.dispatch({
-          type: "DELETE_USER",
+          type: "SAVE_USER",
         });
       })
       .catch((error) => {
         console.log(error);
-        console.log("Erreur impossible de supprimer le user");
+        console.log("Erreur, impossible de modifier votre compte");
+      });
+  } else if (action.type === "DELETE_USER") {
+    store.dispatch({
+      type: "PENDING",
+      message: null,
+    });
+    instance
+      .delete(`/profile/${action.id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          store.dispatch({
+            type: "SUCCESS",
+            message: "Votre compte a été supprimé définitivement",
+          });
+          store.dispatch({
+            type: "DELETE_USER",
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log("Erreur, impossible de supprimer votre compte");
       });
   }
-  // else if (action.type === 'UPDATE_USER'){
-  // instance.put('/user',{
-  //   email: state.user.email,
-  //   password: state.user.password,
-  //   name: state.user.name,
-  // })
-  // .then((response) => {
-  //   console.log(`réponse back ${response.data}`)
-  //   store.dispatch({
-  //     type: 'DELETE_USER',
-  //   });
-  // })
-  // .catch((error) => {
-  //   console.log(error);
-  //   console.log('Erreur impossible de supprimer le user');
-  // });
-  // }
 
   next(action);
 };
