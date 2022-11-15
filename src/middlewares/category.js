@@ -2,7 +2,7 @@ import axios from "axios";
 import { apiConfig } from "../config/config";
 
 const instance = axios.create({
-  baseURL: `http://${apiConfig.host}:${apiConfig.port}`,
+  baseURL: `http://${apiConfig.host}:${apiConfig.port}/category`,
   withCredentials: true, // authorize cookie sending to server
 });
 
@@ -13,7 +13,7 @@ const category = (store) => (next) => (action) => {
       message: null,
     });
     instance
-      .get("/category")
+      .get("/")
       .then((response) => {
         const categories = response.data.data;
 

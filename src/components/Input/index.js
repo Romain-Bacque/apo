@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useImperativeHandle } from "react";
+import { forwardRef, useEffect } from "react";
 import useInput from "../hooks/use-input";
 
 import PropTypes from "prop-types";
@@ -39,7 +39,7 @@ const Input = forwardRef(
         isInputTouched && !isInputValid ? "Entrée incorrecte." : "";
     }
 
-    // Selected value is directly set if we choose an adress in custom searchbar
+    // Selected value is directly set if we choose an address in custom searchbar
     // Or when update brewery form appear, all inputs are directly filled by brewery data
     useEffect(() => {
       inputValueHandler(selectedValue);
@@ -81,7 +81,7 @@ Input.propTypes = {
   onInputChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   valueToMatch: PropTypes.string,
-  selectedValue: PropTypes.string,
+  selectedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   input: PropTypes.any.isRequired,
 };
 

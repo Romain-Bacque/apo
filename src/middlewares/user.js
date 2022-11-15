@@ -2,13 +2,11 @@ import axios from "axios";
 import { apiConfig } from "../config/config";
 
 const instance = axios.create({
-  baseURL: `http://${apiConfig.host}:${apiConfig.port}`,
+  baseURL: `http://${apiConfig.host}:${apiConfig.port}/user`,
   withCredentials: true, // authorize cookie sending to server
 });
 
 const user = (store) => (next) => (action) => {
-  const state = store.getState();
-
   if (action.type === "USER_VERIFICATION") {
     instance
       .get("/")
@@ -35,7 +33,7 @@ const user = (store) => (next) => (action) => {
       message: null,
     });
     instance
-      .post("/user/login", {
+      .post("/login", {
         email: action.email,
         password: action.password,
       })
@@ -89,7 +87,7 @@ const user = (store) => (next) => (action) => {
       message: null,
     });
     instance
-      .post("/user/register", {
+      .post("/register", {
         name: action.name,
         email: action.email,
         password: action.password,
@@ -131,7 +129,7 @@ const user = (store) => (next) => (action) => {
       message: null,
     });
     instance
-      .post("/user/logout")
+      .post("/logout")
       .then((response) => {
         if (response.status === 200) {
           store.dispatch({
@@ -150,40 +148,121 @@ const user = (store) => (next) => (action) => {
           message: "Erreur, déconnexion impossible.",
         });
       });
-  } else if (action.type === "DELETE_USER") {
+  } else if (action.type === "FORGET_PASSWORD") {
+    store.dispatch({
+      type: "PENDING",
+      message: null,
+    });
     instance
-      .delete("/user/delete", {
-        email: state.user.email,
-        password: state.user.password,
-        name: state.user.name,
+      .post("/forget-password", {
+        email: action.email,
       })
       .then((response) => {
+        if (response.status === 200) {
+          store.dispatch({
+            type: "SUCCESS",
+            message: "Un mail de réinitialisation vous a été envoyé.",
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        const { status } = error.response;
+
+        if (status === 400 || status === 401) {
+          store.dispatch({
+            type: "ERROR",
+            message: "Adresse mail incorrecte.",
+          });
+        } else {
+          store.dispatch({
+            type: "ERROR",
+            message: "Erreur, réinitialisation impossible.",
+          });
+        }
+      });
+  } else if (action.type === "RESET_PASSWORD") {
+    store.dispatch({
+      type: "PENDING",
+      message: null,
+    });
+    instance
+      .patch(`/reset-password/${action.id}/${action.token}`, {
+        password: action.password,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          store.dispatch({
+            type: "SUCCESS",
+            message: "mot de passe réinitialisé, veuillez vous connecter",
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        const { status } = error.response;
+
+        if (status === 401) {
+          store.dispatch({
+            type: "ERROR",
+            message: "Utilisateur non enregistré",
+          });
+        } else {
+          store.dispatch({
+            type: "ERROR",
+            message: "Erreur, réinitialisation impossible.",
+          });
+        }
+      });
+  } else if (action.type === "UPDATE_USER") {
+    store.dispatch({
+      type: "PENDING",
+      message: null,
+    });
+    instance
+      .put(`/profile/${action.id}`, {
+        name: action.name,
+        email: action.email,
+        password: action.password,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          store.dispatch({
+            type: "SUCCESS",
+            message: "Votre compte a été modifié avec succès",
+          });
+        }
         store.dispatch({
-          type: "DELETE_USER",
+          type: "SAVE_USER",
         });
       })
       .catch((error) => {
         console.log(error);
-        console.log("Erreur impossible de supprimer le user");
+        console.log("Erreur, impossible de modifier votre compte");
+      });
+  } else if (action.type === "DELETE_USER") {
+    store.dispatch({
+      type: "PENDING",
+      message: null,
+    });
+    instance
+      .delete(`/profile/${action.id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          store.dispatch({
+            type: "SUCCESS",
+            message: "Votre compte a été supprimé définitivement",
+          });
+          store.dispatch({
+            type: "DELETE_USER",
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log("Erreur, impossible de supprimer votre compte");
       });
   }
-  // else if (action.type === 'UPDATE_USER'){
-  // instance.put('/user',{
-  //   email: state.user.email,
-  //   password: state.user.password,
-  //   name: state.user.name,
-  // })
-  // .then((response) => {
-  //   console.log(`réponse back ${response.data}`)
-  //   store.dispatch({
-  //     type: 'DELETE_USER',
-  //   });
-  // })
-  // .catch((error) => {
-  //   console.log(error);
-  //   console.log('Erreur impossible de supprimer le user');
-  // });
-  // }
 
   next(action);
 };

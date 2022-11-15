@@ -91,7 +91,6 @@ const AppMenu = () => {
                 <MenuList
                   autoFocusItem={open}
                   id="composition-menu"
-                  aria-labelledby="composition-button"
                   onKeyDown={handleListKeyDown}
                 >
                   <MenuList onClick={() => setOpen(false)}>
@@ -125,7 +124,7 @@ const AppMenu = () => {
                       <StyledMenuItem
                         activeclassname="active"
                         component={NavLink}
-                        to="/profil"
+                        to="/profile"
                       >
                         Profil
                       </StyledMenuItem>

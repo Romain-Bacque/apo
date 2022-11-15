@@ -32,11 +32,7 @@ function CustomModal({
 }) {
   return (
     <>
-      <Modal
-        open={isOpen}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+      <Modal open={isOpen}>
         <ModalCard>
           <CardContent>
             <Typography id="modal-modal-title" variant="h5" component="h2">

@@ -41,7 +41,7 @@ function Error() {
         <div class="error__content">
           <div class="error__message message">
             <h1 class="message__title">404</h1>
-            <p class="message__text">Oops, This page not found!</p>
+            <p class="message__text">Oups, cette page n'a pas été trouvée!</p>
           </div>
           <div class="error__nav e-nav">
             <Link to="/" class="e-nav__link">

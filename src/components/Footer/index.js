@@ -78,7 +78,7 @@ const BrandText = styled(Typography)({
 function Footer() {
   const content = {
     brand: "Bière de ta région.",
-    copy: "© 2022 Bière de ta région. Tous droits réservés.",
+    copy: `© ${new Date().getFullYear()} Bière de ta région. Tous droits réservés.`,
     link1: { text: "Contact", link: "mailto:bacqueromain@orange.fr" },
     link2: {
       text: "Linkedin",

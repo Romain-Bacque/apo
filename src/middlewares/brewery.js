@@ -2,7 +2,7 @@ import axios from "axios";
 import { apiConfig } from "../config/config";
 
 const instance = axios.create({
-  baseURL: `http://${apiConfig.host}:${apiConfig.port}`,
+  baseURL: `http://${apiConfig.host}:${apiConfig.port}/brewery`,
   withCredentials: true, // authorize cookie sending to server
   headers: { "Content-Type": "multipart/form-data" },
 });
@@ -14,7 +14,7 @@ const brewery = (store) => (next) => (action) => {
       message: null,
     });
     instance
-      .get("/brewery")
+      .get("/")
       .then((response) => {
         if (response.status === 200) {
           const breweries = response.data.data;
@@ -54,7 +54,7 @@ const brewery = (store) => (next) => (action) => {
       message: null,
     });
     instance
-      .post("/brewery", formData)
+      .post("/", formData)
       .then((response) => {
         if (response.status === 200) {
           const breweries = response.data.data;
@@ -113,7 +113,7 @@ const brewery = (store) => (next) => (action) => {
       message: null,
     });
     instance
-      .put(`/brewery/${action.id}`, formData)
+      .put(`/${action.id}`, formData)
       .then((response) => {
         if (response.status === 200) {
           const breweries = response.data.data;
@@ -156,7 +156,7 @@ const brewery = (store) => (next) => (action) => {
     });
 
     instance
-      .delete(`/brewery/${action.breweryId}`)
+      .delete(`/${action.breweryId}`)
       .then((response) => {
         if (response.status === 200) {
           const breweries = response.data.data;

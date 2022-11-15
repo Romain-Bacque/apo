@@ -58,12 +58,14 @@ const BreweriesContainer = styled(Box)(({ theme }) => ({
   backgroundColor: "white",
   transition: "0.3s ease-out",
   alignSelf: "stretch",
+  borderRadius: "10px",
   [theme.breakpoints.down("md")]: {
     width: "100%",
     position: "absolute",
     zIndex: 3,
     bottom: "6rem",
     transform: "translateY(100%)",
+    borderRadius: "none",
     "&.active": {
       bottom: "100.1%",
     },
@@ -94,7 +96,7 @@ function Map({ searchValue }) {
         <MapContainer
           className="leaflet"
           scrollWheelZoom={true}
-          zoomControl={false}
+          zoomControl={false} // prevent zoom control to appear on the map
           center={[47.902964, 1.909251]}
           minZoom={4.2}
           maxZoom={18}
