@@ -56,7 +56,7 @@ function ForgetPassword() {
         onSubmit={handleSubmit}
       >
         <Typography component="h2" variant="h3" color="gray">
-          Réinitialisation du mot de passe
+          Réinitialisation Du Mot De Passe
         </Typography>
         <Input
           input={{

@@ -13,11 +13,10 @@ import FormEvent from "../Events/FormEvent";
 import Breweries from "../Breweries";
 import Events from "../Events";
 import OneEvent from "../Events/OneEvent";
-import Profil from "../Profil";
+import Profile from "../Profile";
 import UpdateEventBrewery from "../Breweries/UpdateEventBrewery";
 import NotFound from "../NotFound";
 import BreweryForm from "../Breweries/BreweryForm";
-import Profile from "../authentication/Profile";
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
@@ -58,7 +57,7 @@ function App() {
         <Route path="/" element={<Map searchValue={searchValue} />} />
         <Route path="/signup" element={<Register />} />
         <Route path="/signin" element={<Login />} />
-        <Route path="/profil" element={<Profil />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
         <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
         <Route path="/profile" element={<Profile />} />
