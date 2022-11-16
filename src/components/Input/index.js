@@ -1,4 +1,4 @@
-import { forwardRef, useEffect } from "react";
+import { forwardRef, useEffect, useImperativeHandle } from "react";
 import useInput from "../hooks/use-input";
 
 import PropTypes from "prop-types";
@@ -20,6 +20,7 @@ const Input = forwardRef(
       valueHandler: inputValueHandler,
       changeHandler: inputChangeHandler,
       blurHandler: inputBlurHandler,
+      resetHandler: inputResetHandler,
     } = useInput();
 
     useEffect(() => {
@@ -45,9 +46,17 @@ const Input = forwardRef(
       inputValueHandler(selectedValue);
     }, [selectedValue, inputValueHandler]);
 
+    // Customize instance that is exposed to parent component when ref is used
+    useImperativeHandle(ref, () => ({
+      resetValue() {
+        inputResetHandler();
+      },
+    }));
+
     return (
       <>
         <TextField
+          ref={ref}
           {...params}
           {...input}
           error={errorContent}

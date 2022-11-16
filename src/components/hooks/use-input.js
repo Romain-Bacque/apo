@@ -76,6 +76,9 @@ const inputReducer = (state, action) => {
   if (action.type === "BLUR") {
     return { ...state, isTouched: true };
   }
+  if (action.type === "RESET") {
+    return initialState;
+  }
   return state;
 };
 
@@ -94,6 +97,10 @@ const useInput = () => {
     dispatch({ type: "BLUR" });
   };
 
+  const resetHandler = () => {
+    dispatch({ type: "RESET" });
+  };
+
   return {
     value: inputState.enteredValue,
     isValid: inputState.isValid,
@@ -102,6 +109,7 @@ const useInput = () => {
     valueHandler,
     changeHandler,
     blurHandler,
+    resetHandler,
   };
 };
 

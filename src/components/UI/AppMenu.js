@@ -126,7 +126,7 @@ const AppMenu = () => {
                         component={NavLink}
                         to="/profile"
                       >
-                        Profil
+                        Mon Profil
                       </StyledMenuItem>
                     )}
                     {!isLogged && (

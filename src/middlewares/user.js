@@ -7,6 +7,17 @@ const instance = axios.create({
 });
 
 const user = (store) => (next) => (action) => {
+  const setUserStore = (user) => {
+    store.dispatch({
+      type: "SAVE_USER",
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      role: user.role,
+    });
+  };
+
   if (action.type === "USER_VERIFICATION") {
     instance
       .get("/")
@@ -14,14 +25,7 @@ const user = (store) => (next) => (action) => {
         if (response.status === 200) {
           const user = response.data.data;
 
-          store.dispatch({
-            type: "SAVE_USER",
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            password: user.password,
-            role: user.role,
-          });
+          setUserStore(user);
         }
       })
       .catch((error) => {
@@ -45,14 +49,7 @@ const user = (store) => (next) => (action) => {
             type: "SUCCESS",
             message: `Bienvenue ${user.name} !`,
           });
-          store.dispatch({
-            type: "SAVE_USER",
-            id: user.id,
-            email: user.email,
-            password: user.password,
-            name: user.name,
-            role: user.role,
-          });
+          setUserStore(user);
         }
       })
       .catch((error) => {
@@ -62,17 +59,17 @@ const user = (store) => (next) => (action) => {
         if (status === 400) {
           store.dispatch({
             type: "ERROR",
-            message: "Erreur dans un/plusieurs champs",
+            message: "Erreur dans un/plusieurs champs.",
           });
         } else if (status === 401) {
           store.dispatch({
             type: "ERROR",
-            message: "Mot de passe/utilisateur incorrect(s)",
+            message: "Mot de passe/utilisateur incorrect(s).",
           });
         } else if (status === 409) {
           store.dispatch({
             type: "ERROR",
-            message: "Utilisateur déjà connecté",
+            message: "Utilisateur déjà connecté.",
           });
         } else {
           store.dispatch({
@@ -109,7 +106,7 @@ const user = (store) => (next) => (action) => {
         if (status === 400) {
           store.dispatch({
             type: "ERROR",
-            message: "Erreur dans un/plusieurs champs",
+            message: "Erreur dans un/plusieurs champs.",
           });
         } else if (status === 403) {
           store.dispatch({
@@ -194,7 +191,7 @@ const user = (store) => (next) => (action) => {
         if (response.status === 200) {
           store.dispatch({
             type: "SUCCESS",
-            message: "mot de passe réinitialisé, veuillez vous connecter",
+            message: "mot de passe réinitialisé, veuillez vous connecter.",
           });
         }
       })
@@ -202,10 +199,10 @@ const user = (store) => (next) => (action) => {
         console.log(error);
         const { status } = error.response;
 
-        if (status === 401) {
+        if (status === 400 || status === 401) {
           store.dispatch({
             type: "ERROR",
-            message: "Utilisateur non enregistré",
+            message: "Mot de passe incorrect.",
           });
         } else {
           store.dispatch({
@@ -220,25 +217,43 @@ const user = (store) => (next) => (action) => {
       message: null,
     });
     instance
-      .put(`/profile/${action.id}`, {
+      .patch(`/profile/${action.id}`, {
         name: action.name,
         email: action.email,
-        password: action.password,
+        actualPassword: action.actualPassword,
+        newPassword: action.newPassword,
       })
       .then((response) => {
         if (response.status === 200) {
+          const user = response.data.data;
+
           store.dispatch({
             type: "SUCCESS",
-            message: "Votre compte a été modifié avec succès",
+            message: "Votre compte a été modifié avec succès.",
           });
+          setUserStore(user);
         }
-        store.dispatch({
-          type: "SAVE_USER",
-        });
       })
       .catch((error) => {
         console.log(error);
-        console.log("Erreur, impossible de modifier votre compte");
+        const { status } = error.response;
+
+        if (status === 400) {
+          store.dispatch({
+            type: "ERROR",
+            message: "Donnée(s) entrée(s) incorrecte(s).",
+          });
+        } else if (status === 401) {
+          store.dispatch({
+            type: "ERROR",
+            message: "Mot de passe/utilisateur incorrect(s).",
+          });
+        } else {
+          store.dispatch({
+            type: "ERROR",
+            message: "Erreur, réinitialisation impossible.",
+          });
+        }
       });
   } else if (action.type === "DELETE_USER") {
     store.dispatch({
@@ -251,16 +266,19 @@ const user = (store) => (next) => (action) => {
         if (response.status === 200) {
           store.dispatch({
             type: "SUCCESS",
-            message: "Votre compte a été supprimé définitivement",
+            message: "Votre compte a été supprimé définitivement.",
           });
           store.dispatch({
-            type: "DELETE_USER",
+            type: "RESET_USER",
           });
         }
       })
       .catch((error) => {
         console.log(error);
-        console.log("Erreur, impossible de supprimer votre compte");
+        store.dispatch({
+          type: "ERROR",
+          message: "Erreur, Suppression du compte impossible.",
+        });
       });
   }
 

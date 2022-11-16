@@ -4,7 +4,7 @@ import { useMap } from "react-leaflet";
 import { IconButton } from "@mui/material";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 
-const DEFAULT_RADIUS = 10;
+const DEFAULT_RADIUS = 30;
 
 // Component
 const LocationButtonFilter = ({ currentPosition, setRadiusFilter }) => {
