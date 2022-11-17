@@ -23,7 +23,7 @@ const Main = styled(Box)(({ theme }) => ({
 }));
 
 // Component
-const Layout = ({ setSearchValue, children }) => {
+function Layout({ setSearchValue, children }) {
   const loading = useSelector((state) => state.loading);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -56,7 +56,7 @@ const Layout = ({ setSearchValue, children }) => {
       <Footer />
     </>
   );
-};
+}
 
 Layout.propTypes = {
   setSearchValue: PropTypes.func.isRequired,

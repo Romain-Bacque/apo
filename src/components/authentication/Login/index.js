@@ -17,12 +17,10 @@ function Login() {
   const isFormValid = inputStatus.email.isValid && inputStatus.password.isValid;
 
   const handleInputChange = useCallback((name, status) => {
-    setInputStatus((prevState) => {
-      return {
-        ...prevState,
-        [name]: status,
-      };
-    });
+    setInputStatus((prevState) => ({
+      ...prevState,
+      [name]: status,
+    }));
   }, []);
 
   const handleSubmit = (event) => {

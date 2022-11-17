@@ -10,10 +10,9 @@ import {
   Box,
   IconButton,
 } from "@mui/material";
-import "./style.scss";
+import { ArrowBackRounded } from "@mui/icons-material";
 import Input from "../../Input";
 import CustomSearchbar from "../../UI/CustomSearchbar";
-import { ArrowBackRounded } from "@mui/icons-material";
 import Category from "../../Category";
 
 let isHTTPRequestSend = false;
@@ -38,7 +37,7 @@ function BreweryForm() {
 
   if (params.id) {
     breweryToUpdate = breweries.find(
-      (brewery) => brewery.id === parseInt(params.id)
+      (brewery) => brewery.id === Number(params.id)
     );
   }
   const isFormValid =
@@ -66,30 +65,24 @@ function BreweryForm() {
   };
 
   const handleFileChange = (event) => {
-    setInputStatus((prevState) => {
-      return {
-        ...prevState,
-        image: { file: event.target.files[0], value: event.target.value },
-      };
-    });
+    setInputStatus((prevState) => ({
+      ...prevState,
+      image: { file: event.target.files[0], value: event.target.value },
+    }));
   };
 
   const handleInputChange = useCallback((name, status) => {
-    setInputStatus((prevState) => {
-      return {
-        ...prevState,
-        [name]: status,
-      };
-    });
+    setInputStatus((prevState) => ({
+      ...prevState,
+      [name]: status,
+    }));
   }, []);
 
   const handleSelectedCategories = useCallback((list) => {
-    setInputStatus((prevState) => {
-      return {
-        ...prevState,
-        categories: list,
-      };
-    });
+    setInputStatus((prevState) => ({
+      ...prevState,
+      categories: list,
+    }));
   }, []);
 
   useEffect(() => {
@@ -127,7 +120,7 @@ function BreweryForm() {
           name="title"
         />
         <TextField
-          label="Logo/Photo de la brasserie"
+          label="Photo de la brasserie"
           id="image"
           type="file"
           accept="image/png, image/jpeg"

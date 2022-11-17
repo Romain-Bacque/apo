@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import L from "leaflet";
 import { Marker, Popup } from "react-leaflet";
 import { Link } from "react-router-dom";
-import defaultIcon from "../icons/defaultIcon";
 import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
 import {
   Box,
@@ -15,6 +14,7 @@ import {
 import { Phone } from "@mui/icons-material";
 import styled from "@emotion/styled";
 import { useEffect } from "react";
+import defaultIcon from "../icons/defaultIcon";
 
 // Style
 const StyledCard = styled(Card)({
@@ -62,7 +62,9 @@ const BreweryMarker = ({
   }
 
   filteredBreweries = data?.filter((brewery) => {
-    let filterByRadius, filterByGeo, filterBySearchbar;
+    let filterByRadius;
+    let filterByGeo;
+    let filterBySearchbar;
     let currentPoint;
 
     if (!brewery.title && !brewery.address) return false;
@@ -173,7 +175,7 @@ const BreweryMarker = ({
                 </Typography>
               </StyledBox>
               <Divider />
-              <StyledLink to={`/brewerys/${brewery.id}`}>
+              <StyledLink to={`/brewery/${brewery.id}`}>
                 Plus de détails
               </StyledLink>
             </StyledCardContent>

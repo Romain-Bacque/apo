@@ -20,7 +20,7 @@ const inputReducer = (state, action) => {
         if (action.value.value.length > 0) {
           return {
             ...state,
-            isValid: action.value.name !== "location" ? true : false,
+            isValid: action.value.name !== "location",
             enteredValue: action.value.value,
           };
         }
@@ -60,7 +60,7 @@ const inputReducer = (state, action) => {
         ) {
           return {
             ...state,
-            isValid: passwordStateArray.length > 0 ? false : true,
+            isValid: !(passwordStateArray.length > 0),
             enteredValue: action.value.value,
             passwordState: passwordStateArray,
           };

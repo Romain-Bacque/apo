@@ -1,5 +1,5 @@
 import L from "leaflet";
-import iconUrl from "./../images/beer.png";
+import iconUrl from "../images/beer.png";
 
 const {
   iconSize,

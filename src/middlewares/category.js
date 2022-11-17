@@ -26,8 +26,11 @@ const category = (store) => (next) => (action) => {
           categories,
         });
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        store.dispatch({
+          type: "ERROR",
+          message: "Erreur, une erreur est survenue.",
+        });
       });
   }
 

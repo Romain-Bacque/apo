@@ -50,12 +50,10 @@ function Register() {
   };
 
   const handleInputChange = useCallback((name, status) => {
-    setInputStatus((prevState) => {
-      return {
-        ...prevState,
-        [name]: status,
-      };
-    });
+    setInputStatus((prevState) => ({
+      ...prevState,
+      [name]: status,
+    }));
   }, []);
 
   // if user is successfully registered
@@ -87,13 +85,13 @@ function Register() {
             <FormControlLabel
               label="Particulier"
               value="user"
-              onChange={handleInputChange.bind(null, "role", "user")}
+              onChange={() => handleInputChange("role", "user")}
               control={<Radio />}
             />
             <FormControlLabel
               label="Brasseur"
               value="brewer"
-              onChange={handleInputChange.bind(null, "role", "brewer")}
+              onChange={() => handleInputChange("role", "brewer")}
               control={<Radio />}
             />
           </RadioGroup>

@@ -1,14 +1,13 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import PropTypes from "prop-types";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import "leaflet-easybutton/src/easy-button.js";
-import "leaflet-easybutton/src/easy-button.css";
 import "font-awesome/css/font-awesome.min.css";
 import "./style.scss";
 import { Box, FormControlLabel, Switch } from "@mui/material";
+import styled from "@emotion/styled";
 import BreweryMarker from "./layers/BreweryMarker";
 import LocationMarker from "./layers/LocationMarker";
 import Regions from "./layers/Regions";
@@ -16,7 +15,6 @@ import Regions from "./layers/Regions";
 // GeoJSON data
 import { regions } from "./data/regions";
 import BreweriesList from "../BreweriesList";
-import styled from "@emotion/styled";
 import LocationButtonFilter from "./controls/LocationButtonFilter";
 import ShowActiveFiltersControl from "./controls/ShowActiveFiltersControl";
 
@@ -75,6 +73,7 @@ const BreweriesContainer = styled(Box)(({ theme }) => ({
 // Component
 function Map({ searchValue }) {
   const breweries = useSelector((state) => state.brewery.breweries);
+  const [isLocationAuthorization, setIsLocationAuthorization] = useState(null);
   const [position, setPosition] = useState(null);
   const [breweriesByFilter, setBreweriesByFilter] = useState({});
   const [radiusFilter, setRadiusFilter] = useState(null);
@@ -90,12 +89,20 @@ function Map({ searchValue }) {
     radiusFilter,
   });
 
+  useEffect(() => {
+    const result = window.confirm(
+      "Voulez-vous autoriser le site à vous localiser ?"
+    );
+
+    setIsLocationAuthorization(result);
+  }, []);
+
   return (
     <StyledContainer>
       <StyledMapContainer>
         <MapContainer
           className="leaflet"
-          scrollWheelZoom={true}
+          scrollWheelZoom
           zoomControl={false} // prevent zoom control to appear on the map
           center={[47.902964, 1.909251]}
           minZoom={4.2}
@@ -121,8 +128,13 @@ function Map({ searchValue }) {
             getSearchbarFilter={getSearchbarFilter}
             setBreweriesByFilter={setBreweriesByFilter}
           />
-          <LocationMarker position={position} setPosition={setPosition} />
+          <LocationMarker
+            isLocationAuthorization={isLocationAuthorization}
+            position={position}
+            setPosition={setPosition}
+          />
           <LocationButtonFilter
+            isLocationAuthorization={isLocationAuthorization}
             currentPosition={position}
             setRadiusFilter={setRadiusFilter}
           />

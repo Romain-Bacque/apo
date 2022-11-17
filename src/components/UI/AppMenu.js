@@ -25,7 +25,7 @@ const StyledMenuItem = styled(MenuItem)({
 });
 
 // Component
-const AppMenu = () => {
+function AppMenu() {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
   const dispatch = useDispatch();
@@ -68,7 +68,10 @@ const AppMenu = () => {
   return (
     <div>
       <IconButton ref={anchorRef} onClick={() => setOpen(true)} size="large">
-        <MenuRounded fontSize="large" sx={{ color: "white" }} />
+        <MenuRounded
+          fontSize="large"
+          sx={{ fontSize: "2.5rem", color: "white" }}
+        />
       </IconButton>
       <Popper
         open={open}
@@ -157,6 +160,6 @@ const AppMenu = () => {
       </Popper>
     </div>
   );
-};
+}
 
 export default AppMenu;

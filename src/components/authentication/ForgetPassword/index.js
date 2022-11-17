@@ -20,12 +20,10 @@ function ForgetPassword() {
   const isFormValid = inputStatus.email.isValid;
 
   const handleInputChange = useCallback((name, status) => {
-    setInputStatus((prevState) => {
-      return {
-        ...prevState,
-        [name]: status,
-      };
-    });
+    setInputStatus((prevState) => ({
+      ...prevState,
+      [name]: status,
+    }));
   }, []);
 
   const handleSubmit = (event) => {

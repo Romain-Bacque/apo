@@ -2,13 +2,13 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import PropTypes from "prop-types";
 import { Autocomplete } from "@mui/material";
-import { apiConfig } from "../../config/config";
-import Input from "../Input";
 import { debounce } from "lodash";
 import axios from "axios";
+import { apiConfig } from "../../config/config";
+import Input from "../Input";
 
 // Component
-const CustomSearchbar = ({ setInputStatus, location }) => {
+function CustomSearchbar({ setInputStatus, location }) {
   const isFirstRender = useRef(true);
   const [selectedValue, setSelectedValue] = useState(null);
   const [breweriesLocations, setBreweriesLocations] = useState([]);
@@ -41,12 +41,10 @@ const CustomSearchbar = ({ setInputStatus, location }) => {
   const handleInputChange = useCallback(
     (name, status) => {
       if (!status.isValid) return getGeoapiData(status.value);
-      setInputStatus((prevState) => {
-        return {
-          ...prevState,
-          [name]: { isValid: status.isValid, value: selectedValue },
-        };
-      });
+      setInputStatus((prevState) => ({
+        ...prevState,
+        [name]: { isValid: status.isValid, value: selectedValue },
+      }));
     },
     [getGeoapiData, setInputStatus, selectedValue]
   );
@@ -86,7 +84,7 @@ const CustomSearchbar = ({ setInputStatus, location }) => {
       )}
     />
   );
-};
+}
 
 CustomSearchbar.propTypes = {
   setInputStatus: PropTypes.func.isRequired,
@@ -95,6 +93,10 @@ CustomSearchbar.propTypes = {
     lat: PropTypes.string,
     lon: PropTypes.string,
   }),
+};
+
+CustomSearchbar.defaultProps = {
+  location: null,
 };
 
 export default CustomSearchbar;

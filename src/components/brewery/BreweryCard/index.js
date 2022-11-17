@@ -5,7 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Box, Button, CardActions, Divider, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
-import { Edit, Home } from "@mui/icons-material";
+import { Edit, Home, Phone } from "@mui/icons-material";
 import styled from "@emotion/styled";
 
 // Style
@@ -18,7 +18,7 @@ const StyledTypography = styled(Box)({
 });
 
 // Component
-function Brewerie({ id, image, title, address, onDelete }) {
+function Brewerie({ id, image, title, address, phone, onDelete }) {
   const parsedImage = JSON.parse(image);
 
   return (
@@ -30,16 +30,20 @@ function Brewerie({ id, image, title, address, onDelete }) {
             height="140px"
             width="100%"
             image={parsedImage.path}
-            alt={`image/logo brasserie '${title}'`}
+            alt={`Photo de la brasserie '${title}'`}
           />
         )}
         <CardContent sx={{ textAlign: "start" }}>
           <Typography gutterBottom variant="h5" component="h4">
             {title}
           </Typography>
-          <StyledTypography gutterBottom variant="p" component="p">
-            <Home sx={{ fontSize: "2rem" }} />
+          <StyledTypography variant="p" component="p">
+            <Home />
             {address}
+          </StyledTypography>
+          <StyledTypography variant="p" component="p">
+            <Phone />
+            {phone}
           </StyledTypography>
         </CardContent>
         <Divider light />
@@ -69,6 +73,7 @@ Brewerie.propTypes = {
   id: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  phone: PropTypes.string.isRequired,
   address: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
 };

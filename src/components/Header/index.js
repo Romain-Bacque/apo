@@ -21,7 +21,7 @@ const StyledToolbar = styled(Toolbar)({
 });
 
 // Component
-const Header = ({ setSearchValue }) => {
+function Header({ setSearchValue }) {
   const navigate = useNavigate();
 
   // If user type 'enter' key on keyboard
@@ -49,7 +49,7 @@ const Header = ({ setSearchValue }) => {
         }}
       >
         <StyledToolbar>
-          <Box display="flex" mr="4rem" alignItems={"center"} gap={1.5}>
+          <Box display="flex" mr="4rem" alignItems="center" gap={1.5}>
             <Link to="/">
               <SportsBar
                 sx={{
@@ -91,7 +91,7 @@ const Header = ({ setSearchValue }) => {
       </AppBar>
     </GeoapifyContext>
   );
-};
+}
 
 Header.propTypes = {
   setSearchValue: PropTypes.func.isRequired,

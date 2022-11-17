@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { GeoJSON } from "react-leaflet";
 
 // Component
-const Regions = ({ data, setGeoFilter, getGeoFilter }) => {
+function Regions({ data, setGeoFilter, getGeoFilter }) {
   const geoFilter = getGeoFilter();
 
   return (
@@ -19,16 +19,14 @@ const Regions = ({ data, setGeoFilter, getGeoFilter }) => {
             return same ? null : event.propagatedFrom.feature; // if I click the same region again, the filter will be removed and all breweries will be present.
           }),
       }}
-      style={(feature) => {
-        return {
-          color: geoFilter === feature ? "dark" : "gray",
-          weight: 0.6,
-          fillOpacity: 0.3,
-        };
-      }}
+      style={(feature) => ({
+        color: geoFilter === feature ? "dark" : "gray",
+        weight: 0.6,
+        fillOpacity: 0.3,
+      })}
     />
   );
-};
+}
 
 Regions.propTypes = {
   data: PropTypes.object.isRequired,

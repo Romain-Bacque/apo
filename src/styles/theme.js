@@ -30,15 +30,15 @@ const theme = createTheme({
     success: {
       main: "#2e7d32",
     },
-    /* 
-            Si "contrastText" est omis, 
-            sa valeur sera calculée pour contraster avec "main", 
+    /*
+            Si "contrastText" est omis,
+            sa valeur sera calculée pour contraster avec "main",
             selon la valeur de "contrastThreshold".
         */
     contrastThreshold: 3,
-    /* 
-            Si les touches "dark" et/ou "light" sont omises, 
-            leur(s) valeur(s) seront calculées à partir de "main", 
+    /*
+            Si les touches "dark" et/ou "light" sont omises,
+            leur(s) valeur(s) seront calculées à partir de "main",
             selon la valeur de "tonalOffset".
         */
     tonalOffset: 0.2, //  nombre compris entre 0 et 1
@@ -107,6 +107,14 @@ const theme = createTheme({
           width: "100%",
           margin: ".5rem 0",
           padding: ".5rem",
+        },
+      },
+    },
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          margin: "0 0.5rem",
+          fontSize: "1.4rem",
         },
       },
     },

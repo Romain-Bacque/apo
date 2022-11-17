@@ -1,9 +1,8 @@
 import { useState } from "react";
 
 import PropTypes from "prop-types";
+import { Box, Container, Divider, Stack, Typography } from "@mui/material";
 import OneBrewerie from "./BrewerieCard";
-import { Container, Divider, Stack, Typography } from "@mui/material";
-import { Box } from "@mui/system";
 import Category from "../Category";
 
 let breweriesList;
@@ -13,9 +12,10 @@ function BreweriesList({ filter, data }) {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const hasSelectedTag = (brewery, categoryList) => {
     const filteredList = categoryList.filter((object1) => {
-      return brewery.categories.some((object2) => {
-        return parseInt(object1.id) === parseInt(object2.id);
-      });
+      const filteredBrewery = brewery.categories.some(
+        (object2) => Number(object1.id) === Number(object2.id)
+      );
+      return filteredBrewery;
     });
     return !!filteredList.length;
   };
@@ -67,6 +67,11 @@ function BreweriesList({ filter, data }) {
 BreweriesList.propTypes = {
   filter: PropTypes.array,
   data: PropTypes.array,
+};
+
+BreweriesList.defaultProps = {
+  filter: null,
+  data: null,
 };
 
 export default BreweriesList;

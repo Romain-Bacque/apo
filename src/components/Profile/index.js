@@ -3,9 +3,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Navigate } from "react-router-dom";
 
 import { Typography, Button, Container, Divider } from "@mui/material";
-import Input from "../Input";
 import { DeleteForever } from "@mui/icons-material";
 import styled from "@emotion/styled";
+import Input from "../Input";
 import CustomModal from "../UI/CustomModal";
 
 // Style
@@ -58,12 +58,10 @@ function Profile() {
   };
 
   const handleInputChange = useCallback((name, status) => {
-    setInputStatus((prevState) => {
-      return {
-        ...prevState,
-        [name]: status,
-      };
-    });
+    setInputStatus((prevState) => ({
+      ...prevState,
+      [name]: status,
+    }));
   }, []);
 
   // if loading status change then input value are resetted, for more security
@@ -85,7 +83,7 @@ function Profile() {
         onValidate={handleDeleteUser}
         id={user.id}
         title="Suppression de votre compte"
-        description={`Etes-vous sûr de vouloir supprimer définitivement votre compte ?`}
+        description="Etes-vous sûr de vouloir supprimer définitivement votre compte ?"
       />
       <Container
         style={{ maxWidth: "600px" }}

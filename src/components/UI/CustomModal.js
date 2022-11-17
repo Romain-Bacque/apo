@@ -31,36 +31,34 @@ function CustomModal({
   onValidate,
 }) {
   return (
-    <>
-      <Modal open={isOpen}>
-        <ModalCard>
-          <CardContent>
-            <Typography id="modal-modal-title" variant="h5" component="h2">
-              {title}
+    <Modal open={isOpen}>
+      <ModalCard>
+        <CardContent>
+          <Typography id="modal-modal-title" variant="h5" component="h2">
+            {title}
+          </Typography>
+          {description && (
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              {description}
             </Typography>
-            {description && (
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                {description}
-              </Typography>
-            )}
-          </CardContent>
-          <Divider light />
-          <CardActions sx={{ padding: 0, marginTop: "1rem" }}>
-            <Button onClick={() => onValidate(id)} size="small">
-              Valider
-            </Button>
-            <Button
-              sx={{ color: "#f2cc96" }}
-              variant="outlined"
-              onClick={() => setIsOpen(false)}
-              size="small"
-            >
-              Annuler
-            </Button>
-          </CardActions>
-        </ModalCard>
-      </Modal>
-    </>
+          )}
+        </CardContent>
+        <Divider light />
+        <CardActions sx={{ padding: 0, marginTop: "1rem" }}>
+          <Button onClick={() => onValidate(id)} size="small">
+            Valider
+          </Button>
+          <Button
+            sx={{ color: "#f2cc96" }}
+            variant="outlined"
+            onClick={() => setIsOpen(false)}
+            size="small"
+          >
+            Annuler
+          </Button>
+        </CardActions>
+      </ModalCard>
+    </Modal>
   );
 }
 

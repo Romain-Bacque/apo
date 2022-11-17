@@ -1,9 +1,9 @@
 import { forwardRef, useEffect, useImperativeHandle } from "react";
-import useInput from "../hooks/use-input";
 
 import PropTypes from "prop-types";
 import { TextField } from "@mui/material";
 import PasswordChecklist from "react-password-checklist";
+import useInput from "../hooks/use-input";
 
 // Component
 const Input = forwardRef(
@@ -11,8 +11,8 @@ const Input = forwardRef(
     { name, onInputChange, valueToMatch, selectedValue, input, params },
     ref
   ) => {
-    let errorContent = false,
-      helperTextContent = "";
+    let errorContent = false;
+    let helperTextContent = "";
     const {
       value: inputValue,
       isValid: isInputValid,
@@ -27,15 +27,13 @@ const Input = forwardRef(
       const isMatching =
         name === "confirmPassword"
           ? inputValue === valueToMatch.trim()
-            ? true
-            : false
           : isInputValid;
 
       onInputChange(name, { isValid: isMatching, value: inputValue });
     }, [onInputChange, isInputValid, inputValue, name, valueToMatch]);
 
     if (name !== "image") {
-      errorContent = isInputTouched && !isInputValid ? true : false;
+      errorContent = !!(isInputTouched && !isInputValid);
       helperTextContent =
         isInputTouched && !isInputValid ? "Entrée incorrecte." : "";
     }
@@ -92,6 +90,12 @@ Input.propTypes = {
   valueToMatch: PropTypes.string,
   selectedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   input: PropTypes.any.isRequired,
+  params: PropTypes.any,
 };
 
+Input.defaultProps = {
+  valueToMatch: null,
+  selectedValue: null,
+  params: null,
+};
 export default Input;

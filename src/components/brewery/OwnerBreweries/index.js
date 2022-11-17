@@ -1,12 +1,11 @@
-import "./style.scss";
 import { Link, Navigate } from "react-router-dom";
-import Brewerie from "./Brewerie";
 import Add from "@mui/icons-material/Add";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "@emotion/styled";
 import { useState } from "react";
-import CustomModal from "../UI/CustomModal";
+import BreweryCard from "../BreweryCard";
+import CustomModal from "../../UI/CustomModal";
 
 // Style
 const BreweriesContainer = styled(Container)({
@@ -48,15 +47,15 @@ function Breweries() {
 
   userBreweries = breweries?.filter((brewery) => brewery.user_id === userId);
 
-  const handleModal = (breweryId) => {
-    setBreweryId(breweryId);
+  const handleModal = (id) => {
+    setBreweryId(id);
     setIsOpen(true);
   };
 
   // Delete a brewery by its ID
-  const handleBreweryDelete = (breweryId) => {
+  const handleBreweryDelete = (id) => {
     setIsOpen(false);
-    if (breweryId && parseInt(breweryId) > 0) {
+    if (id && id > 0) {
       dispatch({
         type: "DELETE_BREWERY",
         breweryId,
@@ -84,7 +83,7 @@ function Breweries() {
           <TitleText variant="h4" component="h3">
             Mes brasseries
           </TitleText>
-          <TitleButton component={Link} to={"/brewery/breweryForm"}>
+          <TitleButton component={Link} to="/brewery/breweryForm">
             <Add />
             Ajouter une Brasserie
           </TitleButton>
@@ -92,18 +91,17 @@ function Breweries() {
         {userBreweries?.length > 0 ? (
           <Box marginTop="4rem" overflow="auto" height="65vh">
             <Grid spacing={2} justifyContent="center" container>
-              {userBreweries.map((brewery) => {
-                return (
-                  <Brewerie
-                    id={brewery.id}
-                    key={brewery.id}
-                    image={brewery.image}
-                    title={brewery.title}
-                    address={brewery.address}
-                    onDelete={handleModal}
-                  />
-                );
-              })}
+              {userBreweries.map((brewery) => (
+                <BreweryCard
+                  id={brewery.id}
+                  key={brewery.id}
+                  image={brewery.image}
+                  title={brewery.title}
+                  address={brewery.address}
+                  phone={brewery.phone}
+                  onDelete={handleModal}
+                />
+              ))}
             </Grid>
           </Box>
         ) : (

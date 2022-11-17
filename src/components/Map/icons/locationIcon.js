@@ -1,6 +1,6 @@
 import L from "leaflet";
-import iconUrl from "./../images/location.png";
-import iconShadow from "./../images/marker-shadow.png";
+import iconUrl from "../images/location.png";
+import iconShadow from "../images/marker-shadow.png";
 
 const { iconSize, shadowSize, iconAnchor, popupAnchor, tooltipAnchor } =
   L.Marker.prototype.options.icon.options;

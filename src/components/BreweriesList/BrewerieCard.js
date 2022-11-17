@@ -3,12 +3,11 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Button, CardActions, Divider } from "@mui/material";
+import { Box, Button, CardActions, Divider } from "@mui/material";
 import { Link } from "react-router-dom";
-import TagsList from "../UI/TagsList";
 import { Home, Phone } from "@mui/icons-material";
-import { Box } from "@mui/system";
 import styled from "@emotion/styled";
+import TagsList from "../UI/TagsList";
 
 // Style
 const StyledTypography = styled(Box)({
@@ -31,22 +30,20 @@ function BrewerieCard({ id, title, phone, address, tags, image }) {
           height="140px"
           width="100%"
           image={parsedImage.path}
-          alt={`image/logo brasserie '${title}'`}
+          alt={`Photo de la brasserie '${title}'`}
         />
       )}
       <CardContent>
         <Typography gutterBottom variant="h5" component="h4">
           {title}
         </Typography>
-        <StyledTypography gutterBottom variant="p" component="p">
+        <StyledTypography variant="p" component="p">
           <Home sx={{ fontSize: "2rem" }} />
           {address}
         </StyledTypography>
         <StyledTypography>
-          <Phone />
-          <Typography gutterBottom variant="p" component="p">
-            {phone}
-          </Typography>
+          <Phone sx={{ fontSize: "2rem" }} />
+          {phone}
         </StyledTypography>
         <TagsList list={tags} />
       </CardContent>

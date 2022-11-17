@@ -23,7 +23,7 @@ function Category({ selectedCategories, onSelectedCategories }) {
     if (!id) return; // Prevent to select option with "Choisir une catégorie" value
 
     if (
-      !categoriesList.find((category) => parseInt(category.id) === parseInt(id))
+      !categoriesList.find((category) => Number(category.id) === Number(id))
     ) {
       setCategoriesList((prevState) => [...prevState, { id, tag }]);
     }
@@ -65,7 +65,7 @@ function Category({ selectedCategories, onSelectedCategories }) {
           </InputLabel>
           <NativeSelect
             defaultValue="Choisir une catégorie"
-            id={"category"}
+            id="category"
             onClick={handleOptionSelect}
           >
             <option key={null} id={null} disabled>
@@ -91,6 +91,10 @@ function Category({ selectedCategories, onSelectedCategories }) {
 Category.propTypes = {
   selectedCategories: PropTypes.array,
   onSelectedCategories: PropTypes.func.isRequired,
+};
+
+Category.defaultProps = {
+  selectedCategories: null,
 };
 
 export default Category;
