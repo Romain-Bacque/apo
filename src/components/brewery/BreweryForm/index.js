@@ -109,7 +109,6 @@ function BreweryForm() {
             {params.id ? "Modifier La Brasserie" : "Ajouter Une Brasserie"}
           </Typography>
         </Box>
-
         <Input
           input={{
             type: "text",

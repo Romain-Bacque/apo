@@ -83,8 +83,11 @@ function Breweries() {
           <TitleText variant="h4" component="h3">
             Mes brasseries
           </TitleText>
-          <TitleButton component={Link} to="/brewery/breweryForm">
-            <Add />
+          <TitleButton
+            startIcon={<Add />}
+            component={Link}
+            to="/brewery/breweryForm"
+          >
             Ajouter une Brasserie
           </TitleButton>
         </Title>

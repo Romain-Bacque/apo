@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
 
+import styled from "@emotion/styled";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import {
-  Link,
   Box,
   Typography,
   Button,
@@ -15,6 +15,19 @@ import {
 import Input from "../../Input";
 
 let isSigningup = false;
+
+// Style
+const ResetRegisteredLink = styled(Link)({
+  fontSize: "0.8rem",
+  fontWeight: 700,
+  textTransform: "uppercase",
+  width: "fit-content",
+  color: "#c45d32",
+  textDecoration: "none",
+  "&:hover": {
+    textDecoration: "underline",
+  },
+});
 
 // Component
 function Register() {
@@ -69,7 +82,7 @@ function Register() {
       {/* If user is connected, then we redirect to home page */}
       {isLogged && <Navigate to="/" />}
       <Container
-        style={{ maxWidth: "600px" }}
+        style={{ maxWidth: "600px", backgroundColor: "white" }}
         component="form"
         onSubmit={handleRegister}
       >
@@ -135,16 +148,9 @@ function Register() {
         />
         <Button type="submit">S'enregistrer</Button>
         <Box textAlign="center">
-          <Link
-            fontWeight="bold"
-            width="fit-content"
-            variant="button"
-            underline="hover"
-            color="#c45d32"
-            href="/signin"
-          >
+          <ResetRegisteredLink to="/signin">
             Vous êtes déjà enregistré ?
-          </Link>
+          </ResetRegisteredLink>
         </Box>
       </Container>
     </>

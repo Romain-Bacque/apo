@@ -14,7 +14,7 @@ const rootReactElement = (
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <App /> {/* React items tree (Virtual DOM) */}
+          <App />
         </ThemeProvider>
       </BrowserRouter>
     </Provider>

@@ -146,8 +146,11 @@ function Profile() {
         />
         <Button type="submit">Enregistrer les modifications</Button>
         <Divider />
-        <DeleteButton onClick={() => setIsOpen(true)} variant="outlined">
-          <DeleteForever />
+        <DeleteButton
+          startIcon={<DeleteForever />}
+          onClick={() => setIsOpen(true)}
+          variant="outlined"
+        >
           Résilier le compte
         </DeleteButton>
       </Container>

@@ -1,9 +1,32 @@
 import { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Navigate } from "react-router-dom";
-import { Link, Button, Typography, Container, Box } from "@mui/material";
+import styled from "@emotion/styled";
+import { Link, Navigate } from "react-router-dom";
+import { Button, Typography, Container, Box } from "@mui/material";
 import Input from "../../Input";
+
+// Style
+const ResetPasswordLink = styled(Link)({
+  fontSize: "1rem",
+  width: "fit-content",
+  color: "#c45d32",
+  textDecoration: "none",
+  "&:hover": {
+    textDecoration: "underline",
+  },
+});
+const ResetNotRegisteredLink = styled(Link)({
+  fontSize: "0.8rem",
+  fontWeight: 700,
+  textTransform: "uppercase",
+  width: "fit-content",
+  color: "#c45d32",
+  textDecoration: "none",
+  "&:hover": {
+    textDecoration: "underline",
+  },
+});
 
 // Component
 function Login() {
@@ -63,29 +86,16 @@ function Login() {
           onInputChange={handleInputChange}
           name="password"
         />
-        <Link
-          fontSize="1rem"
-          width="fit-content"
-          color="#c45d32"
-          underline="hover"
-          href="/forget-password"
-        >
+        <ResetPasswordLink to="/forget-password">
           Mot de passe perdu
-        </Link>
+        </ResetPasswordLink>
         <Button type="submit" variant="contained">
           Se connecter
         </Button>
         <Box textAlign="center">
-          <Link
-            fontWeight="bold"
-            width="fit-content"
-            variant="button"
-            underline="hover"
-            color="#c45d32"
-            href="/signup"
-          >
+          <ResetNotRegisteredLink to="/signup">
             Vous n'êtes pas enregistré ?
-          </Link>
+          </ResetNotRegisteredLink>
         </Box>
       </Container>
     </>

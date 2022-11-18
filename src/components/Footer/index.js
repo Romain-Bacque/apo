@@ -15,7 +15,6 @@ const FooterContainer = styled(Box)({
   justifyContent: "space-around",
   flexWrap: "wrap",
   alignItems: "center",
-  marginTop: "1rem",
   padding: "0.5rem 2rem",
   borderTop: "1px solid rgb(230, 230, 230)",
   backgroundColor: "white",

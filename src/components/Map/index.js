@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 
 import PropTypes from "prop-types";
@@ -71,9 +71,8 @@ const BreweriesContainer = styled(Box)(({ theme }) => ({
 }));
 
 // Component
-function Map({ searchValue }) {
+function Map({ isLocationAuthorization, searchValue }) {
   const breweries = useSelector((state) => state.brewery.breweries);
-  const [isLocationAuthorization, setIsLocationAuthorization] = useState(null);
   const [position, setPosition] = useState(null);
   const [breweriesByFilter, setBreweriesByFilter] = useState({});
   const [radiusFilter, setRadiusFilter] = useState(null);
@@ -88,14 +87,6 @@ function Map({ searchValue }) {
     geoFilter,
     radiusFilter,
   });
-
-  useEffect(() => {
-    const result = window.confirm(
-      "Voulez-vous autoriser le site à vous localiser ?"
-    );
-
-    setIsLocationAuthorization(result);
-  }, []);
 
   return (
     <StyledContainer>
@@ -165,6 +156,7 @@ function Map({ searchValue }) {
 
 Map.propTypes = {
   searchValue: PropTypes.string.isRequired,
+  isLocationAuthorization: PropTypes.bool.isRequired,
 };
 
 export default Map;

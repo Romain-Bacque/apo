@@ -19,6 +19,7 @@ import NotFound from "../NotFound";
 import BreweryForm from "../brewery/BreweryForm";
 
 function App() {
+  const [isLocationAuthorization, setIsLocationAuthorization] = useState(null);
   const [searchValue, setSearchValue] = useState("");
   const dispatch = useDispatch();
   const location = useLocation();
@@ -51,10 +52,26 @@ function App() {
     });
   }, [dispatch]);
 
+  // Ask for location authorization
+  useEffect(() => {
+    const result = window.confirm(
+      "Voulez-vous autoriser le site à vous localiser ?"
+    );
+
+    setIsLocationAuthorization(result);
+  }, []);
   return (
     <Layout setSearchValue={setSearchValue}>
       <Routes>
-        <Route path="/" element={<Map searchValue={searchValue} />} />
+        <Route
+          path="/"
+          element={
+            <Map
+              isLocationAuthorization={isLocationAuthorization}
+              searchValue={searchValue}
+            />
+          }
+        />
         <Route path="/signup" element={<Register />} />
         <Route path="/signin" element={<Login />} />
         <Route path="/profile" element={<Profile />} />

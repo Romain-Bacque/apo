@@ -3,8 +3,19 @@ import { useMap } from "react-leaflet";
 import PropTypes from "prop-types";
 import { IconButton } from "@mui/material";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
+import styled from "@emotion/styled";
 
 const DEFAULT_RADIUS = 30;
+
+// Style
+const StyledIconButton = styled(IconButton)({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+});
+const StyledMyLocationIcon = styled(MyLocationIcon)({
+  width: "100%",
+});
 
 // Component
 function LocationButtonFilter({
@@ -35,19 +46,14 @@ function LocationButtonFilter({
   return (
     <div className="leaflet-top leaflet-left">
       <div className="leaflet-control leaflet-bar leaflet-control-layers">
-        <IconButton
+        <StyledIconButton
           aria-label="bouton pour afficher/cacher les brasseries autour de vous"
           className="leaflet-control-layer"
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
           title="Brasseries autour de vous"
           onClick={handleLocationFilter}
         >
-          <MyLocationIcon sx={{ width: "100%" }} />
-        </IconButton>
+          <StyledMyLocationIcon />
+        </StyledIconButton>
       </div>
     </div>
   );
