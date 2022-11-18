@@ -9,22 +9,27 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
+import dayjs from "dayjs";
 
-function EventCard({ title, description, event_date, participants }) {
+function EventCard({ title, description, event_start, participants }) {
   return (
-    <Card>
+    <Card sx={{ width: "90%", m: "auto" }}>
       <CardContent>
-        <Typography variant="body2">{title}</Typography>
-        <Typography variant="body2">{description}</Typography>
+        <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Box>
+            <Typography variant="body2">{title}</Typography>
+          </Box>
+          <Typography>{description}</Typography>
+          <CardActions>
+            <Button>S'inscrire</Button>
+          </CardActions>
+        </Box>
         <Box>
-          <Typography variant="body2">{event_date}</Typography>
+          <Typography variant="body2">
+            Début: {dayjs(event_start).format("DD/MM/YYYY hh:mm:ss")}
+          </Typography>
           <Typography variant="body2">{participants}</Typography>
         </Box>
-        <CardActions>
-          <Button component={Link} to="/Brewery/event">
-            S'inscrire
-          </Button>
-        </CardActions>
       </CardContent>
     </Card>
   );
@@ -33,7 +38,7 @@ function EventCard({ title, description, event_date, participants }) {
 EventCard.propTypes = {
   title: PropTypes.bool.isRequired,
   description: PropTypes.object.isRequired,
-  event_date: PropTypes.func.isRequired,
+  event_start: PropTypes.func.isRequired,
   participants: PropTypes.func.isRequired,
 };
 

@@ -135,19 +135,17 @@ function BreweryDetails() {
             Planning des évènements
           </Button>
         </Box>
-
         {filteredBrewery.events && filteredBrewery.events.length > 0 ? (
-          <Swiper
-            pagination={{
-              type: "progressbar",
-            }}
-            navigation
-            modules={[Pagination, Navigation]}
-            className="mySwiper"
-          >
-            {filteredBrewery.events.map((event, index) => (
-              <SwiperSlide key={index}>
-                <EventCard event={event} />
+          <Swiper navigation modules={[Pagination, Navigation]}>
+            {filteredBrewery.events.map((event) => (
+              <SwiperSlide key={event.id}>
+                <EventCard
+                  id={event.id}
+                  title={event.title}
+                  description={event.description}
+                  event_start={event.event_start}
+                  participants={event.participants}
+                />
               </SwiperSlide>
             ))}
           </Swiper>
