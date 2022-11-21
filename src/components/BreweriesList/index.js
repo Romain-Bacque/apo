@@ -29,7 +29,7 @@ const FilterTypography = styled(Typography)({
   textAlign: "center",
 });
 const NoResultTypography = styled(Typography)({
-  m: "1.5rem",
+  margin: "1.5rem",
   textAlign: "center",
 });
 
