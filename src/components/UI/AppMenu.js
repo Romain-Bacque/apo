@@ -1,4 +1,7 @@
+// hook import
 import { useState, useRef, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+// component import
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Grow from "@mui/material/Grow";
 import Paper from "@mui/material/Paper";
@@ -6,13 +9,14 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { Button, IconButton } from "@mui/material";
+// other import
 import { MenuRounded } from "@mui/icons-material";
 import styled from "@emotion/styled";
 
 // Style
 const StyledMenuItem = styled(MenuItem)({
+  textTransform: "capitalize",
   padding: ".5rem 1rem",
   margin: "1rem 0",
   fontSize: "1.4rem",
@@ -24,8 +28,14 @@ const StyledMenuItem = styled(MenuItem)({
   },
 });
 
+// Style
+const StyledMenuRounded = styled(MenuRounded)({
+  fontSize: "2.5rem",
+  color: "white",
+});
+
 // Component
-const AppMenu = () => {
+function AppMenu() {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
   const dispatch = useDispatch();
@@ -68,7 +78,7 @@ const AppMenu = () => {
   return (
     <div>
       <IconButton ref={anchorRef} onClick={() => setOpen(true)} size="large">
-        <MenuRounded fontSize="large" sx={{ color: "white" }} />
+        <StyledMenuRounded fontSize="large" />
       </IconButton>
       <Popper
         open={open}
@@ -141,7 +151,6 @@ const AppMenu = () => {
                     {isLogged && (
                       <StyledMenuItem
                         variant="text"
-                        sx={{ textTransform: "capitalize" }}
                         component={Button}
                         onClick={handleLogout}
                       >
@@ -157,6 +166,6 @@ const AppMenu = () => {
       </Popper>
     </div>
   );
-};
+}
 
 export default AppMenu;

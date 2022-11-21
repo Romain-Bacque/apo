@@ -1,9 +1,9 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
-import store from "./store";
 import { BrowserRouter } from "react-router-dom";
 import { CssBaseline, ThemeProvider } from "@mui/material";
+import store from "./store";
 import "./styles/index.scss";
 import theme from "./styles/theme";
 import App from "./components/App";
@@ -14,7 +14,7 @@ const rootReactElement = (
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <App /> {/* React items tree (Virtual DOM) */}
+          <App />
         </ThemeProvider>
       </BrowserRouter>
     </Provider>

@@ -1,17 +1,30 @@
+// hook import
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Navigate } from "react-router-dom";
-
-import { Typography, Button, Container, Divider } from "@mui/material";
-import Input from "../Input";
+// other import
 import { DeleteForever } from "@mui/icons-material";
 import styled from "@emotion/styled";
+// component import
+import { Navigate } from "react-router-dom";
+import { Typography, Button, Container, Divider } from "@mui/material";
+import Input from "../Input";
 import CustomModal from "../UI/CustomModal";
 
 // Style
-const DeleteButton = styled(Button)({
-  color: "#f2cc96",
+const ProfileContainer = styled(Container)({
+  width: "500px",
+  maxWidth: "90%",
+  padding: "3rem",
+  backgroundColor: "white",
+  borderRadius: "10px",
+  border: "1px solid rgb(230, 230, 230)",
 });
+const StyledDivider = styled(Divider)({
+  margin: "1rem 0",
+});
+const DeleteButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.secondary.main,
+}));
 
 // Component
 function Profile() {
@@ -58,12 +71,10 @@ function Profile() {
   };
 
   const handleInputChange = useCallback((name, status) => {
-    setInputStatus((prevState) => {
-      return {
-        ...prevState,
-        [name]: status,
-      };
-    });
+    setInputStatus((prevState) => ({
+      ...prevState,
+      [name]: status,
+    }));
   }, []);
 
   // if loading status change then input value are resetted, for more security
@@ -85,13 +96,9 @@ function Profile() {
         onValidate={handleDeleteUser}
         id={user.id}
         title="Suppression de votre compte"
-        description={`Etes-vous sûr de vouloir supprimer définitivement votre compte ?`}
+        description="Etes-vous sûr de vouloir supprimer définitivement votre compte ?"
       />
-      <Container
-        style={{ maxWidth: "600px" }}
-        component="form"
-        onSubmit={handleUpdateUser}
-      >
+      <ProfileContainer component="form" onSubmit={handleUpdateUser}>
         <Typography component="h2" variant="h3" color="gray">
           Modifier Votre Profil
         </Typography>
@@ -147,12 +154,15 @@ function Profile() {
           onInputChange={handleInputChange}
         />
         <Button type="submit">Enregistrer les modifications</Button>
-        <Divider />
-        <DeleteButton onClick={() => setIsOpen(true)} variant="outlined">
-          <DeleteForever />
+        <StyledDivider />
+        <DeleteButton
+          startIcon={<DeleteForever />}
+          onClick={() => setIsOpen(true)}
+          variant="outlined"
+        >
           Résilier le compte
         </DeleteButton>
-      </Container>
+      </ProfileContainer>
     </>
   );
 }

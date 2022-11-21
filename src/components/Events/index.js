@@ -1,21 +1,15 @@
-// == Import
-import { Button, Grid, Typography } from '@mui/material';
+import { Grid, Typography } from "@mui/material";
 
-import './style.scss';
-import Event from '../Events/Event'
-// == Composant
-import MyEvent from './MyEvent'
+import "./style.scss";
+import Event from "./Event";
 
 function Events() {
   return (
     <>
-        <Typography variant="h2">
-           Mes évènements (1)
-        </Typography>
+      <Typography variant="h2">Mes évènements (1)</Typography>
       <Grid container>
         <Event />
       </Grid>
-
     </>
   );
 }

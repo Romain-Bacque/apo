@@ -1,4 +1,6 @@
+// other import
 import axios from "axios";
+// config file import
 import { apiConfig } from "../config/config";
 
 const instance = axios.create({
@@ -26,8 +28,11 @@ const category = (store) => (next) => (action) => {
           categories,
         });
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        store.dispatch({
+          type: "ERROR",
+          message: "Erreur, une erreur est survenue.",
+        });
       });
   }
 

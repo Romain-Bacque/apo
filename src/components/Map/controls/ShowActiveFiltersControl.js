@@ -1,5 +1,7 @@
+// other import
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
+// component import
 import {
   List,
   Divider,
@@ -17,7 +19,7 @@ const StyledList = styled(List)({
 });
 
 // Component
-const ShowActiveFiltersControl = ({ getFilters }) => {
+function ShowActiveFiltersControl({ getFilters }) {
   const { geoFilter, radiusFilter, searchValue } = getFilters();
 
   const getDisplayFilters = () => {
@@ -39,40 +41,34 @@ const ShowActiveFiltersControl = ({ getFilters }) => {
   };
 
   // Active Filter functional component
-  const RenderActiveFilters = () => {
-    const filtersList = getDisplayFilters();
-
-    return (
-      <StyledList
-        component="div"
-        aria-labelledby="nested-list-subheader" // reference to text inside 'ListSubheader' component ('Filtre Actif')
-        subheader={
-          <ListSubheader component="div" id="nested-list-subheader">
-            Filtre(s) Actif
-          </ListSubheader>
-        }
-      >
-        <Divider />
-        {filtersList?.length > 0 &&
-          filtersList.map((filter, index) => (
-            <ListItem key={index} component="div">
-              <ListItemText primary={filter} />
-              <Divider />
-            </ListItem>
-          ))}
-      </StyledList>
-    );
-  };
+  const filtersList = getDisplayFilters();
 
   return (
     // Override 'leaflet-bottom' and 'leaflet-left' classes
     <div className="leaflet-bottom leaflet-left">
       <div className="leaflet-control leaflet-bar leaflet-control-layers">
-        <RenderActiveFilters />
+        <StyledList
+          component="div"
+          subheader={
+            <ListSubheader component="div" id="nested-list-subheader">
+              Filtre(s) Actif
+            </ListSubheader>
+          }
+        >
+          <Divider />
+          {filtersList?.length > 0
+            ? filtersList.map((filter, index) => (
+                <ListItem key={index} component="div">
+                  <ListItemText primary={filter} />
+                  <Divider />
+                </ListItem>
+              ))
+            : null}
+        </StyledList>
       </div>
     </div>
   );
-};
+}
 
 ShowActiveFiltersControl.propTypes = {
   getFilters: PropTypes.func.isRequired,

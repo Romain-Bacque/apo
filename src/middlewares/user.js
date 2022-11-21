@@ -1,4 +1,6 @@
+// other import
 import axios from "axios";
+// config file import
 import { apiConfig } from "../config/config";
 
 const instance = axios.create({
@@ -7,14 +9,14 @@ const instance = axios.create({
 });
 
 const user = (store) => (next) => (action) => {
-  const setUserStore = (user) => {
+  const setUserStore = (userData) => {
     store.dispatch({
       type: "SAVE_USER",
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      password: user.password,
-      role: user.role,
+      id: userData.id,
+      name: userData.name,
+      email: userData.email,
+      password: userData.password,
+      role: userData.role,
     });
   };
 
@@ -23,14 +25,12 @@ const user = (store) => (next) => (action) => {
       .get("/")
       .then((response) => {
         if (response.status === 200) {
-          const user = response.data.data;
+          const { data } = response.data;
 
-          setUserStore(user);
+          setUserStore(data);
         }
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch(() => {});
   } else if (action.type === "LOGIN") {
     store.dispatch({
       type: "PENDING",
@@ -43,17 +43,16 @@ const user = (store) => (next) => (action) => {
       })
       .then((response) => {
         if (response.status === 200) {
-          const user = response.data.data;
+          const { data } = response.data;
 
           store.dispatch({
             type: "SUCCESS",
-            message: `Bienvenue ${user.name} !`,
+            message: `Bienvenue ${data.name} !`,
           });
-          setUserStore(user);
+          setUserStore(data);
         }
       })
       .catch((error) => {
-        console.log(error);
         const { status } = error.response;
 
         if (status === 400) {
@@ -91,7 +90,6 @@ const user = (store) => (next) => (action) => {
         role: action.role,
       })
       .then((response) => {
-        console.log(response.status);
         if (response.status === 200) {
           store.dispatch({
             type: "SUCCESS",
@@ -100,7 +98,6 @@ const user = (store) => (next) => (action) => {
         }
       })
       .catch((error) => {
-        console.log(error);
         const { status } = error.response;
 
         if (status === 400) {
@@ -138,8 +135,7 @@ const user = (store) => (next) => (action) => {
           });
         }
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         store.dispatch({
           type: "ERROR",
           message: "Erreur, déconnexion impossible.",
@@ -163,7 +159,6 @@ const user = (store) => (next) => (action) => {
         }
       })
       .catch((error) => {
-        console.log(error);
         const { status } = error.response;
 
         if (status === 400 || status === 401) {
@@ -196,7 +191,6 @@ const user = (store) => (next) => (action) => {
         }
       })
       .catch((error) => {
-        console.log(error);
         const { status } = error.response;
 
         if (status === 400 || status === 401) {
@@ -225,17 +219,16 @@ const user = (store) => (next) => (action) => {
       })
       .then((response) => {
         if (response.status === 200) {
-          const user = response.data.data;
+          const { data } = response.data;
 
           store.dispatch({
             type: "SUCCESS",
             message: "Votre compte a été modifié avec succès.",
           });
-          setUserStore(user);
+          setUserStore(data);
         }
       })
       .catch((error) => {
-        console.log(error);
         const { status } = error.response;
 
         if (status === 400) {
@@ -274,11 +267,19 @@ const user = (store) => (next) => (action) => {
         }
       })
       .catch((error) => {
-        console.log(error);
-        store.dispatch({
-          type: "ERROR",
-          message: "Erreur, Suppression du compte impossible.",
-        });
+        const { status } = error.response;
+
+        if (status === 401) {
+          store.dispatch({
+            type: "ERROR",
+            message: "Action non autorisée.",
+          });
+        } else {
+          store.dispatch({
+            type: "ERROR",
+            message: "Erreur, suppression du compte impossible.",
+          });
+        }
       });
   }
 

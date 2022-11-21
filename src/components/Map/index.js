@@ -1,24 +1,22 @@
+// hook import
 import { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
-
+// other import
 import PropTypes from "prop-types";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import "leaflet-easybutton/src/easy-button.js";
-import "leaflet-easybutton/src/easy-button.css";
 import "font-awesome/css/font-awesome.min.css";
-import "./style.scss";
+import styled from "@emotion/styled";
+// component import
 import { Box, FormControlLabel, Switch } from "@mui/material";
 import BreweryMarker from "./layers/BreweryMarker";
 import LocationMarker from "./layers/LocationMarker";
 import Regions from "./layers/Regions";
-
-// GeoJSON data
-import { regions } from "./data/regions";
 import BreweriesList from "../BreweriesList";
-import styled from "@emotion/styled";
 import LocationButtonFilter from "./controls/LocationButtonFilter";
 import ShowActiveFiltersControl from "./controls/ShowActiveFiltersControl";
+// GeoJSON data
+import { regions } from "./data/regions";
 
 // Style
 const StyledContainer = styled(Box)(({ theme }) => ({
@@ -26,23 +24,38 @@ const StyledContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  gap: 2,
+  gap: "1.5rem",
   margin: "auto",
-  minWidth: "70%",
+  padding: "3rem",
+  width: "90%",
   maxWidth: "1200px",
   height: "100%",
   overflow: "hidden",
   [theme.breakpoints.down("md")]: {
+    padding: "0rem 0 6rem",
     alignItems: "stretch",
     width: "100%",
     height: "100%",
   },
 }));
-const StyledMapContainer = styled(Box)({
+const StyledMapContainer = styled(Box)(({ theme }) => ({
   flex: 2,
-  height: "calc(100% - 6rem)",
+  height: "100%",
   position: "relative",
-});
+  borderRadius: "10px",
+  overflow: "hidden",
+  "& .leaflet-container": {
+    width: "100%",
+    height: "100%",
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    zIndex: 0,
+  },
+  [theme.breakpoints.down("md")]: {
+    borderRadius: "0",
+  },
+}));
 const SwitchContainer = styled(Box)(({ theme }) => ({
   margin: "1rem",
   borderBottom: "1px solid lightgray",
@@ -54,26 +67,29 @@ const SwitchContainer = styled(Box)(({ theme }) => ({
   },
 }));
 const BreweriesContainer = styled(Box)(({ theme }) => ({
-  flex: "1.5",
+  flex: 1.5,
   backgroundColor: "white",
   transition: "0.3s ease-out",
   alignSelf: "stretch",
   borderRadius: "10px",
+  border: "1px solid rgb(230, 230, 230)",
   [theme.breakpoints.down("md")]: {
+    borderRadius: "0",
+    boxShadow: "none",
+    height: "100%",
     width: "100%",
     position: "absolute",
     zIndex: 3,
     bottom: "6rem",
     transform: "translateY(100%)",
-    borderRadius: "none",
     "&.active": {
-      bottom: "100.1%",
+      bottom: "100%",
     },
   },
 }));
 
 // Component
-function Map({ searchValue }) {
+function Map({ isLocationAuthorized, searchValue }) {
   const breweries = useSelector((state) => state.brewery.breweries);
   const [position, setPosition] = useState(null);
   const [breweriesByFilter, setBreweriesByFilter] = useState({});
@@ -95,7 +111,7 @@ function Map({ searchValue }) {
       <StyledMapContainer>
         <MapContainer
           className="leaflet"
-          scrollWheelZoom={true}
+          scrollWheelZoom
           zoomControl={false} // prevent zoom control to appear on the map
           center={[47.902964, 1.909251]}
           minZoom={4.2}
@@ -121,11 +137,18 @@ function Map({ searchValue }) {
             getSearchbarFilter={getSearchbarFilter}
             setBreweriesByFilter={setBreweriesByFilter}
           />
-          <LocationMarker position={position} setPosition={setPosition} />
-          <LocationButtonFilter
-            currentPosition={position}
-            setRadiusFilter={setRadiusFilter}
+          <LocationMarker
+            isLocationAuthorized={isLocationAuthorized}
+            position={position}
+            setPosition={setPosition}
           />
+          {isLocationAuthorized && (
+            <LocationButtonFilter
+              isLocationAuthorized={isLocationAuthorized}
+              currentPosition={position}
+              setRadiusFilter={setRadiusFilter}
+            />
+          )}
           <ShowActiveFiltersControl getFilters={getFilters} />
         </MapContainer>
       </StyledMapContainer>
@@ -153,6 +176,7 @@ function Map({ searchValue }) {
 
 Map.propTypes = {
   searchValue: PropTypes.string.isRequired,
+  isLocationAuthorized: PropTypes.bool.isRequired,
 };
 
 export default Map;

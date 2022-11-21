@@ -1,6 +1,7 @@
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
+  // palette is area that store our customs colors
   palette: {
     // Most important color
     primary: {
@@ -10,9 +11,9 @@ const theme = createTheme({
     },
     // Secondary Color
     secondary: {
-      main: "#F7EBC9",
+      main: "#cb9951",
       light: "#fffffc",
-      dark: "#c4b998",
+      dark: "#b28646",
     },
     // Error message color.
     error: {
@@ -30,15 +31,15 @@ const theme = createTheme({
     success: {
       main: "#2e7d32",
     },
-    /* 
-            Si "contrastText" est omis, 
-            sa valeur sera calculée pour contraster avec "main", 
+    /*
+            Si "contrastText" est omis,
+            sa valeur sera calculée pour contraster avec "main",
             selon la valeur de "contrastThreshold".
         */
     contrastThreshold: 3,
-    /* 
-            Si les touches "dark" et/ou "light" sont omises, 
-            leur(s) valeur(s) seront calculées à partir de "main", 
+    /*
+            Si les touches "dark" et/ou "light" sont omises,
+            leur(s) valeur(s) seront calculées à partir de "main",
             selon la valeur de "tonalOffset".
         */
     tonalOffset: 0.2, //  nombre compris entre 0 et 1
@@ -71,25 +72,37 @@ const theme = createTheme({
     MuiContainer: {
       styleOverrides: {
         root: {
+          zIndex: 1,
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          marginBottom: "20px",
           gap: 2,
-          paddingTop: "1rem",
-          paddingBottom: "1rem",
+        },
+      },
+    },
+    MuiCard: {
+      defaultProps: {
+        variant: "contained",
+        elevation: 1,
+      },
+      styleOverrides: {
+        root: {
+          backgroundColor: "white",
+          borderRadius: "10px",
+          overflow: "hidden",
         },
       },
     },
     MuiButton: {
       defaultProps: {
         variant: "contained",
+        color: "secondary",
       },
       styleOverrides: {
         root: {
           width: "100%",
           padding: "1rem .5rem",
-          margin: "1rem auto",
+          margin: "auto",
           boxShadow: "none",
           borderRadius: "5px",
           color: "white",
@@ -100,13 +113,21 @@ const theme = createTheme({
     },
     MuiTextField: {
       defaultProps: {
-        variant: "filled",
+        variant: "standard",
       },
       styleOverrides: {
         root: {
           width: "100%",
           margin: ".5rem 0",
           padding: ".5rem",
+        },
+      },
+    },
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          margin: "0 0.5rem",
+          fontSize: "1.4rem",
         },
       },
     },

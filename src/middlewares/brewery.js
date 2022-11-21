@@ -1,4 +1,6 @@
+// other import
 import axios from "axios";
+// config file import
 import { apiConfig } from "../config/config";
 
 const instance = axios.create({
@@ -29,8 +31,7 @@ const brewery = (store) => (next) => (action) => {
           });
         }
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         store.dispatch({
           type: "ERROR",
           message: "Une erreur est survenue.",
@@ -45,7 +46,7 @@ const brewery = (store) => (next) => (action) => {
     formData.append("address", action.address);
     formData.append("lat", action.lat);
     formData.append("lon", action.lon);
-    for (let category of action.categories) {
+    for (const category of action.categories) {
       formData.append("categories[]", category.id);
     }
     formData.append("description", action.description);
@@ -70,7 +71,6 @@ const brewery = (store) => (next) => (action) => {
         }
       })
       .catch((error) => {
-        console.log(error);
         const { status } = error.response;
 
         if (status === 400) {
@@ -104,7 +104,7 @@ const brewery = (store) => (next) => (action) => {
     formData.append("address", action.address);
     formData.append("lat", action.lat);
     formData.append("lon", action.lon);
-    for (let category of action.categories) {
+    for (const category of action.categories) {
       formData.append("categories[]", category.id);
     }
     formData.append("description", action.description);
@@ -129,7 +129,6 @@ const brewery = (store) => (next) => (action) => {
         }
       })
       .catch((error) => {
-        console.log(error);
         const { status } = error.response;
 
         if (status === 401) {
@@ -172,7 +171,6 @@ const brewery = (store) => (next) => (action) => {
         }
       })
       .catch((error) => {
-        console.log(error);
         const { status } = error.response;
 
         if (status === 401) {
