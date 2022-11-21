@@ -1,7 +1,8 @@
+// hook import
 import { useEffect, useState } from "react";
-
 import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
+// component import
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
 
@@ -11,7 +12,6 @@ const StyledPaper = styled(Paper)({
   justifyContent: "start",
   flexWrap: "wrap",
   listStyle: "none",
-  margin: "1rem 0",
 });
 
 const ListItem = styled("li")(({ theme }) => ({
@@ -33,21 +33,22 @@ function TagsList({ onTagDelete, list }) {
 
   return (
     <StyledPaper variant="none" component="ul">
-      {chipData.length > 0 &&
-        chipData.map((data) => {
-          return (
-            data.id &&
-            data.tag && (
-              <ListItem key={data.id}>
-                <Chip
-                  sx={{ fontSize: "0.95rem" }}
-                  label={data.tag}
-                  onDelete={onTagDelete && handleDelete(data)}
-                />
-              </ListItem>
-            )
-          );
-        })}
+      {chipData.length > 0
+        ? chipData.map((data) => {
+            if (data.id && data.tag) {
+              return (
+                <ListItem key={data.id}>
+                  <Chip
+                    sx={{ fontSize: "0.95rem" }}
+                    label={data.tag}
+                    onDelete={onTagDelete && handleDelete(data)}
+                  />
+                </ListItem>
+              );
+            }
+            return null;
+          })
+        : null}
     </StyledPaper>
   );
 }
@@ -55,6 +56,10 @@ function TagsList({ onTagDelete, list }) {
 TagsList.propTypes = {
   onTagDelete: PropTypes.func,
   list: PropTypes.array.isRequired,
+};
+
+TagsList.defaultProps = {
+  onTagDelete: null,
 };
 
 export default TagsList;

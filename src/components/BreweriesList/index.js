@@ -1,21 +1,47 @@
-import { useState } from "react";
-
+// other import
 import PropTypes from "prop-types";
+import styled from "@emotion/styled";
+// hook import
+import { useState } from "react";
+// component import
+import { Box, Container, Divider, Stack, Typography } from "@mui/material";
 import OneBrewerie from "./BrewerieCard";
-import { Container, Divider, Stack, Typography } from "@mui/material";
-import { Box } from "@mui/system";
 import Category from "../Category";
 
 let breweriesList;
+
+// Style
+const BreweriesListContainer = styled(Container)({
+  minWidth: "300px",
+  height: "100%",
+});
+const CardBox = styled(Box)({
+  padding: "0.6rem",
+  marginTop: "1rem",
+  height: "45vh",
+  overflow: "auto",
+});
+const TitleTypography = styled(Typography)({
+  textAlign: "center",
+});
+const FilterTypography = styled(Typography)({
+  color: "gray",
+  textAlign: "center",
+});
+const NoResultTypography = styled(Typography)({
+  margin: "1.5rem",
+  textAlign: "center",
+});
 
 // Component
 function BreweriesList({ filter, data }) {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const hasSelectedTag = (brewery, categoryList) => {
     const filteredList = categoryList.filter((object1) => {
-      return brewery.categories.some((object2) => {
-        return parseInt(object1.id) === parseInt(object2.id);
-      });
+      const filteredBrewery = brewery.categories.some(
+        (object2) => Number(object1.id) === Number(object2.id)
+      );
+      return filteredBrewery;
     });
     return !!filteredList.length;
   };
@@ -40,33 +66,38 @@ function BreweriesList({ filter, data }) {
   }
 
   return (
-    <Container sx={{ mt: "1rem", minWidth: "300px", height: "100%" }}>
-      <Typography variant="h4" component="h3" textAlign="center">
+    <BreweriesListContainer>
+      <TitleTypography variant="h4" component="h3">
         {`Liste des brasseries (${breweriesList?.length || 0})`}
-      </Typography>
-      <Typography color="gray" variant="h6" component="span" textAlign="center">
+      </TitleTypography>
+      <FilterTypography variant="h6" component="span">
         {`Filtre(s) appliqué : ${filter ? filter.join(" | ") : "Aucun filtre"}`}
-      </Typography>
+      </FilterTypography>
       <Divider light />
       <Category onSelectedCategories={setSelectedCategories} />
-      <Box sx={{ height: "45vh", overflow: "auto" }}>
+      <CardBox>
         {breweriesList?.length > 0 ? (
           <Stack direction="column" gap={2}>
             {breweriesList}
           </Stack>
         ) : (
-          <Typography m="1.5rem" textAlign="center" component="div">
+          <NoResultTypography variant="div" component="p">
             Aucun résultat.
-          </Typography>
+          </NoResultTypography>
         )}
-      </Box>
-    </Container>
+      </CardBox>
+    </BreweriesListContainer>
   );
 }
 
 BreweriesList.propTypes = {
   filter: PropTypes.array,
   data: PropTypes.array,
+};
+
+BreweriesList.defaultProps = {
+  filter: null,
+  data: null,
 };
 
 export default BreweriesList;

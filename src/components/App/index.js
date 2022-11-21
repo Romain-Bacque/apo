@@ -1,25 +1,27 @@
+// hook import
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { Routes, Route, useLocation } from "react-router-dom";
+// component import
 import Layout from "./Layout";
 import Map from "../Map";
-import Login from "../Login";
-import Register from "../Register";
-import OneBrewerie from "../One_brewerie";
+import Login from "../authentication/Login";
+import Register from "../authentication/Register";
+import ForgetPassword from "../authentication/ForgetPassword";
+import ResetPassword from "../authentication/ResetPassword";
+import BreweryDetails from "../brewery/BreweryDetails";
 import FormEvent from "../Events/FormEvent";
-import Breweries from "../Breweries";
+import OwnerBreweries from "../brewery/OwnerBreweries";
 import Events from "../Events";
 import OneEvent from "../Events/OneEvent";
-import Profil from "../Profil";
-import UpdateEventBrewery from "../Breweries/UpdateEventBrewery";
+import Profile from "../Profile";
+import UpdateEventBrewery from "../brewery/UpdateEventBrewery";
 import NotFound from "../NotFound";
-import BreweryForm from "../Breweries/UpdateBrewery";
+import BreweryForm from "../brewery/BreweryForm";
 
 function App() {
+  const [isLocationAuthorized, setIsLocationAuthorized] = useState(null);
   const [searchValue, setSearchValue] = useState("");
-  const navigate = useNavigate();
-  const isLogged = useSelector((state) => state.user.isLogged);
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -29,11 +31,6 @@ function App() {
       setSearchValue("");
     }
   }, [location]);
-
-  // If login status change, we always navigate to home page
-  useEffect(() => {
-    navigate("/");
-  }, [isLogged]);
 
   // Check if user is currently connected
   useEffect(() => {
@@ -56,37 +53,43 @@ function App() {
     });
   }, [dispatch]);
 
+  // Ask for location authorization
+  useEffect(() => {
+    const result = window.confirm(
+      "Voulez-vous autoriser le site à vous localiser ?"
+    );
+
+    setIsLocationAuthorized(result);
+  }, []);
   return (
-    <>
-      <Layout setSearchValue={setSearchValue}>
-        <Routes>
-          <Route path="/" element={<Map searchValue={searchValue} />} />
-          <Route path="/breweries/:id" element={<OneBrewerie />} />
-          {!isLogged && (
-            <>
-              <Route path="/signup" element={<Register />} />
-              <Route path="/signin" element={<Login />} />
-            </>
-          )}
-          {isLogged && (
-            <>
-              <Route path="/breweries" element={<Breweries />} />
-              <Route path="/brewery/breweryForm" element={<BreweryForm />} />
-              <Route
-                path="/brewery/breweryForm/:id"
-                element={<BreweryForm />}
-              />
-              <Route path="/create-event" element={<FormEvent />} />
-              <Route path="/events" element={<Events />} />
-              <Route path="/events/:id" element={<OneEvent />} />
-              <Route path="/profil" element={<Profil />} />
-              <Route path="/Brewery/event" element={<UpdateEventBrewery />} />
-            </>
-          )}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Layout>
-    </>
+    <Layout setSearchValue={setSearchValue}>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Map
+              isLocationAuthorized={isLocationAuthorized}
+              searchValue={searchValue}
+            />
+          }
+        />
+        <Route path="/signup" element={<Register />} />
+        <Route path="/signin" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/forget-password" element={<ForgetPassword />} />
+        <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/breweries" element={<OwnerBreweries />} />
+        <Route path="/brewery/:id" element={<BreweryDetails />} />
+        <Route path="/brewery/breweryForm" element={<BreweryForm />} />
+        <Route path="/brewery/breweryForm/:id" element={<BreweryForm />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/events/:id" element={<OneEvent />} />
+        <Route path="/create-event" element={<FormEvent />} />
+        <Route path="/brewery/event" element={<UpdateEventBrewery />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Layout>
   );
 }
 

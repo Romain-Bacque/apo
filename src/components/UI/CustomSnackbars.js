@@ -1,13 +1,22 @@
+// hook import
 import { forwardRef } from "react";
 import PropTypes from "prop-types";
+// component import
 import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import styled from "@emotion/styled";
+
+// Style
+const StyledMuiAlert = styled(MuiAlert)({
+  width: "100%",
+  margin: "5rem auto",
+});
 
 // Child Component
-const Alert = forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
+const Alert = forwardRef((props, ref) => (
+  <StyledMuiAlert elevation={6} ref={ref} variant="filled" {...props} />
+));
 
 // Component
 function CustomSnackbars({ isOpen, message, status, setIsOpen }) {
@@ -26,11 +35,7 @@ function CustomSnackbars({ isOpen, message, status, setIsOpen }) {
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         onClose={handleClose}
       >
-        <Alert
-          onClose={handleClose}
-          severity={status}
-          sx={{ width: "100%", margin: "5rem auto" }}
-        >
+        <Alert onClose={handleClose} severity={status}>
           {message}
         </Alert>
       </Snackbar>

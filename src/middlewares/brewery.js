@@ -1,8 +1,10 @@
+// other import
 import axios from "axios";
+// config file import
 import { apiConfig } from "../config/config";
 
 const instance = axios.create({
-  baseURL: `http://${apiConfig.host}:${apiConfig.port}`,
+  baseURL: `http://${apiConfig.host}:${apiConfig.port}/brewery`,
   withCredentials: true, // authorize cookie sending to server
   headers: { "Content-Type": "multipart/form-data" },
 });
@@ -14,7 +16,7 @@ const brewery = (store) => (next) => (action) => {
       message: null,
     });
     instance
-      .get("/brewery")
+      .get("/")
       .then((response) => {
         if (response.status === 200) {
           const breweries = response.data.data;
@@ -29,8 +31,7 @@ const brewery = (store) => (next) => (action) => {
           });
         }
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         store.dispatch({
           type: "ERROR",
           message: "Une erreur est survenue.",
@@ -45,7 +46,7 @@ const brewery = (store) => (next) => (action) => {
     formData.append("address", action.address);
     formData.append("lat", action.lat);
     formData.append("lon", action.lon);
-    for (let category of action.categories) {
+    for (const category of action.categories) {
       formData.append("categories[]", category.id);
     }
     formData.append("description", action.description);
@@ -54,7 +55,7 @@ const brewery = (store) => (next) => (action) => {
       message: null,
     });
     instance
-      .post("/brewery", formData)
+      .post("/", formData)
       .then((response) => {
         if (response.status === 200) {
           const breweries = response.data.data;
@@ -70,7 +71,6 @@ const brewery = (store) => (next) => (action) => {
         }
       })
       .catch((error) => {
-        console.log(error);
         const { status } = error.response;
 
         if (status === 400) {
@@ -104,7 +104,7 @@ const brewery = (store) => (next) => (action) => {
     formData.append("address", action.address);
     formData.append("lat", action.lat);
     formData.append("lon", action.lon);
-    for (let category of action.categories) {
+    for (const category of action.categories) {
       formData.append("categories[]", category.id);
     }
     formData.append("description", action.description);
@@ -113,7 +113,7 @@ const brewery = (store) => (next) => (action) => {
       message: null,
     });
     instance
-      .put(`/brewery/${action.id}`, formData)
+      .put(`/${action.id}`, formData)
       .then((response) => {
         if (response.status === 200) {
           const breweries = response.data.data;
@@ -129,7 +129,6 @@ const brewery = (store) => (next) => (action) => {
         }
       })
       .catch((error) => {
-        console.log(error);
         const { status } = error.response;
 
         if (status === 401) {
@@ -156,7 +155,7 @@ const brewery = (store) => (next) => (action) => {
     });
 
     instance
-      .delete(`/brewery/${action.breweryId}`)
+      .delete(`/${action.breweryId}`)
       .then((response) => {
         if (response.status === 200) {
           const breweries = response.data.data;
@@ -172,7 +171,6 @@ const brewery = (store) => (next) => (action) => {
         }
       })
       .catch((error) => {
-        console.log(error);
         const { status } = error.response;
 
         if (status === 401) {

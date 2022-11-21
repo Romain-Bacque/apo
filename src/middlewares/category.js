@@ -1,8 +1,10 @@
+// other import
 import axios from "axios";
+// config file import
 import { apiConfig } from "../config/config";
 
 const instance = axios.create({
-  baseURL: `http://${apiConfig.host}:${apiConfig.port}`,
+  baseURL: `http://${apiConfig.host}:${apiConfig.port}/category`,
   withCredentials: true, // authorize cookie sending to server
 });
 
@@ -13,7 +15,7 @@ const category = (store) => (next) => (action) => {
       message: null,
     });
     instance
-      .get("/category")
+      .get("/")
       .then((response) => {
         const categories = response.data.data;
 
@@ -26,8 +28,11 @@ const category = (store) => (next) => (action) => {
           categories,
         });
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        store.dispatch({
+          type: "ERROR",
+          message: "Erreur, une erreur est survenue.",
+        });
       });
   }
 

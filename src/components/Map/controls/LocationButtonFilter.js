@@ -1,56 +1,74 @@
-import PropTypes from "prop-types";
+// hook import
 import { useMap } from "react-leaflet";
-
-import { IconButton } from "@mui/material";
+// other import
+import PropTypes from "prop-types";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
+import styled from "@emotion/styled";
+// component import
+import { IconButton } from "@mui/material";
 
-const DEFAULT_RADIUS = 10;
+const DEFAULT_RADIUS = 30;
+
+// Style
+const StyledIconButton = styled(IconButton)({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+});
+const StyledMyLocationIcon = styled(MyLocationIcon)({
+  width: "100%",
+});
 
 // Component
-const LocationButtonFilter = ({ currentPosition, setRadiusFilter }) => {
+function LocationButtonFilter({
+  currentPosition,
+  setRadiusFilter,
+  isLocationAuthorized,
+}) {
   const map = useMap(); // Hook providing the Leaflet Map instance in any descendant of a MapContainer.
 
   const handleLocationFilter = () => {
-    map.flyTo(currentPosition, map.getZoom()); // Sets the view of the map (geographical center and zoom) performing a smooth pan-zoom animation.
-    map.once("moveend", function () {
-      // When 'flyTo' method movement is finish, then we execute instructions below
-      setRadiusFilter((prevState) => {
-        if (prevState) {
-          return null;
-        } else {
+    if (isLocationAuthorized) {
+      map.flyTo(currentPosition, map.getZoom()); // Sets the view of the map (geographical center and zoom) performing a smooth pan-zoom animation.
+      map.once("moveend", () => {
+        // When 'flyTo' method movement is finish, then we execute instructions below
+        setRadiusFilter((prevState) => {
+          if (prevState) {
+            return null;
+          }
           return {
             coordinates: currentPosition,
             radius: DEFAULT_RADIUS,
           };
-        }
+        });
       });
-    });
+    }
   };
 
   return (
     <div className="leaflet-top leaflet-left">
       <div className="leaflet-control leaflet-bar leaflet-control-layers">
-        <IconButton
+        <StyledIconButton
           aria-label="bouton pour afficher/cacher les brasseries autour de vous"
           className="leaflet-control-layer"
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
           title="Brasseries autour de vous"
           onClick={handleLocationFilter}
         >
-          <MyLocationIcon sx={{ width: "100%" }} />
-        </IconButton>
+          <StyledMyLocationIcon />
+        </StyledIconButton>
       </div>
     </div>
   );
-};
+}
 
 LocationButtonFilter.propTypes = {
+  isLocationAuthorized: PropTypes.bool.isRequired,
   currentPosition: PropTypes.object,
   setRadiusFilter: PropTypes.func.isRequired,
+};
+
+LocationButtonFilter.defaultProps = {
+  currentPosition: null,
 };
 
 export default LocationButtonFilter;
