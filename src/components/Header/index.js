@@ -1,7 +1,9 @@
+// hook import
 import { Link, useNavigate } from "react-router-dom";
-
+// other import
 import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
+// component import
 import { Box, Toolbar, AppBar, Typography } from "@mui/material";
 import { SportsBar } from "@mui/icons-material";
 import {
@@ -13,11 +15,35 @@ import AppMenu from "../UI/AppMenu";
 import { apiConfig } from "../../config/config";
 
 // Style
+const LogoBox = styled(Box)({
+  display: "flex",
+  marginRight: "4rem",
+  alignItems: "center",
+  gap: 1.5,
+});
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
   height: "100%",
+});
+const StyledSportsBar = styled(SportsBar)({
+  fontSize: "3.8rem",
+  color: "white",
+});
+const StyledAppBar = styled(AppBar)({
+  position: "sticky",
+  boxShadow: "none",
+  height: "8rem",
+});
+const TitleTypography = styled(Typography)({
+  fontWeight: "bold",
+  color: "white",
+  fontSize: "1.4rem",
+  width: "8rem",
+});
+const SearchBarContainer = styled("div")({
+  width: "60%",
 });
 
 // Component
@@ -42,42 +68,24 @@ function Header({ setSearchValue }) {
 
   return (
     <GeoapifyContext apiKey={apiConfig.apiKey || ""}>
-      <AppBar
-        position="sticky"
-        sx={{
-          boxShadow: "none",
-        }}
-      >
+      <StyledAppBar>
         <StyledToolbar>
-          <Box display="flex" mr="4rem" alignItems="center" gap={1.5}>
+          <LogoBox>
             <Link to="/">
-              <SportsBar
-                sx={{
-                  fontSize: "3.8rem",
-                  color: "white",
-                }}
-                to="/"
-              />
+              <StyledSportsBar to="/" />
             </Link>
-            <Typography
-              sx={{
-                display: { xs: "none", sm: "block" },
-                fontWeight: "bold",
-                color: "white",
-                fontSize: "1.4rem",
-                width: "8rem",
-              }}
+            <TitleTypography
+              sx={{ display: { xs: "none", sm: "block" } }}
               variant="span"
             >
               Biere de ta région.
-            </Typography>
-          </Box>
-          <div
+            </TitleTypography>
+          </LogoBox>
+          <SearchBarContainer
             // tabindex is an integer indicating whether the element can capture the focus and if so,
             // in what order it captures it when navigating with the keyboard (usually using the Tab key).
             tabIndex="0"
             onKeyDown={handleKeyDown}
-            style={{ width: "60%" }}
           >
             <GeoapifyGeocoderAutocomplete
               placeholder="Rechercher..."
@@ -85,10 +93,10 @@ function Header({ setSearchValue }) {
               filterByCountryCode={["fr"]}
               placeSelect={handlePlaceSelect}
             />
-          </div>
+          </SearchBarContainer>
           <AppMenu />
         </StyledToolbar>
-      </AppBar>
+      </StyledAppBar>
     </GeoapifyContext>
   );
 }

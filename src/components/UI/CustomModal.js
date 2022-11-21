@@ -1,5 +1,7 @@
+// other import
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
+// component import
 import {
   Button,
   Card,
@@ -11,6 +13,9 @@ import {
 } from "@mui/material";
 
 // Style
+const CancelButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.secondary.main,
+}));
 const ModalCard = styled(Card)({
   position: "absolute",
   top: "50%",
@@ -19,6 +24,10 @@ const ModalCard = styled(Card)({
   width: "500px",
   maxWidth: "90%",
   padding: "1.5rem",
+});
+const StyledCardActions = styled(CardActions)({
+  padding: 0,
+  marginTop: "1rem",
 });
 
 // Component
@@ -38,25 +47,24 @@ function CustomModal({
             {title}
           </Typography>
           {description && (
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <Typography id="modal-modal-description" mt={2}>
               {description}
             </Typography>
           )}
         </CardContent>
         <Divider light />
-        <CardActions sx={{ padding: 0, marginTop: "1rem" }}>
+        <StyledCardActions>
           <Button onClick={() => onValidate(id)} size="small">
             Valider
           </Button>
-          <Button
-            sx={{ color: "#f2cc96" }}
+          <CancelButton
             variant="outlined"
             onClick={() => setIsOpen(false)}
             size="small"
           >
             Annuler
-          </Button>
-        </CardActions>
+          </CancelButton>
+        </StyledCardActions>
       </ModalCard>
     </Modal>
   );

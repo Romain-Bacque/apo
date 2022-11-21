@@ -1,3 +1,4 @@
+// hook import
 import { useCallback, useReducer } from "react";
 
 const initialState = {
@@ -17,6 +18,7 @@ const inputReducer = (state, action) => {
   if (action.type === "CHANGE") {
     switch (action.value.type) {
       case "text":
+      case "textarea":
         if (action.value.value.length > 0) {
           return {
             ...state,
@@ -66,8 +68,6 @@ const inputReducer = (state, action) => {
           };
         }
         break;
-      case "textarea":
-        return { ...state, enteredValue: action.value.value };
       default:
         console.log(`Sorry, we are out of ${action.value.type}.`);
     }

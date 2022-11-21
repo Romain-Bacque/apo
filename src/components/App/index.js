@@ -1,7 +1,8 @@
+// hook import
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Routes, Route, useLocation } from "react-router-dom";
-
+// component import
 import Layout from "./Layout";
 import Map from "../Map";
 import Login from "../authentication/Login";
@@ -19,7 +20,7 @@ import NotFound from "../NotFound";
 import BreweryForm from "../brewery/BreweryForm";
 
 function App() {
-  const [isLocationAuthorization, setIsLocationAuthorization] = useState(null);
+  const [isLocationAuthorized, setIsLocationAuthorized] = useState(null);
   const [searchValue, setSearchValue] = useState("");
   const dispatch = useDispatch();
   const location = useLocation();
@@ -58,7 +59,7 @@ function App() {
       "Voulez-vous autoriser le site à vous localiser ?"
     );
 
-    setIsLocationAuthorization(result);
+    setIsLocationAuthorized(result);
   }, []);
   return (
     <Layout setSearchValue={setSearchValue}>
@@ -67,7 +68,7 @@ function App() {
           path="/"
           element={
             <Map
-              isLocationAuthorization={isLocationAuthorization}
+              isLocationAuthorized={isLocationAuthorized}
               searchValue={searchValue}
             />
           }

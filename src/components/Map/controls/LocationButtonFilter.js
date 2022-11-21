@@ -1,9 +1,11 @@
+// hook import
 import { useMap } from "react-leaflet";
-
+// other import
 import PropTypes from "prop-types";
-import { IconButton } from "@mui/material";
 import MyLocationIcon from "@mui/icons-material/MyLocation";
 import styled from "@emotion/styled";
+// component import
+import { IconButton } from "@mui/material";
 
 const DEFAULT_RADIUS = 30;
 
@@ -21,12 +23,12 @@ const StyledMyLocationIcon = styled(MyLocationIcon)({
 function LocationButtonFilter({
   currentPosition,
   setRadiusFilter,
-  isLocationAuthorization,
+  isLocationAuthorized,
 }) {
   const map = useMap(); // Hook providing the Leaflet Map instance in any descendant of a MapContainer.
 
   const handleLocationFilter = () => {
-    if (isLocationAuthorization) {
+    if (isLocationAuthorized) {
       map.flyTo(currentPosition, map.getZoom()); // Sets the view of the map (geographical center and zoom) performing a smooth pan-zoom animation.
       map.once("moveend", () => {
         // When 'flyTo' method movement is finish, then we execute instructions below
@@ -60,7 +62,7 @@ function LocationButtonFilter({
 }
 
 LocationButtonFilter.propTypes = {
-  isLocationAuthorization: PropTypes.bool.isRequired,
+  isLocationAuthorized: PropTypes.bool.isRequired,
   currentPosition: PropTypes.object,
   setRadiusFilter: PropTypes.func.isRequired,
 };

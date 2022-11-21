@@ -1,14 +1,24 @@
+// hook import
 import { forwardRef, useEffect, useImperativeHandle } from "react";
-
+// component import
 import PropTypes from "prop-types";
 import { TextField } from "@mui/material";
 import PasswordChecklist from "react-password-checklist";
+// custom hook import
 import useInput from "../hooks/use-input";
 
 // Component
 const Input = forwardRef(
   (
-    { name, onInputChange, valueToMatch, selectedValue, input, params },
+    {
+      multiline,
+      name,
+      onInputChange,
+      valueToMatch,
+      selectedValue,
+      input,
+      params,
+    },
     ref
   ) => {
     let errorContent = false;
@@ -57,6 +67,7 @@ const Input = forwardRef(
           ref={ref}
           {...params}
           {...input}
+          multiline={!!multiline}
           error={errorContent}
           helperText={helperTextContent}
           value={inputValue}
@@ -85,6 +96,7 @@ const Input = forwardRef(
 );
 
 Input.propTypes = {
+  multiline: PropTypes.bool,
   onInputChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   valueToMatch: PropTypes.string,
@@ -94,6 +106,7 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
+  multiline: null,
   valueToMatch: null,
   selectedValue: null,
   params: null,

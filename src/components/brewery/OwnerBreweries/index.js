@@ -1,9 +1,12 @@
-import { Link, Navigate } from "react-router-dom";
-import Add from "@mui/icons-material/Add";
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+// hook import
 import { useDispatch, useSelector } from "react-redux";
-import styled from "@emotion/styled";
 import { useState } from "react";
+// other import
+import Add from "@mui/icons-material/Add";
+import styled from "@emotion/styled";
+// component import
+import { Link, Navigate } from "react-router-dom";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import BreweryCard from "../BreweryCard";
 import CustomModal from "../../UI/CustomModal";
 
@@ -32,6 +35,15 @@ const TitleButton = styled(Button)({
   flex: 1,
   fontSize: "1rem",
   marginTop: "1.2rem",
+});
+const BreweryCardBox = styled(Box)({
+  marginTop: "4rem",
+  overflow: "auto",
+  height: "65vh",
+});
+const NoResultTypography = styled(Typography)({
+  margin: "1.5rem",
+  textAlign: "center",
 });
 
 let userBreweries = [];
@@ -63,13 +75,10 @@ function Breweries() {
     }
   };
 
-  // If user is not connected, then it redirect to home page
-  if (!isLogged) {
-    return <Navigate to="/" replace />;
-  }
-
   return (
     <>
+      {/* If user is not connected, then it redirect to home page */}
+      {!isLogged && <Navigate to="/" replace />}
       <CustomModal
         isOpen={isOpen}
         setIsOpen={setIsOpen}
@@ -92,7 +101,7 @@ function Breweries() {
           </TitleButton>
         </Title>
         {userBreweries?.length > 0 ? (
-          <Box marginTop="4rem" overflow="auto" height="65vh">
+          <BreweryCardBox>
             <Grid spacing={2} justifyContent="center" container>
               {userBreweries.map((brewery) => (
                 <BreweryCard
@@ -106,11 +115,11 @@ function Breweries() {
                 />
               ))}
             </Grid>
-          </Box>
+          </BreweryCardBox>
         ) : (
-          <Typography m="1.5rem" textAlign="center" component="div">
+          <NoResultTypography component="div">
             Aucune brasserie enregistrée.
-          </Typography>
+          </NoResultTypography>
         )}
       </BreweriesContainer>
     </>

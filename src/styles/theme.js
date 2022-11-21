@@ -11,9 +11,9 @@ const theme = createTheme({
     },
     // Secondary Color
     secondary: {
-      main: "#F7EBC9",
+      main: "#cb9951",
       light: "#fffffc",
-      dark: "#c4b998",
+      dark: "#b28646",
     },
     // Error message color.
     error: {
@@ -72,25 +72,37 @@ const theme = createTheme({
     MuiContainer: {
       styleOverrides: {
         root: {
+          zIndex: 1,
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          marginBottom: "20px",
           gap: 2,
-          paddingTop: "1rem",
-          paddingBottom: "1rem",
+        },
+      },
+    },
+    MuiCard: {
+      defaultProps: {
+        variant: "contained",
+        elevation: 1,
+      },
+      styleOverrides: {
+        root: {
+          backgroundColor: "white",
+          borderRadius: "10px",
+          overflow: "hidden",
         },
       },
     },
     MuiButton: {
       defaultProps: {
         variant: "contained",
+        color: "secondary",
       },
       styleOverrides: {
         root: {
           width: "100%",
           padding: "1rem .5rem",
-          margin: "1rem auto",
+          margin: "auto",
           boxShadow: "none",
           borderRadius: "5px",
           color: "white",
@@ -101,7 +113,7 @@ const theme = createTheme({
     },
     MuiTextField: {
       defaultProps: {
-        variant: "filled",
+        variant: "standard",
       },
       styleOverrides: {
         root: {

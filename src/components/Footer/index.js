@@ -1,9 +1,11 @@
+// other import
+import styled from "@emotion/styled";
+import { Mail, LinkedIn, GitHub, SportsBar } from "@mui/icons-material";
+// component import
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
-import styled from "@emotion/styled";
 import { Divider } from "@mui/material";
-import { Mail, LinkedIn, GitHub, SportsBar } from "@mui/icons-material";
 
 // Style
 const FooterContainer = styled(Box)({
@@ -11,6 +13,8 @@ const FooterContainer = styled(Box)({
   bottom: 0,
   left: 0,
   right: 0,
+  zIndex: 2,
+  height: "6rem",
   display: "flex",
   justifyContent: "space-around",
   flexWrap: "wrap",

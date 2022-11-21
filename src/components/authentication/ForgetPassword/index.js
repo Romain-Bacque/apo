@@ -1,9 +1,11 @@
+// hook import
 import { useState, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
-
+// component import
 import { Button, Typography, Container } from "@mui/material";
 import Input from "../../Input";
+import AuthContainerThemeProvider from "../AuthContainerThemeProvider";
 
 let isResetting = false;
 
@@ -48,27 +50,25 @@ function ForgetPassword() {
     <>
       {/* If user is connected, then we redirect to home page */}
       {isLogged && <Navigate to="/" />}
-      <Container
-        style={{ maxWidth: "600px" }}
-        component="form"
-        onSubmit={handleSubmit}
-      >
-        <Typography component="h2" variant="h3" color="gray">
-          Réinitialisation Du Mot De Passe
-        </Typography>
-        <Input
-          input={{
-            id: "email",
-            label: "Email",
-            type: "email",
-          }}
-          onInputChange={handleInputChange}
-          name="email"
-        />
-        <Button type="submit" variant="contained">
-          Envoyer un lien de réinitialisation
-        </Button>
-      </Container>
+      <AuthContainerThemeProvider>
+        <Container component="form" onSubmit={handleSubmit}>
+          <Typography component="h2" variant="h3" color="gray">
+            Réinitialisation Du Mot De Passe
+          </Typography>
+          <Input
+            input={{
+              id: "email",
+              label: "Email",
+              type: "email",
+            }}
+            onInputChange={handleInputChange}
+            name="email"
+          />
+          <Button type="submit" variant="contained">
+            Envoyer un lien de réinitialisation
+          </Button>
+        </Container>
+      </AuthContainerThemeProvider>
     </>
   );
 }

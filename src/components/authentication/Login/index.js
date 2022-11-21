@@ -1,10 +1,13 @@
+// other import
+import styled from "@emotion/styled";
+// hook import
 import { useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import styled from "@emotion/styled";
+// component import
 import { Link, Navigate } from "react-router-dom";
 import { Button, Typography, Container, Box } from "@mui/material";
 import Input from "../../Input";
+import AuthContainerThemeProvider from "../AuthContainerThemeProvider";
 
 // Style
 const ResetPasswordLink = styled(Link)({
@@ -12,11 +15,14 @@ const ResetPasswordLink = styled(Link)({
   width: "fit-content",
   color: "#c45d32",
   textDecoration: "none",
+  marginBottom: "1rem",
   "&:hover": {
     textDecoration: "underline",
   },
 });
 const ResetNotRegisteredLink = styled(Link)({
+  display: "inline-block",
+  marginTop: "2rem",
   fontSize: "0.8rem",
   fontWeight: 700,
   textTransform: "uppercase",
@@ -60,44 +66,42 @@ function Login() {
     <>
       {/* If user is connected, then we redirect to home page */}
       {isLogged && <Navigate to="/" />}
-      <Container
-        style={{ maxWidth: "600px" }}
-        component="form"
-        onSubmit={handleSubmit}
-      >
-        <Typography component="h2" variant="h3" color="gray">
-          Se Connecter
-        </Typography>
-        <Input
-          input={{
-            id: "email",
-            label: "Email",
-            type: "email",
-          }}
-          onInputChange={handleInputChange}
-          name="email"
-        />
-        <Input
-          input={{
-            id: "password",
-            label: "Mot de passe",
-            type: "password",
-          }}
-          onInputChange={handleInputChange}
-          name="password"
-        />
-        <ResetPasswordLink to="/forget-password">
-          Mot de passe perdu
-        </ResetPasswordLink>
-        <Button type="submit" variant="contained">
-          Se connecter
-        </Button>
-        <Box textAlign="center">
-          <ResetNotRegisteredLink to="/signup">
-            Vous n'êtes pas enregistré ?
-          </ResetNotRegisteredLink>
-        </Box>
-      </Container>
+      <AuthContainerThemeProvider>
+        <Container component="form" onSubmit={handleSubmit}>
+          <Typography component="h2" variant="h3" color="gray">
+            Se Connecter
+          </Typography>
+          <Input
+            input={{
+              id: "email",
+              label: "Email",
+              type: "email",
+            }}
+            onInputChange={handleInputChange}
+            name="email"
+          />
+          <Input
+            input={{
+              id: "password",
+              label: "Mot de passe",
+              type: "password",
+            }}
+            onInputChange={handleInputChange}
+            name="password"
+          />
+          <ResetPasswordLink to="/forget-password">
+            Mot de passe perdu
+          </ResetPasswordLink>
+          <Button type="submit" variant="contained">
+            Se connecter
+          </Button>
+          <Box textAlign="center">
+            <ResetNotRegisteredLink to="/signup">
+              Vous n'êtes pas enregistré ?
+            </ResetNotRegisteredLink>
+          </Box>
+        </Container>
+      </AuthContainerThemeProvider>
     </>
   );
 }

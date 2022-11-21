@@ -1,4 +1,10 @@
+// hook import
+import { useSelector } from "react-redux";
+// other import
 import PropTypes from "prop-types";
+import dayjs from "dayjs";
+import styled from "@emotion/styled";
+// component import
 import {
   Box,
   Button,
@@ -7,17 +13,16 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
-import dayjs from "dayjs";
-import { useSelector } from "react-redux";
-import styled from "@emotion/styled";
 
 // Style
 const StyledCard = styled(Card)({
   minHeight: "120px",
-  width: "90%",
+  width: "100%",
   margin: "auto",
   display: "flex",
   justifyContent: "space-between",
+  borderRadius: "10px",
+  border: "1px solid rgb(230, 230, 230)",
 });
 const StyledBox = styled(Box)({
   flex: "1",
@@ -28,11 +33,19 @@ const StyledBox = styled(Box)({
   backgroundColor: "#f2cc96",
   color: "white",
 });
+const TitleTypography = styled(Typography)({
+  fontWeight: 700,
+});
 const StyledCardContent = styled(CardContent)({
   flex: "1.5",
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
+});
+const EventDescription = styled(CardContent)({
+  overflowY: "auto",
+  maxHeight: "2rem",
+  marginBottom: "1rem",
 });
 
 // Component
@@ -49,9 +62,7 @@ function EventCard({
   return (
     <StyledCard>
       <StyledBox>
-        <Typography fontWeight={700} variant="h5">
-          {title}
-        </Typography>
+        <TitleTypography variant="h5">{title}</TitleTypography>
         <Box>
           <Typography variant="h6">
             Début: {dayjs(eventStart).format("DD/MM/YYYY hh:mm:ss")}
@@ -62,7 +73,7 @@ function EventCard({
         </Box>
       </StyledBox>
       <StyledCardContent>
-        <Typography>{description}</Typography>
+        <EventDescription>{description}</EventDescription>
         <CardActions>
           <Button disabled={!isLogged} onClick={() => onRegistration(id)}>
             S'inscrire *

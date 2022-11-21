@@ -1,28 +1,62 @@
+// hook import
 import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper";
-
+// other import
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { Box, Button, CardHeader, Container, IconButton } from "@mui/material";
-import { Home, Phone, Event, ArrowBackRounded, Map } from "@mui/icons-material";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper";
+import { Home, Phone, Event, Map } from "@mui/icons-material";
 import styled from "@emotion/styled";
 import axios from "axios";
+// component import
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import {
+  Box,
+  Button,
+  CardHeader,
+  CardMedia,
+  Container,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
 import TagsList from "../../UI/TagsList";
-import { apiConfig } from "../../../config/config";
 import EventCard from "../breweryEvents/EventCard";
 import CustomModal from "../../UI/CustomModal";
+// config file import
+import { apiConfig } from "../../../config/config";
 
 // Style
+const BreweryDetailsContainer = styled(Container)({
+  width: "900px",
+  maxWidth: "90%",
+});
+const BreweryDetailsCard = styled(Card)({
+  marginBottom: "2rem",
+  borderRadius: "10px",
+  border: "1px solid rgb(230, 230, 230)",
+});
+const BreweryDescription = styled(Typography)({
+  margin: "2rem auto",
+  overflowY: "auto",
+  maxHeight: "2rem",
+});
+const StyledMapIcon = styled(Map)({
+  fontSize: "3rem",
+  color: "gray",
+});
+const StyledCardHeader = styled(CardHeader)({
+  padding: "0.5rem 1rem",
+});
+const StyledCardMedia = styled(CardMedia)({
+  height: "140px",
+  width: "100%",
+});
 const StyledTypography = styled(Box)({
   display: "flex",
   gap: 0.5,
@@ -30,16 +64,28 @@ const StyledTypography = styled(Box)({
   fontSize: "1.3rem",
   color: "gray",
 });
-const StyledSwiper = styled(Swiper)({
-  padding: "2rem",
-});
-const EventDescription = styled(Typography)({
+const EventBox = styled(Box)({
   marginTop: "2rem",
-  marginBottom: "2rem",
 });
-const StyledMapIcon = styled(Map)({
-  fontSize: "3rem",
-  color: "gray",
+const EventHeaderBox = styled(Box)({
+  marginBottom: "1rem",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+});
+const EventTitle = styled(Typography)({
+  flex: 1.5,
+});
+const EventSchedulerLink = styled(Button)({
+  flex: 1,
+  width: "auto",
+});
+const StyledSwiper = styled(Swiper)({
+  padding: "1rem",
+});
+const NoResultTypography = styled(Typography)({
+  marginBottom: "0.5rem",
+  textAlign: "center",
 });
 
 // Component
@@ -128,21 +174,21 @@ function BreweryDetails() {
         title="Inscription à l'évènement"
         description="Etes-vous sûr de vouloir vous inscrire ?"
       />
-      <Container style={{ maxWidth: "800px" }}>
-        <Card elevation={0} sx={{ mb: "2rem" }}>
-          <CardHeader
-            action={
-              <IconButton onClick={() => navigate("/")}>
-                <StyledMapIcon />
-              </IconButton>
-            }
+      <BreweryDetailsContainer>
+        <BreweryDetailsCard>
+          <StyledCardHeader
             title={filteredBrewery.title}
+            action={
+              <Tooltip title={"Retour à l'accueil"}>
+                <IconButton onClick={() => navigate("/")}>
+                  <StyledMapIcon />
+                </IconButton>
+              </Tooltip>
+            }
           />
           {filteredBrewery.image && (
-            <CardMedia
+            <StyledCardMedia
               component="img"
-              height="140px"
-              width="100%"
               image={filteredBrewery.image.path}
               alt={`Photo de la brasserie '${filteredBrewery.title}'`}
             />
@@ -156,42 +202,32 @@ function BreweryDetails() {
               <Phone />
               {filteredBrewery.phone}
             </StyledTypography>
-            <EventDescription>{filteredBrewery.description}</EventDescription>
+            <BreweryDescription>
+              {filteredBrewery.description}
+            </BreweryDescription>
             <Typography component="h5" variant="h6">
               Spécialité(s) de bière:
               <TagsList list={filteredBrewery.categories} />
             </Typography>
           </CardContent>
-        </Card>
-        <Box>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            mb="1.5rem"
-          >
-            <Typography variant="h5" component="h4">
+        </BreweryDetailsCard>
+        <EventBox>
+          <EventHeaderBox>
+            <EventTitle variant="h5" component="h4">
               {`Evènement(s) prévu(s) (${
                 filteredBrewery.events && filteredBrewery.events.length > 0
                   ? filteredBrewery.events.length
                   : 0
               })`}
-            </Typography>
-            <Button
-              sx={{
-                width: "fit-content",
-                m: 0,
-                borderColor: "#f2cc96",
-                color: "#f2cc96",
-              }}
-              variant="outlined"
+            </EventTitle>
+            <EventSchedulerLink
+              startIcon={<Event />}
               component={Link}
               to="/Brewery/event"
             >
-              <Event />
-              Planning des évènements
-            </Button>
-          </Box>
+              Planning
+            </EventSchedulerLink>
+          </EventHeaderBox>
           {filteredBrewery.events && filteredBrewery.events.length > 0 ? (
             <StyledSwiper navigation modules={[Pagination, Navigation]}>
               {filteredBrewery.events.map((event) => (
@@ -212,15 +248,15 @@ function BreweryDetails() {
           ) : (
             <Typography>Aucun évènement de prévu.</Typography>
           )}
-        </Box>
-      </Container>
+        </EventBox>
+      </BreweryDetailsContainer>
     </>
   ) : (
     loading.status !== "pending" && (
       <Box>
-        <Typography variant="h5" mb="0.5rem" textAlign="center" component="p">
+        <NoResultTypography variant="h5" component="p">
           Aucun résultat.
-        </Typography>
+        </NoResultTypography>
         <Button component={Link} to="/">
           Retour à l'accueil
         </Button>

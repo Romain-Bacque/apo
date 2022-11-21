@@ -1,7 +1,11 @@
+// hook import
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-
+// other import
+import { ArrowBackRounded } from "@mui/icons-material";
+import styled from "@emotion/styled";
+// component import
 import {
   Typography,
   Button,
@@ -10,12 +14,24 @@ import {
   Box,
   IconButton,
 } from "@mui/material";
-import { ArrowBackRounded } from "@mui/icons-material";
 import Input from "../../Input";
 import CustomSearchbar from "../../UI/CustomSearchbar";
 import Category from "../../Category";
 
 let isHTTPRequestSend = false;
+
+// Style
+const FormContainer = styled(Container)({
+  padding: "2rem",
+  width: "600px",
+  maxWidth: "90%",
+  color: "gray",
+  backgroundColor: "white",
+  borderRadius: "10px",
+});
+const SaveButton = styled(Button)({
+  marginTop: "2rem",
+});
 
 // Component
 function BreweryForm() {
@@ -96,11 +112,7 @@ function BreweryForm() {
     <>
       {/* If user is not connected, then we redirect to home page */}
       {!isLogged && <Navigate to="/" />}
-      <Container
-        component="form"
-        onSubmit={handleBrewerySubmit}
-        style={{ maxWidth: "600px", color: "gray" }}
-      >
+      <FormContainer component="form" onSubmit={handleBrewerySubmit}>
         <Box display="flex" alignItems="center" gap={1}>
           <IconButton onClick={() => navigate("/breweries")}>
             <ArrowBackRounded sx={{ fontSize: "3rem", color: "gray" }} />
@@ -120,6 +132,7 @@ function BreweryForm() {
         />
         <TextField
           label="Photo de la brasserie"
+          InputLabelProps={{ shrink: true }}
           id="image"
           type="file"
           accept="image/png, image/jpeg"
@@ -145,6 +158,7 @@ function BreweryForm() {
           }}
         />
         <Input
+          multiline
           input={{
             type: "text",
             label: "Description :",
@@ -157,8 +171,8 @@ function BreweryForm() {
           selectedCategories={breweryToUpdate?.categories}
           onSelectedCategories={handleSelectedCategories}
         />
-        <Button type="submit">Enregistrer</Button>
-      </Container>
+        <SaveButton type="submit">Enregistrer</SaveButton>
+      </FormContainer>
     </>
   );
 }

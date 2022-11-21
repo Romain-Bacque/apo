@@ -1,6 +1,12 @@
+// hook import
+import { useEffect } from "react";
+// other import
 import PropTypes from "prop-types";
 import L from "leaflet";
+import { Phone } from "@mui/icons-material";
+import styled from "@emotion/styled";
 import { Marker, Popup } from "react-leaflet";
+// component import
 import { Link } from "react-router-dom";
 import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
 import {
@@ -11,9 +17,7 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
-import { Phone } from "@mui/icons-material";
-import styled from "@emotion/styled";
-import { useEffect } from "react";
+// custom icon import
 import defaultIcon from "../icons/defaultIcon";
 
 // Style
@@ -145,7 +149,7 @@ const BreweryMarker = ({
         icon={defaultIcon}
         key={brewery.id}
       >
-        <Popup>
+        <Popup className="test">
           <StyledCard elevation={0}>
             {parsedImage && (
               <CardMedia

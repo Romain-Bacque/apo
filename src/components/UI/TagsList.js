@@ -1,7 +1,8 @@
+// hook import
 import { useEffect, useState } from "react";
-
 import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
+// component import
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
 
@@ -11,7 +12,6 @@ const StyledPaper = styled(Paper)({
   justifyContent: "start",
   flexWrap: "wrap",
   listStyle: "none",
-  margin: "1rem 0",
 });
 
 const ListItem = styled("li")(({ theme }) => ({

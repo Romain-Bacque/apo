@@ -1,5 +1,7 @@
+// other import
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
+// component import
 import {
   List,
   Divider,

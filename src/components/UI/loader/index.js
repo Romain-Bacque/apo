@@ -1,3 +1,4 @@
+// other import
 import classes from "./style.module.scss";
 
 // Component

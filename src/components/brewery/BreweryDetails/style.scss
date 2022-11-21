@@ -1,67 +1,64 @@
 .brewery {
-    padding: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 90%;
+  background-color: rgba($color: #ffc75f, $alpha: 0.5);
+
+  &-header {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-    width: 90%;
-    background-color: rgba($color: #FFC75F, $alpha: 0.5);
+  }
 
-    &-header{
-        display: flex;
-    }
+  &-title {
+    color: white;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
 
-    &-title {
-        color: white;
-        font-size: 1.3rem;
-        margin-bottom: 0.5rem;
-        font-weight: bold;
-    }
-
-    &-img{
-        width: 6rem;
-    }
+  &-img {
+    width: 6rem;
+  }
 }
 
-.section-adress{
-    display: flex;
-    flex-direction: column;
+.section-adress {
+  display: flex;
+  flex-direction: column;
 }
 
-.span-info{
-    padding: 0.2rem;
+.span-info {
+  padding: 0.2rem;
 }
 
-.event-list{
-    display: flex;
-    justify-content: center;
+.event-list {
+  display: flex;
+  justify-content: center;
 }
 
-.event-list-title{
-    text-align: center;
-    color: black;
+.event-list-title {
+  text-align: center;
+  color: black;
 }
 
-.particip-button{
-    background-color: #FDB800;
-    width: 30%;
-    border-radius: 10px;
-    color: white;   
+.particip-button {
+  background-color: #fdb800;
+  width: 30%;
+  border-radius: 10px;
+  color: white;
 }
 
-.brawery-description{
-    text-align: center;
-    font-size: 1.2rem;  
+.brawery-description {
+  text-align: center;
+  font-size: 1.2rem;
 }
 
 .participant {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
-.css-fq9vqv-MuiPaper-root-MuiCard-root{
-    margin: 7rem;
+.css-fq9vqv-MuiPaper-root-MuiCard-root {
+  margin: 7rem;
 }
-
-
-

@@ -1,3 +1,4 @@
+// other import
 import PropTypes from "prop-types";
 import { GeoJSON } from "react-leaflet";
 

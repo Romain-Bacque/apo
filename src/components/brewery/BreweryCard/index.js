@@ -1,21 +1,41 @@
+// other import
 import PropTypes from "prop-types";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { Box, Button, CardActions, Divider, Grid } from "@mui/material";
-import { Link } from "react-router-dom";
-import { Edit, Home, Phone } from "@mui/icons-material";
 import styled from "@emotion/styled";
+import { Edit, DeleteForever, Home, Phone } from "@mui/icons-material";
+// component import
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import {
+  Button,
+  Card,
+  CardActions,
+  CardMedia,
+  Divider,
+  Grid,
+} from "@mui/material";
+import { Link } from "react-router-dom";
 
 // Style
-const StyledTypography = styled(Box)({
+const StyledCardMedia = styled(CardMedia)({
+  height: "140px",
+  width: "100%",
+});
+const StyledTypography = styled(Typography)({
   display: "flex",
   gap: 0.5,
   fontStyle: "italic",
   fontSize: "1.3rem",
   color: "gray",
 });
+const StyledCardContent = styled(CardContent)({
+  textAlign: "start",
+});
+const StyledDivider = styled(Divider)({
+  margin: "2rem 0",
+});
+const DeleteButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.secondary.main,
+}));
 
 // Component
 function Brewerie({ id, image, title, address, phone, onDelete }) {
@@ -23,18 +43,16 @@ function Brewerie({ id, image, title, address, phone, onDelete }) {
 
   return (
     <Grid item xs={12} lg={6}>
-      <Card sx={{ width: "95%", p: 1.5 }}>
+      <Card>
         {parsedImage && (
-          <CardMedia
+          <StyledCardMedia
             component="img"
-            height="140px"
-            width="100%"
             image={parsedImage.path}
             alt={`Photo de la brasserie '${title}'`}
           />
         )}
-        <CardContent sx={{ textAlign: "start" }}>
-          <Typography gutterBottom variant="h5" component="h4">
+        <StyledCardContent>
+          <Typography variant="h5" component="h4">
             {title}
           </Typography>
           <StyledTypography variant="p" component="p">
@@ -45,25 +63,25 @@ function Brewerie({ id, image, title, address, phone, onDelete }) {
             <Phone />
             {phone}
           </StyledTypography>
-        </CardContent>
-        <Divider light />
-        <CardActions>
-          <Button
-            sx={{ mr: "0.5rem" }}
-            component={Link}
-            to={`/brewery/breweryForm/${id}`}
-          >
-            <Edit sx={{ mr: "0.5rem" }} />
-            Modifier
-          </Button>
-          <Button
-            sx={{ color: "#f2cc96" }}
-            variant="outlined"
-            onClick={() => onDelete(id)}
-          >
-            Supprimer
-          </Button>
-        </CardActions>
+          <StyledDivider light />
+          <CardActions>
+            <Button
+              startIcon={<Edit />}
+              sx={{ mr: "0.5rem" }}
+              component={Link}
+              to={`/brewery/breweryForm/${id}`}
+            >
+              Modifier
+            </Button>
+            <DeleteButton
+              startIcon={<DeleteForever />}
+              variant="outlined"
+              onClick={() => onDelete(id)}
+            >
+              Supprimer
+            </DeleteButton>
+          </CardActions>
+        </StyledCardContent>
       </Card>
     </Grid>
   );

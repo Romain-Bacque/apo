@@ -1,11 +1,14 @@
+// hook import
 import { useCallback, useEffect, useRef, useState } from "react";
-
+// other import
 import PropTypes from "prop-types";
-import { Autocomplete } from "@mui/material";
 import { debounce } from "lodash";
 import axios from "axios";
-import { apiConfig } from "../../config/config";
+// component import
+import { Autocomplete } from "@mui/material";
 import Input from "../Input";
+// config file import
+import { apiConfig } from "../../config/config";
 
 // Component
 function CustomSearchbar({ setInputStatus, location }) {

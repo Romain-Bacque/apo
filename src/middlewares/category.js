@@ -1,4 +1,6 @@
+// other import
 import axios from "axios";
+// config file import
 import { apiConfig } from "../config/config";
 
 const instance = axios.create({
