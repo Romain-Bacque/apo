@@ -89,10 +89,10 @@ function EventCard({
 
 EventCard.propTypes = {
   id: PropTypes.number.isRequired,
-  title: PropTypes.bool.isRequired,
-  description: PropTypes.object.isRequired,
-  eventStart: PropTypes.func.isRequired,
-  totalParticipants: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  eventStart: PropTypes.string.isRequired,
+  totalParticipants: PropTypes.number.isRequired,
   onRegistration: PropTypes.func.isRequired,
 };
 

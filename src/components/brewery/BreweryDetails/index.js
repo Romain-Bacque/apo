@@ -91,11 +91,10 @@ function BreweryDetails() {
   const [eventId, setEventId] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const loading = useSelector((state) => state.loading);
-  const breweryDetails = useSelector((state) => state.breweryDetails);
+  const breweryDetails = useSelector((state) => state.brewery.breweryDetails);
   const { id: breweryId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [filteredBrewery, setFilteredBrewery] = useState(null);
 
   const handleModal = (id) => {
     setEventId(id);
@@ -111,10 +110,6 @@ function BreweryDetails() {
     });
   };
 
-  useEffect(() => {
-    if (breweryDetails) setFilteredBrewery(breweryDetails);
-  }, [breweryDetails]);
-
   const getBreweryDetails = useCallback(async () => {
     if (!breweryId) return;
     dispatch({
@@ -128,7 +123,7 @@ function BreweryDetails() {
     getBreweryDetails();
   }, [getBreweryDetails]);
 
-  return filteredBrewery ? (
+  return breweryDetails ? (
     <>
       <CustomModal isOpen={isOpen}>
         <SimpleModalContent
@@ -141,7 +136,7 @@ function BreweryDetails() {
       <BreweryDetailsContainer>
         <BreweryDetailsCard>
           <StyledCardHeader
-            title={filteredBrewery.title}
+            title={breweryDetails.title}
             action={
               <Tooltip title={"Retour à l'accueil"}>
                 <IconButton onClick={() => navigate("/")}>
@@ -150,28 +145,28 @@ function BreweryDetails() {
               </Tooltip>
             }
           />
-          {filteredBrewery.image && (
+          {breweryDetails.image && (
             <StyledCardMedia
               component="img"
-              image={filteredBrewery.image.path}
-              alt={`Photo de la brasserie '${filteredBrewery.title}'`}
+              image={breweryDetails.image.path}
+              alt={`Photo de la brasserie '${breweryDetails.title}'`}
             />
           )}
           <CardContent>
             <StyledTypography variant="p" component="p">
               <Home />
-              {filteredBrewery.address}
+              {breweryDetails.address}
             </StyledTypography>
             <StyledTypography variant="p" component="p">
               <Phone />
-              {filteredBrewery.phone}
+              {breweryDetails.phone}
             </StyledTypography>
             <BreweryDescription>
-              {filteredBrewery.description}
+              {breweryDetails.description}
             </BreweryDescription>
             <Typography component="h5" variant="h6">
               Spécialité(s) de bière:
-              <TagsList list={filteredBrewery.categories} />
+              <TagsList list={breweryDetails.categories} />
             </Typography>
           </CardContent>
         </BreweryDetailsCard>
@@ -179,8 +174,8 @@ function BreweryDetails() {
           <EventHeaderBox>
             <EventTitle variant="h5" component="h4">
               {`Evènement(s) prévu(s) (${
-                filteredBrewery.events && filteredBrewery.events.length > 0
-                  ? filteredBrewery.events.length
+                breweryDetails.events && breweryDetails.events.length > 0
+                  ? breweryDetails.events.length
                   : 0
               })`}
             </EventTitle>
@@ -192,9 +187,9 @@ function BreweryDetails() {
               Planning
             </EventSchedulerLink>
           </EventHeaderBox>
-          {filteredBrewery.events && filteredBrewery.events.length > 0 ? (
+          {breweryDetails.events && breweryDetails.events.length > 0 ? (
             <StyledSwiper navigation modules={[Pagination, Navigation]}>
-              {filteredBrewery.events.map((event) => (
+              {breweryDetails.events.map((event) => (
                 <SwiperSlide key={event.id}>
                   <EventCard
                     id={event.id}

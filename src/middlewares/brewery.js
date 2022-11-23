@@ -43,7 +43,7 @@ const brewery = (store) => (next) => (action) => {
       message: null,
     });
     instance
-      .get(`/brewery/${action.breweryId}`)
+      .get(`/${action.breweryId}`)
       .then((response) => {
         if (response.status === 200) {
           const breweryDetails = response.data.data[0];

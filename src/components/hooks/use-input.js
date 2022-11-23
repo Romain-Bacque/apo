@@ -36,7 +36,7 @@ const inputReducer = (state, action) => {
           return {
             ...state,
             isValid: true,
-            enteredValue: action.value.value,
+            enteredValue: id,
           };
         }
         break;

@@ -49,45 +49,48 @@ function EventForm({ onCancel }) {
   const breweries = useSelector((state) => state.brewery.breweries);
   const dispatch = useDispatch();
   const {
-    value: breweryTitleValue,
-    isValid: isBreweryTitleValid,
-    isTouched: isBreweryTitleTouched,
-    changeHandler: breweryTitleChangeHandler,
-    blurHandler: breweryTitleBlurHandler,
+    value: breweryIdValue,
+    isValid: isBreweryIdValid,
+    isInput: isBreweryIdInputTouched,
+    changeHandler: breweryIdChangeHandler,
+    blurHandler: breweryIdBlurHandler,
   } = useInput();
   const {
     value: eventTitleValue,
     isValid: isEventTitleValid,
-    isTouched: isEventTitleTouched,
+    isInput: isEventTitleInputTouched,
     changeHandler: eventTitleChangeHandler,
     blurHandler: eventTitleBlurHandler,
   } = useInput();
   const {
     value: descriptionValue,
     isValid: isDescriptionValid,
-    isTouched: isDescriptionTouched,
+    isInput: isDescriptionInputTouched,
     changeHandler: descriptionChangeHandler,
     blurHandler: descriptionBlurHandler,
   } = useInput();
 
   ownerBreweries = breweries?.filter((brewery) => brewery.user_id === userId);
 
-  const hasBreweryTitleAnError = isBreweryTitleTouched && !isBreweryTitleValid;
-  const hasEventTitleAnError = isEventTitleTouched && !isEventTitleValid;
-  const hasDescriptionAnError = isDescriptionTouched && !isDescriptionValid;
+  const hasBreweryIdAnError = isBreweryIdInputTouched && !isBreweryIdValid;
+  const hasEventTitleAnError = isEventTitleInputTouched && !isEventTitleValid;
+  const hasDescriptionAnError =
+    isDescriptionInputTouched && !isDescriptionValid;
 
-  const breweryTitleHelperTextContent =
-    isBreweryTitleTouched && !isBreweryTitleValid ? "Entrée incorrecte." : "";
+  const breweryIdHelperTextContent =
+    isBreweryIdInputTouched && !isBreweryIdValid ? "Entrée incorrecte." : "";
   const eventTitleHelperTextContent =
-    isEventTitleTouched && !isEventTitleValid ? "Entrée incorrecte." : "";
+    isEventTitleInputTouched && !isEventTitleValid ? "Entrée incorrecte." : "";
   const descriptionHelperTextContent =
-    isDescriptionTouched && !isDescriptionValid ? "Entrée incorrecte." : "";
+    isDescriptionInputTouched && !isDescriptionValid
+      ? "Entrée incorrecte."
+      : "";
   const eventStartHelperTextContent = hasEventStartAnError
     ? "Entrée incorrecte."
     : "";
 
   const isFormValid =
-    isBreweryTitleValid &&
+    isBreweryIdValid &&
     isEventTitleValid &&
     isDescriptionValid &&
     !hasEventStartAnError;
@@ -97,7 +100,7 @@ function EventForm({ onCancel }) {
     if (!isFormValid) return;
     dispatch({
       type: "ADD_EVENT",
-      brewery: breweryTitleValue,
+      brewery: breweryIdValue,
       event: eventTitleValue,
       description: descriptionValue,
       eventStart: dayjs(eventStartValue).format("DD/MM/YYYY HH:mm:ss"),
@@ -123,7 +126,7 @@ function EventForm({ onCancel }) {
         <StyledTypography variant="h5" component="h2">
           Créer un évènement
         </StyledTypography>
-        <FormControl error={hasBreweryTitleAnError} fullWidth>
+        <FormControl error={hasBreweryIdAnError} fullWidth>
           <InputLabel
             variant="standard"
             htmlFor="brewery"
@@ -135,8 +138,8 @@ function EventForm({ onCancel }) {
             required
             defaultValue="Choisir une brasserie"
             id="brewery"
-            onBlur={breweryTitleBlurHandler}
-            onClick={breweryTitleChangeHandler}
+            onBlur={breweryIdBlurHandler}
+            onClick={breweryIdChangeHandler}
           >
             <option key={null} id={null} disabled>
               Choisir une brasserie
@@ -151,7 +154,7 @@ function EventForm({ onCancel }) {
               </option>
             ))}
           </NativeSelect>
-          <FormHelperText>{breweryTitleHelperTextContent}</FormHelperText>
+          <FormHelperText>{breweryIdHelperTextContent}</FormHelperText>
         </FormControl>
         <TextField
           error={hasEventTitleAnError}

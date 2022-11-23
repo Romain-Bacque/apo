@@ -9,7 +9,30 @@ const instance = axios.create({
 });
 
 const category = (store) => (next) => (action) => {
-  if (action.type === "ADD_PARTICIPANT") {
+  if (action.type === "ADD_EVENT") {
+    store.dispatch({
+      type: "PENDING",
+      message: null,
+    });
+    instance
+      .post(`/${action.breweryId}`, {})
+      .then((response) => {
+        if (response.status === 200) {
+          const RegistrationMessage = response.data.data;
+
+          store.dispatch({
+            type: "SUCCESS",
+            message: RegistrationMessage,
+          });
+        }
+      })
+      .catch(() => {
+        store.dispatch({
+          type: "ERROR",
+          message: "Une erreur est survenue pendant l'inscription.",
+        });
+      });
+  } else if (action.type === "ADD_PARTICIPANT") {
     store.dispatch({
       type: "PENDING",
       message: null,
