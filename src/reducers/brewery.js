@@ -1,5 +1,6 @@
 export const initialState = {
   breweries: [],
+  breweryDetails: null,
 };
 
 const breweryReducer = (state = initialState, action = {}) => {
@@ -8,6 +9,11 @@ const breweryReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         breweries: action.breweries,
+      };
+    case "SAVE_BREWERY_DETAILS":
+      return {
+        ...state,
+        breweryDetails: action.breweryDetails,
       };
     default:
       return state;

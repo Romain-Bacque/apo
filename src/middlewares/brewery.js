@@ -37,6 +37,33 @@ const brewery = (store) => (next) => (action) => {
           message: "Une erreur est survenue.",
         });
       });
+  } else if (action.type === "FETCH_BREWERY_DETAILS") {
+    store.dispatch({
+      type: "PENDING",
+      message: null,
+    });
+    instance
+      .get(`/brewery/${action.breweryId}`)
+      .then((response) => {
+        if (response.status === 200) {
+          const breweryDetails = response.data.data[0];
+
+          store.dispatch({
+            type: "SUCCESS",
+            message: null,
+          });
+          store.dispatch({
+            type: "SAVE_BREWERY_DETAILS",
+            breweryDetails,
+          });
+        }
+      })
+      .catch(() => {
+        store.dispatch({
+          type: "ERROR",
+          message: "Une erreur est survenue.",
+        });
+      });
   } else if (action.type === "ADD_BREWERY") {
     const formData = new FormData();
 

@@ -2,12 +2,12 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import reducer from "../reducers";
 
-// import debug from '../middlewares/debug';
 import user from "../middlewares/user";
 import brewery from "../middlewares/brewery";
 import category from "../middlewares/category";
+import event from "../middlewares/event";
 
-const middlewares = applyMiddleware(brewery, category, user);
+const middlewares = applyMiddleware(brewery, category, user, event);
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancers = composeEnhancers(middlewares);

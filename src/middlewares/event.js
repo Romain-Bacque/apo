@@ -4,34 +4,33 @@ import axios from "axios";
 import { apiConfig } from "../config/config";
 
 const instance = axios.create({
-  baseURL: `http://${apiConfig.host}:${apiConfig.port}/category`,
+  baseURL: `http://${apiConfig.host}:${apiConfig.port}/event`,
   withCredentials: true, // authorize cookie sending to server
 });
 
 const category = (store) => (next) => (action) => {
-  if (action.type === "FETCH_CATEGORIES") {
+  if (action.type === "ADD_PARTICIPANT") {
     store.dispatch({
       type: "PENDING",
       message: null,
     });
-    instance
-      .get("/")
-      .then((response) => {
-        const categories = response.data.data;
 
-        store.dispatch({
-          type: "SUCCESS",
-          message: null,
-        });
-        store.dispatch({
-          type: "SAVE_CATEGORIES",
-          categories,
-        });
+    instance
+      .post(`/${action.eventId}/user`, {})
+      .then((response) => {
+        if (response.status === 200) {
+          const RegistrationMessage = response.data.data;
+
+          store.dispatch({
+            type: "SUCCESS",
+            message: RegistrationMessage,
+          });
+        }
       })
       .catch(() => {
         store.dispatch({
           type: "ERROR",
-          message: "Une erreur est survenue.",
+          message: "Une erreur est survenue pendant l'inscription.",
         });
       });
   }

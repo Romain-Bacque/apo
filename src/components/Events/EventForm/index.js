@@ -43,8 +43,8 @@ const StyledCardActions = styled(CardActions)({
 
 // Component
 function EventForm({ onCancel }) {
-  const [hasEventStartAnError, setHasEventStartAnError] = useState();
   const [eventStartValue, setEventStartValue] = useState(new Date());
+  const [hasEventStartAnError, setHasEventStartAnError] = useState(false);
   const userId = useSelector((state) => state.user.id);
   const breweries = useSelector((state) => state.brewery.breweries);
   const dispatch = useDispatch();
@@ -69,6 +69,7 @@ function EventForm({ onCancel }) {
     changeHandler: descriptionChangeHandler,
     blurHandler: descriptionBlurHandler,
   } = useInput();
+
   ownerBreweries = breweries?.filter((brewery) => brewery.user_id === userId);
 
   const hasBreweryTitleAnError = isBreweryTitleTouched && !isBreweryTitleValid;
@@ -81,7 +82,7 @@ function EventForm({ onCancel }) {
     isEventTitleTouched && !isEventTitleValid ? "Entrée incorrecte." : "";
   const descriptionHelperTextContent =
     isDescriptionTouched && !isDescriptionValid ? "Entrée incorrecte." : "";
-  const eventStartHelperTextContent = !hasEventStartAnError
+  const eventStartHelperTextContent = hasEventStartAnError
     ? "Entrée incorrecte."
     : "";
 
@@ -89,32 +90,31 @@ function EventForm({ onCancel }) {
     isBreweryTitleValid &&
     isEventTitleValid &&
     isDescriptionValid &&
-    hasEventStartAnError;
+    !hasEventStartAnError;
 
   const handleEventSubmit = (event) => {
     event.preventDefault();
-    console.log(
-      isBreweryTitleValid,
-      isEventTitleValid,
-      isDescriptionValid,
-      hasEventStartAnError
-    );
     if (!isFormValid) return;
     dispatch({
       type: "ADD_EVENT",
       brewery: breweryTitleValue,
       event: eventTitleValue,
       description: descriptionValue,
-      eventStart: dayjs(eventStartValue).format("DD/MM/YYYY hh:mm:ss"),
+      eventStart: dayjs(eventStartValue).format("DD/MM/YYYY HH:mm:ss"),
     });
     onCancel();
   };
 
-  const handleDateTimePickerError = (value) => {
-    console.log(value);
-    if (value === "invalidDate") {
+  const handleDateChange = (value) => {
+    const formatedDate = dayjs(value).format("DD/MM/YYYY HH:mm:ss");
+
+    if (formatedDate === "Invalid Date") {
       setHasEventStartAnError(true);
-    } else setHasEventStartAnError(false);
+      setEventStartValue("");
+    } else {
+      setHasEventStartAnError(false);
+      setEventStartValue(value);
+    }
   };
 
   return (
@@ -176,14 +176,12 @@ function EventForm({ onCancel }) {
         />
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="fr">
           <DateTimePicker
-            onError={handleDateTimePickerError}
             label="Début de l'évènement :"
             inputFormat="DD/MM/YYYY HH:mm:ss"
             value={eventStartValue}
-            onChange={(value) => setEventStartValue(value)}
+            onChange={handleDateChange}
             renderInput={(params) => (
               <TextField
-                error={hasEventStartAnError}
                 helperText={eventStartHelperTextContent}
                 required
                 {...params}

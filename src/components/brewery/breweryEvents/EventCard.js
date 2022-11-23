@@ -65,7 +65,7 @@ function EventCard({
         <TitleTypography variant="h5">{title}</TitleTypography>
         <Box>
           <Typography variant="h6">
-            Début: {dayjs(eventStart).format("DD/MM/YYYY hh:mm:ss")}
+            Début: {dayjs(eventStart).format("DD/MM/YYYY HH:mm:ss")}
           </Typography>
           <Typography variant="h6">
             Nombre de participants: {totalParticipants}

@@ -11,7 +11,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
 import { Home, Phone, Event, Map } from "@mui/icons-material";
 import styled from "@emotion/styled";
-import axios from "axios";
 // component import
 import {
   Card,
@@ -28,8 +27,6 @@ import {
 import TagsList from "../../UI/TagsList";
 import EventCard from "../breweryEvents/EventCard";
 import CustomModal from "../../UI/CustomModal";
-// config file import
-import { apiConfig } from "../../../config/config";
 import SimpleModalContent from "../../UI/simpleModalContent";
 
 // Style
@@ -94,14 +91,11 @@ function BreweryDetails() {
   const [eventId, setEventId] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const loading = useSelector((state) => state.loading);
-  const { id } = useParams();
+  const breweryDetails = useSelector((state) => state.breweryDetails);
+  const { id: breweryId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [filteredBrewery, setFilteredBrewery] = useState(null);
-  const instance = axios.create({
-    baseURL: `http://${apiConfig.host}:${apiConfig.port}`,
-    withCredentials: true,
-  });
 
   const handleModal = (id) => {
     setEventId(id);
@@ -112,58 +106,27 @@ function BreweryDetails() {
     setIsOpen(false);
     if (!eventId) return;
     dispatch({
-      type: "PENDING",
-      message: null,
+      type: "ADD_PARTICIPANT",
+      eventId,
     });
-    try {
-      const response = await instance.post(`/event/${+eventId}/user`, {});
-
-      if (response.status === 200) {
-        const RegistrationMessage = response.data.data;
-
-        dispatch({
-          type: "SUCCESS",
-          message: RegistrationMessage,
-        });
-      }
-    } catch (error) {
-      dispatch({
-        type: "ERROR",
-        message: "Une erreur est survenue pendant l'inscription.",
-      });
-    }
   };
 
-  const fetchBreweryDetails = useCallback(async () => {
-    if (!id) return;
+  useEffect(() => {
+    if (breweryDetails) setFilteredBrewery(breweryDetails);
+  }, [breweryDetails]);
+
+  const getBreweryDetails = useCallback(async () => {
+    if (!breweryId) return;
     dispatch({
-      type: "PENDING",
-      message: null,
+      type: "FETCH_BREWERY_DETAILS",
+      breweryId,
     });
-    try {
-      const response = await instance.get(`/brewery/${+id}`);
-
-      if (response.status === 200) {
-        const breweryDetails = response.data.data[0];
-
-        dispatch({
-          type: "SUCCESS",
-          message: null,
-        });
-        setFilteredBrewery(breweryDetails);
-      }
-    } catch (error) {
-      dispatch({
-        type: "ERROR",
-        message: "Une erreur est survenue.",
-      });
-    }
-  }, [dispatch, id]);
+  }, [dispatch, breweryId]);
 
   // Get brewery details
   useEffect(() => {
-    fetchBreweryDetails();
-  }, [fetchBreweryDetails, dispatch, id]);
+    getBreweryDetails();
+  }, [getBreweryDetails]);
 
   return filteredBrewery ? (
     <>
