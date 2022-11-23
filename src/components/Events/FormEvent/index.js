@@ -10,7 +10,6 @@ function FormEvent() {
     <Box component="form">
       <Box component="form">
         <Typography variant="h2"> Ajouter un évènement </Typography>
-
         <Input
           id="standard-basic"
           variant="standard"

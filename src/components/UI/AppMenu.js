@@ -125,7 +125,7 @@ function AppMenu() {
                       <StyledMenuItem
                         activeclassname="active"
                         component={NavLink}
-                        to="/events"
+                        to="/eventCalendar"
                       >
                         Evenements
                       </StyledMenuItem>

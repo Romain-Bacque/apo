@@ -56,6 +56,7 @@ function BreweryForm() {
       (brewery) => brewery.id === Number(params.id)
     );
   }
+
   const isFormValid =
     inputStatus.title.isValid &&
     inputStatus.phone.isValid &&

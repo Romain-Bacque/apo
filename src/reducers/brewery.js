@@ -1,6 +1,5 @@
 export const initialState = {
   breweries: [],
-  loading: true,
 };
 
 const breweryReducer = (state = initialState, action = {}) => {
@@ -9,7 +8,6 @@ const breweryReducer = (state = initialState, action = {}) => {
       return {
         ...state,
         breweries: action.breweries,
-        loading: false,
       };
     default:
       return state;

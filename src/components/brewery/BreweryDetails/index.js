@@ -13,10 +13,10 @@ import { Home, Phone, Event, Map } from "@mui/icons-material";
 import styled from "@emotion/styled";
 import axios from "axios";
 // component import
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
 import {
+  Card,
+  CardContent,
+  Typography,
   Box,
   Button,
   CardHeader,
@@ -30,6 +30,7 @@ import EventCard from "../breweryEvents/EventCard";
 import CustomModal from "../../UI/CustomModal";
 // config file import
 import { apiConfig } from "../../../config/config";
+import SimpleModalContent from "../../UI/simpleModalContent";
 
 // Style
 const BreweryDetailsContainer = styled(Container)({
@@ -74,7 +75,7 @@ const EventHeaderBox = styled(Box)({
   alignItems: "center",
 });
 const EventTitle = styled(Typography)({
-  flex: 1.5,
+  flex: 2,
 });
 const EventSchedulerLink = styled(Button)({
   flex: 1,
@@ -90,7 +91,7 @@ const NoResultTypography = styled(Typography)({
 
 // Component
 function BreweryDetails() {
-  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [eventId, setEventId] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const loading = useSelector((state) => state.loading);
   const { id } = useParams();
@@ -102,14 +103,14 @@ function BreweryDetails() {
     withCredentials: true,
   });
 
-  const handleModal = (eventId) => {
-    setSelectedEvent(eventId);
+  const handleModal = (id) => {
+    setEventId(id);
     setIsOpen(true);
   };
 
-  const handleSetParticipant = async (eventId) => {
+  const handleSetParticipant = async () => {
     setIsOpen(false);
-    if (!id) return;
+    if (!eventId) return;
     dispatch({
       type: "PENDING",
       message: null,
@@ -166,14 +167,14 @@ function BreweryDetails() {
 
   return filteredBrewery ? (
     <>
-      <CustomModal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        onValidate={handleSetParticipant}
-        id={selectedEvent}
-        title="Inscription à l'évènement"
-        description="Etes-vous sûr de vouloir vous inscrire ?"
-      />
+      <CustomModal isOpen={isOpen}>
+        <SimpleModalContent
+          onValidate={handleSetParticipant}
+          onCancel={() => setIsOpen(false)}
+          title="Inscription à l'évènement"
+          description="Etes-vous sûr de vouloir vous inscrire ?"
+        />
+      </CustomModal>
       <BreweryDetailsContainer>
         <BreweryDetailsCard>
           <StyledCardHeader
@@ -223,7 +224,7 @@ function BreweryDetails() {
             <EventSchedulerLink
               startIcon={<Event />}
               component={Link}
-              to="/Brewery/event"
+              to="/eventCalendar"
             >
               Planning
             </EventSchedulerLink>

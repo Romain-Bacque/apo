@@ -9,6 +9,7 @@ import { Link, Navigate } from "react-router-dom";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import BreweryCard from "../BreweryCard";
 import CustomModal from "../../UI/CustomModal";
+import SimpleModalContent from "../../UI/simpleModalContent";
 
 // Style
 const BreweriesContainer = styled(Container)({
@@ -46,7 +47,7 @@ const NoResultTypography = styled(Typography)({
   textAlign: "center",
 });
 
-let userBreweries = [];
+let ownerBreweries = [];
 
 // Component
 function Breweries() {
@@ -57,7 +58,7 @@ function Breweries() {
   const breweries = useSelector((state) => state.brewery.breweries);
   const dispatch = useDispatch();
 
-  userBreweries = breweries?.filter((brewery) => brewery.user_id === userId);
+  ownerBreweries = breweries?.filter((brewery) => brewery.user_id === userId);
 
   const handleModal = (id) => {
     setBreweryId(id);
@@ -65,9 +66,9 @@ function Breweries() {
   };
 
   // Delete a brewery by its ID
-  const handleBreweryDelete = (id) => {
+  const handleBreweryDelete = () => {
     setIsOpen(false);
-    if (id && id > 0) {
+    if (breweryId && breweryId > 0) {
       dispatch({
         type: "DELETE_BREWERY",
         breweryId,
@@ -79,14 +80,14 @@ function Breweries() {
     <>
       {/* If user is not connected, then it redirect to home page */}
       {!isLogged && <Navigate to="/" replace />}
-      <CustomModal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        onValidate={handleBreweryDelete}
-        id={breweryId}
-        title="Suppression de la brasserie"
-        description="Etes-vous sûr de vouloir supprimer cette brasserie ?"
-      />
+      <CustomModal isOpen={isOpen}>
+        <SimpleModalContent
+          onValidate={handleBreweryDelete}
+          onCancel={() => setIsOpen(false)}
+          title="Suppression de la brasserie"
+          description="Etes-vous sûr de vouloir supprimer cette brasserie ?"
+        />
+      </CustomModal>
       <BreweriesContainer>
         <Title>
           <TitleText variant="h4" component="h3">
@@ -100,10 +101,10 @@ function Breweries() {
             Ajouter une Brasserie
           </TitleButton>
         </Title>
-        {userBreweries?.length > 0 ? (
+        {ownerBreweries?.length > 0 ? (
           <BreweryCardBox>
             <Grid spacing={2} justifyContent="center" container>
-              {userBreweries.map((brewery) => (
+              {ownerBreweries.map((brewery) => (
                 <BreweryCard
                   id={brewery.id}
                   key={brewery.id}
