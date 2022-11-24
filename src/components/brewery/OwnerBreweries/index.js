@@ -15,11 +15,12 @@ import SimpleModalContent from "../../UI/SimpleModalContent";
 const BreweriesContainer = styled(Container)({
   display: "block",
   height: "100%",
-  maxWidth: "800px",
+  width: "1000px",
+  maxWidth: "90%",
 });
 const Title = styled(Box)({
   padding: "1rem",
-  borderBottom: "1px solid rgb(215, 215, 215)",
+  borderBottom: "1px solid rgb(200, 200, 200)",
   display: "flex",
   justifyContent: "space-evenly",
   alignItems: "center",

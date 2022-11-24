@@ -30,7 +30,7 @@ const category = (store) => (next) => (action) => {
           });
           store.dispatch({
             type: "SUCCESS",
-            message: "Evènement ajouté avec succès.",
+            message: "Evénement ajouté avec succès.",
           });
         }
       })
@@ -40,12 +40,37 @@ const category = (store) => (next) => (action) => {
           message: "Une erreur est survenue pendant l'inscription.",
         });
       });
+  } else if (action.type === "DELETE_EVENT") {
+    store.dispatch({
+      type: "PENDING",
+      message: null,
+    });
+    instance
+      .delete(`/${action.eventId}`, {})
+      .then((response) => {
+        if (response.status === 200) {
+          store.dispatch({
+            type: "REMOVE_EVENT",
+            eventId: action.eventId,
+          });
+          store.dispatch({
+            type: "SUCCESS",
+            message:
+              "Evénement supprimé avec succès. Tous les participants ont été prévenus.",
+          });
+        }
+      })
+      .catch(() => {
+        store.dispatch({
+          type: "ERROR",
+          message: "Erreur, suppression impossible.",
+        });
+      });
   } else if (action.type === "ADD_PARTICIPANT") {
     store.dispatch({
       type: "PENDING",
       message: null,
     });
-
     instance
       .post(`/${action.eventId}/user`, {})
       .then((response) => {

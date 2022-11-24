@@ -1,18 +1,23 @@
+// hook import
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+// other import
+import styled from "@emotion/styled";
 import format from "date-fns/format";
 import getDay from "date-fns/getDay";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
-import { useState } from "react";
-import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
 import fr from "date-fns/locale/fr-CA";
+// component import
+import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import { Box, Button, Container, Typography } from "@mui/material";
 import { Add } from "@mui/icons-material";
-import { useDispatch, useSelector } from "react-redux";
 import CustomModal from "../../UI/CustomModal";
 import EventForm from "../EventForm";
 import SimpleModalContent from "../../UI/SimpleModalContent";
+import EventDetails from "../EventDetails";
 
 const locales = {
   fr,
@@ -27,8 +32,8 @@ const localizer = dateFnsLocalizer({
 
 const messages = {
   date: "Date",
-  time: "Début",
-  event: "Evènement",
+  time: "Heure",
+  event: "Détails",
   allDay: "Toute la journée",
   week: "Semaine",
   day: "Journée",
@@ -40,9 +45,18 @@ const messages = {
   today: "Aujourd'hui",
   agenda: "Agenda",
   noEventsInRange: "Il n'y a pas d'événements dans cette gamme.",
-  showMore: (total) => `+${total} plus`,
+  showMore: (total) => `+${total} de plus`,
 };
 
+// Style
+const StyledCalendar = styled(Calendar)({
+  fontSize: "1.5rem",
+  fontFamily: "arial, sans-serif",
+  height: 500,
+  margin: "50px",
+});
+
+// Component
 function EventCalendar() {
   const { isLogged, role } = useSelector((state) => state.user);
   const { events: allEvents } = useSelector((state) => state.event);
@@ -54,6 +68,7 @@ function EventCalendar() {
   const formattedEvents = allEvents.map((event) => ({
     id: event.id,
     title: `${event.title} - ${event.description}`,
+    description: event.description,
     allDay: false,
     start: new Date(event.event_start),
     end: new Date(event.event_start),
@@ -67,19 +82,15 @@ function EventCalendar() {
   const handleDeleteEvent = () => {
     dispatch({
       type: "DELETE_EVENT",
-      id: selectedEventId,
+      eventId: selectedEventId,
     });
   };
 
-  const handleSelectEvent = (event) => {
-    const { id, title } = event;
-
-    setSelectedEventId(id);
+  const handleEventDetails = (event) => {
     setModalContent(
-      <SimpleModalContent
+      <EventDetails
+        {...event}
         onValidate={handleDeleteEvent}
-        title={`Suppréssion événement "${title}"`}
-        description="Êtes-vous sûr de vouloir supprimer cet événement ?"
         onCancel={() => setIsOpen(false)}
       />
     );
@@ -98,15 +109,14 @@ function EventCalendar() {
             </Button>
           )}
         </Box>
-        <Calendar
+        <StyledCalendar
           defaultDate={new Date()}
           localizer={localizer}
           culture="fr"
           messages={messages}
           events={formattedEvents?.length ? formattedEvents : []}
           popup
-          onSelectEvent={(event) => handleSelectEvent(event)}
-          style={{ height: 500, margin: "50px" }}
+          onSelectEvent={(event) => handleEventDetails(event)}
         />
       </Container>
     </>
