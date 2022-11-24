@@ -80,7 +80,7 @@ function EventCard({
           </Button>
         </CardActions>
         <Typography color="gray" variant="body3">
-          * Vous devez être connecté pour pouvoir vous inscrire
+          * Vous devez être connecté
         </Typography>
       </StyledCardContent>
     </StyledCard>

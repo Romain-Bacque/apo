@@ -25,9 +25,9 @@ import {
   Tooltip,
 } from "@mui/material";
 import TagsList from "../../UI/TagsList";
-import EventCard from "../breweryEvents/EventCard";
+import EventCard from "../EventCard";
 import CustomModal from "../../UI/CustomModal";
-import SimpleModalContent from "../../UI/simpleModalContent";
+import SimpleModalContent from "../../UI/SimpleModalContent";
 
 // Style
 const BreweryDetailsContainer = styled(Container)({

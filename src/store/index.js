@@ -9,6 +9,7 @@ import event from "../middlewares/event";
 
 const middlewares = applyMiddleware(brewery, category, user, event);
 
+// __REDUX_DEVTOOLS_EXTENSION_COMPOSE__ is use to authorize redux devtools to be used
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancers = composeEnhancers(middlewares);
 

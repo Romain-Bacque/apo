@@ -9,7 +9,7 @@ import { Link, Navigate } from "react-router-dom";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import BreweryCard from "../BreweryCard";
 import CustomModal from "../../UI/CustomModal";
-import SimpleModalContent from "../../UI/simpleModalContent";
+import SimpleModalContent from "../../UI/SimpleModalContent";
 
 // Style
 const BreweriesContainer = styled(Container)({
@@ -52,7 +52,7 @@ let ownerBreweries = [];
 // Component
 function Breweries() {
   const [isOpen, setIsOpen] = useState(false);
-  const isLogged = useSelector((state) => state.user.isLogged);
+  const { isLogged, role } = useSelector((state) => state.user);
   const [breweryId, setBreweryId] = useState(null);
   const userId = useSelector((state) => state.user.id);
   const breweries = useSelector((state) => state.brewery.breweries);
@@ -79,7 +79,7 @@ function Breweries() {
   return (
     <>
       {/* If user is not connected, then it redirect to home page */}
-      {!isLogged && <Navigate to="/" replace />}
+      {!isLogged && role !== "brewer" && <Navigate to="/" replace />}
       <CustomModal isOpen={isOpen}>
         <SimpleModalContent
           onValidate={handleBreweryDelete}

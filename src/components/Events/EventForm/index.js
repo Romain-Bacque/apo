@@ -99,11 +99,11 @@ function EventForm({ onCancel }) {
     event.preventDefault();
     if (!isFormValid) return;
     dispatch({
-      type: "ADD_EVENT",
-      brewery: breweryIdValue,
-      event: eventTitleValue,
+      type: "POST_EVENT",
+      breweryId: breweryIdValue,
+      title: eventTitleValue,
       description: descriptionValue,
-      eventStart: dayjs(eventStartValue).format("DD/MM/YYYY HH:mm:ss"),
+      eventStart: eventStartValue,
     });
     onCancel();
   };

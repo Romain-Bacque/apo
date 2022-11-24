@@ -9,6 +9,11 @@ const eventReducer = (state = initialState, action = {}) => {
         ...state,
         events: action.events,
       };
+    case "ADD_EVENT":
+      return {
+        ...state,
+        events: [...state.events, action.event],
+      };
     default:
       return state;
   }

@@ -9,20 +9,28 @@ const instance = axios.create({
 });
 
 const category = (store) => (next) => (action) => {
-  if (action.type === "ADD_EVENT") {
+  if (action.type === "POST_EVENT") {
     store.dispatch({
       type: "PENDING",
       message: null,
     });
     instance
-      .post(`/${action.breweryId}`, {})
+      .post(`/${action.breweryId}`, {
+        title: action.title,
+        description: action.description,
+        eventStart: action.eventStart,
+      })
       .then((response) => {
         if (response.status === 200) {
-          const RegistrationMessage = response.data.data;
+          const { data: event } = response.data;
 
           store.dispatch({
+            type: "ADD_EVENT",
+            event,
+          });
+          store.dispatch({
             type: "SUCCESS",
-            message: RegistrationMessage,
+            message: "Evènement ajouté avec succès.",
           });
         }
       })

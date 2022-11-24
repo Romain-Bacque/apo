@@ -32,12 +32,13 @@ const inputReducer = (state, action) => {
           const options = action.value;
           const { id } = options[options.selectedIndex];
 
-          if (!id) return; // Prevent to select disabled option value
-          return {
-            ...state,
-            isValid: true,
-            enteredValue: id,
-          };
+          if (id) {
+            return {
+              ...state,
+              isValid: true,
+              enteredValue: id,
+            };
+          }
         }
         break;
       case "email":

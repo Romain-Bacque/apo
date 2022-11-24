@@ -9,7 +9,7 @@ import { Navigate } from "react-router-dom";
 import { Typography, Button, Container, Divider } from "@mui/material";
 import Input from "../Input";
 import CustomModal from "../UI/CustomModal";
-import SimpleModalContent from "../UI/simpleModalContent";
+import SimpleModalContent from "../UI/SimpleModalContent";
 
 // Style
 const ProfileContainer = styled(Container)({
