@@ -1,6 +1,6 @@
 // hook import
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // other import
 import styled from "@emotion/styled";
 import format from "date-fns/format";
@@ -16,7 +16,6 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import CustomModal from "../../UI/CustomModal";
 import EventForm from "../EventForm";
-import SimpleModalContent from "../../UI/SimpleModalContent";
 import EventDetails from "../EventDetails";
 
 const locales = {
@@ -54,25 +53,40 @@ const StyledCalendar = styled(Calendar)({
   fontFamily: "arial, sans-serif",
   height: 500,
   margin: "50px",
+  maxWidth: "90%",
 });
 
 // Component
 function EventCalendar() {
   const { isLogged, role } = useSelector((state) => state.user);
-  const { events: allEvents } = useSelector((state) => state.event);
+  const { ownerEvents } = useSelector((state) => state.event);
+  const { participantEvents } = useSelector((state) => state.event);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedEventId, setSelectedEventId] = useState(false);
   const [modalContent, setModalContent] = useState(false);
   const dispatch = useDispatch();
 
-  const formattedEvents = allEvents.map((event) => ({
+  const formattedOwnerEvents = ownerEvents.map((event) => ({
     id: event.id,
     title: `${event.title} - ${event.description}`,
     description: event.description,
-    allDay: false,
+    participants: event.participants,
+    brewery: event.brewery,
+    isOwner: true,
     start: new Date(event.event_start),
     end: new Date(event.event_start),
   }));
+
+  const handleEventStyle = (event) => {
+    const backgroundColor = event.isOwner ? "green" : "red";
+    const style = {
+      backgroundColor,
+      opacity: 0.8,
+    };
+    return {
+      style,
+    };
+  };
 
   const handleAddEvent = () => {
     setModalContent(<EventForm onCancel={() => setIsOpen(false)} />);
@@ -97,9 +111,27 @@ function EventCalendar() {
     setIsOpen(true);
   };
 
+  useEffect(() => {
+    dispatch({
+      type: "RESET_EVENTS",
+    });
+    if (isLogged) {
+      dispatch({
+        type: "FETCH_PARTICIPANT_EVENTS",
+      });
+    }
+    if (isLogged && role === "brewer") {
+      dispatch({
+        type: "FETCH_OWNER_EVENTS",
+      });
+    }
+  }, [isLogged, role, dispatch]);
+
   return (
     <>
-      <CustomModal isOpen={isOpen}>{modalContent}</CustomModal>
+      <CustomModal isOpen={isOpen} setIsOpen={setIsOpen}>
+        {modalContent}
+      </CustomModal>
       <Container>
         <Box>
           <Typography>Calendrier des événement</Typography>
@@ -114,9 +146,10 @@ function EventCalendar() {
           localizer={localizer}
           culture="fr"
           messages={messages}
-          events={formattedEvents?.length ? formattedEvents : []}
+          events={formattedOwnerEvents?.length ? formattedOwnerEvents : []}
           popup
           onSelectEvent={(event) => handleEventDetails(event)}
+          eventPropGetter={handleEventStyle}
         />
       </Container>
     </>

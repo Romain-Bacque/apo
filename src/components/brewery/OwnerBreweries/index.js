@@ -81,7 +81,7 @@ function Breweries() {
     <>
       {/* If user is not connected, then it redirect to home page */}
       {!isLogged && role !== "brewer" && <Navigate to="/" replace />}
-      <CustomModal isOpen={isOpen}>
+      <CustomModal isOpen={isOpen} setIsOpen={setIsOpen}>
         <SimpleModalContent
           onValidate={handleBreweryDelete}
           onCancel={() => setIsOpen(false)}

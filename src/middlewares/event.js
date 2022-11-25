@@ -9,7 +9,65 @@ const instance = axios.create({
 });
 
 const category = (store) => (next) => (action) => {
-  if (action.type === "POST_EVENT") {
+  if (action.type === "FETCH_OWNER_EVENTS") {
+    store.dispatch({
+      type: "PENDING",
+      message: null,
+    });
+    instance
+      .get("/owner")
+      .then((response) => {
+        if (response.status === 200) {
+          const { data: events } = response.data;
+
+          store.dispatch({
+            type: "SAVE_OWNER_EVENTS",
+            events,
+          });
+          store.dispatch({
+            type: "SUCCESS",
+            message: null,
+          });
+        }
+      })
+      .catch((error) => {
+        const { status } = error.response;
+
+        store.dispatch({
+          type: "ERROR",
+          message: status !== 404 ? "Une erreur est survenue." : null,
+        });
+      });
+  } else if (action.type === "FETCH_PARTICIPANT_EVENTS") {
+    store.dispatch({
+      type: "PENDING",
+      message: null,
+    });
+    instance
+      .get("/participant")
+      .then((response) => {
+        if (response.status === 200) {
+          const { data: events } = response.data;
+
+          store.dispatch({
+            type: "SAVE_PARTICIPANT_EVENTS",
+            events,
+          });
+          store.dispatch({
+            type: "SUCCESS",
+            message: null,
+          });
+        }
+      })
+      .catch((error) => {
+        const { status } = error.response;
+
+        store.dispatch({
+          type: "ERROR",
+          message: status !== 404 ? "Une erreur est survenue." : null,
+        });
+      });
+  } else if (action.type === "POST_EVENT") {
     store.dispatch({
       type: "PENDING",
       message: null,
@@ -22,11 +80,11 @@ const category = (store) => (next) => (action) => {
       })
       .then((response) => {
         if (response.status === 200) {
-          const { data: event } = response.data;
+          const { data: events } = response.data;
 
           store.dispatch({
-            type: "ADD_EVENT",
-            event,
+            type: "SAVE_OWNER_EVENTS",
+            events,
           });
           store.dispatch({
             type: "SUCCESS",

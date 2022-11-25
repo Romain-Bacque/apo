@@ -100,18 +100,17 @@ function EventForm({ onCancel }) {
     if (!isFormValid) return;
     dispatch({
       type: "POST_EVENT",
-      breweryId: breweryIdValue,
       title: eventTitleValue,
       description: descriptionValue,
       eventStart: eventStartValue,
+      breweryId: breweryIdValue,
     });
     onCancel();
   };
 
   const handleDateChange = (value) => {
     const formatedDate = dayjs(value).format("DD/MM/YYYY HH:mm:ss");
-
-    if (formatedDate === "Invalid Date") {
+    if (formatedDate === "Invalid Date" || value.$d < new Date()) {
       setHasEventStartAnError(true);
       setEventStartValue("");
     } else {

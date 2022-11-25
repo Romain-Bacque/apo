@@ -1,18 +1,23 @@
 export const initialState = {
-  events: [],
+  ownerEvents: [],
+  participantEvents: [],
 };
 
 const eventReducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case "SAVE_EVENTS":
+    case "SAVE_OWNER_EVENTS":
       return {
         ...state,
-        events: action.events,
+        ownerEvents: action.events,
       };
-    case "ADD_EVENT":
+    case "SAVE_PARTICIPANT_EVENTS":
       return {
         ...state,
-        events: [...state.events, action.event],
+        participantEvents: action.events,
+      };
+    case "RESET_EVENTS":
+      return {
+        ...initialState,
       };
     default:
       return state;

@@ -125,7 +125,7 @@ function BreweryDetails() {
 
   return breweryDetails ? (
     <>
-      <CustomModal isOpen={isOpen}>
+      <CustomModal isOpen={isOpen} setIsOpen={setIsOpen}>
         <SimpleModalContent
           onValidate={handleSetParticipant}
           onCancel={() => setIsOpen(false)}
@@ -188,7 +188,12 @@ function BreweryDetails() {
             </EventSchedulerLink>
           </EventHeaderBox>
           {breweryDetails.events && breweryDetails.events.length > 0 ? (
-            <StyledSwiper navigation modules={[Pagination, Navigation]}>
+            <StyledSwiper
+              centeredSlides
+              spaceBetween={10}
+              navigation
+              modules={[Pagination, Navigation]}
+            >
               {breweryDetails.events.map((event) => (
                 <SwiperSlide key={event.id}>
                   <EventCard

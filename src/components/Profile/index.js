@@ -91,7 +91,7 @@ function Profile() {
     <>
       {/* If user is not connected, then we redirect to home page */}
       {!user.isLogged && <Navigate to="/" />}
-      <CustomModal isOpen={isOpen}>
+      <CustomModal isOpen={isOpen} setIsOpen={setIsOpen}>
         <SimpleModalContent
           onValidate={handleDeleteUser}
           onCancel={() => setIsOpen(false)}
