@@ -33,7 +33,7 @@ function BrewerieCard({ id, title, phone, address, tags, image }) {
   const parsedImage = JSON.parse(image);
 
   return (
-    <Card variant="outlined">
+    <Card elevation={0} variant="outlined">
       {parsedImage && (
         <CardMedia
           component="img"

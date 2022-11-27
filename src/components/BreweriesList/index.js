@@ -8,7 +8,7 @@ import { Box, Container, Divider, Stack, Typography } from "@mui/material";
 import OneBrewerie from "./BrewerieCard";
 import Category from "../Category";
 
-let breweriesList;
+let breweriesList = [];
 
 // Style
 const BreweriesListContainer = styled(Container)({
@@ -63,7 +63,7 @@ function BreweriesList({ filter, data }) {
           image={filteredBrewery.image}
         />
       ));
-  }
+  } else breweriesList = [];
 
   return (
     <BreweriesListContainer>

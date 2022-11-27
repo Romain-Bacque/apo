@@ -74,12 +74,7 @@ function Category({ selectedCategories, onSelectedCategories }) {
               Choisir une catégorie
             </option>
             {categories.map((category) => (
-              <option
-                style={{ padding: "1rem" }}
-                key={category.id}
-                id={category.id}
-                value={category.tag}
-              >
+              <option key={category.id} id={category.id} value={category.tag}>
                 {category.tag}
               </option>
             ))}

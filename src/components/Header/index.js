@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
 // component import
 import { Box, Toolbar, AppBar, Typography } from "@mui/material";
-import { SportsBar } from "@mui/icons-material";
+import { SportsBarRounded } from "@mui/icons-material";
 import {
   GeoapifyGeocoderAutocomplete,
   GeoapifyContext,
@@ -27,8 +27,8 @@ const StyledToolbar = styled(Toolbar)({
   alignItems: "center",
   height: "100%",
 });
-const StyledSportsBar = styled(SportsBar)({
-  fontSize: "3.8rem",
+const StyledSportsBar = styled(SportsBarRounded)({
+  fontSize: "4rem",
   color: "white",
 });
 const StyledAppBar = styled(AppBar)({
@@ -37,10 +37,13 @@ const StyledAppBar = styled(AppBar)({
   height: "8rem",
 });
 const TitleTypography = styled(Typography)({
+  fontFamily: "Yellowtail, sans-serif",
+  textTransform: "capitalize",
+  fontSize: "1.5rem",
+  letterSpacing: "0.4rem",
   fontWeight: "bold",
   color: "white",
-  fontSize: "1.4rem",
-  width: "8rem",
+  width: "12rem",
 });
 const SearchBarContainer = styled("div")({
   width: "60%",
@@ -75,7 +78,7 @@ function Header({ setSearchValue }) {
               <StyledSportsBar to="/" />
             </Link>
             <TitleTypography
-              sx={{ display: { xs: "none", sm: "block" } }}
+              display={{ xs: "none", sm: "block" }}
               variant="span"
             >
               Biere de ta région.

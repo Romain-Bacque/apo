@@ -31,7 +31,7 @@ const category = (store) => (next) => (action) => {
       .catch(() => {
         store.dispatch({
           type: "ERROR",
-          message: "Erreur, une erreur est survenue.",
+          message: "Une erreur est survenue.",
         });
       });
   }

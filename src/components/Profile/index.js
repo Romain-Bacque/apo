@@ -9,6 +9,7 @@ import { Navigate } from "react-router-dom";
 import { Typography, Button, Container, Divider } from "@mui/material";
 import Input from "../Input";
 import CustomModal from "../UI/CustomModal";
+import SimpleModalContent from "../UI/SimpleModalContent";
 
 // Style
 const ProfileContainer = styled(Container)({
@@ -90,14 +91,16 @@ function Profile() {
     <>
       {/* If user is not connected, then we redirect to home page */}
       {!user.isLogged && <Navigate to="/" />}
-      <CustomModal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        onValidate={handleDeleteUser}
-        id={user.id}
-        title="Suppression de votre compte"
-        description="Etes-vous sûr de vouloir supprimer définitivement votre compte ?"
-      />
+      {isOpen && (
+        <CustomModal isOpen={isOpen} setIsOpen={setIsOpen}>
+          <SimpleModalContent
+            onValidate={handleDeleteUser}
+            onCancel={() => setIsOpen(false)}
+            title="Suppression de votre compte"
+            description="Etes-vous sûr de vouloir supprimer définitivement votre compte ?"
+          />
+        </CustomModal>
+      )}
       <ProfileContainer component="form" onSubmit={handleUpdateUser}>
         <Typography component="h2" variant="h3" color="gray">
           Modifier Votre Profil

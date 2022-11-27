@@ -106,7 +106,7 @@ function AppMenu() {
                   <MenuList onClick={() => setOpen(false)}>
                     <StyledMenuItem
                       end // 'end' will ensure this component isn't matched as "active" when its descendant paths are matched.
-                      activeclassname="active" // "active" class is added to DOM if the link is active.
+                      activeclassname="active" // "active" class is added to the DOM if the link is active.
                       component={NavLink}
                       to="/"
                     >
@@ -125,7 +125,7 @@ function AppMenu() {
                       <StyledMenuItem
                         activeclassname="active"
                         component={NavLink}
-                        to="/events"
+                        to="/eventCalendar"
                       >
                         Evenements
                       </StyledMenuItem>

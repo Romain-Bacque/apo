@@ -16,8 +16,9 @@ function Regions({ data, setGeoFilter, getGeoFilter }) {
         },
         click: (event) =>
           setGeoFilter((prevState) => {
-            const same = prevState === event.propagatedFrom.feature; // 'e.propagatedFrom.feature' -> get the GeoJSON data of the current region I clicked on
-            return same ? null : event.propagatedFrom.feature; // if I click the same region again, the filter will be removed and all breweries will be present.
+            const isIdentical = prevState === event.propagatedFrom.feature; // 'e.propagatedFrom.feature' -> get the GeoJSON data of the current region I clicked on
+
+            return isIdentical ? null : event.propagatedFrom.feature; // if I click the same region again, the filter will be removed and all breweries will be present.
           }),
       }}
       style={(feature) => ({

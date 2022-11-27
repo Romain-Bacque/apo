@@ -11,12 +11,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
 import { Home, Phone, Event, Map } from "@mui/icons-material";
 import styled from "@emotion/styled";
-import axios from "axios";
 // component import
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
 import {
+  Card,
+  CardContent,
+  Typography,
   Box,
   Button,
   CardHeader,
@@ -26,10 +25,9 @@ import {
   Tooltip,
 } from "@mui/material";
 import TagsList from "../../UI/TagsList";
-import EventCard from "../breweryEvents/EventCard";
+import EventCard from "../EventCard";
 import CustomModal from "../../UI/CustomModal";
-// config file import
-import { apiConfig } from "../../../config/config";
+import SimpleModalContent from "../../UI/SimpleModalContent";
 
 // Style
 const BreweryDetailsContainer = styled(Container)({
@@ -37,12 +35,12 @@ const BreweryDetailsContainer = styled(Container)({
   maxWidth: "90%",
 });
 const BreweryDetailsCard = styled(Card)({
-  marginBottom: "2rem",
+  marginBottom: "1rem",
   borderRadius: "10px",
   border: "1px solid rgb(230, 230, 230)",
 });
 const BreweryDescription = styled(Typography)({
-  margin: "2rem auto",
+  margin: "1rem auto",
   overflowY: "auto",
   maxHeight: "2rem",
 });
@@ -65,7 +63,7 @@ const StyledTypography = styled(Box)({
   color: "gray",
 });
 const EventBox = styled(Box)({
-  marginTop: "2rem",
+  marginTop: "1rem",
 });
 const EventHeaderBox = styled(Box)({
   marginBottom: "1rem",
@@ -74,7 +72,7 @@ const EventHeaderBox = styled(Box)({
   alignItems: "center",
 });
 const EventTitle = styled(Typography)({
-  flex: 1.5,
+  flex: 2,
 });
 const EventSchedulerLink = styled(Button)({
   flex: 1,
@@ -90,94 +88,58 @@ const NoResultTypography = styled(Typography)({
 
 // Component
 function BreweryDetails() {
-  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [eventId, setEventId] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const loading = useSelector((state) => state.loading);
-  const { id } = useParams();
+  const breweryDetails = useSelector((state) => state.brewery.breweryDetails);
+  const { id: breweryId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [filteredBrewery, setFilteredBrewery] = useState(null);
-  const instance = axios.create({
-    baseURL: `http://${apiConfig.host}:${apiConfig.port}`,
-    withCredentials: true,
-  });
 
-  const handleModal = (eventId) => {
-    setSelectedEvent(eventId);
+  const handleModal = (id) => {
+    setEventId(id);
     setIsOpen(true);
   };
 
   const handleSetParticipant = async (eventId) => {
     setIsOpen(false);
-    if (!id) return;
+    if (!eventId) return;
     dispatch({
-      type: "PENDING",
-      message: null,
+      type: "ADD_PARTICIPANT",
+      eventId,
     });
-    try {
-      const response = await instance.post(`/event/${+eventId}/user`, {});
-
-      if (response.status === 200) {
-        const RegistrationMessage = response.data.data;
-
-        dispatch({
-          type: "SUCCESS",
-          message: RegistrationMessage,
-        });
-      }
-    } catch (error) {
-      dispatch({
-        type: "ERROR",
-        message: "Une erreur est survenue pendant l'inscription.",
-      });
-    }
   };
 
-  const fetchBreweryDetails = useCallback(async () => {
-    if (!id) return;
+  const getBreweryDetails = useCallback(async () => {
+    if (!breweryId) return;
     dispatch({
-      type: "PENDING",
-      message: null,
+      type: "FETCH_BREWERY_DETAILS",
+      breweryId,
     });
-    try {
-      const response = await instance.get(`/brewery/${+id}`);
-
-      if (response.status === 200) {
-        const breweryDetails = response.data.data[0];
-
-        dispatch({
-          type: "SUCCESS",
-          message: null,
-        });
-        setFilteredBrewery(breweryDetails);
-      }
-    } catch (error) {
-      dispatch({
-        type: "ERROR",
-        message: "Une erreur est survenue.",
-      });
-    }
-  }, [dispatch, id]);
+  }, [dispatch, breweryId]);
 
   // Get brewery details
   useEffect(() => {
-    fetchBreweryDetails();
-  }, [fetchBreweryDetails, dispatch, id]);
+    getBreweryDetails();
+  }, [getBreweryDetails]);
 
-  return filteredBrewery ? (
+  return breweryDetails ? (
     <>
-      <CustomModal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        onValidate={handleSetParticipant}
-        id={selectedEvent}
-        title="Inscription à l'évènement"
-        description="Etes-vous sûr de vouloir vous inscrire ?"
-      />
+      {isOpen && (
+        <CustomModal isOpen={isOpen} setIsOpen={setIsOpen}>
+          <SimpleModalContent
+            id={eventId}
+            onValidate={handleSetParticipant}
+            onCancel={() => setIsOpen(false)}
+            title="Inscription à l'évènement"
+            description="Etes-vous sûr de vouloir vous inscrire ?"
+          />
+        </CustomModal>
+      )}
       <BreweryDetailsContainer>
         <BreweryDetailsCard>
           <StyledCardHeader
-            title={filteredBrewery.title}
+            title={breweryDetails.title}
             action={
               <Tooltip title={"Retour à l'accueil"}>
                 <IconButton onClick={() => navigate("/")}>
@@ -186,28 +148,28 @@ function BreweryDetails() {
               </Tooltip>
             }
           />
-          {filteredBrewery.image && (
+          {breweryDetails.image && (
             <StyledCardMedia
               component="img"
-              image={filteredBrewery.image.path}
-              alt={`Photo de la brasserie '${filteredBrewery.title}'`}
+              image={breweryDetails.image.path}
+              alt={`Photo de la brasserie '${breweryDetails.title}'`}
             />
           )}
           <CardContent>
             <StyledTypography variant="p" component="p">
               <Home />
-              {filteredBrewery.address}
+              {breweryDetails.address}
             </StyledTypography>
             <StyledTypography variant="p" component="p">
               <Phone />
-              {filteredBrewery.phone}
+              {breweryDetails.phone}
             </StyledTypography>
             <BreweryDescription>
-              {filteredBrewery.description}
+              {breweryDetails.description}
             </BreweryDescription>
             <Typography component="h5" variant="h6">
               Spécialité(s) de bière:
-              <TagsList list={filteredBrewery.categories} />
+              <TagsList list={breweryDetails.categories} />
             </Typography>
           </CardContent>
         </BreweryDetailsCard>
@@ -215,22 +177,27 @@ function BreweryDetails() {
           <EventHeaderBox>
             <EventTitle variant="h5" component="h4">
               {`Evènement(s) prévu(s) (${
-                filteredBrewery.events && filteredBrewery.events.length > 0
-                  ? filteredBrewery.events.length
+                breweryDetails.events && breweryDetails.events.length > 0
+                  ? breweryDetails.events.length
                   : 0
               })`}
             </EventTitle>
             <EventSchedulerLink
               startIcon={<Event />}
               component={Link}
-              to="/Brewery/event"
+              to="/eventCalendar"
             >
               Planning
             </EventSchedulerLink>
           </EventHeaderBox>
-          {filteredBrewery.events && filteredBrewery.events.length > 0 ? (
-            <StyledSwiper navigation modules={[Pagination, Navigation]}>
-              {filteredBrewery.events.map((event) => (
+          {breweryDetails.events && breweryDetails.events.length > 0 ? (
+            <StyledSwiper
+              centeredSlides
+              spaceBetween={10}
+              navigation
+              modules={[Pagination, Navigation]}
+            >
+              {breweryDetails.events.map((event) => (
                 <SwiperSlide key={event.id}>
                   <EventCard
                     id={event.id}
