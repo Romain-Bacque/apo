@@ -93,7 +93,7 @@ const brewery = (store) => (next) => (action) => {
           });
           store.dispatch({
             type: "SUCCESS",
-            message: "Brasserie ajoutée",
+            message: "Brasserie ajoutée.",
           });
         }
       })
@@ -103,22 +103,22 @@ const brewery = (store) => (next) => (action) => {
         if (status === 400) {
           store.dispatch({
             type: "ERROR",
-            message: "Erreur dans un/plusieurs champs",
+            message: "Erreur dans un/plusieurs champs.",
           });
         } else if (status === 401) {
           store.dispatch({
             type: "ERROR",
-            message: "Action non autorisée",
+            message: "Action non autorisée.",
           });
         } else if (status === 404) {
           store.dispatch({
             type: "ERROR",
-            message: "La brasserie n'a pas été trouvée",
+            message: "La brasserie n'a pas été trouvée.",
           });
         } else {
           store.dispatch({
             type: "ERROR",
-            message: "Une erreur est survenue",
+            message: "Une erreur est survenue.",
           });
         }
       });
@@ -151,7 +151,7 @@ const brewery = (store) => (next) => (action) => {
           });
           store.dispatch({
             type: "SUCCESS",
-            message: "Brasserie modifiée",
+            message: "Brasserie modifiée.",
           });
         }
       })
@@ -161,17 +161,17 @@ const brewery = (store) => (next) => (action) => {
         if (status === 401) {
           store.dispatch({
             type: "ERROR",
-            message: "Action non autorisée",
+            message: "Action non autorisée.",
           });
         } else if (status === 400) {
           store.dispatch({
             type: "ERROR",
-            message: "Erreur dans un/plusieurs champs",
+            message: "Erreur dans un/plusieurs champs.",
           });
         } else {
           store.dispatch({
             type: "ERROR",
-            message: "Une erreur est survenue",
+            message: "Une erreur est survenue.",
           });
         }
       });
@@ -193,7 +193,7 @@ const brewery = (store) => (next) => (action) => {
           });
           store.dispatch({
             type: "SUCCESS",
-            message: "Brasserie supprimée",
+            message: "Brasserie supprimée.",
           });
         }
       })
@@ -203,17 +203,17 @@ const brewery = (store) => (next) => (action) => {
         if (status === 401) {
           store.dispatch({
             type: "ERROR",
-            message: "Action non autorisée",
+            message: "Action non autorisée.",
           });
         } else if (status === 404) {
           store.dispatch({
             type: "ERROR",
-            message: "La brasserie n'a pas été trouvée",
+            message: "La brasserie n'a pas été trouvée.",
           });
         } else {
           store.dispatch({
             type: "ERROR",
-            message: "Une erreur est survenue",
+            message: "Une erreur est survenue.",
           });
         }
       });

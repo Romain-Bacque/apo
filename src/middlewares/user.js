@@ -108,7 +108,7 @@ const user = (store) => (next) => (action) => {
         } else if (status === 403) {
           store.dispatch({
             type: "ERROR",
-            message: "Utilisateur déjà inscrit",
+            message: "Utilisateur déjà inscrit.",
           });
         } else {
           store.dispatch({
