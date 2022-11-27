@@ -68,8 +68,8 @@ const EventFormButton = styled(Button)({
   fontSize: "1rem",
 });
 const CalendarBox = styled(Box)({
-  height: "450px",
-  maxHeight: "80%",
+  height: "80%",
+  maxHeight: "65%",
   margin: "2rem",
 });
 const StyledCalendar = styled(Calendar)({
@@ -195,7 +195,7 @@ function EventCalendar() {
       <Container sx={{ height: "100%" }}>
         <StyledBox>
           <Title variant="h4" component="h3">
-            Calendrier des événements
+            Evénements
           </Title>
           {isLogged && role === "brewer" && (
             <EventFormButton onClick={handleAddEvent} startIcon={<Add />}>

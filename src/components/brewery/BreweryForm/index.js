@@ -118,7 +118,7 @@ function BreweryForm() {
           <IconButton onClick={() => navigate("/breweries")}>
             <ArrowBackRounded sx={{ fontSize: "3rem", color: "gray" }} />
           </IconButton>
-          <Typography variant="h3" component="h2">
+          <Typography variant="h4" component="h2">
             {params.id ? "Modifier La Brasserie" : "Ajouter Une Brasserie"}
           </Typography>
         </Box>
