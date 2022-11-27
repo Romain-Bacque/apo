@@ -20,7 +20,7 @@ const Main = styled(Box)(({ theme }) => ({
   alignItems: "center",
   height: "calc(100vh - 14rem)",
   marginBottom: "6rem",
-  background: `url(${barrel})center/cover no-repeat`,
+  background: "rgb(250, 250, 250, 0.93)",
   fontFamily: "Silkscreen",
   "&::before": {
     content: '""',
@@ -29,8 +29,8 @@ const Main = styled(Box)(({ theme }) => ({
     bottom: 0,
     left: 0,
     right: 0,
-    background: "rgb(250, 250, 250, 0.94)",
-    zIndex: 0,
+    background: `url(${barrel})center/cover no-repeat`,
+    zIndex: -1,
   },
   [theme.breakpoints.down("md")]: {
     margin: "0",

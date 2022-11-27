@@ -10,14 +10,11 @@ import Register from "../authentication/Register";
 import ForgetPassword from "../authentication/ForgetPassword";
 import ResetPassword from "../authentication/ResetPassword";
 import BreweryDetails from "../brewery/BreweryDetails";
-import FormEvent from "../Events/FormEvent";
 import OwnerBreweries from "../brewery/OwnerBreweries";
-import Events from "../Events";
-import OneEvent from "../Events/OneEvent";
 import Profile from "../Profile";
-import UpdateEventBrewery from "../brewery/UpdateEventBrewery";
 import NotFound from "../NotFound";
 import BreweryForm from "../brewery/BreweryForm";
+import EventCalendar from "../events/EventCalendar";
 
 function App() {
   const [isLocationAuthorized, setIsLocationAuthorized] = useState(null);
@@ -83,10 +80,7 @@ function App() {
         <Route path="/brewery/:id" element={<BreweryDetails />} />
         <Route path="/brewery/breweryForm" element={<BreweryForm />} />
         <Route path="/brewery/breweryForm/:id" element={<BreweryForm />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/events/:id" element={<OneEvent />} />
-        <Route path="/create-event" element={<FormEvent />} />
-        <Route path="/brewery/event" element={<UpdateEventBrewery />} />
+        <Route path="/eventCalendar" element={<EventCalendar />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Layout>

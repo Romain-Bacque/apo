@@ -21,7 +21,7 @@ const Input = forwardRef(
     },
     ref
   ) => {
-    let errorContent = false;
+    let hasAnError = false;
     let helperTextContent = "";
     const {
       value: inputValue,
@@ -33,6 +33,12 @@ const Input = forwardRef(
       resetHandler: inputResetHandler,
     } = useInput();
 
+    if (name !== "image") {
+      hasAnError = !!(isInputTouched && !isInputValid);
+      helperTextContent =
+        isInputTouched && !isInputValid ? "Entrée incorrecte." : "";
+    }
+
     useEffect(() => {
       const isMatching =
         name === "confirmPassword"
@@ -42,12 +48,6 @@ const Input = forwardRef(
       onInputChange(name, { isValid: isMatching, value: inputValue });
     }, [onInputChange, isInputValid, inputValue, name, valueToMatch]);
 
-    if (name !== "image") {
-      errorContent = !!(isInputTouched && !isInputValid);
-      helperTextContent =
-        isInputTouched && !isInputValid ? "Entrée incorrecte." : "";
-    }
-
     // Selected value is directly set if we choose an address in custom searchbar
     // Or when update brewery form appear, all inputs are directly filled by brewery data
     useEffect(() => {
@@ -56,6 +56,7 @@ const Input = forwardRef(
 
     // Customize instance that is exposed to parent component when ref is used
     useImperativeHandle(ref, () => ({
+      // eslint-disable-next-line no-restricted-syntax
       resetValue() {
         inputResetHandler();
       },
@@ -68,7 +69,8 @@ const Input = forwardRef(
           {...params}
           {...input}
           multiline={!!multiline}
-          error={errorContent}
+          maxRows={4}
+          error={hasAnError}
           helperText={helperTextContent}
           value={inputValue}
           required

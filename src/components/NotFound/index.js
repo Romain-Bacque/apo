@@ -4,18 +4,14 @@ import { Link } from "react-router-dom";
 
 function Error() {
   return (
-    <div className="errorimg">
+    <div className="notfound-container">
       <svg
-        className="imgsvg"
+        className="notfound-container__image"
         xmlns="http://www.w3.org/2000/svg"
         width="100%"
         height="750"
-        x="0"
-        y="0"
-        enableBackground="new 0 0 560 960"
         version="1.1"
-        viewBox="0 0 560 960"
-        xmlSpace="preserve"
+        viewBox="0 0 500 800"
       >
         <path
           d="M147 386.582s.833 235.875.833 257.209S168.333 668 172.667 668H327c8.666 0 17-11 17-28V387l-197-.418z"
@@ -37,7 +33,6 @@ function Error() {
         <path d="M250 480L250 562" className="lines" />
         <path d="M304 480L304 562" className="lines" />
       </svg>
-
       <section className="error">
         <div className="error__content">
           <div className="error__message message">
@@ -46,8 +41,8 @@ function Error() {
               Oups, cette page n'a pas été trouvée!
             </p>
           </div>
-          <div className="error__nav e-nav">
-            <Link to="/" class="e-nav__link">
+          <div className="nav-container">
+            <Link to="/" class="nav-container__link">
               Accueil
             </Link>
           </div>

@@ -9,20 +9,23 @@ import { Link, Navigate } from "react-router-dom";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import BreweryCard from "../BreweryCard";
 import CustomModal from "../../UI/CustomModal";
+import SimpleModalContent from "../../UI/SimpleModalContent";
 
 // Style
 const BreweriesContainer = styled(Container)({
   display: "block",
   height: "100%",
-  maxWidth: "800px",
+  width: "1000px",
+  maxWidth: "90%",
+  padding: "2rem",
 });
 const Title = styled(Box)({
   padding: "1rem",
-  borderBottom: "1px solid rgb(215, 215, 215)",
+  borderBottom: "1px solid rgb(200, 200, 200)",
   display: "flex",
   justifyContent: "space-evenly",
   alignItems: "center",
-  gap: 0.5,
+  gap: "1rem",
 });
 const TitleText = styled(Typography)(({ theme }) => ({
   flex: 1.5,
@@ -34,7 +37,6 @@ const TitleText = styled(Typography)(({ theme }) => ({
 const TitleButton = styled(Button)({
   flex: 1,
   fontSize: "1rem",
-  marginTop: "1.2rem",
 });
 const BreweryCardBox = styled(Box)({
   marginTop: "4rem",
@@ -46,18 +48,18 @@ const NoResultTypography = styled(Typography)({
   textAlign: "center",
 });
 
-let userBreweries = [];
+let ownerBreweries = [];
 
 // Component
 function Breweries() {
   const [isOpen, setIsOpen] = useState(false);
-  const isLogged = useSelector((state) => state.user.isLogged);
+  const { isLogged, role } = useSelector((state) => state.user);
   const [breweryId, setBreweryId] = useState(null);
   const userId = useSelector((state) => state.user.id);
   const breweries = useSelector((state) => state.brewery.breweries);
   const dispatch = useDispatch();
 
-  userBreweries = breweries?.filter((brewery) => brewery.user_id === userId);
+  ownerBreweries = breweries?.filter((brewery) => brewery.user_id === userId);
 
   const handleModal = (id) => {
     setBreweryId(id);
@@ -65,9 +67,9 @@ function Breweries() {
   };
 
   // Delete a brewery by its ID
-  const handleBreweryDelete = (id) => {
+  const handleBreweryDelete = () => {
     setIsOpen(false);
-    if (id && id > 0) {
+    if (breweryId && breweryId > 0) {
       dispatch({
         type: "DELETE_BREWERY",
         breweryId,
@@ -78,15 +80,15 @@ function Breweries() {
   return (
     <>
       {/* If user is not connected, then it redirect to home page */}
-      {!isLogged && <Navigate to="/" replace />}
-      <CustomModal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        onValidate={handleBreweryDelete}
-        id={breweryId}
-        title="Suppression de la brasserie"
-        description="Etes-vous sûr de vouloir supprimer cette brasserie ?"
-      />
+      {!isLogged && role !== "brewer" && <Navigate to="/" replace />}
+      <CustomModal isOpen={isOpen} setIsOpen={setIsOpen}>
+        <SimpleModalContent
+          onValidate={handleBreweryDelete}
+          onCancel={() => setIsOpen(false)}
+          title="Suppression de la brasserie"
+          description="Etes-vous sûr de vouloir supprimer cette brasserie ?"
+        />
+      </CustomModal>
       <BreweriesContainer>
         <Title>
           <TitleText variant="h4" component="h3">
@@ -100,10 +102,10 @@ function Breweries() {
             Ajouter une Brasserie
           </TitleButton>
         </Title>
-        {userBreweries?.length > 0 ? (
+        {ownerBreweries?.length > 0 ? (
           <BreweryCardBox>
             <Grid spacing={2} justifyContent="center" container>
-              {userBreweries.map((brewery) => (
+              {ownerBreweries.map((brewery) => (
                 <BreweryCard
                   id={brewery.id}
                   key={brewery.id}

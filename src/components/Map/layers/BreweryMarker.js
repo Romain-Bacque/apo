@@ -25,6 +25,7 @@ const StyledCard = styled(Card)({
   padding: 0.5,
   border: "none",
   width: "200px",
+  borderRadius: "0",
 });
 const StyledCardContent = styled(CardContent)({
   display: "flex",

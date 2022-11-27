@@ -26,13 +26,14 @@ function LocationMarker({ position, setPosition, isLocationAuthorized }) {
 }
 
 LocationMarker.propTypes = {
-  isLocationAuthorized: PropTypes.bool.isRequired,
+  isLocationAuthorized: PropTypes.bool,
   position: PropTypes.object,
   setPosition: PropTypes.func.isRequired,
 };
 
 LocationMarker.defaultProps = {
   position: null,
+  isLocationAuthorized: null,
 };
 
 export default LocationMarker;

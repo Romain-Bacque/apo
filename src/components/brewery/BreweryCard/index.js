@@ -42,7 +42,7 @@ function Brewerie({ id, image, title, address, phone, onDelete }) {
   const parsedImage = JSON.parse(image);
 
   return (
-    <Grid item xs={12} lg={6}>
+    <Grid item xs={12} md={10}>
       <Card>
         {parsedImage && (
           <StyledCardMedia

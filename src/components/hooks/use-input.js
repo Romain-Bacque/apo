@@ -27,6 +27,20 @@ const inputReducer = (state, action) => {
           };
         }
         break;
+      case "select-one":
+        if (action.value.value.length > 0) {
+          const options = action.value;
+          const { id } = options[options.selectedIndex];
+
+          if (id) {
+            return {
+              ...state,
+              isValid: true,
+              enteredValue: id,
+            };
+          }
+        }
+        break;
       case "email":
         const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
