@@ -34,7 +34,10 @@ const StyledBox = styled(Box)({
   color: "white",
 });
 const TitleTypography = styled(Typography)({
+  backgroundColor: "#d9b88a",
   fontWeight: 700,
+  padding: "0.5rem 1rem",
+  borderRadius: "5px",
 });
 const StyledCardContent = styled(CardContent)({
   flex: "1.5",
