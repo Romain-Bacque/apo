@@ -108,13 +108,12 @@ const category = (store) => (next) => (action) => {
       .then((response) => {
         if (response.status === 200) {
           store.dispatch({
-            type: "REMOVE_EVENT",
+            type: "REMOVE_OWNER_EVENT",
             eventId: action.eventId,
           });
           store.dispatch({
             type: "SUCCESS",
-            message:
-              "Evénement supprimé avec succès. Tous les participants ont été prévenus.",
+            message: "Evénement supprimé avec succès.",
           });
         }
       })
@@ -130,7 +129,7 @@ const category = (store) => (next) => (action) => {
       message: null,
     });
     instance
-      .post(`/${action.eventId}/user`, {})
+      .post(`/participant/${action.eventId}`, {})
       .then((response) => {
         if (response.status === 200) {
           const RegistrationMessage = response.data.data;
@@ -141,14 +140,48 @@ const category = (store) => (next) => (action) => {
           });
         }
       })
+      .catch((error) => {
+        const { status } = error.response;
+
+        if (status === 409) {
+          store.dispatch({
+            type: "ERROR",
+            message:
+              "Vous ne pouvez pas vous inscrire à un événement dont vous êtes le propriétaire.",
+          });
+        } else {
+          store.dispatch({
+            type: "ERROR",
+            message: "Une erreur est survenue pendant l'inscription.",
+          });
+        }
+      });
+  } else if (action.type === "DELETE_PARTICIPANT") {
+    store.dispatch({
+      type: "PENDING",
+      message: null,
+    });
+    instance
+      .delete(`/participant/${action.eventId}`)
+      .then((response) => {
+        if (response.status === 200) {
+          store.dispatch({
+            type: "REMOVE_PARTICIPANT_EVENT",
+            eventId: action.eventId,
+          });
+          store.dispatch({
+            type: "SUCCESS",
+            message: "Votre participation à cet événement est annulé.",
+          });
+        }
+      })
       .catch(() => {
         store.dispatch({
           type: "ERROR",
-          message: "Une erreur est survenue pendant l'inscription.",
+          message: "Une erreur est survenue.",
         });
       });
   }
-
   next(action);
 };
 

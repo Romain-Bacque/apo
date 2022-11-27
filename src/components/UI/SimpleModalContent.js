@@ -22,7 +22,7 @@ const StyledCardActions = styled(CardActions)({
   paddingTop: "2rem",
 });
 
-function SimpleModalContent({ title, description, onValidate, onCancel }) {
+function SimpleModalContent({ id, title, description, onValidate, onCancel }) {
   return (
     <CardContent>
       <Typography id="modal-modal-title" variant="h5" component="h2">
@@ -35,7 +35,7 @@ function SimpleModalContent({ title, description, onValidate, onCancel }) {
       )}
       <StyledDivider light />
       <StyledCardActions>
-        <Button onClick={onValidate} size="small">
+        <Button onClick={() => onValidate(id)} size="small">
           Valider
         </Button>
         <CancelButton variant="outlined" onClick={onCancel} size="small">
@@ -47,6 +47,7 @@ function SimpleModalContent({ title, description, onValidate, onCancel }) {
 }
 
 SimpleModalContent.propTypes = {
+  id: PropTypes.number,
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
   onCancel: PropTypes.func.isRequired,
@@ -54,6 +55,7 @@ SimpleModalContent.propTypes = {
 };
 
 SimpleModalContent.defaultProps = {
+  id: null,
   description: null,
 };
 

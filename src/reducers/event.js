@@ -19,6 +19,20 @@ const eventReducer = (state = initialState, action = {}) => {
       return {
         ...initialState,
       };
+    case "REMOVE_OWNER_EVENT":
+      return {
+        ...state,
+        ownerEvents: state.ownerEvents.filter(
+          (event) => event.id !== action.eventId
+        ),
+      };
+    case "REMOVE_PARTICIPANT_EVENT":
+      return {
+        ...state,
+        participantEvents: state.participantEvents.filter(
+          (event) => event.id !== action.eventId
+        ),
+      };
     default:
       return state;
   }

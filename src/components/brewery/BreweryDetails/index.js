@@ -35,12 +35,12 @@ const BreweryDetailsContainer = styled(Container)({
   maxWidth: "90%",
 });
 const BreweryDetailsCard = styled(Card)({
-  marginBottom: "2rem",
+  marginBottom: "1rem",
   borderRadius: "10px",
   border: "1px solid rgb(230, 230, 230)",
 });
 const BreweryDescription = styled(Typography)({
-  margin: "2rem auto",
+  margin: "1rem auto",
   overflowY: "auto",
   maxHeight: "2rem",
 });
@@ -63,7 +63,7 @@ const StyledTypography = styled(Box)({
   color: "gray",
 });
 const EventBox = styled(Box)({
-  marginTop: "2rem",
+  marginTop: "1rem",
 });
 const EventHeaderBox = styled(Box)({
   marginBottom: "1rem",
@@ -101,7 +101,7 @@ function BreweryDetails() {
     setIsOpen(true);
   };
 
-  const handleSetParticipant = async () => {
+  const handleSetParticipant = async (eventId) => {
     setIsOpen(false);
     if (!eventId) return;
     dispatch({
@@ -125,14 +125,17 @@ function BreweryDetails() {
 
   return breweryDetails ? (
     <>
-      <CustomModal isOpen={isOpen} setIsOpen={setIsOpen}>
-        <SimpleModalContent
-          onValidate={handleSetParticipant}
-          onCancel={() => setIsOpen(false)}
-          title="Inscription à l'évènement"
-          description="Etes-vous sûr de vouloir vous inscrire ?"
-        />
-      </CustomModal>
+      {isOpen && (
+        <CustomModal isOpen={isOpen} setIsOpen={setIsOpen}>
+          <SimpleModalContent
+            id={eventId}
+            onValidate={handleSetParticipant}
+            onCancel={() => setIsOpen(false)}
+            title="Inscription à l'évènement"
+            description="Etes-vous sûr de vouloir vous inscrire ?"
+          />
+        </CustomModal>
+      )}
       <BreweryDetailsContainer>
         <BreweryDetailsCard>
           <StyledCardHeader

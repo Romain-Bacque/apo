@@ -51,21 +51,21 @@ function EventForm({ onCancel }) {
   const {
     value: breweryIdValue,
     isValid: isBreweryIdValid,
-    isInput: isBreweryIdInputTouched,
+    isTouched: isBreweryIdInputTouched,
     changeHandler: breweryIdChangeHandler,
     blurHandler: breweryIdBlurHandler,
   } = useInput();
   const {
     value: eventTitleValue,
     isValid: isEventTitleValid,
-    isInput: isEventTitleInputTouched,
+    isTouched: isEventTitleInputTouched,
     changeHandler: eventTitleChangeHandler,
     blurHandler: eventTitleBlurHandler,
   } = useInput();
   const {
     value: descriptionValue,
     isValid: isDescriptionValid,
-    isInput: isDescriptionInputTouched,
+    isTouched: isDescriptionInputTouched,
     changeHandler: descriptionChangeHandler,
     blurHandler: descriptionBlurHandler,
   } = useInput();

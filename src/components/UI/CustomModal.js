@@ -26,8 +26,8 @@ function CustomModal({ isOpen, setIsOpen, children }) {
   return (
     <Modal open={isOpen}>
       <StyledCard>
-        <StyledIconButton>
-          <Close onClick={() => setIsOpen(false)} />
+        <StyledIconButton onClick={() => setIsOpen(false)}>
+          <Close />
         </StyledIconButton>
         {children}
       </StyledCard>
@@ -37,7 +37,7 @@ function CustomModal({ isOpen, setIsOpen, children }) {
 
 CustomModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  setIsOpen: PropTypes.bool.isRequired,
+  setIsOpen: PropTypes.func.isRequired,
   children: PropTypes.node,
 };
 

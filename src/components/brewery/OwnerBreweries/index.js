@@ -17,6 +17,7 @@ const BreweriesContainer = styled(Container)({
   height: "100%",
   width: "1000px",
   maxWidth: "90%",
+  padding: "2rem",
 });
 const Title = styled(Box)({
   padding: "1rem",
@@ -24,7 +25,7 @@ const Title = styled(Box)({
   display: "flex",
   justifyContent: "space-evenly",
   alignItems: "center",
-  gap: 0.5,
+  gap: "1rem",
 });
 const TitleText = styled(Typography)(({ theme }) => ({
   flex: 1.5,
@@ -36,7 +37,6 @@ const TitleText = styled(Typography)(({ theme }) => ({
 const TitleButton = styled(Button)({
   flex: 1,
   fontSize: "1rem",
-  marginTop: "1.2rem",
 });
 const BreweryCardBox = styled(Box)({
   marginTop: "4rem",

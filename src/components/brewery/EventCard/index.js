@@ -62,14 +62,24 @@ function EventCard({
   return (
     <StyledCard>
       <StyledBox>
-        <TitleTypography variant="h5">{title}</TitleTypography>
+        <TitleTypography variant="h6">{title}</TitleTypography>
         <Box>
-          <Typography variant="h6">
-            Début: {dayjs(eventStart).format("DD/MM/YYYY HH:mm:ss")}
-          </Typography>
-          <Typography variant="h6">
-            Nombre de participants: {totalParticipants}
-          </Typography>
+          <Box>
+            <Typography fontWeight="700" component="h5" variant="h6">
+              Début:
+            </Typography>
+            <Typography component="h5" variant="h6">
+              {dayjs(eventStart).format("DD/MM/YYYY HH:mm:ss")}
+            </Typography>
+          </Box>
+          <Box>
+            <Typography fontWeight="700" component="h6" variant="h6">
+              Participants:
+            </Typography>
+            <Typography component="h6" variant="h6">
+              {totalParticipants}
+            </Typography>
+          </Box>
         </Box>
       </StyledBox>
       <StyledCardContent>

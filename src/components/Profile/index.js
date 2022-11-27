@@ -91,14 +91,16 @@ function Profile() {
     <>
       {/* If user is not connected, then we redirect to home page */}
       {!user.isLogged && <Navigate to="/" />}
-      <CustomModal isOpen={isOpen} setIsOpen={setIsOpen}>
-        <SimpleModalContent
-          onValidate={handleDeleteUser}
-          onCancel={() => setIsOpen(false)}
-          title="Suppression de votre compte"
-          description="Etes-vous sûr de vouloir supprimer définitivement votre compte ?"
-        />
-      </CustomModal>
+      {isOpen && (
+        <CustomModal isOpen={isOpen} setIsOpen={setIsOpen}>
+          <SimpleModalContent
+            onValidate={handleDeleteUser}
+            onCancel={() => setIsOpen(false)}
+            title="Suppression de votre compte"
+            description="Etes-vous sûr de vouloir supprimer définitivement votre compte ?"
+          />
+        </CustomModal>
+      )}
       <ProfileContainer component="form" onSubmit={handleUpdateUser}>
         <Typography component="h2" variant="h3" color="gray">
           Modifier Votre Profil

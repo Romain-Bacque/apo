@@ -56,6 +56,7 @@ const Input = forwardRef(
 
     // Customize instance that is exposed to parent component when ref is used
     useImperativeHandle(ref, () => ({
+      // eslint-disable-next-line no-restricted-syntax
       resetValue() {
         inputResetHandler();
       },
