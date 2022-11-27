@@ -1,6 +1,6 @@
 // hook import
 import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 // other import
 import { DeleteForever } from "@mui/icons-material";
 import styled from "@emotion/styled";
@@ -106,52 +106,67 @@ function Profile() {
           Modifier Votre Profil
         </Typography>
         <Input
-          input={{
-            id: "name",
-            type: "text",
-            label: "Nom ou Pseudo :",
-          }}
+          input={useMemo(
+            () => ({
+              id: "name",
+              type: "text",
+              label: "Nom ou Pseudo :",
+            }),
+            []
+          )}
           selectedValue={user.name}
           name="name"
           onInputChange={handleInputChange}
         />
         <Input
-          input={{
-            id: "email",
-            type: "email",
-            label: "Adresse Email :",
-          }}
+          input={useMemo(
+            () => ({
+              id: "email",
+              type: "email",
+              label: "Adresse Email :",
+            }),
+            []
+          )}
           selectedValue={user.email}
           name="email"
           onInputChange={handleInputChange}
         />
         <Input
           ref={actualPasswordRef}
-          input={{
-            id: "actualPassword",
-            type: "password",
-            label: "Entrer le mot de passe actuel :",
-          }}
+          input={useMemo(
+            () => ({
+              id: "actualPassword",
+              type: "password",
+              label: "Entrer le mot de passe actuel :",
+            }),
+            []
+          )}
           name="actualPassword"
           onInputChange={handleInputChange}
         />
         <Input
           ref={newPasswordRef}
-          input={{
-            id: "newPassword",
-            type: "password",
-            label: "Entrer le nouveau mot de passe :",
-          }}
+          input={useMemo(
+            () => ({
+              id: "newPassword",
+              type: "password",
+              label: "Entrer le nouveau mot de passe :",
+            }),
+            []
+          )}
           name="newPassword"
           onInputChange={handleInputChange}
         />
         <Input
           ref={confirmPasswordRef}
-          input={{
-            id: "confirmPassword",
-            type: "password",
-            label: "Confirmer le nouveau mot de passe :",
-          }}
+          input={useMemo(
+            () => ({
+              id: "confirmPassword",
+              type: "password",
+              label: "Confirmer le nouveau mot de passe :",
+            }),
+            []
+          )}
           name="confirmPassword"
           valueToMatch={inputStatus.newPassword.value}
           onInputChange={handleInputChange}

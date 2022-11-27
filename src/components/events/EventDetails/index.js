@@ -77,7 +77,7 @@ function EventDetails({
           Début : {dayjs(eventStart).format("DD/MM/YYYY HH:mm:ss")}
         </Typography>
         <Box>
-          {participants.length && participants[0].name && (
+          {participants?.length && participants[0].name && (
             <>
               <ParticipantTypography component="p" variant="h6">
                 Participants :

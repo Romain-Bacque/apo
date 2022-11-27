@@ -1,5 +1,5 @@
 // hook import
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 // other import
 import PropTypes from "prop-types";
@@ -94,4 +94,4 @@ Category.defaultProps = {
   selectedCategories: null,
 };
 
-export default Category;
+export default memo(Category);

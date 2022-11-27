@@ -1,5 +1,5 @@
 // hook import
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // component import
 import ClickAwayListener from "@mui/material/ClickAwayListener";
@@ -28,7 +28,6 @@ const StyledMenuItem = styled(MenuItem)({
   },
 });
 
-// Style
 const StyledMenuRounded = styled(MenuRounded)({
   fontSize: "2.5rem",
   color: "white",
@@ -168,4 +167,4 @@ function AppMenu() {
   );
 }
 
-export default AppMenu;
+export default memo(AppMenu);

@@ -1,6 +1,6 @@
 // hook import
 import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 // component import
 import { Typography, Button, Container } from "@mui/material";
@@ -61,20 +61,26 @@ function Register() {
             Réinitialiser votre mot de passe
           </Typography>
           <Input
-            input={{
-              id: "password",
-              type: "password",
-              label: "Entrer le nouveau mot de passe :",
-            }}
+            input={useMemo(
+              () => ({
+                id: "password",
+                type: "password",
+                label: "Entrer le nouveau mot de passe :",
+              }),
+              []
+            )}
             name="password"
             onInputChange={handleInputChange}
           />
           <Input
-            input={{
-              id: "confirmPassword",
-              type: "password",
-              label: "Confirmer le mot de passe :",
-            }}
+            input={useMemo(
+              () => ({
+                id: "confirmPassword",
+                type: "password",
+                label: "Confirmer le mot de passe :",
+              }),
+              []
+            )}
             name="confirmPassword"
             valueToMatch={inputStatus.password.value}
             onInputChange={handleInputChange}

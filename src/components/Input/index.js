@@ -1,5 +1,5 @@
 // hook import
-import { forwardRef, useEffect, useImperativeHandle } from "react";
+import { forwardRef, memo, useEffect, useImperativeHandle } from "react";
 // component import
 import PropTypes from "prop-types";
 import { TextField } from "@mui/material";
@@ -23,6 +23,7 @@ const Input = forwardRef(
   ) => {
     let hasAnError = false;
     let helperTextContent = "";
+
     const {
       value: inputValue,
       isValid: isInputValid,
@@ -113,4 +114,5 @@ Input.defaultProps = {
   selectedValue: null,
   params: null,
 };
-export default Input;
+
+export default memo(Input);

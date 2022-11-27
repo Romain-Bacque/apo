@@ -80,6 +80,7 @@
     ]
   },
   "devDependencies": {
+    "@arthurgeron/eslint-plugin-react-usememo": "^0.1.1",
     "@types/leaflet": "^1.8.0",
     "eslint": "^8.27.0",
     "eslint-config-airbnb": "^19.0.4",

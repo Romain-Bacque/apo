@@ -2,7 +2,7 @@
 import styled from "@emotion/styled";
 // hook import
 import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 // component import
 import {
@@ -111,38 +111,50 @@ function Register() {
             </StyledRadioGroup>
           </Box>
           <Input
-            input={{
-              id: "name",
-              type: "text",
-              label: "Nom ou Pseudo :",
-            }}
+            input={useMemo(
+              () => ({
+                id: "name",
+                type: "text",
+                label: "Nom ou Pseudo :",
+              }),
+              []
+            )}
             name="name"
             onInputChange={handleInputChange}
           />
           <Input
-            input={{
-              id: "email",
-              type: "email",
-              label: "Adresse Email :",
-            }}
+            input={useMemo(
+              () => ({
+                id: "email",
+                type: "email",
+                label: "Adresse Email :",
+              }),
+              []
+            )}
             name="email"
             onInputChange={handleInputChange}
           />
           <Input
-            input={{
-              id: "password",
-              type: "password",
-              label: "Entrer le mot de passe :",
-            }}
+            input={useMemo(
+              () => ({
+                id: "password",
+                type: "password",
+                label: "Entrer le mot de passe :",
+              }),
+              []
+            )}
             name="password"
             onInputChange={handleInputChange}
           />
           <Input
-            input={{
-              id: "confirmPassword",
-              type: "password",
-              label: "Confirmer le mot de passe :",
-            }}
+            input={useMemo(
+              () => ({
+                id: "confirmPassword",
+                type: "password",
+                label: "Confirmer le mot de passe :",
+              }),
+              []
+            )}
             name="confirmPassword"
             valueToMatch={inputStatus.password.value}
             onInputChange={handleInputChange}

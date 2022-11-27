@@ -1,7 +1,7 @@
 // other import
 import styled from "@emotion/styled";
 // hook import
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // component import
 import { Link, Navigate } from "react-router-dom";
@@ -72,20 +72,26 @@ function Login() {
             Se Connecter
           </Typography>
           <Input
-            input={{
-              id: "email",
-              label: "Email",
-              type: "email",
-            }}
+            input={useMemo(
+              () => ({
+                id: "email",
+                label: "Email",
+                type: "email",
+              }),
+              []
+            )}
             onInputChange={handleInputChange}
             name="email"
           />
           <Input
-            input={{
-              id: "password",
-              label: "Mot de passe",
-              type: "password",
-            }}
+            input={useMemo(
+              () => ({
+                id: "password",
+                label: "Mot de passe",
+                type: "password",
+              }),
+              []
+            )}
             onInputChange={handleInputChange}
             name="password"
           />
