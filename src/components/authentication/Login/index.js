@@ -8,6 +8,8 @@ import { Link, Navigate } from "react-router-dom";
 import { Button, Typography, Container, Box } from "@mui/material";
 import Input from "../../Input";
 import AuthContainerThemeProvider from "../AuthContainerThemeProvider";
+// action creator import
+import { login } from "../../../actions";
 
 // Style
 const ResetPasswordLink = styled(Link)({
@@ -22,7 +24,7 @@ const ResetPasswordLink = styled(Link)({
 });
 const ResetNotRegisteredLink = styled(Link)({
   display: "inline-block",
-  marginTop: "2rem",
+  marginTop: "1rem",
   fontSize: "0.8rem",
   fontWeight: 700,
   textTransform: "uppercase",
@@ -55,11 +57,10 @@ function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!isFormValid) return;
-    dispatch({
-      type: "LOGIN",
-      email: inputStatus.email.value,
-      password: inputStatus.password.value,
-    });
+
+    const action = login(inputStatus.email.value, inputStatus.password.value);
+
+    dispatch(action);
   };
 
   return (
@@ -68,7 +69,7 @@ function Login() {
       {isLogged && <Navigate to="/" />}
       <AuthContainerThemeProvider>
         <Container component="form" onSubmit={handleSubmit}>
-          <Typography component="h2" variant="h3" color="gray">
+          <Typography component="h2" variant="h4" color="gray">
             Se Connecter
           </Typography>
           <Input

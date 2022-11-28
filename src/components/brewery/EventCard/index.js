@@ -29,15 +29,13 @@ const StyledBox = styled(Box)({
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
-  padding: "1rem",
   backgroundColor: "#f2cc96",
   color: "white",
 });
 const TitleTypography = styled(Typography)({
   backgroundColor: "#d9b88a",
   fontWeight: 700,
-  padding: "0.5rem 1rem",
-  borderRadius: "5px",
+  padding: "2rem 1rem",
 });
 const StyledCardContent = styled(CardContent)({
   flex: "1.5",
@@ -66,7 +64,7 @@ function EventCard({
     <StyledCard>
       <StyledBox>
         <TitleTypography variant="h6">{title}</TitleTypography>
-        <Box>
+        <Box p="1rem">
           <Box>
             <Typography fontWeight="700" component="h5" variant="h6">
               Début:

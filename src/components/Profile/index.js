@@ -10,6 +10,8 @@ import { Typography, Button, Container, Divider } from "@mui/material";
 import Input from "../Input";
 import CustomModal from "../UI/CustomModal";
 import SimpleModalContent from "../UI/SimpleModalContent";
+// action creator import
+import { deleteUser, updateUser } from "../../actions";
 
 // Style
 const ProfileContainer = styled(Container)({
@@ -54,21 +56,22 @@ function Profile() {
   const handleUpdateUser = (event) => {
     event.preventDefault();
     if (!isFormValid) return;
-    dispatch({
-      type: "UPDATE_USER",
-      id: user.id,
-      name: inputStatus.name.value,
-      email: inputStatus.email.value,
-      actualPassword: inputStatus.actualPassword.value,
-      newPassword: inputStatus.newPassword.value,
-    });
+
+    const action = updateUser(
+      user.id,
+      inputStatus.name.value,
+      inputStatus.email.value,
+      inputStatus.actualPassword.value,
+      inputStatus.newPassword.value
+    );
+
+    dispatch(action);
   };
 
   const handleDeleteUser = () => {
-    dispatch({
-      id: user.id,
-      type: "DELETE_USER",
-    });
+    const action = deleteUser(user.id);
+
+    dispatch(action);
   };
 
   const handleInputChange = useCallback((name, status) => {

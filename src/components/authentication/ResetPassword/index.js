@@ -6,6 +6,8 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Typography, Button, Container } from "@mui/material";
 import Input from "../../Input";
 import AuthContainerThemeProvider from "../AuthContainerThemeProvider";
+// action creator import
+import { resetPassword } from "../../../actions";
 
 let isResetting = false;
 
@@ -27,12 +29,14 @@ function Register() {
   const handleRegister = (event) => {
     event.preventDefault();
     if (!isFormValid) return;
-    dispatch({
-      type: "RESET_PASSWORD",
-      id: params.id,
-      token: params.token,
-      password: inputStatus.password.value,
-    });
+
+    const action = resetPassword(
+      params.id,
+      params.token,
+      inputStatus.password.value
+    );
+
+    dispatch(action);
     isResetting = true;
   };
 

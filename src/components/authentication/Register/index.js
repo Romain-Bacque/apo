@@ -16,13 +16,15 @@ import {
 } from "@mui/material";
 import Input from "../../Input";
 import AuthContainerThemeProvider from "../AuthContainerThemeProvider";
+// action creator import
+import { register } from "../../../actions";
 
 let isSigningup = false;
 
 // Style
 const AlreadyRegisteredLink = styled(Link)({
   display: "inline-block",
-  marginTop: "2rem",
+  marginTop: "1rem",
   fontSize: "0.8rem",
   fontWeight: 700,
   textTransform: "uppercase",
@@ -60,13 +62,15 @@ function Register() {
   const handleRegister = (event) => {
     event.preventDefault();
     if (!isFormValid) return;
-    dispatch({
-      type: "REGISTER",
-      email: inputStatus.email.value,
-      password: inputStatus.password.value,
-      name: inputStatus.name.value,
-      role: inputStatus.role,
-    });
+
+    const action = register(
+      inputStatus.email.value,
+      inputStatus.password.value,
+      inputStatus.name.value,
+      inputStatus.role
+    );
+
+    dispatch(action);
     isSigningup = true;
   };
 
@@ -91,7 +95,7 @@ function Register() {
       {isLogged && <Navigate to="/" />}
       <AuthContainerThemeProvider>
         <Container component="form" onSubmit={handleRegister}>
-          <Typography component="h2" variant="h3" color="gray">
+          <Typography component="h2" variant="h4" color="gray">
             Créer Un Compte
           </Typography>
           <Box>

@@ -17,6 +17,14 @@ import { Add } from "@mui/icons-material";
 import CustomModal from "../../UI/CustomModal";
 import EventForm from "../EventForm";
 import EventDetails from "../EventDetails";
+// action creator import
+import {
+  deleteEvent,
+  deleteParticipant,
+  fetchOwnerEvents,
+  fetchParticipantEvents,
+  resetEvents,
+} from "../../../actions";
 
 const locales = {
   fr,
@@ -146,17 +154,14 @@ function EventCalendar() {
   };
 
   const handleDeleteEvent = (isOwner, eventId) => {
+    let action;
+
     if (isOwner) {
-      dispatch({
-        type: "DELETE_EVENT",
-        eventId,
-      });
+      action = deleteEvent(eventId);
     } else {
-      dispatch({
-        type: "DELETE_PARTICIPANT",
-        eventId,
-      });
+      action = deleteParticipant(eventId);
     }
+    dispatch(action);
     setIsOpen(false);
   };
 
@@ -172,18 +177,12 @@ function EventCalendar() {
   };
 
   useEffect(() => {
-    dispatch({
-      type: "RESET_EVENTS",
-    });
+    dispatch(resetEvents());
     if (isLogged) {
-      dispatch({
-        type: "FETCH_PARTICIPANT_EVENTS",
-      });
+      dispatch(fetchParticipantEvents());
     }
     if (isLogged && role === "brewer") {
-      dispatch({
-        type: "FETCH_OWNER_EVENTS",
-      });
+      dispatch(fetchOwnerEvents());
     }
   }, [isLogged, role, dispatch]);
 

@@ -1,5 +1,13 @@
 // other import
 import axios from "axios";
+// action creator import
+import {
+  pending,
+  success,
+  error,
+  saveBreweries,
+  saveBreweryDetails,
+} from "../actions";
 // config file import
 import { apiConfig } from "../config/config";
 
@@ -11,58 +19,34 @@ const instance = axios.create({
 
 const brewery = (store) => (next) => (action) => {
   if (action.type === "FETCH_BREWERIES") {
-    store.dispatch({
-      type: "PENDING",
-      message: null,
-    });
+    store.dispatch(pending());
     instance
       .get("/")
       .then((response) => {
         if (response.status === 200) {
           const breweries = response.data.data;
 
-          store.dispatch({
-            type: "SAVE_BREWERIES",
-            breweries,
-          });
-          store.dispatch({
-            type: "SUCCESS",
-            message: null,
-          });
+          store.dispatch(saveBreweries(breweries));
+          store.dispatch(success(null));
         }
       })
       .catch(() => {
-        store.dispatch({
-          type: "ERROR",
-          message: "Une erreur est survenue.",
-        });
+        store.dispatch(error("Une erreur est survenue."));
       });
   } else if (action.type === "FETCH_BREWERY_DETAILS") {
-    store.dispatch({
-      type: "PENDING",
-      message: null,
-    });
+    store.dispatch(pending());
     instance
       .get(`/${action.breweryId}`)
       .then((response) => {
         if (response.status === 200) {
           const breweryDetails = response.data.data[0];
 
-          store.dispatch({
-            type: "SUCCESS",
-            message: null,
-          });
-          store.dispatch({
-            type: "SAVE_BREWERY_DETAILS",
-            breweryDetails,
-          });
+          store.dispatch(success(null));
+          store.dispatch(saveBreweryDetails(breweryDetails));
         }
       })
       .catch(() => {
-        store.dispatch({
-          type: "ERROR",
-          message: "Une erreur est survenue.",
-        });
+        store.dispatch(error("Une erreur est survenue."));
       });
   } else if (action.type === "ADD_BREWERY") {
     const formData = new FormData();
@@ -77,49 +61,28 @@ const brewery = (store) => (next) => (action) => {
       formData.append("categories[]", category.id);
     }
     formData.append("description", action.description);
-    store.dispatch({
-      type: "PENDING",
-      message: null,
-    });
+    store.dispatch(pending());
     instance
       .post("/", formData)
       .then((response) => {
         if (response.status === 200) {
           const breweries = response.data.data;
 
-          store.dispatch({
-            type: "SAVE_BREWERIES",
-            breweries,
-          });
-          store.dispatch({
-            type: "SUCCESS",
-            message: "Brasserie ajoutée.",
-          });
+          store.dispatch(saveBreweries(breweries));
+          store.dispatch(success("Brasserie ajoutée."));
         }
       })
-      .catch((error) => {
-        const { status } = error.response;
+      .catch((err) => {
+        const { status } = err.response;
 
         if (status === 400) {
-          store.dispatch({
-            type: "ERROR",
-            message: "Erreur dans un/plusieurs champs.",
-          });
+          store.dispatch(error("Erreur dans un/plusieurs champs."));
         } else if (status === 401) {
-          store.dispatch({
-            type: "ERROR",
-            message: "Action non autorisée.",
-          });
+          store.dispatch(error("Action non autorisée."));
         } else if (status === 404) {
-          store.dispatch({
-            type: "ERROR",
-            message: "La brasserie n'a pas été trouvée.",
-          });
+          store.dispatch(error("La brasserie n'a pas été trouvée."));
         } else {
-          store.dispatch({
-            type: "ERROR",
-            message: "Une erreur est survenue.",
-          });
+          store.dispatch(error("Une erreur est survenue."));
         }
       });
   } else if (action.type === "UPDATE_BREWERY") {
@@ -135,51 +98,30 @@ const brewery = (store) => (next) => (action) => {
       formData.append("categories[]", category.id);
     }
     formData.append("description", action.description);
-    store.dispatch({
-      type: "PENDING",
-      message: null,
-    });
+    store.dispatch(pending());
     instance
       .put(`/${action.id}`, formData)
       .then((response) => {
         if (response.status === 200) {
           const breweries = response.data.data;
 
-          store.dispatch({
-            type: "SAVE_BREWERIES",
-            breweries,
-          });
-          store.dispatch({
-            type: "SUCCESS",
-            message: "Brasserie modifiée.",
-          });
+          store.dispatch(saveBreweries(breweries));
+          store.dispatch(success("Brasserie modifiée."));
         }
       })
-      .catch((error) => {
-        const { status } = error.response;
+      .catch((err) => {
+        const { status } = err.response;
 
         if (status === 401) {
-          store.dispatch({
-            type: "ERROR",
-            message: "Action non autorisée.",
-          });
+          store.dispatch(error("Action non autorisée."));
         } else if (status === 400) {
-          store.dispatch({
-            type: "ERROR",
-            message: "Erreur dans un/plusieurs champs.",
-          });
+          store.dispatch(error("Erreur dans un/plusieurs champs."));
         } else {
-          store.dispatch({
-            type: "ERROR",
-            message: "Une erreur est survenue.",
-          });
+          store.dispatch(error("Une erreur est survenue."));
         }
       });
   } else if (action.type === "DELETE_BREWERY") {
-    store.dispatch({
-      type: "PENDING",
-      message: null,
-    });
+    store.dispatch(pending());
 
     instance
       .delete(`/${action.breweryId}`)
@@ -187,34 +129,19 @@ const brewery = (store) => (next) => (action) => {
         if (response.status === 200) {
           const breweries = response.data.data;
 
-          store.dispatch({
-            type: "SAVE_BREWERIES",
-            breweries,
-          });
-          store.dispatch({
-            type: "SUCCESS",
-            message: "Brasserie supprimée.",
-          });
+          store.dispatch(saveBreweries(breweries));
+          store.dispatch(success("Brasserie supprimée."));
         }
       })
-      .catch((error) => {
-        const { status } = error.response;
+      .catch((err) => {
+        const { status } = err.response;
 
         if (status === 401) {
-          store.dispatch({
-            type: "ERROR",
-            message: "Action non autorisée.",
-          });
+          store.dispatch(error("Action non autorisée."));
         } else if (status === 404) {
-          store.dispatch({
-            type: "ERROR",
-            message: "La brasserie n'a pas été trouvée.",
-          });
+          store.dispatch(error("La brasserie n'a pas été trouvée."));
         } else {
-          store.dispatch({
-            type: "ERROR",
-            message: "Une erreur est survenue.",
-          });
+          store.dispatch(error("Une erreur est survenue."));
         }
       });
   }

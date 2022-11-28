@@ -13,11 +13,12 @@ import { Button, IconButton } from "@mui/material";
 // other import
 import { MenuRounded } from "@mui/icons-material";
 import styled from "@emotion/styled";
+// action creator import
+import { logout } from "../../actions";
 
 // Style
 const StyledMenuItem = styled(MenuItem)({
   textTransform: "capitalize",
-  padding: ".5rem 1rem",
   margin: "1rem 0",
   fontSize: "1.4rem",
   fontWeight: "bold",
@@ -42,9 +43,7 @@ function AppMenu() {
   const userRole = useSelector((state) => state.user.role);
 
   const handleLogout = () => {
-    dispatch({
-      type: "LOGOUT",
-    });
+    dispatch(logout());
   };
 
   const handleClose = (event) => {

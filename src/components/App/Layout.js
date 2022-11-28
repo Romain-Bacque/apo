@@ -18,10 +18,11 @@ const Main = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  height: "calc(100vh - 14rem)",
+  height: "calc(100vh - 13rem)",
   marginBottom: "6rem",
   background: "rgb(250, 250, 250, 0.93)",
   fontFamily: "Silkscreen",
+  overflowY: "auto",
   "&::before": {
     content: '""',
     position: "fixed",

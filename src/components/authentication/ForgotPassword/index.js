@@ -6,6 +6,8 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { Button, Typography, Container } from "@mui/material";
 import Input from "../../Input";
 import AuthContainerThemeProvider from "../AuthContainerThemeProvider";
+// action creator import
+import { forgotPassword } from "../../../actions";
 
 let isResetting = false;
 
@@ -31,10 +33,10 @@ function ForgetPassword() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!isFormValid) return;
-    dispatch({
-      type: "FORGET_PASSWORD",
-      email: inputStatus.email.value,
-    });
+
+    const action = forgotPassword(inputStatus.email.value);
+
+    dispatch(action);
     isResetting = true;
   };
 

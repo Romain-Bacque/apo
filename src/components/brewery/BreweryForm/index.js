@@ -17,6 +17,8 @@ import {
 import Input from "../../Input";
 import CustomSearchbar from "../../UI/CustomSearchbar";
 import Category from "../../Category";
+// action creator import
+import { addBrewery, updateBrewery } from "../../../actions";
 
 let isHTTPRequestSend = false;
 
@@ -67,8 +69,8 @@ function BreweryForm() {
   const handleBrewerySubmit = (event) => {
     event.preventDefault();
     if (!isFormValid) return;
-    dispatch({
-      type: params.id ? "UPDATE_BREWERY" : "ADD_BREWERY",
+
+    const actionContent = {
       id: params.id ? params.id : null,
       title: inputStatus.title.value,
       image: inputStatus.image.file,
@@ -78,7 +80,13 @@ function BreweryForm() {
       lon: inputStatus.location.value.lon,
       categories: inputStatus.categories,
       description: inputStatus.description.value,
-    });
+    };
+
+    const action = params.id
+      ? updateBrewery(actionContent)
+      : addBrewery(actionContent);
+
+    dispatch(action);
     isHTTPRequestSend = true;
   };
 

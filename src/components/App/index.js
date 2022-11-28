@@ -7,7 +7,7 @@ import Layout from "./Layout";
 import Map from "../Map";
 import Login from "../authentication/Login";
 import Register from "../authentication/Register";
-import ForgetPassword from "../authentication/ForgetPassword";
+import ForgotPassword from "../authentication/ForgotPassword";
 import ResetPassword from "../authentication/ResetPassword";
 import BreweryDetails from "../brewery/BreweryDetails";
 import OwnerBreweries from "../brewery/OwnerBreweries";
@@ -15,6 +15,12 @@ import Profile from "../Profile";
 import NotFound from "../NotFound";
 import BreweryForm from "../brewery/BreweryForm";
 import EventCalendar from "../events/EventCalendar";
+// action creator import
+import {
+  fetchBreweries,
+  fetchCategories,
+  userVerification,
+} from "../../actions";
 
 function App() {
   const [isLocationAuthorized, setIsLocationAuthorized] = useState(null);
@@ -31,30 +37,28 @@ function App() {
 
   // Check if user is currently connected
   useEffect(() => {
-    dispatch({
-      type: "USER_VERIFICATION",
-    });
+    const action = userVerification();
+
+    dispatch(action);
   }, [dispatch]);
 
-  // Get all breweries list
+  // Get all breweries
   useEffect(() => {
-    dispatch({
-      type: "FETCH_BREWERIES",
-    });
+    const action = fetchBreweries();
+
+    dispatch(action);
   }, [dispatch]);
 
-  // Get all categories list
+  // Get all categories
   useEffect(() => {
-    dispatch({
-      type: "FETCH_CATEGORIES",
-    });
+    const action = fetchCategories();
+
+    dispatch(action);
   }, [dispatch]);
 
   // Ask for location authorization
   useEffect(() => {
-    const result = window.confirm(
-      "Voulez-vous autoriser le site à vous localiser ?"
-    );
+    const result = window.confirm("Autorisez-vous le site à vous localiser ?");
 
     setIsLocationAuthorized(result);
   }, []);
@@ -73,7 +77,7 @@ function App() {
         <Route path="/signup" element={<Register />} />
         <Route path="/signin" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/forget-password" element={<ForgetPassword />} />
+        <Route path="/forget-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/breweries" element={<OwnerBreweries />} />
