@@ -76,8 +76,7 @@ const EventFormButton = styled(Button)({
   fontSize: "1rem",
 });
 const CalendarBox = styled(Box)({
-  height: "80%",
-  maxHeight: "65%",
+  height: "400px",
   margin: "2rem",
 });
 const StyledCalendar = styled(Calendar)({
@@ -89,6 +88,10 @@ const StyledCalendar = styled(Calendar)({
   borderRadius: "10px",
   backgroundColor: "white",
   color: "gray",
+  "&& .rbc-toolbar": {
+    justifyContent: "start",
+    gap: "1rem",
+  },
 });
 const StyledStack = styled(Stack)({
   marginTop: "1.5rem",
@@ -191,7 +194,7 @@ function EventCalendar() {
       <CustomModal isOpen={isOpen} setIsOpen={setIsOpen}>
         {modalContent}
       </CustomModal>
-      <Container sx={{ height: "100%" }}>
+      <Container>
         <StyledBox>
           <Title variant="h4" component="h3">
             Evénements
@@ -213,17 +216,14 @@ function EventCalendar() {
             onSelectEvent={(event) => handleEventDetails(event)}
             eventPropGetter={handleEventStyle}
           />
-          <StyledStack direction="row" spacing={1}>
-            <StyledChip
-              label="Propriétaire"
-              sx={{ backgroundColor: "#8c6c3d" }}
-            />
-            <StyledChip
-              label="Participant"
-              sx={{ backgroundColor: "#f2cc96" }}
-            />
-          </StyledStack>
         </CalendarBox>
+        <StyledStack direction="row" spacing={1}>
+          <StyledChip
+            label="Propriétaire"
+            sx={{ backgroundColor: "#8c6c3d" }}
+          />
+          <StyledChip label="Participant" sx={{ backgroundColor: "#f2cc96" }} />
+        </StyledStack>
       </Container>
     </>
   );

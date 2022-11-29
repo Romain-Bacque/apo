@@ -16,7 +16,7 @@ import { deleteBrewery } from "../../../actions";
 // Style
 const BreweriesContainer = styled(Container)({
   display: "block",
-  height: "100%",
+  height: "calc(100vh - 7rem)",
   width: "1000px",
   maxWidth: "90%",
   padding: "2rem",

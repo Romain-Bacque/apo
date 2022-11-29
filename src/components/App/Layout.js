@@ -18,7 +18,7 @@ const Main = styled(Box)({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  height: "calc(100vh - 13rem)",
+  minHeight: "calc(100vh - 13rem)",
   background: "rgb(250, 250, 250, 0.93)",
   fontFamily: "Silkscreen",
   overflowY: "auto",

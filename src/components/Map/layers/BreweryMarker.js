@@ -150,7 +150,7 @@ const BreweryMarker = ({
         icon={defaultIcon}
         key={brewery.id}
       >
-        <Popup className="test">
+        <Popup>
           <StyledCard elevation={0}>
             {parsedImage && (
               <CardMedia
