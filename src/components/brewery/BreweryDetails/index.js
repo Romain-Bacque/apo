@@ -92,6 +92,7 @@ const NoResultTypography = styled(Typography)({
 
 // Component
 function BreweryDetails() {
+  const isLogged = useSelector((state) => state.user.isLogged);
   const [eventId, setEventId] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const loading = useSelector((state) => state.loading);
@@ -186,13 +187,15 @@ function BreweryDetails() {
                   : 0
               })`}
             </EventTitle>
-            <EventSchedulerLink
-              startIcon={<Event />}
-              component={Link}
-              to="/eventCalendar"
-            >
-              Planning
-            </EventSchedulerLink>
+            {isLogged && (
+              <EventSchedulerLink
+                startIcon={<Event />}
+                component={Link}
+                to="/eventCalendar"
+              >
+                Planning
+              </EventSchedulerLink>
+            )}
           </EventHeaderBox>
           {breweryDetails.events && breweryDetails.events.length > 0 ? (
             <StyledSwiper
