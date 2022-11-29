@@ -1,6 +1,6 @@
 // hook import
 import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 // other import
 import { ArrowBackRounded } from "@mui/icons-material";
@@ -17,6 +17,8 @@ import {
 import Input from "../../Input";
 import CustomSearchbar from "../../UI/CustomSearchbar";
 import Category from "../../Category";
+// action creator import
+import { addBrewery, updateBrewery } from "../../../actions";
 
 let isHTTPRequestSend = false;
 
@@ -49,7 +51,8 @@ function BreweryForm() {
     categories: [],
     description: { isValid: false, value: "" },
   });
-  let breweryToUpdate = null;
+
+  let breweryToUpdate = { address: null, lat: null, lon: null };
 
   if (params.id) {
     breweryToUpdate = breweries.find(
@@ -66,8 +69,8 @@ function BreweryForm() {
   const handleBrewerySubmit = (event) => {
     event.preventDefault();
     if (!isFormValid) return;
-    dispatch({
-      type: params.id ? "UPDATE_BREWERY" : "ADD_BREWERY",
+
+    const actionContent = {
       id: params.id ? params.id : null,
       title: inputStatus.title.value,
       image: inputStatus.image.file,
@@ -77,16 +80,22 @@ function BreweryForm() {
       lon: inputStatus.location.value.lon,
       categories: inputStatus.categories,
       description: inputStatus.description.value,
-    });
+    };
+
+    const action = params.id
+      ? updateBrewery(actionContent)
+      : addBrewery(actionContent);
+
+    dispatch(action);
     isHTTPRequestSend = true;
   };
 
-  const handleFileChange = (event) => {
+  const handleFileChange = useCallback((event) => {
     setInputStatus((prevState) => ({
       ...prevState,
       image: { file: event.target.files[0], value: event.target.value },
     }));
-  };
+  }, []);
 
   const handleInputChange = useCallback((name, status) => {
     setInputStatus((prevState) => ({
@@ -123,17 +132,20 @@ function BreweryForm() {
           </Typography>
         </Box>
         <Input
-          input={{
-            type: "text",
-            label: "Nom de la brasserie :",
-          }}
+          input={useMemo(
+            () => ({
+              type: "text",
+              label: "Nom de la brasserie :",
+            }),
+            []
+          )}
           selectedValue={breweryToUpdate?.title}
           onInputChange={handleInputChange}
           name="title"
         />
         <TextField
           label="Photo de la brasserie"
-          InputLabelProps={{ shrink: true }}
+          InputLabelProps={useMemo(() => ({ shrink: true }), [])}
           id="image"
           type="file"
           accept="image/png, image/jpeg"
@@ -142,28 +154,37 @@ function BreweryForm() {
           onChange={handleFileChange}
         />
         <Input
-          input={{
-            type: "tel",
-            label: "Numéro de téléphone :",
-          }}
+          input={useMemo(
+            () => ({
+              type: "tel",
+              label: "Numéro de téléphone :",
+            }),
+            []
+          )}
           selectedValue={breweryToUpdate?.phone}
           onInputChange={handleInputChange}
           name="phone"
         />
         <CustomSearchbar
           setInputStatus={setInputStatus}
-          location={{
-            address: breweryToUpdate?.address,
-            lat: breweryToUpdate?.lat,
-            lon: breweryToUpdate?.lon,
-          }}
+          location={useMemo(
+            () => ({
+              address: breweryToUpdate?.address,
+              lat: breweryToUpdate?.lat,
+              lon: breweryToUpdate?.lon,
+            }),
+            [breweryToUpdate.address, breweryToUpdate.lat, breweryToUpdate.lon]
+          )}
         />
         <Input
           multiline
-          input={{
-            type: "text",
-            label: "Description :",
-          }}
+          input={useMemo(
+            () => ({
+              type: "text",
+              label: "Description :",
+            }),
+            []
+          )}
           selectedValue={breweryToUpdate?.description}
           onInputChange={handleInputChange}
           name="description"

@@ -10,6 +10,8 @@ import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import BreweryCard from "../BreweryCard";
 import CustomModal from "../../UI/CustomModal";
 import SimpleModalContent from "../../UI/SimpleModalContent";
+// action creator import
+import { deleteBrewery } from "../../../actions";
 
 // Style
 const BreweriesContainer = styled(Container)({
@@ -39,8 +41,8 @@ const TitleButton = styled(Button)({
   fontSize: "1rem",
 });
 const BreweryCardBox = styled(Box)({
-  marginTop: "4rem",
-  overflow: "auto",
+  marginTop: "3rem",
+  overflowY: "auto",
   height: "65vh",
 });
 const NoResultTypography = styled(Typography)({
@@ -70,10 +72,9 @@ function Breweries() {
   const handleBreweryDelete = () => {
     setIsOpen(false);
     if (breweryId && breweryId > 0) {
-      dispatch({
-        type: "DELETE_BREWERY",
-        breweryId,
-      });
+      const action = deleteBrewery(breweryId);
+
+      dispatch(action);
     }
   };
 

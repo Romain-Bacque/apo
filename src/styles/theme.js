@@ -15,7 +15,7 @@ const theme = createTheme({
       light: "#fffffc",
       dark: "#b28646",
     },
-    // Error message color.
+    // Error message color
     error: {
       main: "#d32f2f",
     },
@@ -27,22 +27,10 @@ const theme = createTheme({
     info: {
       main: "#0288d1",
     },
-    // indiquer la réussite d'une action
+    // Success message color
     success: {
       main: "#2e7d32",
     },
-    /*
-            Si "contrastText" est omis,
-            sa valeur sera calculée pour contraster avec "main",
-            selon la valeur de "contrastThreshold".
-        */
-    contrastThreshold: 3,
-    /*
-            Si les touches "dark" et/ou "light" sont omises,
-            leur(s) valeur(s) seront calculées à partir de "main",
-            selon la valeur de "tonalOffset".
-        */
-    tonalOffset: 0.2, //  nombre compris entre 0 et 1
   },
 
   // Media query breakpoints

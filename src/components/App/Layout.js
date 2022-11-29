@@ -14,14 +14,14 @@ import Loader from "../UI/loader";
 import barrel from "./barrels.jpg";
 
 // Style
-const Main = styled(Box)(({ theme }) => ({
+const Main = styled(Box)({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  height: "calc(100vh - 14rem)",
-  marginBottom: "6rem",
+  height: "calc(100vh - 13rem)",
   background: "rgb(250, 250, 250, 0.93)",
   fontFamily: "Silkscreen",
+  overflowY: "auto",
   "&::before": {
     content: '""',
     position: "fixed",
@@ -32,10 +32,7 @@ const Main = styled(Box)(({ theme }) => ({
     background: `url(${barrel})center/cover no-repeat`,
     zIndex: -1,
   },
-  [theme.breakpoints.down("md")]: {
-    margin: "0",
-  },
-}));
+});
 
 // Component
 function Layout({ setSearchValue, children }) {

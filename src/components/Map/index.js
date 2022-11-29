@@ -1,5 +1,5 @@
 // hook import
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 // other import
 import PropTypes from "prop-types";
@@ -99,12 +99,15 @@ function Map({ isLocationAuthorized, searchValue }) {
 
   const getRadiusFilter = useCallback(() => radiusFilter, [radiusFilter]);
   const getGeoFilter = useCallback(() => geoFilter, [geoFilter]);
-  const getSearchbarFilter = () => searchValue;
-  const getFilters = () => ({
-    searchValue,
-    geoFilter,
-    radiusFilter,
-  });
+  const getSearchbarFilter = useCallback(() => searchValue, [searchValue]);
+  const getFilters = useCallback(
+    () => ({
+      searchValue,
+      geoFilter,
+      radiusFilter,
+    }),
+    [searchValue, geoFilter, radiusFilter]
+  );
 
   return (
     <StyledContainer>
@@ -126,12 +129,12 @@ function Map({ isLocationAuthorized, searchValue }) {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png "
           />
           <Regions
-            data={regions}
+            data={useMemo(() => regions, [])}
             setGeoFilter={setGeoFilter}
             getGeoFilter={getGeoFilter}
           />
           <BreweryMarker
-            data={breweries}
+            data={useMemo(() => breweries, [breweries])}
             getRadiusFilter={getRadiusFilter}
             getGeoFilter={getGeoFilter}
             getSearchbarFilter={getSearchbarFilter}

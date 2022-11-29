@@ -1,3 +1,6 @@
+// action type import
+import { CHANGE_VALUE, RESET_USER, SAVE_USER, UPDATE_USER } from "../actions";
+
 export const initialState = {
   isLogged: false,
   id: "",
@@ -11,12 +14,12 @@ export const initialState = {
 
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case "CHANGE_VALUE":
+    case CHANGE_VALUE:
       return {
         ...state,
-        [action.key]: action.value, // action.key contains the name of the property
+        [action.key]: action.value,
       };
-    case "RESET_USER":
+    case RESET_USER:
       return {
         ...state,
         name: "",
@@ -25,7 +28,7 @@ const reducer = (state = initialState, action = {}) => {
         role: "",
         isLogged: false,
       };
-    case "SAVE_USER":
+    case SAVE_USER:
       return {
         ...state,
         id: action.id,
@@ -35,7 +38,7 @@ const reducer = (state = initialState, action = {}) => {
         role: action.role,
         isLogged: true,
       };
-    case "UPDATE_USER":
+    case UPDATE_USER:
       return {
         ...state,
       };

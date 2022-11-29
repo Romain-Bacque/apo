@@ -34,7 +34,7 @@ const StyledSportsBar = styled(SportsBarRounded)({
 const StyledAppBar = styled(AppBar)({
   position: "sticky",
   boxShadow: "none",
-  height: "8rem",
+  height: "7rem",
 });
 const TitleTypography = styled(Typography)({
   fontFamily: "Yellowtail, sans-serif",
