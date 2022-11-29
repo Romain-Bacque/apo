@@ -8,11 +8,9 @@ export const SAVE_BREWERY_DETAILS = "SAVE_BREWERY_DETAILS";
 // category
 export const SAVE_CATEGORIES = "SAVE_CATEGORIES";
 // event
-export const SAVE_OWNER_EVENTS = "SAVE_OWNER_EVENTS";
-export const SAVE_PARTICIPANT_EVENTS = "SAVE_PARTICIPANT_EVENTS";
+export const SAVE_EVENTS = "SAVE_EVENTS";
+export const REMOVE_EVENT = "REMOVE_EVENT";
 export const RESET_EVENTS = "RESET_EVENTS";
-export const REMOVE_OWNER_EVENT = "REMOVE_OWNER_EVENT";
-export const REMOVE_PARTICIPANT_EVENT = "REMOVE_PARTICIPANT_EVENT";
 // loading
 export const PENDING = "PENDING";
 export const SUCCESS = "SUCCESS";
@@ -166,6 +164,16 @@ export function saveUser(id, name, email, password, role) {
   };
 }
 // event
+export function fetchParticipantEvents() {
+  return {
+    type: "FETCH_PARTICIPANT_EVENTS",
+  };
+}
+export function fetchOwnerEvents() {
+  return {
+    type: "FETCH_OWNER_EVENTS",
+  };
+}
 export function addParticipant(eventId) {
   return {
     type: "ADD_PARTICIPANT",
@@ -184,27 +192,17 @@ export function deleteEvent(eventId) {
     eventId,
   };
 }
-export function saveOwnerEvents(events) {
+export function saveEvents(key, events) {
   return {
-    type: "SAVE_OWNER_EVENTS",
+    type: "SAVE_EVENTS",
+    key,
     events,
   };
 }
-export function saveParticipantEvents(events) {
+export function removeEvent(key, eventId) {
   return {
-    type: "SAVE_PARTICIPANT_EVENTS",
-    events,
-  };
-}
-export function removeOwnerEvent(eventId) {
-  return {
-    type: "REMOVE_OWNER_EVENT",
-    eventId,
-  };
-}
-export function removeParticipantEvent(eventId) {
-  return {
-    type: "REMOVE_PARTICIPANT_EVENT",
+    type: "REMOVE_EVENT",
+    key,
     eventId,
   };
 }
@@ -219,14 +217,10 @@ export function resetEvents() {
     type: "RESET_EVENTS",
   };
 }
-export function fetchParticipantEvents() {
+export function fetchEvents(key) {
   return {
-    type: "FETCH_PARTICIPANT_EVENTS",
-  };
-}
-export function fetchOwnerEvents() {
-  return {
-    type: "FETCH_OWNER_EVENTS",
+    type: "FETCH_EVENTS",
+    key,
   };
 }
 export function postEvent(title, description, eventStart, breweryId) {

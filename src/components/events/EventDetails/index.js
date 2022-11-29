@@ -112,11 +112,15 @@ EventDetails.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   brewery: PropTypes.object.isRequired,
-  participants: PropTypes.array.isRequired,
+  participants: PropTypes.array,
   start: PropTypes.instanceOf(Date).isRequired,
   onValidate: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   isOwner: PropTypes.bool.isRequired,
+};
+
+EventDetails.defaultProps = {
+  participants: null,
 };
 
 export default EventDetails;

@@ -17,7 +17,7 @@ const reducer = (state = initialState, action = {}) => {
     case CHANGE_VALUE:
       return {
         ...state,
-        [action.key]: action.value, // action.key contains the name of the property
+        [action.key]: action.value,
       };
     case RESET_USER:
       return {

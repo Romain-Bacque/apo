@@ -1,15 +1,7 @@
 // other import
 import axios from "axios";
 // action creator import
-import {
-  pending,
-  success,
-  error,
-  saveOwnerEvents,
-  saveParticipantEvents,
-  removeParticipantEvent,
-  removeOwnerEvent,
-} from "../actions";
+import { pending, success, error, saveEvents, removeEvent } from "../actions";
 // config file import
 import { apiConfig } from "../config/config";
 
@@ -27,7 +19,7 @@ const category = (store) => (next) => (action) => {
         if (response.status === 200) {
           const { data: events } = response.data;
 
-          store.dispatch(saveOwnerEvents(events));
+          store.dispatch(saveEvents("ownerEvents", events));
           store.dispatch(success(null));
         }
       })
@@ -45,7 +37,7 @@ const category = (store) => (next) => (action) => {
         if (response.status === 200) {
           const { data: events } = response.data;
 
-          store.dispatch(saveParticipantEvents(events));
+          store.dispatch(saveEvents("participantEvents", events));
           store.dispatch(success(null));
         }
       })
@@ -67,7 +59,7 @@ const category = (store) => (next) => (action) => {
         if (response.status === 200) {
           const { data: events } = response.data;
 
-          store.dispatch(saveOwnerEvents(events));
+          store.dispatch(saveEvents("ownerEvents", events));
           store.dispatch(success("Evénement ajouté avec succès."));
         }
       })
@@ -80,7 +72,7 @@ const category = (store) => (next) => (action) => {
       .delete(`/${action.eventId}`, {})
       .then((response) => {
         if (response.status === 200) {
-          store.dispatch(removeOwnerEvent(action.eventId));
+          store.dispatch(removeEvent("ownerEvents", action.eventId));
           store.dispatch(success("Evénement supprimé avec succès."));
         }
       })
@@ -119,7 +111,7 @@ const category = (store) => (next) => (action) => {
       .delete(`/participant/${action.eventId}`)
       .then((response) => {
         if (response.status === 200) {
-          store.dispatch(removeParticipantEvent(action.eventId));
+          store.dispatch(removeEvent("participantEvents", action.eventId));
           store.dispatch(
             success("Votre participation à cet événement est annulé.")
           );
