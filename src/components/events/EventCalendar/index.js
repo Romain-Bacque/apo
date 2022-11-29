@@ -1,4 +1,5 @@
 // hook import
+import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 // other import
@@ -191,6 +192,8 @@ function EventCalendar() {
 
   return (
     <>
+      {/* If user is not connected, then it redirect to home page */}
+      {!isLogged && <Navigate to="/" replace />}
       <CustomModal isOpen={isOpen} setIsOpen={setIsOpen}>
         {modalContent}
       </CustomModal>
