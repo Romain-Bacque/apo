@@ -29,13 +29,15 @@ const StyledContainer = styled(Box)(({ theme }) => ({
   padding: "3rem",
   width: "90%",
   maxWidth: "1200px",
-  height: "100%",
   overflow: "hidden",
   [theme.breakpoints.down("md")]: {
+    height: "calc(100vh - 7rem)",
     padding: "0rem 0 6rem",
     alignItems: "stretch",
     width: "100%",
-    height: "100%",
+  },
+  [theme.breakpoints.up("md")]: {
+    height: "calc(100vh - 13rem)",
   },
 }));
 const StyledMapContainer = styled(Box)(({ theme }) => ({
@@ -57,7 +59,10 @@ const StyledMapContainer = styled(Box)(({ theme }) => ({
   },
 }));
 const SwitchContainer = styled(Box)(({ theme }) => ({
-  margin: "1rem",
+  margin: "0 1rem",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
   borderBottom: "1px solid lightgray",
   textAlign: "center",
   boxSizing: "border-box",

@@ -19,6 +19,7 @@ const StyledCard = styled(Card)({
   transform: "translate(-50%, -50%)",
   width: "500px",
   maxWidth: "90%",
+  maxHeight: "95%",
   padding: "1.5rem",
 });
 
