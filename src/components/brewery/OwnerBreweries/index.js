@@ -80,7 +80,7 @@ function Breweries() {
 
   return (
     <>
-      {/* If user is not connected, then it redirect to home page */}
+      {/* If user is not connected and not a brewer, then it redirect to home page */}
       {!isLogged && role !== "brewer" && <Navigate to="/" replace />}
       <CustomModal isOpen={isOpen} setIsOpen={setIsOpen}>
         <SimpleModalContent
