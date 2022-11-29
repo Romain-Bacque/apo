@@ -9,11 +9,6 @@ import { Divider } from "@mui/material";
 
 // Style
 const FooterContainer = styled(Box)({
-  position: "fixed",
-  bottom: 0,
-  left: 0,
-  right: 0,
-  zIndex: 2,
   height: "6rem",
   display: "flex",
   justifyContent: "space-around",

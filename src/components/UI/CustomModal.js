@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 // component import
 import { Card, IconButton, Modal } from "@mui/material";
 import { Close } from "@mui/icons-material";
+import { memo } from "react";
 
 // Style
 const StyledIconButton = styled(IconButton)({
@@ -45,4 +46,4 @@ CustomModal.defaultProps = {
   children: null,
 };
 
-export default CustomModal;
+export default memo(CustomModal);

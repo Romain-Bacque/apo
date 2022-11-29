@@ -2,7 +2,7 @@
 import styled from "@emotion/styled";
 // hook import
 import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 // component import
 import {
@@ -16,13 +16,15 @@ import {
 } from "@mui/material";
 import Input from "../../Input";
 import AuthContainerThemeProvider from "../AuthContainerThemeProvider";
+// action creator import
+import { register } from "../../../actions";
 
 let isSigningup = false;
 
 // Style
 const AlreadyRegisteredLink = styled(Link)({
   display: "inline-block",
-  marginTop: "2rem",
+  marginTop: "1rem",
   fontSize: "0.8rem",
   fontWeight: 700,
   textTransform: "uppercase",
@@ -60,13 +62,15 @@ function Register() {
   const handleRegister = (event) => {
     event.preventDefault();
     if (!isFormValid) return;
-    dispatch({
-      type: "REGISTER",
-      email: inputStatus.email.value,
-      password: inputStatus.password.value,
-      name: inputStatus.name.value,
-      role: inputStatus.role,
-    });
+
+    const action = register(
+      inputStatus.email.value,
+      inputStatus.password.value,
+      inputStatus.name.value,
+      inputStatus.role
+    );
+
+    dispatch(action);
     isSigningup = true;
   };
 
@@ -91,7 +95,7 @@ function Register() {
       {isLogged && <Navigate to="/" />}
       <AuthContainerThemeProvider>
         <Container component="form" onSubmit={handleRegister}>
-          <Typography component="h2" variant="h3" color="gray">
+          <Typography component="h2" variant="h4" color="gray">
             Créer Un Compte
           </Typography>
           <Box>
@@ -111,38 +115,50 @@ function Register() {
             </StyledRadioGroup>
           </Box>
           <Input
-            input={{
-              id: "name",
-              type: "text",
-              label: "Nom ou Pseudo :",
-            }}
+            input={useMemo(
+              () => ({
+                id: "name",
+                type: "text",
+                label: "Nom ou Pseudo :",
+              }),
+              []
+            )}
             name="name"
             onInputChange={handleInputChange}
           />
           <Input
-            input={{
-              id: "email",
-              type: "email",
-              label: "Adresse Email :",
-            }}
+            input={useMemo(
+              () => ({
+                id: "email",
+                type: "email",
+                label: "Adresse Email :",
+              }),
+              []
+            )}
             name="email"
             onInputChange={handleInputChange}
           />
           <Input
-            input={{
-              id: "password",
-              type: "password",
-              label: "Entrer le mot de passe :",
-            }}
+            input={useMemo(
+              () => ({
+                id: "password",
+                type: "password",
+                label: "Entrer le mot de passe :",
+              }),
+              []
+            )}
             name="password"
             onInputChange={handleInputChange}
           />
           <Input
-            input={{
-              id: "confirmPassword",
-              type: "password",
-              label: "Confirmer le mot de passe :",
-            }}
+            input={useMemo(
+              () => ({
+                id: "confirmPassword",
+                type: "password",
+                label: "Confirmer le mot de passe :",
+              }),
+              []
+            )}
             name="confirmPassword"
             valueToMatch={inputStatus.password.value}
             onInputChange={handleInputChange}

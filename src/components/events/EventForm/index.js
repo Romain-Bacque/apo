@@ -23,6 +23,8 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import useInput from "../../hooks/use-input";
+// action creator import
+import { postEvent } from "../../../actions";
 
 let ownerBreweries = [];
 
@@ -98,13 +100,15 @@ function EventForm({ onCancel }) {
   const handleEventSubmit = (event) => {
     event.preventDefault();
     if (!isFormValid) return;
-    dispatch({
-      type: "POST_EVENT",
-      title: eventTitleValue,
-      description: descriptionValue,
-      eventStart: eventStartValue,
-      breweryId: breweryIdValue,
-    });
+
+    const action = postEvent(
+      eventTitleValue,
+      descriptionValue,
+      eventStartValue,
+      breweryIdValue
+    );
+
+    dispatch(action);
     onCancel();
   };
 

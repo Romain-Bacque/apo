@@ -1,5 +1,7 @@
 // other import
 import axios from "axios";
+// action creator import
+import { pending, success, error, resetUser, saveUser } from "../actions";
 // config file import
 import { apiConfig } from "../config/config";
 
@@ -10,14 +12,15 @@ const instance = axios.create({
 
 const user = (store) => (next) => (action) => {
   const setUserStore = (userData) => {
-    store.dispatch({
-      type: "SAVE_USER",
-      id: userData.id,
-      name: userData.name,
-      email: userData.email,
-      password: userData.password,
-      role: userData.role,
-    });
+    store.dispatch(
+      saveUser(
+        userData.id,
+        userData.name,
+        userData.email,
+        userData.password,
+        userData.role
+      )
+    );
   };
 
   if (action.type === "USER_VERIFICATION") {
@@ -32,10 +35,7 @@ const user = (store) => (next) => (action) => {
       })
       .catch(() => {});
   } else if (action.type === "LOGIN") {
-    store.dispatch({
-      type: "PENDING",
-      message: null,
-    });
+    store.dispatch(pending());
     instance
       .post("/login", {
         email: action.email,
@@ -45,43 +45,25 @@ const user = (store) => (next) => (action) => {
         if (response.status === 200) {
           const { data } = response.data;
 
-          store.dispatch({
-            type: "SUCCESS",
-            message: `Bienvenue ${data.name} !`,
-          });
+          store.dispatch(success(`Bienvenue ${data.name} !`));
           setUserStore(data);
         }
       })
-      .catch((error) => {
-        const { status } = error.response;
+      .catch((err) => {
+        const { status } = err.response;
 
         if (status === 400) {
-          store.dispatch({
-            type: "ERROR",
-            message: "Erreur dans un/plusieurs champs.",
-          });
+          store.dispatch(error("Erreur dans un/plusieurs champs."));
         } else if (status === 401) {
-          store.dispatch({
-            type: "ERROR",
-            message: "Mot de passe/utilisateur incorrect(s).",
-          });
+          store.dispatch(error("Mot de passe/utilisateur incorrect(s)."));
         } else if (status === 409) {
-          store.dispatch({
-            type: "ERROR",
-            message: "Utilisateur déjà connecté.",
-          });
+          store.dispatch(error("Utilisateur déjà connecté."));
         } else {
-          store.dispatch({
-            type: "ERROR",
-            message: "Erreur, connexion impossible.",
-          });
+          store.dispatch(error("Erreur, connexion impossible."));
         }
       });
   } else if (action.type === "REGISTER") {
-    store.dispatch({
-      type: "PENDING",
-      message: null,
-    });
+    store.dispatch(pending());
     instance
       .post("/register", {
         name: action.name,
@@ -91,125 +73,79 @@ const user = (store) => (next) => (action) => {
       })
       .then((response) => {
         if (response.status === 200) {
-          store.dispatch({
-            type: "SUCCESS",
-            message: "Enregistrement réussi.",
-          });
+          store.dispatch(success("Enregistrement réussi."));
         }
       })
-      .catch((error) => {
-        const { status } = error.response;
+      .catch((err) => {
+        const { status } = err.response;
 
         if (status === 400) {
-          store.dispatch({
-            type: "ERROR",
-            message: "Erreur dans un/plusieurs champs.",
-          });
+          store.dispatch(error("Erreur dans un/plusieurs champs."));
         } else if (status === 403) {
-          store.dispatch({
-            type: "ERROR",
-            message: "Utilisateur déjà inscrit",
-          });
+          store.dispatch(error("Utilisateur déjà inscrit."));
         } else {
-          store.dispatch({
-            type: "ERROR",
-            message: "Erreur, enregistrement impossible.",
-          });
+          store.dispatch(error("Erreur, enregistrement impossible."));
         }
       });
   } else if (action.type === "LOGOUT") {
-    store.dispatch({
-      type: "PENDING",
-      message: null,
-    });
+    store.dispatch(pending());
     instance
       .post("/logout")
       .then((response) => {
         if (response.status === 200) {
-          store.dispatch({
-            type: "SUCCESS",
-            message: null,
-          });
-          store.dispatch({
-            type: "RESET_USER",
-          });
+          store.dispatch(success(null));
+          store.dispatch(resetUser());
         }
       })
       .catch(() => {
-        store.dispatch({
-          type: "ERROR",
-          message: "Erreur, déconnexion impossible.",
-        });
+        store.dispatch(error("Erreur, déconnexion impossible."));
       });
-  } else if (action.type === "FORGET_PASSWORD") {
-    store.dispatch({
-      type: "PENDING",
-      message: null,
-    });
+  } else if (action.type === "FORGOT_PASSWORD") {
+    store.dispatch(pending());
     instance
-      .post("/forget-password", {
+      .post("/forgot-password", {
         email: action.email,
       })
       .then((response) => {
         if (response.status === 200) {
-          store.dispatch({
-            type: "SUCCESS",
-            message: "Un mail de réinitialisation vous a été envoyé.",
-          });
+          store.dispatch(
+            success("Un mail de réinitialisation vous a été envoyé.")
+          );
         }
       })
-      .catch((error) => {
-        const { status } = error.response;
+      .catch((err) => {
+        const { status } = err.response;
 
         if (status === 400 || status === 401) {
-          store.dispatch({
-            type: "ERROR",
-            message: "Adresse mail incorrecte.",
-          });
+          store.dispatch(error("Adresse mail incorrecte."));
         } else {
-          store.dispatch({
-            type: "ERROR",
-            message: "Erreur, réinitialisation impossible.",
-          });
+          store.dispatch(error("Erreur, réinitialisation impossible."));
         }
       });
   } else if (action.type === "RESET_PASSWORD") {
-    store.dispatch({
-      type: "PENDING",
-      message: null,
-    });
+    store.dispatch(pending());
     instance
       .patch(`/reset-password/${action.id}/${action.token}`, {
         password: action.password,
       })
       .then((response) => {
         if (response.status === 200) {
-          store.dispatch({
-            type: "SUCCESS",
-            message: "mot de passe réinitialisé, veuillez vous connecter.",
-          });
+          store.dispatch(
+            success("mot de passe réinitialisé, veuillez vous connecter.")
+          );
         }
       })
-      .catch((error) => {
-        const { status } = error.response;
+      .catch((err) => {
+        const { status } = err.response;
 
         if (status === 400 || status === 401) {
-          store.dispatch({
-            type: "ERROR",
-            message: "Mot de passe incorrect.",
-          });
+          store.dispatch(error("Mot de passe incorrect."));
         } else {
-          store.dispatch({
-            type: "ERROR",
-            message: "Erreur, réinitialisation impossible.",
-          });
+          store.dispatch(error("Erreur, réinitialisation impossible."));
         }
       });
   } else if (action.type === "UPDATE_USER") {
-    store.dispatch({
-      type: "PENDING",
-      message: null,
-    });
+    store.dispatch(pending());
     instance
       .patch(`/profile/${action.id}`, {
         name: action.name,
@@ -221,64 +157,40 @@ const user = (store) => (next) => (action) => {
         if (response.status === 200) {
           const { data } = response.data;
 
-          store.dispatch({
-            type: "SUCCESS",
-            message: "Votre compte a été modifié avec succès.",
-          });
+          store.dispatch(success("Votre compte a été modifié avec succès."));
           setUserStore(data);
         }
       })
-      .catch((error) => {
-        const { status } = error.response;
+      .catch((err) => {
+        const { status } = err.response;
 
         if (status === 400) {
-          store.dispatch({
-            type: "ERROR",
-            message: "Donnée(s) entrée(s) incorrecte(s).",
-          });
+          store.dispatch(error("Donnée(s) entrée(s) incorrecte(s)."));
         } else if (status === 401) {
-          store.dispatch({
-            type: "ERROR",
-            message: "Mot de passe/utilisateur incorrect(s).",
-          });
+          store.dispatch(error("Mot de passe/utilisateur incorrect(s)."));
         } else {
-          store.dispatch({
-            type: "ERROR",
-            message: "Erreur, réinitialisation impossible.",
-          });
+          store.dispatch(error("Erreur, réinitialisation impossible."));
         }
       });
   } else if (action.type === "DELETE_USER") {
-    store.dispatch({
-      type: "PENDING",
-      message: null,
-    });
+    store.dispatch(pending());
     instance
       .delete(`/profile/${action.id}`)
       .then((response) => {
         if (response.status === 200) {
-          store.dispatch({
-            type: "SUCCESS",
-            message: "Votre compte a été supprimé définitivement.",
-          });
-          store.dispatch({
-            type: "RESET_USER",
-          });
+          store.dispatch(
+            success("Votre compte a été supprimé définitivement.")
+          );
+          store.dispatch(resetUser());
         }
       })
-      .catch((error) => {
-        const { status } = error.response;
+      .catch((err) => {
+        const { status } = err.response;
 
         if (status === 401) {
-          store.dispatch({
-            type: "ERROR",
-            message: "Action non autorisée.",
-          });
+          store.dispatch(error("Action non autorisée."));
         } else {
-          store.dispatch({
-            type: "ERROR",
-            message: "Erreur, suppression du compte impossible.",
-          });
+          store.dispatch(error("Erreur, suppression du compte impossible."));
         }
       });
   }

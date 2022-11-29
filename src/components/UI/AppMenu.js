@@ -1,5 +1,5 @@
 // hook import
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // component import
 import ClickAwayListener from "@mui/material/ClickAwayListener";
@@ -13,11 +13,12 @@ import { Button, IconButton } from "@mui/material";
 // other import
 import { MenuRounded } from "@mui/icons-material";
 import styled from "@emotion/styled";
+// action creator import
+import { logout } from "../../actions";
 
 // Style
 const StyledMenuItem = styled(MenuItem)({
   textTransform: "capitalize",
-  padding: ".5rem 1rem",
   margin: "1rem 0",
   fontSize: "1.4rem",
   fontWeight: "bold",
@@ -28,7 +29,6 @@ const StyledMenuItem = styled(MenuItem)({
   },
 });
 
-// Style
 const StyledMenuRounded = styled(MenuRounded)({
   fontSize: "2.5rem",
   color: "white",
@@ -43,9 +43,7 @@ function AppMenu() {
   const userRole = useSelector((state) => state.user.role);
 
   const handleLogout = () => {
-    dispatch({
-      type: "LOGOUT",
-    });
+    dispatch(logout());
   };
 
   const handleClose = (event) => {
@@ -168,4 +166,4 @@ function AppMenu() {
   );
 }
 
-export default AppMenu;
+export default memo(AppMenu);

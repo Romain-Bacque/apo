@@ -1,5 +1,5 @@
 // hook import
-import { useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 // other import
 import PropTypes from "prop-types";
 import { debounce } from "lodash";
@@ -102,4 +102,4 @@ CustomSearchbar.defaultProps = {
   location: null,
 };
 
-export default CustomSearchbar;
+export default memo(CustomSearchbar);

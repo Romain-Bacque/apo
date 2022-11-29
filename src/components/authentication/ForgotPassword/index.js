@@ -1,11 +1,13 @@
 // hook import
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 // component import
 import { Button, Typography, Container } from "@mui/material";
 import Input from "../../Input";
 import AuthContainerThemeProvider from "../AuthContainerThemeProvider";
+// action creator import
+import { forgotPassword } from "../../../actions";
 
 let isResetting = false;
 
@@ -31,10 +33,10 @@ function ForgetPassword() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!isFormValid) return;
-    dispatch({
-      type: "FORGET_PASSWORD",
-      email: inputStatus.email.value,
-    });
+
+    const action = forgotPassword(inputStatus.email.value);
+
+    dispatch(action);
     isResetting = true;
   };
 
@@ -56,11 +58,14 @@ function ForgetPassword() {
             Réinitialisation Du Mot De Passe
           </Typography>
           <Input
-            input={{
-              id: "email",
-              label: "Email",
-              type: "email",
-            }}
+            input={useMemo(
+              () => ({
+                id: "email",
+                label: "Email",
+                type: "email",
+              }),
+              []
+            )}
             onInputChange={handleInputChange}
             name="email"
           />

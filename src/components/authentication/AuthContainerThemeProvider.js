@@ -23,6 +23,7 @@ function AuthContainerThemeProvider({ children }) {
                     backgroundColor: "white",
                     borderRadius: "10px",
                     border: "1px solid rgb(230, 230, 230)",
+                    fontFamily: "Roboto, sans-serif",
                   },
                 },
               },

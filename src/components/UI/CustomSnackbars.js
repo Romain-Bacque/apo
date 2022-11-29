@@ -30,7 +30,7 @@ function CustomSnackbars({ isOpen, message, status, setIsOpen }) {
   return (
     <Stack spacing={2}>
       <Snackbar
-        sx={{ opacity: "0.80" }}
+        sx={{ opacity: "0.85" }}
         open={isOpen}
         autoHideDuration={5000}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}

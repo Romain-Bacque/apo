@@ -1,3 +1,5 @@
+/* eslint-disable import/no-unresolved */
+
 // hook import
 import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -28,6 +30,8 @@ import TagsList from "../../UI/TagsList";
 import EventCard from "../EventCard";
 import CustomModal from "../../UI/CustomModal";
 import SimpleModalContent from "../../UI/SimpleModalContent";
+// action creator import
+import { addParticipant, fetchBreweryDetails } from "../../../actions";
 
 // Style
 const BreweryDetailsContainer = styled(Container)({
@@ -104,18 +108,18 @@ function BreweryDetails() {
   const handleSetParticipant = async (eventId) => {
     setIsOpen(false);
     if (!eventId) return;
-    dispatch({
-      type: "ADD_PARTICIPANT",
-      eventId,
-    });
+
+    const action = addParticipant(eventId);
+
+    dispatch(action);
   };
 
   const getBreweryDetails = useCallback(async () => {
     if (!breweryId) return;
-    dispatch({
-      type: "FETCH_BREWERY_DETAILS",
-      breweryId,
-    });
+
+    const action = fetchBreweryDetails(breweryId);
+
+    dispatch(action);
   }, [dispatch, breweryId]);
 
   // Get brewery details

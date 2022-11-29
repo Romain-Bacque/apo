@@ -1,5 +1,7 @@
 // other import
 import axios from "axios";
+// action creator import
+import { pending, success, error, saveCategories } from "../actions";
 // config file import
 import { apiConfig } from "../config/config";
 
@@ -10,29 +12,17 @@ const instance = axios.create({
 
 const category = (store) => (next) => (action) => {
   if (action.type === "FETCH_CATEGORIES") {
-    store.dispatch({
-      type: "PENDING",
-      message: null,
-    });
+    store.dispatch(pending());
     instance
       .get("/")
       .then((response) => {
         const categories = response.data.data;
 
-        store.dispatch({
-          type: "SUCCESS",
-          message: null,
-        });
-        store.dispatch({
-          type: "SAVE_CATEGORIES",
-          categories,
-        });
+        store.dispatch(success(null));
+        store.dispatch(saveCategories(categories));
       })
       .catch(() => {
-        store.dispatch({
-          type: "ERROR",
-          message: "Une erreur est survenue.",
-        });
+        store.dispatch(error("Une erreur est survenue."));
       });
   }
 

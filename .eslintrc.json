@@ -14,7 +14,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "react-hooks", "prettier"], // put prettier at the last on the array, that it override whatever come before
+  "plugins": ["react", "react-hooks", "@arthurgeron/react-usememo", "prettier"], // put prettier at the last on the array, that it override whatever come before
   "rules": {
     "jsx-a11y/no-static-element-interactions": "off",
     "jsx-a11y/no-noninteractive-tabindex": "off",
@@ -42,6 +42,7 @@
     "no-shadow": "off",
     "react-hooks/rules-of-hooks": "error", // prevent to use react hooks conditionnally
     "react-hooks/exhaustive-deps": "warn",
-    "no-alert": "off"
+    "no-alert": "off",
+    "@arthurgeron/react-usememo/require-usememo": [1]
   }
 }
