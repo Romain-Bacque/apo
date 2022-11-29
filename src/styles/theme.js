@@ -65,6 +65,7 @@ const theme = createTheme({
           flexDirection: "column",
           justifyContent: "center",
           gap: 2,
+          margin: "1rem 0",
         },
       },
     },
@@ -106,7 +107,6 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           width: "100%",
-          margin: ".5rem 0",
           padding: ".5rem",
         },
       },
