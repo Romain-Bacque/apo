@@ -34,6 +34,12 @@ export function fetchBreweries() {
     type: "FETCH_BREWERIES",
   };
 }
+export function fetchBreweryDetails(breweryId) {
+  return {
+    type: "FETCH_BREWERY_DETAILS",
+    breweryId,
+  };
+}
 export function addBrewery(brewery) {
   return {
     type: "ADD_BREWERY",
@@ -178,12 +184,6 @@ export function addParticipant(eventId) {
   return {
     type: "ADD_PARTICIPANT",
     eventId,
-  };
-}
-export function fetchBreweryDetails(breweryId) {
-  return {
-    type: "FETCH_BREWERY_DETAILS",
-    breweryId,
   };
 }
 export function deleteEvent(eventId) {
