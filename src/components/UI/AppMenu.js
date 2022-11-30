@@ -125,7 +125,7 @@ function AppMenu() {
                         component={NavLink}
                         to="/eventCalendar"
                       >
-                        Evenements
+                        Evénements
                       </StyledMenuItem>
                     )}
                     {isLogged && (
