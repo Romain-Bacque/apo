@@ -114,7 +114,6 @@ const theme = createTheme({
     MuiSvgIcon: {
       styleOverrides: {
         root: {
-          margin: "0 0.5rem",
           fontSize: "1.4rem",
         },
       },
