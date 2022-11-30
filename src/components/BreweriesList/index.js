@@ -14,11 +14,14 @@ let breweriesList = [];
 const BreweriesListContainer = styled(Container)({
   minWidth: "300px",
   height: "100%",
+  justifyContent: "start",
+  padding: "1rem",
+  overflowY: "auto",
 });
 const CardBox = styled(Box)({
-  padding: "0.6rem",
-  marginTop: "1rem",
-  height: "45vh",
+  padding: "1rem",
+  margin: "0 1rem",
+  height: "390px",
   overflow: "auto",
 });
 const TitleTypography = styled(Typography)({
