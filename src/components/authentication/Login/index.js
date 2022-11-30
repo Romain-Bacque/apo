@@ -96,7 +96,7 @@ function Login() {
             onInputChange={handleInputChange}
             name="password"
           />
-          <ResetPasswordLink to="/forget-password">
+          <ResetPasswordLink to="/forgot-password">
             Mot de passe perdu
           </ResetPasswordLink>
           <Button type="submit" variant="contained">
