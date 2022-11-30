@@ -58,7 +58,6 @@ function Profile() {
     if (!isFormValid) return;
 
     const action = updateUser(
-      user.id,
       inputStatus.name.value,
       inputStatus.email.value,
       inputStatus.actualPassword.value,
@@ -68,11 +67,7 @@ function Profile() {
     dispatch(action);
   };
 
-  const handleDeleteUser = () => {
-    const action = deleteUser(user.id);
-
-    dispatch(action);
-  };
+  const handleDeleteUser = () => dispatch(deleteUser());
 
   const handleInputChange = useCallback((name, status) => {
     setInputStatus((prevState) => ({

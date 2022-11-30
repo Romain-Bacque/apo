@@ -77,9 +77,8 @@ function App() {
         <Route path="/signup" element={<Register />} />
         <Route path="/signin" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/forget-password" element={<ForgotPassword />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
-        <Route path="/profile" element={<Profile />} />
         <Route path="/breweries" element={<OwnerBreweries />} />
         <Route path="/brewery/:id" element={<BreweryDetails />} />
         <Route path="/brewery/breweryForm" element={<BreweryForm />} />

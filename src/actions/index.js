@@ -111,20 +111,18 @@ export function resetPassword(id, token, password) {
     password,
   };
 }
-export function updateUser(id, name, email, actualPassword, newPassword) {
+export function updateUser(name, email, actualPassword, newPassword) {
   return {
     type: "UPDATE_USER",
-    id,
     name,
     email,
     actualPassword,
     newPassword,
   };
 }
-export function deleteUser(id) {
+export function deleteUser() {
   return {
     type: "DELETE_USER",
-    id,
   };
 }
 export function resetUser() {
