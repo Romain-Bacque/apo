@@ -13,9 +13,9 @@
     "@mui/styled-engine-sc": "^5.10.6",
     "@mui/x-date-pickers": "^5.0.8",
     "@svgr/cli": "^6.4.0",
-    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
+    "@testing-library/user-event": "^14.4.3",
     "@turf/boolean-point-in-polygon": "^6.5.0",
     "axios": "^0.27.2",
     "date-fns": "^2.29.3",
@@ -53,8 +53,7 @@
     "start-https": "PORT=443 HTTPS=true react-scripts start",
     "start": "PORT=3000 react-scripts start",
     "build": "sudo serve -l 80 -s build",
-    "test": "jest",
-    "test:watch": "jest --watchAll",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
@@ -84,6 +83,7 @@
   "devDependencies": {
     "@arthurgeron/eslint-plugin-react-usememo": "^0.1.1",
     "@types/leaflet": "^1.8.0",
+    "babel-jest": "^27.5.1",
     "eslint": "^8.27.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
@@ -93,17 +93,23 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "jest": "^27.5.1",
+    "jest-mock-axios": "^4.7.0-beta2",
+    "jest-preview": "^0.3.1",
     "prettier": "^2.7.1",
+    "redux-mock-store": "^1.5.4",
     "sass": "^1.54.9"
   },
   "jest": {
-    "modulePaths": [
-      "./"
-    ],
-    "roots": [
-      "<rootDir>/src",
-      "<rootDir>/tests"
-    ]
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less|scss|sass)$": "<rootDir>/__mocks__/styleMock.js",
+      "swiper/react": "<rootDir>/node_modules/swiper/react/swiper-react.js",
+      "swiper/css": "<rootDir>/node_modules/swiper/swiper.min.css",
+      "swiper/css/bundle": "<rootDir>/node_modules/swiper/swiper-bundle.min.css",
+      "swiper/css/autoplay": "<rootDir>/node_modules/swiper/modules/autoplay/autoplay.min.css",
+      "swiper/css/free-mode": "<rootDir>/node_modules/swiper/modules/autoplay/free-mode.min.css",
+      "swiper/css/navigation": "<rootDir>/node_modules/swiper/modules/autoplay/navigation.min.css",
+      "swiper/css/pagination": "<rootDir>/node_modules/swiper/modules/autoplay/pagination.min.css"
+    }
   }
 }

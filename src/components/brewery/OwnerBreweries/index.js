@@ -105,7 +105,7 @@ function Breweries() {
         </Title>
         {ownerBreweries?.length > 0 ? (
           <BreweryCardBox>
-            <Grid spacing={2} justifyContent="center" container>
+            <Grid component="ul" spacing={2} justifyContent="center" container>
               {ownerBreweries.map((brewery) => (
                 <BreweryCard
                   id={brewery.id}

@@ -183,11 +183,12 @@ function Map({ isLocationAuthorized, searchValue }) {
 }
 
 Map.propTypes = {
-  searchValue: PropTypes.string.isRequired,
+  searchValue: PropTypes.string,
   isLocationAuthorized: PropTypes.bool,
 };
 
 Map.defaultProps = {
+  searchValue: null,
   isLocationAuthorized: null,
 };
 

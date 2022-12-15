@@ -27,7 +27,7 @@ function App() {
   const [searchValue, setSearchValue] = useState("");
   const dispatch = useDispatch();
   const location = useLocation();
-
+  window.fetch;
   // If current location is not home page, then we reset searchValue state
   useEffect(() => {
     if (location.pathname !== "/") {
