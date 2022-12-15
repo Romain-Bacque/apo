@@ -1,27 +1,11 @@
 // other import
 import PropTypes from "prop-types";
-import styled from "@emotion/styled";
 // component import
-import { Card, IconButton, Modal } from "@mui/material";
+import { Modal } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { memo } from "react";
-
-// Style
-const StyledIconButton = styled(IconButton)({
-  position: "absolute",
-  top: "0",
-  right: "0",
-});
-const StyledCard = styled(Card)({
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "500px",
-  maxWidth: "90%",
-  maxHeight: "95%",
-  padding: "1.5rem",
-});
+// styled component import
+import { StyledCard, StyledIconButton } from "./style";
 
 // Component
 function CustomModal({ isOpen, setIsOpen, children }) {

@@ -1,20 +1,16 @@
 // other import
 import PropTypes from "prop-types";
-import styled from "@emotion/styled";
 import dayjs from "dayjs";
 // component import
 import {
   Box,
   Button,
-  CardActions,
   CardContent,
-  Divider,
   FormControl,
   FormHelperText,
   InputLabel,
   NativeSelect,
   TextField,
-  Typography,
 } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
@@ -25,23 +21,15 @@ import { useState } from "react";
 import useInput from "../../hooks/use-input";
 // action creator import
 import { postEvent } from "../../../actions";
+// styled component import
+import {
+  CancelButton,
+  StyledCardActions,
+  StyledDivider,
+  StyledTypography,
+} from "./style";
 
 let ownerBreweries = [];
-
-// Style
-const StyledTypography = styled(Typography)({
-  marginBottom: "2rem",
-});
-const CancelButton = styled(Button)(({ theme }) => ({
-  color: theme.palette.secondary.main,
-}));
-const StyledDivider = styled(Divider)({
-  marginTop: "1rem",
-});
-const StyledCardActions = styled(CardActions)({
-  padding: 0,
-  paddingTop: "2rem",
-});
 
 // Component
 function EventForm({ onCancel }) {

@@ -1,26 +1,9 @@
 // other import
 import PropTypes from "prop-types";
-import styled from "@emotion/styled";
 // component import
-import {
-  Button,
-  Typography,
-  Divider,
-  CardContent,
-  CardActions,
-} from "@mui/material";
-
-// Style
-const CancelButton = styled(Button)(({ theme }) => ({
-  color: theme.palette.secondary.main,
-}));
-const StyledDivider = styled(Divider)({
-  marginTop: "1rem",
-});
-const StyledCardActions = styled(CardActions)({
-  padding: 0,
-  paddingTop: "2rem",
-});
+import { Button, Typography, CardContent } from "@mui/material";
+// styled component import
+import { CancelButton, StyledCardActions, StyledDivider } from "./style";
 
 function SimpleModalContent({ id, title, description, onValidate, onCancel }) {
   return (

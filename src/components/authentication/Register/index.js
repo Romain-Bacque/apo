@@ -1,9 +1,7 @@
-// other import
-import styled from "@emotion/styled";
 // hook import
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 // component import
 import {
   Box,
@@ -12,32 +10,15 @@ import {
   FormControlLabel,
   Radio,
   Container,
-  RadioGroup,
 } from "@mui/material";
 import Input from "../../Input";
 import AuthContainerThemeProvider from "../AuthContainerThemeProvider";
 // action creator import
 import { register } from "../../../actions";
+// styled component import
+import { AlreadyRegisteredLink, StyledRadioGroup } from "./style";
 
 let isSigningup = false;
-
-// Style
-const AlreadyRegisteredLink = styled(Link)({
-  display: "inline-block",
-  marginTop: "1rem",
-  fontSize: "0.8rem",
-  fontWeight: 700,
-  textTransform: "uppercase",
-  width: "fit-content",
-  color: "#c45d32",
-  textDecoration: "none",
-  "&:hover": {
-    textDecoration: "underline",
-  },
-});
-const StyledRadioGroup = styled(RadioGroup)({
-  display: "inline-block",
-});
 
 // Component
 function Register() {

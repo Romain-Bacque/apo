@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Routes, Route, useLocation } from "react-router-dom";
 // component import
-import Layout from "./Layout";
+import Layout from "./Layout/Layout";
 import Map from "../Map";
 import Login from "../authentication/Login";
 import Register from "../authentication/Register";

@@ -1,22 +1,9 @@
 // other import
 import PropTypes from "prop-types";
-import styled from "@emotion/styled";
 // component import
-import {
-  List,
-  Divider,
-  ListItem,
-  ListItemText,
-  ListSubheader,
-} from "@mui/material";
-
-// Style
-const StyledList = styled(List)({
-  textAlign: "center",
-  width: "100%",
-  maxWidth: 360,
-  bgcolor: "background.paper",
-});
+import { Divider, ListItem, ListItemText, ListSubheader } from "@mui/material";
+// styled component import
+import { StyledList } from "./style";
 
 // Component
 function ShowActiveFiltersControl({ getFilters }) {

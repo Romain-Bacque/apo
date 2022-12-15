@@ -4,47 +4,14 @@ import { useEffect } from "react";
 import PropTypes from "prop-types";
 import L from "leaflet";
 import { Phone } from "@mui/icons-material";
-import styled from "@emotion/styled";
 import { Marker, Popup } from "react-leaflet";
 // component import
-import { Link } from "react-router-dom";
 import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
-import {
-  Box,
-  Card,
-  CardContent,
-  CardMedia,
-  Divider,
-  Typography,
-} from "@mui/material";
+import { Box, CardMedia, Divider, Typography } from "@mui/material";
 // custom icon import
-import defaultIcon from "../icons/defaultIcon";
-
-// Style
-const StyledCard = styled(Card)({
-  padding: 0.5,
-  border: "none",
-  width: "200px",
-  borderRadius: "0",
-});
-const StyledCardContent = styled(CardContent)({
-  display: "flex",
-  flexDirection: "column",
-  padding: "2rem 0",
-});
-const StyledBox = styled(Box)({
-  display: "flex",
-  alignItems: "center",
-  gap: 0.6,
-});
-const StyledLink = styled(Link)({
-  display: "inline-block",
-  width: "100%",
-  fontSize: "1.5rem",
-  fontWeight: "bold",
-  marginTop: "2rem",
-  textAlign: "center",
-});
+import defaultIcon from "../../icons/defaultIcon";
+// styled component import
+import { StyledBox, StyledCard, StyledCardContent, StyledLink } from "./style";
 
 let filteredBreweries = null;
 

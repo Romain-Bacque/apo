@@ -1,22 +1,10 @@
 // hook import
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { styled } from "@mui/material/styles";
 // component import
 import Chip from "@mui/material/Chip";
-import Paper from "@mui/material/Paper";
-
-// Style
-const StyledPaper = styled(Paper)({
-  display: "flex",
-  justifyContent: "start",
-  flexWrap: "wrap",
-  listStyle: "none",
-});
-
-const ListItem = styled("li")(({ theme }) => ({
-  margin: theme.spacing(0.5),
-}));
+// styled component import
+import { ListItem, StyledPaper } from "./style";
 
 // Component
 function TagsList({ onTagDelete, list }) {
