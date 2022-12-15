@@ -4,36 +4,17 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 // other import
 import { ArrowBackRounded } from "@mui/icons-material";
-import styled from "@emotion/styled";
 // component import
-import {
-  Typography,
-  Button,
-  Container,
-  TextField,
-  Box,
-  IconButton,
-} from "@mui/material";
+import { Typography, TextField, Box, IconButton } from "@mui/material";
 import Input from "../../Input";
 import CustomSearchbar from "../../UI/CustomSearchbar";
 import Category from "../../Category";
 // action creator import
 import { addBrewery, updateBrewery } from "../../../actions";
+// styled component import
+import { FormContainer, SaveButton } from "./style";
 
 let isHTTPRequestSend = false;
-
-// Style
-const FormContainer = styled(Container)({
-  padding: "2rem",
-  width: "600px",
-  maxWidth: "90%",
-  color: "gray",
-  backgroundColor: "white",
-  borderRadius: "10px",
-});
-const SaveButton = styled(Button)({
-  marginTop: "2rem",
-});
 
 // Component
 function BreweryForm() {

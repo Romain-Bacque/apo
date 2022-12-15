@@ -1,13 +1,13 @@
 {
   "env": {
     "browser": true,
-    "es2021": true,
-    "jest": true
+    "es2021": true
   },
   "extends": [
     "plugin:react/recommended",
     "airbnb",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "react-app/jest"
   ],
   "overrides": [],
   "parserOptions": {
@@ -26,6 +26,7 @@
     "react/no-unescaped-entities": "off",
     "no-case-declarations": "off",
     "no-useless-escape": "off",
+    "no-unused-expressions": "off",
     "max-len": ["off", { "comments": 65 }],
     "no-restricted-syntax": [
       "warn",

@@ -147,7 +147,7 @@ const user = (store) => (next) => (action) => {
   } else if (action.type === "UPDATE_USER") {
     store.dispatch(pending());
     instance
-      .patch(`/profile/${action.id}`, {
+      .patch(`/profile`, {
         name: action.name,
         email: action.email,
         actualPassword: action.actualPassword,
@@ -175,7 +175,7 @@ const user = (store) => (next) => (action) => {
   } else if (action.type === "DELETE_USER") {
     store.dispatch(pending());
     instance
-      .delete(`/profile/${action.id}`)
+      .delete(`/profile`)
       .then((response) => {
         if (response.status === 200) {
           store.dispatch(

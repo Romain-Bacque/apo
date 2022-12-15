@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Routes, Route, useLocation } from "react-router-dom";
 // component import
-import Layout from "./Layout";
+import Layout from "./Layout/Layout";
 import Map from "../Map";
 import Login from "../authentication/Login";
 import Register from "../authentication/Register";
@@ -27,7 +27,7 @@ function App() {
   const [searchValue, setSearchValue] = useState("");
   const dispatch = useDispatch();
   const location = useLocation();
-
+  window.fetch;
   // If current location is not home page, then we reset searchValue state
   useEffect(() => {
     if (location.pathname !== "/") {
@@ -77,9 +77,8 @@ function App() {
         <Route path="/signup" element={<Register />} />
         <Route path="/signin" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/forget-password" element={<ForgotPassword />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
-        <Route path="/profile" element={<Profile />} />
         <Route path="/breweries" element={<OwnerBreweries />} />
         <Route path="/brewery/:id" element={<BreweryDetails />} />
         <Route path="/brewery/breweryForm" element={<BreweryForm />} />

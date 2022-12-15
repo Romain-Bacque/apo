@@ -1,32 +1,16 @@
 // other import
 import PropTypes from "prop-types";
-import styled from "@emotion/styled";
 import { Home, Phone } from "@mui/icons-material";
 // component import
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Box, Button, CardActions, Divider } from "@mui/material";
+import { CardActions } from "@mui/material";
 import { Link } from "react-router-dom";
-import TagsList from "../UI/TagsList";
-
-// Style
-const StyledTypography = styled(Box)({
-  display: "flex",
-  gap: 0.5,
-  fontStyle: "italic",
-  fontSize: "1.3rem",
-  color: "gray",
-});
-const MoreDetailsButton = styled(Button)({
-  marginTop: "2rem",
-  marginLeft: "auto",
-  marginRight: "auto",
-});
-const StyledDivider = styled(Divider)({
-  marginTop: "1rem",
-});
+import TagsList from "../../UI/TagsList";
+// styled component import
+import { MoreDetailsButton, StyledDivider, StyledTypography } from "./style";
 
 // Component
 function BrewerieCard({ id, title, phone, address, tags, image }) {

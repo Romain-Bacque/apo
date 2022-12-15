@@ -1,37 +1,17 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import {
-  Box,
-  Button,
-  CardActions,
-  CardContent,
-  Divider,
-  Typography,
-} from "@mui/material";
+import { Box, Button, CardContent, Typography } from "@mui/material";
 import dayjs from "dayjs";
-import styled from "@emotion/styled";
+// styled component import
+import {
+  CancelButton,
+  ParticipantTypography,
+  StyledBox,
+  StyledCardActions,
+  StyledDivider,
+} from "./style";
 
 let buttonTextContent = null;
-
-// Style
-const StyledBox = styled(Box)({
-  marginBottom: "2rem",
-});
-const CancelButton = styled(Button)(({ theme }) => ({
-  color: theme.palette.secondary.main,
-}));
-const StyledDivider = styled(Divider)({
-  marginTop: "1rem",
-});
-const StyledCardActions = styled(CardActions)({
-  padding: 0,
-  paddingTop: "2rem",
-});
-const ParticipantTypography = styled(Typography)({
-  overflowY: "auto",
-  maxHeight: "5rem",
-  marginTop: "1rem",
-});
 
 // Component
 function EventDetails({

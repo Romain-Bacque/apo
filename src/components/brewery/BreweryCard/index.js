@@ -1,48 +1,25 @@
 // other import
 import PropTypes from "prop-types";
-import styled from "@emotion/styled";
 import { Edit, DeleteForever, Home, Phone } from "@mui/icons-material";
 // component import
-import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import {
-  Button,
-  Card,
-  CardActions,
-  CardMedia,
-  Divider,
-  Grid,
-} from "@mui/material";
+import { Button, Card, CardActions, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
-
-// Style
-const StyledCardMedia = styled(CardMedia)({
-  height: "140px",
-  width: "100%",
-});
-const StyledTypography = styled(Typography)({
-  display: "flex",
-  gap: 0.5,
-  fontStyle: "italic",
-  fontSize: "1.3rem",
-  color: "gray",
-});
-const StyledCardContent = styled(CardContent)({
-  textAlign: "start",
-});
-const StyledDivider = styled(Divider)({
-  margin: "2rem 0",
-});
-const DeleteButton = styled(Button)(({ theme }) => ({
-  color: theme.palette.secondary.main,
-}));
+// styled component import
+import {
+  DeleteButton,
+  StyledCardContent,
+  StyledCardMedia,
+  StyledDivider,
+  StyledTypography,
+} from "./style";
 
 // Component
 function Brewerie({ id, image, title, address, phone, onDelete }) {
   const parsedImage = JSON.parse(image);
 
   return (
-    <Grid item xs={12} md={10}>
+    <Grid sx={{ listStyle: "none" }} component="li" item xs={12} md={10}>
       <Card>
         {parsedImage && (
           <StyledCardMedia

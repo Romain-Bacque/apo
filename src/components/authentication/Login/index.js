@@ -1,40 +1,15 @@
-// other import
-import styled from "@emotion/styled";
 // hook import
 import { useState, useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // component import
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { Button, Typography, Container, Box } from "@mui/material";
 import Input from "../../Input";
 import AuthContainerThemeProvider from "../AuthContainerThemeProvider";
 // action creator import
 import { login } from "../../../actions";
-
-// Style
-const ResetPasswordLink = styled(Link)({
-  fontSize: "1rem",
-  width: "fit-content",
-  color: "#c45d32",
-  textDecoration: "none",
-  marginBottom: "1rem",
-  "&:hover": {
-    textDecoration: "underline",
-  },
-});
-const ResetNotRegisteredLink = styled(Link)({
-  display: "inline-block",
-  marginTop: "1rem",
-  fontSize: "0.8rem",
-  fontWeight: 700,
-  textTransform: "uppercase",
-  width: "fit-content",
-  color: "#c45d32",
-  textDecoration: "none",
-  "&:hover": {
-    textDecoration: "underline",
-  },
-});
+// styled component import
+import { ResetNotRegisteredLink, ResetPasswordLink } from "./style";
 
 // Component
 function Login() {
@@ -96,7 +71,7 @@ function Login() {
             onInputChange={handleInputChange}
             name="password"
           />
-          <ResetPasswordLink to="/forget-password">
+          <ResetPasswordLink to="/forgot-password">
             Mot de passe perdu
           </ResetPasswordLink>
           <Button type="submit" variant="contained">
