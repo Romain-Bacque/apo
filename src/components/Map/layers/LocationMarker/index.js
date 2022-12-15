@@ -3,7 +3,7 @@ import { Marker, Tooltip, useMap } from "react-leaflet";
 import { useEffect } from "react";
 // other import
 import PropTypes from "prop-types";
-import locationIcon from "../icons/locationIcon";
+import locationIcon from "../../icons/locationIcon";
 
 // Component
 function LocationMarker({ position, setPosition, isLocationAuthorized }) {

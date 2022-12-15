@@ -3,52 +3,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 // other import
 import Add from "@mui/icons-material/Add";
-import styled from "@emotion/styled";
 // component import
 import { Link, Navigate } from "react-router-dom";
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import BreweryCard from "../BreweryCard";
 import CustomModal from "../../UI/CustomModal";
 import SimpleModalContent from "../../UI/SimpleModalContent";
 // action creator import
 import { deleteBrewery } from "../../../actions";
-
-// Style
-const BreweriesContainer = styled(Container)({
-  display: "block",
-  height: "calc(100vh - 7rem)",
-  width: "1000px",
-  maxWidth: "90%",
-  padding: "2rem",
-});
-const Title = styled(Box)({
-  padding: "1rem",
-  borderBottom: "1px solid rgb(200, 200, 200)",
-  display: "flex",
-  justifyContent: "space-evenly",
-  alignItems: "center",
-  gap: "1rem",
-});
-const TitleText = styled(Typography)(({ theme }) => ({
-  flex: 1.5,
-  textAlign: "center",
-  [theme.breakpoints.down("md")]: {
-    flex: 1,
-  },
-}));
-const TitleButton = styled(Button)({
-  flex: 1,
-  fontSize: "1rem",
-});
-const BreweryCardBox = styled(Box)({
-  marginTop: "3rem",
-  overflowY: "auto",
-  height: "65vh",
-});
-const NoResultTypography = styled(Typography)({
-  margin: "1.5rem",
-  textAlign: "center",
-});
+// styled component import
+import {
+  BreweriesContainer,
+  BreweryCardBox,
+  NoResultTypography,
+  Title,
+  TitleButton,
+  TitleText,
+} from "./style";
 
 let ownerBreweries = [];
 

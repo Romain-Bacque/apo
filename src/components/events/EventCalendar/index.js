@@ -3,7 +3,6 @@ import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 // other import
-import styled from "@emotion/styled";
 import format from "date-fns/format";
 import getDay from "date-fns/getDay";
 import parse from "date-fns/parse";
@@ -12,8 +11,8 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
 import fr from "date-fns/locale/fr-CA";
 // component import
-import { Calendar, dateFnsLocalizer } from "react-big-calendar";
-import { Box, Button, Chip, Container, Stack, Typography } from "@mui/material";
+import { dateFnsLocalizer } from "react-big-calendar";
+import { Container } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import CustomModal from "../../UI/CustomModal";
 import EventForm from "../EventForm";
@@ -26,6 +25,16 @@ import {
   fetchParticipantEvents,
   resetEvents,
 } from "../../../actions";
+// styled component import
+import {
+  CalendarBox,
+  EventFormButton,
+  StyledBox,
+  StyledCalendar,
+  StyledChip,
+  StyledStack,
+  Title,
+} from "./style";
 
 const locales = {
   fr,
@@ -55,54 +64,6 @@ const messages = {
   noEventsInRange: "Il n'y a pas d'événement.",
   showMore: (total) => `+${total} de plus`,
 };
-
-// Style
-const StyledBox = styled(Box)({
-  padding: "1rem",
-  borderBottom: "1px solid rgb(200, 200, 200)",
-  display: "flex",
-  justifyContent: "space-evenly",
-  alignItems: "center",
-  gap: "1rem",
-});
-const Title = styled(Typography)(({ theme }) => ({
-  flex: 1.5,
-  textAlign: "center",
-  [theme.breakpoints.down("md")]: {
-    flex: 1,
-  },
-}));
-const EventFormButton = styled(Button)({
-  flex: 1,
-  fontSize: "1rem",
-});
-const CalendarBox = styled(Box)({
-  height: "400px",
-  margin: "2rem",
-});
-const StyledCalendar = styled(Calendar)({
-  textTransform: "capitalize",
-  fontSize: "1.4rem",
-  fontFamily: "arial, sans-serif",
-  height: "100%",
-  padding: "2rem",
-  borderRadius: "10px",
-  backgroundColor: "white",
-  color: "gray",
-  "&& .rbc-toolbar": {
-    justifyContent: "start",
-    gap: "1rem",
-  },
-});
-const StyledStack = styled(Stack)({
-  marginTop: "1.5rem",
-  maxWidth: "95%",
-});
-const StyledChip = styled(Chip)({
-  color: "white",
-  fontSize: "1rem",
-  fontWeight: "bold",
-});
 
 // Component
 function EventCalendar() {

@@ -6,33 +6,13 @@ import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Grow from "@mui/material/Grow";
 import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
-import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import { NavLink } from "react-router-dom";
 import { Button, IconButton } from "@mui/material";
-// other import
-import { MenuRounded } from "@mui/icons-material";
-import styled from "@emotion/styled";
 // action creator import
-import { logout } from "../../actions";
-
-// Style
-const StyledMenuItem = styled(MenuItem)({
-  textTransform: "capitalize",
-  margin: "1rem 0",
-  fontSize: "1.4rem",
-  fontWeight: "bold",
-  color: "rgb(75, 75, 75)",
-  "&.active": {
-    borderLeft: "2px solid gray",
-    backgroundColor: "transparent",
-  },
-});
-
-const StyledMenuRounded = styled(MenuRounded)({
-  fontSize: "2.5rem",
-  color: "white",
-});
+import { logout } from "../../../actions";
+// styled component import
+import { StyledMenuItem, StyledMenuRounded } from "./style";
 
 // Component
 function AppMenu() {

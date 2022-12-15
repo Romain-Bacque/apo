@@ -6,9 +6,9 @@ import { debounce } from "lodash";
 import axios from "axios";
 // component import
 import { Autocomplete } from "@mui/material";
-import Input from "../Input";
+import Input from "../../Input";
 // config file import
-import { apiConfig } from "../../config/config";
+import { apiConfig } from "../../../config/config";
 
 // Component
 function CustomSearchbar({ setInputStatus, location }) {

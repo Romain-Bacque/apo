@@ -1,40 +1,21 @@
 // other import
 import PropTypes from "prop-types";
-import styled from "@emotion/styled";
 // hook import
 import { useState } from "react";
 // component import
-import { Box, Container, Divider, Stack, Typography } from "@mui/material";
-import OneBrewerie from "./BrewerieCard";
+import { Divider, Stack } from "@mui/material";
+import OneBrewerie from "./BreweryCard";
 import Category from "../Category";
+// styled component import
+import {
+  BreweriesListContainer,
+  CardBox,
+  FilterTypography,
+  NoResultTypography,
+  TitleTypography,
+} from "./style";
 
 let breweriesList = [];
-
-// Style
-const BreweriesListContainer = styled(Container)({
-  minWidth: "300px",
-  height: "100%",
-  justifyContent: "start",
-  padding: "1rem",
-  overflowY: "auto",
-});
-const CardBox = styled(Box)({
-  padding: "1rem",
-  margin: "0 1rem",
-  height: "390px",
-  overflow: "auto",
-});
-const TitleTypography = styled(Typography)({
-  textAlign: "center",
-});
-const FilterTypography = styled(Typography)({
-  color: "gray",
-  textAlign: "center",
-});
-const NoResultTypography = styled(Typography)({
-  margin: "1.5rem",
-  textAlign: "center",
-});
 
 // Component
 function BreweriesList({ filter, data }) {

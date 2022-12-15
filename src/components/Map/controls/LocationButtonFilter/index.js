@@ -2,22 +2,10 @@
 import { useMap } from "react-leaflet";
 // other import
 import PropTypes from "prop-types";
-import MyLocationIcon from "@mui/icons-material/MyLocation";
-import styled from "@emotion/styled";
-// component import
-import { IconButton } from "@mui/material";
+// styled component import
+import { StyledIconButton, StyledMyLocationIcon } from "./style";
 
 const DEFAULT_RADIUS = 30;
-
-// Style
-const StyledIconButton = styled(IconButton)({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-});
-const StyledMyLocationIcon = styled(MyLocationIcon)({
-  width: "100%",
-});
 
 // Component
 function LocationButtonFilter({

@@ -3,31 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 // other import
 import { DeleteForever } from "@mui/icons-material";
-import styled from "@emotion/styled";
 // component import
 import { Navigate } from "react-router-dom";
-import { Typography, Button, Container, Divider } from "@mui/material";
+import { Typography, Button } from "@mui/material";
 import Input from "../Input";
 import CustomModal from "../UI/CustomModal";
 import SimpleModalContent from "../UI/SimpleModalContent";
 // action creator import
 import { deleteUser, updateUser } from "../../actions";
-
-// Style
-const ProfileContainer = styled(Container)({
-  width: "500px",
-  maxWidth: "90%",
-  padding: "3rem",
-  backgroundColor: "white",
-  borderRadius: "10px",
-  border: "1px solid rgb(230, 230, 230)",
-});
-const StyledDivider = styled(Divider)({
-  margin: "1rem 0",
-});
-const DeleteButton = styled(Button)(({ theme }) => ({
-  color: theme.palette.secondary.main,
-}));
+// styled component import
+import { DeleteButton, ProfileContainer, StyledDivider } from "./style";
 
 // Component
 function Profile() {

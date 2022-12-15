@@ -4,14 +4,8 @@ import PropTypes from "prop-types";
 // component import
 import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
-import styled from "@emotion/styled";
-
-// Style
-const StyledMuiAlert = styled(MuiAlert)({
-  width: "100%",
-  margin: "5rem auto",
-});
+// styled component import
+import { StyledMuiAlert } from "./style";
 
 // Child Component
 const Alert = forwardRef((props, ref) => (

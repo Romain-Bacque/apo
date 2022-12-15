@@ -2,10 +2,7 @@
 import { Link, useNavigate } from "react-router-dom";
 // other import
 import PropTypes from "prop-types";
-import { styled } from "@mui/material/styles";
 // component import
-import { Box, Toolbar, AppBar, Typography } from "@mui/material";
-import { SportsBarRounded } from "@mui/icons-material";
 import {
   GeoapifyGeocoderAutocomplete,
   GeoapifyContext,
@@ -13,41 +10,15 @@ import {
 import "@geoapify/geocoder-autocomplete/styles/round-borders.css";
 import AppMenu from "../UI/AppMenu";
 import { apiConfig } from "../../config/config";
-
-// Style
-const LogoBox = styled(Box)({
-  display: "flex",
-  marginRight: "4rem",
-  alignItems: "center",
-  gap: 1.5,
-});
-const StyledToolbar = styled(Toolbar)({
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  height: "100%",
-});
-const StyledSportsBar = styled(SportsBarRounded)({
-  fontSize: "4rem",
-  color: "white",
-});
-const StyledAppBar = styled(AppBar)({
-  position: "sticky",
-  boxShadow: "none",
-  height: "7rem",
-});
-const TitleTypography = styled(Typography)({
-  fontFamily: "Yellowtail, sans-serif",
-  textTransform: "capitalize",
-  fontSize: "1.5rem",
-  letterSpacing: "0.4rem",
-  fontWeight: "bold",
-  color: "white",
-  width: "12rem",
-});
-const SearchBarContainer = styled("div")({
-  width: "60%",
-});
+// styled component import
+import {
+  LogoBox,
+  SearchBarContainer,
+  StyledAppBar,
+  StyledSportsBar,
+  StyledToolbar,
+  TitleTypography,
+} from "./style";
 
 // Component
 function Header({ setSearchValue }) {

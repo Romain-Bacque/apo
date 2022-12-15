@@ -9,20 +9,15 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
-import { Home, Phone, Event, Map } from "@mui/icons-material";
-import styled from "@emotion/styled";
+import { Home, Phone, Event } from "@mui/icons-material";
 // component import
 import {
-  Card,
   CardContent,
   Typography,
   Box,
   Button,
-  CardHeader,
-  CardMedia,
-  Container,
   IconButton,
   Tooltip,
 } from "@mui/material";
@@ -32,63 +27,22 @@ import CustomModal from "../../UI/CustomModal";
 import SimpleModalContent from "../../UI/SimpleModalContent";
 // action creator import
 import { addParticipant, fetchBreweryDetails } from "../../../actions";
-
-// Style
-const BreweryDetailsContainer = styled(Container)({
-  width: "900px",
-  maxWidth: "90%",
-});
-const BreweryDetailsCard = styled(Card)({
-  marginBottom: "1rem",
-  borderRadius: "10px",
-  border: "1px solid rgb(230, 230, 230)",
-});
-const BreweryDescription = styled(Typography)({
-  margin: "1rem auto",
-  overflowY: "auto",
-  maxHeight: "2rem",
-});
-const StyledMapIcon = styled(Map)({
-  fontSize: "3rem",
-  color: "gray",
-});
-const StyledCardHeader = styled(CardHeader)({
-  padding: "0.5rem 1rem",
-});
-const StyledCardMedia = styled(CardMedia)({
-  height: "140px",
-  width: "100%",
-});
-const StyledTypography = styled(Box)({
-  display: "flex",
-  gap: 0.5,
-  fontStyle: "italic",
-  fontSize: "1.3rem",
-  color: "gray",
-});
-const EventBox = styled(Box)({
-  marginTop: "1rem",
-});
-const EventHeaderBox = styled(Box)({
-  marginBottom: "1rem",
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-});
-const EventTitle = styled(Typography)({
-  flex: 2,
-});
-const EventSchedulerLink = styled(Button)({
-  flex: 1,
-  width: "auto",
-});
-const StyledSwiper = styled(Swiper)({
-  padding: "1rem",
-});
-const NoResultTypography = styled(Typography)({
-  marginBottom: "0.5rem",
-  textAlign: "center",
-});
+// styled component import
+import {
+  BreweryDescription,
+  BreweryDetailsCard,
+  BreweryDetailsContainer,
+  EventBox,
+  EventHeaderBox,
+  EventSchedulerLink,
+  EventTitle,
+  NoResultTypography,
+  StyledCardHeader,
+  StyledCardMedia,
+  StyledMapIcon,
+  StyledSwiper,
+  StyledTypography,
+} from "./style";
 
 // Component
 function BreweryDetails() {
