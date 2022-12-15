@@ -42,7 +42,7 @@ function Brewerie({ id, image, title, address, phone, onDelete }) {
   const parsedImage = JSON.parse(image);
 
   return (
-    <Grid item xs={12} md={10}>
+    <Grid sx={{ listStyle: "none" }} component="li" item xs={12} md={10}>
       <Card>
         {parsedImage && (
           <StyledCardMedia
