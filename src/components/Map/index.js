@@ -6,9 +6,8 @@ import PropTypes from "prop-types";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "font-awesome/css/font-awesome.min.css";
-import styled from "@emotion/styled";
 // component import
-import { Box, FormControlLabel, Switch } from "@mui/material";
+import { FormControlLabel, Switch } from "@mui/material";
 import BreweryMarker from "./layers/BreweryMarker";
 import LocationMarker from "./layers/LocationMarker";
 import Regions from "./layers/Regions";
