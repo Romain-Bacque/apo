@@ -9,7 +9,7 @@ import {
   Container,
   Typography,
 } from "@mui/material";
-import Swiper from "swiper";
+import { Swiper } from "swiper/react";
 
 // Style
 export const BreweryDetailsContainer = styled(Container)({
