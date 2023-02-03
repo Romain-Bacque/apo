@@ -14,7 +14,6 @@ export const StyledMenuItem = styled(MenuItem)({
     backgroundColor: "transparent",
   },
 });
-
 export const StyledMenuRounded = styled(MenuRounded)({
   fontSize: "2.5rem",
   color: "white",

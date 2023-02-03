@@ -86,9 +86,10 @@ const Input = forwardRef(
             value={inputValue}
             valueAgain={valueToMatch}
             messages={{
-              minLength: "Au moins 8 caractères.",
+              minLength: "Au moins 10 caractères.",
               number: "Au moins 1 chiffre.",
               capital: "Au moins 1 majuscule.",
+              specialChar: "Au moins 1 caractère spécial.",
               match: "Les mots de passe correspondent.",
             }}
           />

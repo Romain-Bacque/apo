@@ -52,7 +52,7 @@ function Header({ setSearchValue }) {
               display={{ xs: "none", sm: "block" }}
               variant="span"
             >
-              Biere de ta région.
+              Bières de ta région.
             </TitleTypography>
           </LogoBox>
           <SearchBarContainer
