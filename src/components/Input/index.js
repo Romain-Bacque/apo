@@ -79,10 +79,10 @@ const Input = forwardRef(
           onChange={inputChangeHandler}
           name={name}
         />
-        {isInputTouched && !isInputValid && name === "confirmPassword" && (
+        {isInputTouched && name.trim() === "confirmPassword" && (
           <PasswordChecklist
             rules={["minLength", "number", "capital", "match"]}
-            minLength={8}
+            minLength={10}
             value={inputValue}
             valueAgain={valueToMatch}
             messages={{
