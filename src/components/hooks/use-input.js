@@ -69,7 +69,7 @@ const inputReducer = (state, action) => {
         const numbers = /[0-9]/g;
 
         if (
-          action.value.value.length >= 8 &&
+          action.value.value.length >= 10 &&
           action.value.value.match(lowerCaseLetters) &&
           action.value.value.match(upperCaseLetters) &&
           action.value.value.match(numbers)

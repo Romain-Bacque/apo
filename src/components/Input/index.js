@@ -79,16 +79,17 @@ const Input = forwardRef(
           onChange={inputChangeHandler}
           name={name}
         />
-        {isInputTouched && !isInputValid && name === "confirmPassword" && (
+        {isInputTouched && name.trim() === "confirmPassword" && (
           <PasswordChecklist
             rules={["minLength", "number", "capital", "match"]}
-            minLength={8}
+            minLength={10}
             value={inputValue}
             valueAgain={valueToMatch}
             messages={{
-              minLength: "Au moins 8 caractères.",
+              minLength: "Au moins 10 caractères.",
               number: "Au moins 1 chiffre.",
               capital: "Au moins 1 majuscule.",
+              specialChar: "Au moins 1 caractère spécial.",
               match: "Les mots de passe correspondent.",
             }}
           />
