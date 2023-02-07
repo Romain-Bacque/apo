@@ -16,6 +16,7 @@ const Input = forwardRef(
       onInputChange,
       valueToMatch,
       selectedValue,
+      hasConfirmPassword,
       input,
       params,
     },
@@ -42,8 +43,8 @@ const Input = forwardRef(
 
     useEffect(() => {
       const isMatching =
-        name === "confirmPassword"
-          ? inputValue === valueToMatch.trim()
+        name === "password" && hasConfirmPassword
+          ? inputValue === valueToMatch
           : isInputValid;
 
       onInputChange(name, { isValid: isMatching, value: inputValue });
@@ -79,15 +80,23 @@ const Input = forwardRef(
           onChange={inputChangeHandler}
           name={name}
         />
-        {isInputTouched && name.trim() === "confirmPassword" && (
+        {isInputTouched && name === "password" && (
           <PasswordChecklist
-            rules={["minLength", "number", "capital", "match"]}
+            rules={[
+              "minLength",
+              "number",
+              "lowercase",
+              "capital",
+              "specialChar",
+              hasConfirmPassword && "match",
+            ]}
             minLength={10}
             value={inputValue}
             valueAgain={valueToMatch}
             messages={{
               minLength: "Au moins 10 caractères.",
               number: "Au moins 1 chiffre.",
+              lowercase: "Au moins 1 minuscule.",
               capital: "Au moins 1 majuscule.",
               specialChar: "Au moins 1 caractère spécial.",
               match: "Les mots de passe correspondent.",
@@ -104,6 +113,7 @@ Input.propTypes = {
   onInputChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   valueToMatch: PropTypes.string,
+  hasConfirmPassword: PropTypes.bool,
   selectedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   input: PropTypes.any.isRequired,
   params: PropTypes.any,
@@ -114,6 +124,7 @@ Input.defaultProps = {
   valueToMatch: null,
   selectedValue: null,
   params: null,
+  hasConfirmPassword: false,
 };
 
 export default memo(Input);

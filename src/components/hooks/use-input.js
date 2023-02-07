@@ -17,6 +17,26 @@ const inputReducer = (state, action) => {
   }
   if (action.type === "CHANGE") {
     switch (action.value.type) {
+      case "password":
+        const lowerCaseLetters = /[a-z]/g;
+        const upperCaseLetters = /[A-Z]/g;
+        const numbers = /[0-9]/g;
+        const specialChar = /[#?!@$%^&*-/]/g;
+
+        if (
+          action.value.value.length >= 10 &&
+          action.value.value.match(lowerCaseLetters) &&
+          action.value.value.match(upperCaseLetters) &&
+          action.value.value.match(numbers) &&
+          action.value.value.match(specialChar)
+        ) {
+          return {
+            ...state,
+            isValid: true,
+            enteredValue: action.value.value,
+          };
+        }
+        break;
       case "text":
       case "textarea":
         if (action.value.value.length > 0) {
@@ -62,26 +82,6 @@ const inputReducer = (state, action) => {
         break;
       case "date":
         return { ...state, isValid: true, enteredValue: action.value.value };
-      case "password":
-        const passwordStateArray = [];
-        const lowerCaseLetters = /[a-z]/g;
-        const upperCaseLetters = /[A-Z]/g;
-        const numbers = /[0-9]/g;
-
-        if (
-          action.value.value.length >= 10 &&
-          action.value.value.match(lowerCaseLetters) &&
-          action.value.value.match(upperCaseLetters) &&
-          action.value.value.match(numbers)
-        ) {
-          return {
-            ...state,
-            isValid: !(passwordStateArray.length > 0),
-            enteredValue: action.value.value,
-            passwordState: passwordStateArray,
-          };
-        }
-        break;
       default:
         console.log(`Sorry, we are out of ${action.value.type}.`);
     }
@@ -119,7 +119,6 @@ const useInput = () => {
     value: inputState.enteredValue,
     isValid: inputState.isValid,
     isTouched: inputState.isTouched,
-    passwordState: inputState.passwordState,
     valueHandler,
     changeHandler,
     blurHandler,
