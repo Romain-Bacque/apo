@@ -129,6 +129,8 @@ function Register() {
               []
             )}
             name="password"
+            hasConfirmPassword
+            valueToMatch={inputStatus.confirmPassword.value}
             onInputChange={handleInputChange}
           />
           <Input
@@ -141,7 +143,6 @@ function Register() {
               []
             )}
             name="confirmPassword"
-            valueToMatch={inputStatus.password.value}
             onInputChange={handleInputChange}
           />
           <Button type="submit">S'enregistrer</Button>
