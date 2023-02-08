@@ -71,7 +71,7 @@ window.confirm = jest.fn();
 // initialize store
 let store = createTestStore();
 
-describe("<BreweryForm />", () => {
+describe("<OwnerBrewery />", () => {
   // hook called before each test to clean up store
   beforeEach(() => {
     store = createTestStore();
