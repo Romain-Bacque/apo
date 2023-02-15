@@ -8,11 +8,9 @@ import {
   saveBreweries,
   saveBreweryDetails,
 } from "../actions";
-// config file import
-import { apiConfig } from "../config/config";
 
 const instance = axios.create({
-  baseURL: `http://${apiConfig.host}:${apiConfig.port}/brewery`,
+  baseURL: `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/brewery`,
   withCredentials: true, // authorize cookie sending to server
   headers: { "Content-Type": "multipart/form-data" },
 });

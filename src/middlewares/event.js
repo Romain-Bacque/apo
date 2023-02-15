@@ -2,11 +2,9 @@
 import axios from "axios";
 // action creator import
 import { pending, success, error, saveEvents, removeEvent } from "../actions";
-// config file import
-import { apiConfig } from "../config/config";
 
 const instance = axios.create({
-  baseURL: `http://${apiConfig.host}:${apiConfig.port}/event`,
+  baseURL: `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/event`,
   withCredentials: true, // authorize cookie sending to server
 });
 
