@@ -2,11 +2,9 @@
 import axios from "axios";
 // action creator import
 import { pending, success, error, resetUser, saveUser } from "../actions";
-// config file import
-import { apiConfig } from "../config/config";
 
 const instance = axios.create({
-  baseURL: `http://${apiConfig.host}:${apiConfig.port}/user`,
+  baseURL: `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/user`,
   withCredentials: true, // authorize cookie sending to server
 });
 

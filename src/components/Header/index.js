@@ -9,7 +9,6 @@ import {
 } from "@geoapify/react-geocoder-autocomplete";
 import "@geoapify/geocoder-autocomplete/styles/round-borders.css";
 import AppMenu from "../UI/AppMenu";
-import { apiConfig } from "../../config/config";
 // styled component import
 import {
   LogoBox,
@@ -41,7 +40,7 @@ function Header({ setSearchValue }) {
   }
 
   return (
-    <GeoapifyContext apiKey={apiConfig.apiKey || ""}>
+    <GeoapifyContext apiKey={process.env.REACT_APP_APIKEY || ""}>
       <StyledAppBar>
         <StyledToolbar>
           <LogoBox>
