@@ -7,8 +7,6 @@ import axios from "axios";
 // component import
 import { Autocomplete } from "@mui/material";
 import Input from "../../Input";
-// config file import
-import { apiConfig } from "../../../config/config";
 
 // Component
 function CustomSearchbar({ setInputStatus, location }) {
@@ -23,7 +21,7 @@ function CustomSearchbar({ setInputStatus, location }) {
       if (value) {
         try {
           const response = await axios.get(
-            `https://api.geoapify.com/v1/geocode/autocomplete?text=${value}&filter=countrycode:fr&format=json&limit=15&lang=fr&apiKey=${apiConfig.apiKey}`
+            `https://api.geoapify.com/v1/geocode/autocomplete?text=${value}&filter=countrycode:fr&format=json&limit=15&lang=fr&apiKey=${process.env.REACT_APP_APIKEY}`
           );
 
           if (response.status === 200) {
