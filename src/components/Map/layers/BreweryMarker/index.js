@@ -30,6 +30,7 @@ const BreweryMarker = ({
 
   if (radiusFilter) {
     const { coordinates } = radiusFilter;
+
     centerPoint = L.latLng(coordinates);
   }
 
@@ -39,10 +40,12 @@ const BreweryMarker = ({
     let filterBySearchbar;
     let currentPoint;
 
+    // if there is no brewery, we don't apply any filter
     if (!brewery.title && !brewery.address) return false;
 
     if (centerPoint) {
       currentPoint = L.latLng(brewery.lat, brewery.lon);
+      // we check if current brewery is present in a defined perimeter around the user location
       filterByRadius =
         centerPoint.distanceTo(currentPoint) / 1000 <= radiusFilter.radius; // 'distanceTo' method get distance between two points // 'distanceTo' function works as meters, so we divide by 1000 to get the value in kilometers
     }
@@ -53,13 +56,13 @@ const BreweryMarker = ({
         geoFilter
       );
     }
-
     if (searchbarFilter) {
-      const title = brewery.title.toLowerCase().trim();
-      const address = brewery.address.toLowerCase().trim();
+      const breweryTitle = brewery.breweryTitle.toLowerCase().trim();
+      const breweryAddress = brewery.breweryAddress.toLowerCase().trim();
 
       filterBySearchbar =
-        title.includes(searchbarFilter) || address.includes(searchbarFilter);
+        breweryTitle.includes(searchbarFilter) ||
+        breweryAddress.includes(searchbarFilter);
     }
 
     let doFilter = true;
@@ -83,6 +86,7 @@ const BreweryMarker = ({
   });
 
   useEffect(() => {
+    // we define filter message
     if (filteredBreweries && (radiusFilter || geoFilter || searchbarFilter)) {
       let filter;
 

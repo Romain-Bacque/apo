@@ -4,6 +4,7 @@ import { GeoJSON } from "react-leaflet";
 
 // Component
 function Regions({ data, setGeoFilter, getGeoFilter }) {
+  // geoFilter const is used to apply style on the selected region
   const geoFilter = getGeoFilter();
 
   return (
