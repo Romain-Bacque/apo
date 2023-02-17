@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 // component import
 import { Divider, Stack } from "@mui/material";
-import OneBrewerie from "./BreweryCard";
+import BreweryCard from "./BreweryCard";
 import Category from "../Category";
 // styled component import
 import {
@@ -20,6 +20,7 @@ let breweriesList = [];
 // Component
 function BreweriesList({ filter, data }) {
   const [selectedCategories, setSelectedCategories] = useState([]);
+
   const hasSelectedTag = (brewery, categoryList) => {
     const filteredList = categoryList.filter((object1) => {
       const filteredBrewery = brewery.categories.some(
@@ -37,7 +38,7 @@ function BreweriesList({ filter, data }) {
         return hasSelectedTag(brewery, selectedCategories); // filter by selected category(ies)
       })
       .map((filteredBrewery) => (
-        <OneBrewerie
+        <BreweryCard
           key={filteredBrewery.id}
           id={filteredBrewery.id}
           title={filteredBrewery.title}

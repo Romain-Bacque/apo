@@ -23,7 +23,7 @@ import {
 function Header({ setSearchValue }) {
   const navigate = useNavigate();
 
-  // If user type 'enter' key on keyboard
+  // If user type 'enter' key on keyboard, then we navigate to home page
   function handleKeyDown(event) {
     if (event.keyCode === 13) {
       setSearchValue(event.target.value.toLowerCase().trim());
