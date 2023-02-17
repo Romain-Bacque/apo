@@ -14,7 +14,7 @@ function CustomSearchbar({ setInputStatus, location }) {
   const [selectedValue, setSelectedValue] = useState(null);
   const [breweriesLocations, setBreweriesLocations] = useState([]);
   const getGeoapiData = useRef(
-    // 'debounce' prevent API server spamming, and authorize ajax request 500ms after input value stopped change
+    // 'debounce' prevent server spamming, and authorize ajax request a number of milliseconds after input value stopped change
     debounce(async (value) => {
       let data = [];
 
@@ -67,7 +67,7 @@ function CustomSearchbar({ setInputStatus, location }) {
       freeSolo
       onChange={(_, value) => setSelectedValue(value)}
       onBlur={() => setBreweriesLocations([])}
-      options={breweriesLocations}
+      options={breweriesLocations} // 'breweriesLocations' is the list defined for autocompletion
       getOptionLabel={(option) => (option.address ? option.address : "")} // Display the 'address' property value of each object from the array of object provide in 'options' prop
       defaultValue={location || null}
       renderInput={(params) => (

@@ -37,8 +37,7 @@ const Input = forwardRef(
 
     if (name !== "image") {
       hasAnError = !!(isInputTouched && !isInputValid);
-      helperTextContent =
-        isInputTouched && !isInputValid ? "Entrée incorrecte." : "";
+      helperTextContent = hasAnError ? "Entrée incorrecte." : "";
     }
 
     useEffect(() => {
@@ -48,7 +47,14 @@ const Input = forwardRef(
           : isInputValid;
 
       onInputChange(name, { isValid: isMatching, value: inputValue });
-    }, [onInputChange, isInputValid, inputValue, name, valueToMatch]);
+    }, [
+      onInputChange,
+      isInputValid,
+      inputValue,
+      name,
+      valueToMatch,
+      hasConfirmPassword,
+    ]);
 
     // Selected value is directly set if we choose an address in custom searchbar
     // Or when update brewery form appear, all inputs are directly filled by brewery data
