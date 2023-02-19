@@ -57,8 +57,8 @@ const BreweryMarker = ({
       );
     }
     if (searchbarFilter) {
-      const breweryTitle = brewery.breweryTitle.toLowerCase().trim();
-      const breweryAddress = brewery.breweryAddress.toLowerCase().trim();
+      const breweryTitle = brewery.title.toLowerCase().trim();
+      const breweryAddress = brewery.address.toLowerCase().trim();
 
       filterBySearchbar =
         breweryTitle.includes(searchbarFilter) ||
