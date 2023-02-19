@@ -62,10 +62,10 @@ function Register() {
     }));
   }, []);
 
-  // if user is successfully registered
   useEffect(() => {
     if (loading.status === "success" && isSigningup) {
       isSigningup = false;
+      // if user is successfully registered, then we navigate to signing in form
       navigate("/signin");
     }
   }, [loading]);
@@ -84,13 +84,19 @@ function Register() {
               <FormControlLabel
                 label="Particulier"
                 value="user"
-                onChange={() => handleInputChange("role", "user")}
+                onChange={useCallback(
+                  () => handleInputChange("role", "user"),
+                  [handleInputChange]
+                )}
                 control={<Radio />}
               />
               <FormControlLabel
                 label="Brasseur"
                 value="brewer"
-                onChange={() => handleInputChange("role", "brewer")}
+                onChange={useCallback(
+                  () => handleInputChange("role", "brewer"),
+                  [handleInputChange]
+                )}
                 control={<Radio />}
               />
             </StyledRadioGroup>

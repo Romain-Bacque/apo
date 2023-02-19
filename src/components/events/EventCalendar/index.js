@@ -39,15 +39,17 @@ import {
 const locales = {
   fr,
 };
+
+// dateFnsLocalizer is a function in the react-big-calendar library that is used to customize the calendar's behavior with respect to date and time formatting, localization, and time zones.
 const localizer = dateFnsLocalizer({
-  format,
-  parse,
-  startOfWeek,
-  getDay,
-  locales,
+  format, // used to format a date object into a string.
+  parse, // This function is used to parse a string into a date object.
+  startOfWeek, // This function is used to determine the start of a week for a given date.
+  getDay, // This function is used to get the day of the week for a given date.
+  locales, // specify the locale (here 'fr').
 });
 
-const messages = {
+const messagesFr = {
   date: "Date",
   time: "Heure",
   event: "Détails",
@@ -174,13 +176,14 @@ function EventCalendar() {
             defaultDate={new Date()}
             localizer={localizer}
             culture="fr"
-            messages={messages}
+            messages={messagesFr}
             events={events?.length ? events : []}
             popup
             onSelectEvent={(event) => handleEventDetails(event)}
             eventPropGetter={handleEventStyle}
           />
         </CalendarBox>
+        {/* Legends */}
         <StyledStack direction="row" spacing={1}>
           <StyledChip
             label="Propriétaire"

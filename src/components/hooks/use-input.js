@@ -18,10 +18,10 @@ const inputReducer = (state, action) => {
   if (action.type === "CHANGE") {
     switch (action.value.type) {
       case "password":
-        const lowerCaseLetters = /[a-z]/g;
-        const upperCaseLetters = /[A-Z]/g;
-        const numbers = /[0-9]/g;
-        const specialChar = /[#?!@$%^&*-/]/g;
+        const lowerCaseLetters = /[a-z]/;
+        const upperCaseLetters = /[A-Z]/;
+        const numbers = /[0-9]/;
+        const specialChar = /[#?!@$%^&*-/]/;
 
         if (
           action.value.value.length >= 10 &&
