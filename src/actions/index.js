@@ -152,6 +152,13 @@ export function register(email, password, name, role) {
     role,
   };
 }
+export function emailConfirm(id, token) {
+  return {
+    type: "EMAIL_CONFIRM",
+    id,
+    token,
+  };
+}
 export function logout() {
   return {
     type: "LOGOUT",

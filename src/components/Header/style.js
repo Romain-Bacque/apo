@@ -27,7 +27,7 @@ export const StyledAppBar = styled(AppBar)({
 export const TitleTypography = styled(Typography)({
   fontFamily: "Yellowtail, sans-serif",
   textTransform: "capitalize",
-  fontSize: "1.5rem",
+  fontSize: "1.6rem",
   letterSpacing: "0.4rem",
   fontWeight: "bold",
   color: "white",

@@ -71,7 +71,9 @@ const user = (store) => (next) => (action) => {
       })
       .then((response) => {
         if (response.status === 200) {
-          store.dispatch(success("Enregistrement réussi."));
+          store.dispatch(
+            success("Un email de confirmation vous a été envoyé.")
+          );
         }
       })
       .catch((err) => {
@@ -84,6 +86,18 @@ const user = (store) => (next) => (action) => {
         } else {
           store.dispatch(error("Erreur, enregistrement impossible."));
         }
+      });
+  } else if (action.type === "EMAIL_CONFIRM") {
+    store.dispatch(pending());
+    instance
+      .get(`/email-confirm?id=${action.id}&token=${action.token}`)
+      .then((response) => {
+        if (response.status === 200) {
+          store.dispatch(success("Compte validé."));
+        }
+      })
+      .catch((err) => {
+        store.dispatch(error("Erreur, validation compte impossible."));
       });
   } else if (action.type === "LOGOUT") {
     store.dispatch(pending());

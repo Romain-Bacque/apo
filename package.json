@@ -36,6 +36,7 @@
     "react-geolocated": "^4.0.3",
     "react-leaflet": "^4.1.0",
     "react-password-checklist": "^1.4.2",
+    "react-query": "^3.39.3",
     "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
@@ -51,7 +52,7 @@
   "scripts": {
     "type": "module",
     "start-https": "PORT=443 HTTPS=true react-scripts start",
-    "start": "PORT=3000 react-scripts start",
+    "start": "react-scripts start",
     "build": "sudo serve -l 80 -s build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
