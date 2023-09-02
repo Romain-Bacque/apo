@@ -45,10 +45,10 @@ function EventDetails({
     <CardContent>
       <StyledBox>
         <Box marginBottom="1rem">
-          <Typography component="h5" variant="h5">
+          <Typography fontWeight={700} component="h5" variant="h5">
             {title}
           </Typography>
-          <Typography component="p" variant="h6" color="gray">
+          <Typography paragraph variant="h6" color="gray">
             {description}
           </Typography>
         </Box>

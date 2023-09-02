@@ -5,6 +5,7 @@ import { Edit, DeleteForever, Home, Phone } from "@mui/icons-material";
 import Typography from "@mui/material/Typography";
 import { Button, Card, CardActions, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
+import TagsList from "../../UI/TagsList";
 // styled component import
 import {
   DeleteButton,
@@ -15,7 +16,7 @@ import {
 } from "./style";
 
 // Component
-function Brewerie({ id, image, title, address, phone, onDelete }) {
+function Brewerie({ id, image, title, address, phone, tags, onDelete }) {
   const parsedImage = JSON.parse(image);
 
   return (
@@ -40,6 +41,7 @@ function Brewerie({ id, image, title, address, phone, onDelete }) {
             <Phone />
             {phone}
           </StyledTypography>
+          <TagsList list={tags} />
           <StyledDivider light />
           <CardActions>
             <Button

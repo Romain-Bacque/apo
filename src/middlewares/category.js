@@ -5,7 +5,7 @@ import { pending, success, error, saveCategories } from "../actions";
 
 const instance = axios.create({
   baseURL: `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/category`,
-  withCredentials: true, // authorize cookie sending to server
+  withCredentials: true, // authorize cookie sending to server,
 });
 
 const category = (store) => (next) => (action) => {

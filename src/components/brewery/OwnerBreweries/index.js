@@ -85,6 +85,7 @@ function Breweries() {
                   title={brewery.title}
                   address={brewery.address}
                   phone={brewery.phone}
+                  tags={brewery.categories}
                   onDelete={handleModal}
                 />
               ))}

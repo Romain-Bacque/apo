@@ -5,7 +5,7 @@ import { pending, success, error, saveEvents, removeEvent } from "../actions";
 
 const instance = axios.create({
   baseURL: `http://${process.env.REACT_APP_HOST}:${process.env.REACT_APP_PORT}/event`,
-  withCredentials: true, // authorize cookie sending to server
+  withCredentials: true, // authorize cookie sending to server,
 });
 
 const category = (store) => (next) => (action) => {
