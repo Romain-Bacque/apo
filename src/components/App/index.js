@@ -7,6 +7,7 @@ import Layout from "./Layout/Layout";
 import Map from "../Map";
 import Login from "../authentication/Login";
 import Register from "../authentication/Register";
+import EmailConfirm from "../authentication/EmailConfirm";
 import ForgotPassword from "../authentication/ForgotPassword";
 import ResetPassword from "../authentication/ResetPassword";
 import BreweryDetails from "../brewery/BreweryDetails";
@@ -57,9 +58,13 @@ function App() {
 
   // Ask for location authorization
   useEffect(() => {
-    const result = window.confirm("Autorisez-vous le site à vous localiser ?");
+    if (location.pathname === "/") {
+      const result = window.confirm(
+        "Autorisez-vous le site à vous localiser ?"
+      );
 
-    setIsLocationAuthorized(result);
+      setIsLocationAuthorized(result);
+    }
   }, []);
 
   return (
@@ -75,6 +80,7 @@ function App() {
           }
         />
         <Route path="/signup" element={<Register />} />
+        <Route path="/signup/email-confirm" element={<EmailConfirm />} />
         <Route path="/signin" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />

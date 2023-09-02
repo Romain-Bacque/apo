@@ -44,6 +44,7 @@
     "react-hooks/rules-of-hooks": "error", // prevent to use react hooks conditionnally
     "react-hooks/exhaustive-deps": "warn",
     "no-alert": "off",
-    "@arthurgeron/react-usememo/require-usememo": [1]
+    "@arthurgeron/react-usememo/require-usememo": [1],
+    "endOfLine": 0
   }
 }

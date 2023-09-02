@@ -17,8 +17,8 @@ import {
 // Component
 function Footer() {
   const content = {
-    brand: "Bière de ta région.",
-    copy: "© 2022 Bière de ta région. Tous droits réservés.",
+    brand: "Cheers.",
+    copy: "© 2022 Cheers. Tous droits réservés.",
     link1: { text: "Contact", link: "mailto:bacqueromain@orange.fr" },
     link2: {
       text: "Linkedin",
