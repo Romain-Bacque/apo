@@ -7,6 +7,7 @@ export const SAVE_BREWERIES = "SAVE_BREWERIES";
 export const SAVE_BREWERY_DETAILS = "SAVE_BREWERY_DETAILS";
 // favorite
 export const SAVE_FAVORITES = "SAVE_FAVORITES";
+export const SAVE_FAVORITES_IDS = "SAVE_FAVORITES_IDS";
 // category
 export const SAVE_CATEGORIES = "SAVE_CATEGORIES";
 // event
@@ -85,6 +86,41 @@ export function deleteBrewery(breweryId) {
   return {
     type: "DELETE_BREWERY",
     breweryId,
+  };
+}
+// favorite
+export function fetchFavoriteIds() {
+  return {
+    type: "FETCH_USER_FAVORITE_IDS",
+  };
+}
+export function fetchFavorites() {
+  return {
+    type: "FETCH_USER_FAVORITES",
+  };
+}
+export function addFavorite(breweryId) {
+  return {
+    type: "ADD_USER_FAVORITE",
+    breweryId,
+  };
+}
+export function deleteFavorite(breweryId) {
+  return {
+    type: "DELETE_USER_FAVORITE",
+    breweryId,
+  };
+}
+export function saveFavorites(favorites) {
+  return {
+    type: "SAVE_FAVORITES",
+    favorites,
+  };
+}
+export function saveFavoriteIds(favorites) {
+  return {
+    type: "SAVE_FAVORITES_IDS",
+    favorites,
   };
 }
 // category

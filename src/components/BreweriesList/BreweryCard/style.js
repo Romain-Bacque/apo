@@ -17,3 +17,9 @@ export const MoreDetailsButton = styled(Button)({
 export const StyledDivider = styled(Divider)({
   marginTop: "1rem",
 });
+export const StyledBox = styled(Box)({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center"
+});
+

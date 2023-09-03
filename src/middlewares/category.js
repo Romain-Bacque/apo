@@ -27,4 +27,4 @@ const category = (store) => (next) => (action) => {
   next(action);
 };
 
-export default category;
+export { category };

@@ -1,7 +1,7 @@
 // other import
 import PropTypes from "prop-types";
 // hook import
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // component import
 import { Divider, Stack } from "@mui/material";
 import BreweryCard from "./BreweryCard";
@@ -14,12 +14,16 @@ import {
   NoResultTypography,
   TitleTypography,
 } from "./style";
+import { fetchFavoriteIds } from "../../actions";
+import { useDispatch, useSelector } from "react-redux";
 
 let breweriesList = [];
 
 // Component
 function BreweriesList({ filter, data }) {
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const { favoriteIds } = useSelector((state) => state.favorite);
+  const dispatch = useDispatch();
 
   const hasSelectedTag = (brewery, categoryList) => {
     const filteredList = categoryList.filter((object1) => {
@@ -30,6 +34,13 @@ function BreweriesList({ filter, data }) {
     });
     return !!filteredList.length;
   };
+
+  // Get all user favorites
+  useEffect(() => {
+    const action = fetchFavoriteIds();
+
+    dispatch(action);
+  }, [dispatch]);
 
   if (data?.length) {
     breweriesList = data
@@ -46,6 +57,7 @@ function BreweriesList({ filter, data }) {
           address={filteredBrewery.address}
           tags={filteredBrewery.categories}
           image={filteredBrewery.image}
+          favoriteIds={favoriteIds}
         />
       ));
   } else breweriesList = [];

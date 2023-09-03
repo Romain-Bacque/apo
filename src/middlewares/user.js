@@ -210,4 +210,4 @@ const user = (store) => (next) => (action) => {
   next(action);
 };
 
-export default user;
+export { user };

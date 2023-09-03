@@ -7,6 +7,8 @@ import {
   error,
   saveBreweries,
   saveBreweryDetails,
+  saveFavorites,
+  saveFavoriteIds,
 } from "../actions";
 
 const instance = axios.create({
@@ -49,7 +51,7 @@ const brewery = (store) => (next) => (action) => {
   } else if (action.type === "FETCH_USER_FAVORITE_IDS") {
     store.dispatch(pending());
     instance
-      .get(`/favorites`)
+      .get(`/favoriteIds`)
       .then((response) => {
         if (response.status === 200) {
           const favorites = response.data.data;
@@ -59,14 +61,15 @@ const brewery = (store) => (next) => (action) => {
         }
       })
       .catch(() => {
-        store.dispatch(error("Une erreur est survenue."));
+        store.dispatch(error(null));
       });
   } else if (action.type === "ADD_USER_FAVORITE") {
     store.dispatch(pending());
 
-    const { favorites: prevFavorites } = store.favorite;
+    const { favorite } = store.getState();
+    const prevFavorites = favorite.favoriteIds;
 
-    store.dispatch(saveFavorites([...prevFavorites, action.breweryId]));
+    store.dispatch(saveFavoriteIds([...prevFavorites, action.breweryId]));
     instance
       .post(`/favorites/${action.breweryId}`)
       .then((response) => {
@@ -75,30 +78,28 @@ const brewery = (store) => (next) => (action) => {
         }
       })
       .catch(() => {
-        store.dispatch(saveFavorites(prevFavorites));
+        store.dispatch(saveFavoriteIds(prevFavorites));
         store.dispatch(error("Une erreur est survenue."));
       });
   } else if (action.type === "DELETE_USER_FAVORITE") {
     store.dispatch(pending());
 
-    const { favorites: prevFavorites } = store.favorite;
+    const { favorite } = store.getState();
+    const prevFavorites = favorite.favoriteIds;
     const filteredFavorites = prevFavorites.map(
-      (prevFavorite) => prevFavorite.id !== action.breweryId
+      (prevFavorite) => prevFavorite !== action.breweryId
     );
 
-    store.dispatch(saveFavorites(filteredFavorites));
+    store.dispatch(saveFavoriteIds(filteredFavorites));
     instance
       .delete(`/favorites/${action.breweryId}`)
       .then((response) => {
         if (response.status === 200) {
-          const breweries = response.data.data;
-
-          store.dispatch(saveFavorites(breweries));
           store.dispatch(success(null));
         }
       })
       .catch(() => {
-        store.dispatch(saveFavorites(prevFavorites));
+        store.dispatch(saveFavoriteIds(prevFavorites));
         store.dispatch(error("Une erreur est survenue."));
       });
   } else if (action.type === "FETCH_BREWERY_DETAILS") {
@@ -217,4 +218,4 @@ const brewery = (store) => (next) => (action) => {
   next(action);
 };
 
-export default brewery;
+export { brewery };

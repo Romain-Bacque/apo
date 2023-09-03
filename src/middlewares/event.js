@@ -8,7 +8,7 @@ const instance = axios.create({
   withCredentials: true, // authorize cookie sending to server,
 });
 
-const category = (store) => (next) => (action) => {
+const event = (store) => (next) => (action) => {
   if (action.type === "FETCH_OWNER_EVENTS") {
     store.dispatch(pending());
     instance
@@ -122,4 +122,4 @@ const category = (store) => (next) => (action) => {
   next(action);
 };
 
-export default category;
+export { event };

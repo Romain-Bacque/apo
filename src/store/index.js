@@ -4,11 +4,7 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import reducer from "../reducers";
 
-import debug from "../middlewares/debug";
-import user from "../middlewares/user";
-import brewery from "../middlewares/brewery";
-import category from "../middlewares/category";
-import event from "../middlewares/event";
+import { debug, brewery, category, user, event } from "../middlewares";
 
 export const middlewares = applyMiddleware(
   debug,
