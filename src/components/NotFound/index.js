@@ -42,7 +42,7 @@ function Error() {
             </p>
           </div>
           <div className="nav-container">
-            <Link to="/" class="nav-container__link">
+            <Link to="/" className="nav-container__link">
               Accueil
             </Link>
           </div>

@@ -7,6 +7,7 @@ export const StyledPaper = styled(Paper)({
   justifyContent: "start",
   flexWrap: "wrap",
   listStyle: "none",
+  backgroundColor: "transparent"
 });
 export const ListItem = styled("li")(({ theme }) => ({
   margin: theme.spacing(0.5),

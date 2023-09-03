@@ -103,6 +103,15 @@ function AppMenu() {
                       <StyledMenuItem
                         activeclassname="active"
                         component={NavLink}
+                        to="/favorites"
+                      >
+                        Mes Favories
+                      </StyledMenuItem>
+                    )}
+                    {isLogged && (
+                      <StyledMenuItem
+                        activeclassname="active"
+                        component={NavLink}
                         to="/eventCalendar"
                       >
                         Evénements

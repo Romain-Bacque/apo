@@ -18,7 +18,7 @@ let isHTTPRequestSend = false;
 
 // Component
 function BreweryForm() {
-  const isLogged = useSelector((state) => state.user.isLogged);
+  const { isLogged, role } = useSelector((state) => state.user);
   const loadingStatus = useSelector((state) => state.loading.status);
   const navigate = useNavigate();
   const breweries = useSelector((state) => state.brewery.breweries);
@@ -102,7 +102,7 @@ function BreweryForm() {
   return (
     <>
       {/* If user is not connected, then we redirect to home page */}
-      {!isLogged && <Navigate to="/" />}
+      {!isLogged && role !== "brewer" && <Navigate to="/" />}
       <FormContainer component="form" onSubmit={handleBrewerySubmit}>
         <Box display="flex" alignItems="center" gap={1}>
           <IconButton onClick={() => navigate("/breweries")}>

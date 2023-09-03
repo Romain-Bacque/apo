@@ -74,7 +74,7 @@ const brewery = (store) => (next) => (action) => {
       .post(`/favorites/${action.breweryId}`)
       .then((response) => {
         if (response.status === 200) {
-          store.dispatch(success(null));
+          store.dispatch(success("brasserie ajoutée au favories."));
         }
       })
       .catch(() => {
@@ -86,7 +86,7 @@ const brewery = (store) => (next) => (action) => {
 
     const { favorite } = store.getState();
     const prevFavorites = favorite.favoriteIds;
-    const filteredFavorites = prevFavorites.map(
+    const filteredFavorites = prevFavorites.filter(
       (prevFavorite) => prevFavorite !== action.breweryId
     );
 
@@ -95,7 +95,7 @@ const brewery = (store) => (next) => (action) => {
       .delete(`/favorites/${action.breweryId}`)
       .then((response) => {
         if (response.status === 200) {
-          store.dispatch(success(null));
+          store.dispatch(success("brasserie retirée des favories."));
         }
       })
       .catch(() => {

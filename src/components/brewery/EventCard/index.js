@@ -67,7 +67,7 @@ EventCard.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  event_start: PropTypes.string.isRequired,
+  event_start: PropTypes.string,
   totalParticipants: PropTypes.number.isRequired,
   onRegistration: PropTypes.func.isRequired,
 };

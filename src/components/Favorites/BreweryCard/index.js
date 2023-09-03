@@ -45,6 +45,7 @@ function BrewerieCard({ id, title, phone, address, tags, image, favoriteIds }) {
       // add favorite
       action = addFavorite(id);
 
+      dispatch(action);
     } else {
       // remove favorite
       action = deleteFavorite(id);
@@ -69,10 +70,9 @@ function BrewerieCard({ id, title, phone, address, tags, image, favoriteIds }) {
             {title}
           </Typography>
           <IconButton
-            size="lg"
             onClick={() => handleFavorites(id)}
             color={
-              isInUserFavorites(id, favoriteIds)
+              isLogged && isInUserFavorites(id, favoriteIds)
                 ? "primary"
                 : "default"
             }

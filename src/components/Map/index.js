@@ -2,7 +2,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 // other import
-import PropTypes from "prop-types";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "font-awesome/css/font-awesome.min.css";
@@ -112,15 +111,5 @@ function Map({ isLocationAuthorized, searchValue }) {
     </StyledContainer>
   );
 }
-
-Map.propTypes = {
-  searchValue: PropTypes.string,
-  isLocationAuthorized: PropTypes.bool,
-};
-
-Map.defaultProps = {
-  searchValue: null,
-  isLocationAuthorized: null,
-};
 
 export default Map;
