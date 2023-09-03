@@ -51,7 +51,7 @@ const category = (store) => (next) => (action) => {
       .post(`/${action.breweryId}`, {
         title: action.title,
         description: action.description,
-        eventStart: action.eventStart,
+        event_start: action.event_start,
       })
       .then((response) => {
         if (response.status === 200) {

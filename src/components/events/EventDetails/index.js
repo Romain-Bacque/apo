@@ -20,7 +20,7 @@ function EventDetails({
   description,
   brewery,
   participants,
-  start: eventStart,
+  start: event_start,
   onValidate,
   onCancel,
   isOwner,
@@ -54,7 +54,7 @@ function EventDetails({
         </Box>
         <Typography>Lieu : {brewery.address}</Typography>
         <Typography>
-          Début : {dayjs(eventStart).format("DD/MM/YYYY HH:mm:ss")}
+          Début : {dayjs(event_start).format("DD/MM/YYYY HH:mm:ss")}
         </Typography>
         <Box>
           {participants?.length && participants[0].name && (

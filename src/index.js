@@ -7,32 +7,17 @@ import store from "./store";
 import "./styles/index.scss";
 import theme from "./styles/theme";
 import App from "./components/App";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      staleTime: 300_000,
-      cacheTime: 300_000,
-    },
-  },
-});
 
 const rootReactElement = (
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
-        <BrowserRouter>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <App />
-          </ThemeProvider>
-        </BrowserRouter>
-      </Provider>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <Provider store={store}>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <App />
+        </ThemeProvider>
+      </BrowserRouter>
+    </Provider>
   </StrictMode>
 );
 

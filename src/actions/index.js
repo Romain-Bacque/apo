@@ -5,6 +5,8 @@
 // brewery
 export const SAVE_BREWERIES = "SAVE_BREWERIES";
 export const SAVE_BREWERY_DETAILS = "SAVE_BREWERY_DETAILS";
+// favorite
+export const SAVE_FAVORITES = "SAVE_FAVORITES";
 // category
 export const SAVE_CATEGORIES = "SAVE_CATEGORIES";
 // event

@@ -19,7 +19,7 @@ function EventCard({
   id,
   title,
   description,
-  eventStart,
+  event_start,
   totalParticipants,
   onRegistration,
 }) {
@@ -35,7 +35,7 @@ function EventCard({
               Début:
             </Typography>
             <Typography component="h5" variant="h6">
-              {dayjs(eventStart).format("DD/MM/YYYY HH:mm:ss")}
+              {dayjs(event_start).format("DD/MM/YYYY HH:mm:ss")}
             </Typography>
           </Box>
           <Box>
@@ -67,7 +67,7 @@ EventCard.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  eventStart: PropTypes.string.isRequired,
+  event_start: PropTypes.string.isRequired,
   totalParticipants: PropTypes.number.isRequired,
   onRegistration: PropTypes.func.isRequired,
 };

@@ -164,7 +164,7 @@ function BreweryDetails() {
                     id={event.id}
                     title={event.title}
                     description={event.description}
-                    eventStart={event.eventStart}
+                    event_start={event.event_start}
                     totalParticipants={
                       event.totalParticipants ? event.totalParticipants : 0
                     }
